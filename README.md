@@ -64,13 +64,13 @@ TinCan\Statement Object
         (
             [objectType:protected] => Agent
             [name:protected] => 
-            [mbox:protected] => mailto:jfowler@charitylearning.org
+            [mbox:protected] => mailto:email@domain.com
             [mbox_sha1sum:protected] => 
             [openid:protected] => 
             [account:protected] => TinCan\AgentAccount Object
                 (
                     [name:protected] => admin
-                    [homePage:protected] => http://localhost/CLCMultisiteMoodle/user/profile.php?id=2
+                    [homePage:protected] => http://www.sample.com/user/profile.php?id=2
                 )
 
         )
@@ -93,7 +93,7 @@ TinCan\Statement Object
     [target:protected] => TinCan\Activity Object
         (
             [objectType:TinCan\Activity:private] => Activity
-            [id:protected] => http://localhost/CLCMultisiteMoodle/mod/scorm/view.php?id=300
+            [id:protected] => http://www.sample.com/mod/scorm/view.php?id=300
             [definition:protected] => 
         )
 
