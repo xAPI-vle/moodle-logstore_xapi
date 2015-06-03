@@ -1,12 +1,14 @@
-*Moodle is copyright [Moodle](http://www.moodlehq.org)*
+*Moodle is copyright [Moodle](http://www.moodle.org)*
+
+## THIS REPO IS UNDER HEAVY DEVELOPMENT AND IS NOT CLOSE TO PRODUCTION READY
 
 ## Installation
 1. This is a plugin for Moodle, so please install Moodle before beginning.
 2. Navigate to /moodle/admin/tool/log/store/
 3. Either drop a zipped archive of the plugin (renaming it to xapi) in this folder or pull directly from github using the following command: git clone git@github.com:jlowe64/moodle-logstore-xapi.git xapi
 4. Run through the Moodle update script.
-5. Go to the admin page and turn on xapi logstore using the little icon to make it visible
-6. Go to the settings page and add the LRS endpoint, usernmae, and password to connect. Hit save.
+5. Go to the admin page and turn on xapi logstore using the little icon to make it visible.
+6. Go to the settings page and add the LRS endpoint, username, and password to connect. Hit save.
 
 
 ## Developers
