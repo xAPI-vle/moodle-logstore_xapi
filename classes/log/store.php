@@ -21,9 +21,9 @@
  * @copyright  2015 Jerrett Fowler {@link http://charitylearning.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 namespace logstore_xapi\log;
- 
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/locallib.php');
@@ -34,26 +34,26 @@ spl_autoload_register(function($class){
         require_once($file);
     }
 });
- 
+
 class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
     use \tool_log\helper\store,
         \tool_log\helper\reader,
         \tool_log\helper\buffered_writer;
-    
+
     protected $lrs;
     protected $endpoint;
     protected $username;
     protected $password;
-    
+
     public function __construct(\tool_log\log\manager $manager) {
         $this->helper_setup($manager);
         $this->endpoint = $this->get_config('endpoint', '');
         $this->username = $this->get_config('username', '');
         $this->password = $this->get_config('password', '');
     }
-    
+
     protected function init() {
-        //Set up the connection to the LRS for testing purposes 
+        //Set up the connection to the LRS for testing purposes
         if (isset($this->endpoint)) {
             return !empty($this->endpoint);
         }
@@ -66,7 +66,7 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
         }
         return true;
     }
-    
+
     /**
      * Should the event be ignored (== not logged)?
      * @param \core\event\base $event
@@ -81,7 +81,7 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
         }
         return true;
     }
-    
+
     /**
      * Insert events in bulk to the database.
      *
@@ -108,21 +108,21 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
             debugging('Cannot write to LRS: ' . $e->getMessage(), DEBUG_DEVELOPER);
         }
     }
-    
+
     public function get_events_select($selectwhere, array $params, $sort, $limitfrom, $limitnum) {
         //Return events from the LRS given the parameters.
         return false;
     }
-    
+
     public function get_events_select_count($selectwhere, array $params) {
         //Return a count of events in the LRS given the parameters.
         return false;
     }
-    
+
     public function get_internal_log_table_name() {
         return false;
     }
-    
+
     /**
      * Are the new events appearing in the reader?
      *
@@ -134,7 +134,7 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
         }
         return true;
     }
-    
+
     /**
      * Get a list of available verbs.
      */
@@ -147,13 +147,13 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
         }
         return $classes;
     }
-     
+
     /**
      * Return a verb object if verb exists.
      */
     protected function get_verb_object($newverb) {
         if(is_string($newverb) && strpos($newverb,'.php') !== false){
-            $newverb = basename($newverb, ".php");    
+            $newverb = basename($newverb, ".php");
         }
         if(is_object($newverb)){
             return $newverb;
@@ -170,7 +170,7 @@ class store implements \tool_log\log\writer, \core\log\sql_internal_reader {
         }
         return false;
     }
-    
+
     /**
      * Check if the logstore event name matches the allowed event names within the verb sub classes.
      */
