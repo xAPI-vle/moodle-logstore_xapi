@@ -1,0 +1,25 @@
+tests/Config.php
+
+# Third party libraries
+phpdoc.xml
+php.ini
+
+# buildables
+vendor
+composer.lock
+sample/vendor
+sample/composer.lock
+doc/api
+
+# bad.
+.DS_Store
+*.swp
+tmp/
+
+# wild
+todo.md
+
+# eclipse project files
+.buildpath
+.project
+.settings
