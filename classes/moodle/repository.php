@@ -1,9 +1,8 @@
-<?php namespace logstore_emitter\xapi;
+<?php namespace logstore_emitter\moodle;
 use \core\event\base as base_event;
 use \stdClass as php_obj;
 
 class repository extends php_obj {
-    const VERSION = '1.0.1';
     protected $store;
 
     /**
@@ -45,7 +44,7 @@ class repository extends php_obj {
      */
     public function read_user($user_id) {
         $user = $this->store->get_record('user', ['id' => $user_id]);
-        $user->url = $this->cfg->wwwroot . '/user/profile.php?id=' . $id;
+        $user->url = $this->cfg->wwwroot . '/user/profile.php?id=' . $user_id;
         return $user;
     }
 
@@ -54,7 +53,7 @@ class repository extends php_obj {
      * @param [string => mixed] $opts
      * @return string
      */
-    public function restore_event(array $opts) {
+    private function restore_event(array $opts) {
         $data = [
             'eventname' => $opts['eventname'],
             'component' => $opts['component'],
