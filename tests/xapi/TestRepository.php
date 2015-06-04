@@ -1,25 +1,25 @@
 <?php namespace Tests\Xapi;
 use \logstore_emitter\xapi\repository as xapi_repository;
+use \logstore_emitter\xapi\recipes\base as base_recipe;
+use \TinCan\RemoteLRS as tincan_remote_lrs;
 
 class TestRepository extends xapi_repository {
     /**
      * Constructs a new repository.
-     * @param string $endpoint IRI for the LRS (i.e. 'http://lrs.learninglocker.net/data/xAPI/').
-     * @param string $username Basic auth username.
-     * @param string $password Basic auth password.
+     * @param tincan_remote_lrs $store
      * @override xapi_repository
      */
-    public function __construct($endpoint, $username, $password) {
-        parent::__construct($endpoint, $username, $password);
+    public function __construct(tincan_remote_lrs $store) {
+        parent::__construct($store);
     }
 
     /**
-     * Pretends to save a statement.
-     * @param mixed $statement
-     * @return mixed Returns the given statement for testing.
+     * Creates a statement in the store.
+     * @param base_recipe $statement
+     * @return base_recipe
      * @override xapi_repository
      */
-    public function saveStatement($statement) {
+    public function create_statement(base_recipe $statement) {
         return $statement;
     }
 }

@@ -1,6 +1,7 @@
 <?php namespace Tests\Xapi;
 use \Tests\Xapi\BaseTest as TestCase;
 use \logstore_emitter\xapi\service as xapi_service;
+use \TinCan\RemoteLRS as tincan_remote_lrs;
 
 class TestService extends TestCase {
     /**
@@ -8,7 +9,7 @@ class TestService extends TestCase {
      * @override TestCase
      */
     public function setup() {
-        $this->service = new xapi_service(new TestRepository('', '', ''));
+        $this->service = new xapi_service(new TestRepository(new tincan_remote_lrs('', '1.0.1', '', '')));
     }
 
     /**

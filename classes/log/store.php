@@ -35,6 +35,7 @@ use \logstore_emitter\xapi\service as xapi_service;
 use \logstore_emitter\xapi\repository as xapi_repository;
 use \logstore_emitter\moodle\service as moodle_service;
 use \logstore_emitter\moodle\repository as moodle_repository;
+use \TinCan\RemoteLRS as tincan_remote_lrs;
 use \moodle_exception as moodle_exception;
 use \stdClass as php_obj;
 
@@ -99,11 +100,12 @@ class store extends php_obj implements log_writer {
      * @return xapi_repository
      */
     private function connect_xapi_repository() {
-        return new xapi_repository(
+        return new xapi_repository(new tincan_remote_lrs(
             $this->get_config('endpoint', ''),
+            '1.0.1',
             $this->get_config('username', ''),
             $this->get_config('password', '')
-        );
+        ));
     }
 
     /**
