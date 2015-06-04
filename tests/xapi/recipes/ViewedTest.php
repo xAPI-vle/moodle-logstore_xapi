@@ -1,5 +1,5 @@
 <?php namespace Tests\Xapi\Recipes;
-use \Tests\XapiBaseTest as TestCase;
+use \Tests\Xapi\BaseTest as TestCase;
 use \logstore_emitter\xapi\recipes\viewed as viewed_recipe;
 
 class ViewedTest extends TestCase {

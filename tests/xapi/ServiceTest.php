@@ -1,5 +1,5 @@
 <?php namespace Tests\Xapi;
-use \Tests\XapiBaseTest as TestCase;
+use \Tests\Xapi\BaseTest as TestCase;
 use \logstore_emitter\xapi\service as xapi_service;
 
 class TestService extends TestCase {

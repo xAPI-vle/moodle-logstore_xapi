@@ -1,5 +1,5 @@
 <?php namespace Tests\Xapi;
-use \Tests\XapiBaseTest as TestCase;
+use \Tests\Xapi\BaseTest as TestCase;
 use \logstore_emitter\xapi\activity as xapi_activity;
 
 class ActivityTest extends TestCase {
