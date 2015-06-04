@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-          "logstore_emitter\\": "src/",
+          "logstore_emitter\\": "classes/",
           "Tests\\": "tests/"
         }
     },
