@@ -3,7 +3,7 @@ use \Tests\Xapi\BaseTest as TestCase;
 use \logstore_emitter\xapi\service as xapi_service;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
 
-class TestService extends TestCase {
+class ServiceTest extends TestCase {
     /**
      * Sets up the tests.
      * @override TestCase
