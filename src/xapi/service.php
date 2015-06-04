@@ -1,5 +1,4 @@
 <?php namespace logstore_emitter\xapi;
-use \TinCan\RemoteLRS as tincan_remote_lrs;
 use \logstore_emitter\xapi\recipes\base as base_recipe;
 use \stdClass as php_obj;
 
@@ -10,10 +9,10 @@ class service extends php_obj {
 
     /**
      * Constructs a new service.
-     * @param tincan_remote_lrs $store The LRS to be used to store statements.
+     * @param repository $repo The LRS to be used to store statements.
      */
-    public function __construct(tincan_remote_lrs $store) {
-        $this->store = $store;
+    public function __construct(repository $repo) {
+        $this->repo = $repo;
     }
 
     /**
@@ -24,7 +23,7 @@ class service extends php_obj {
     public function create(array $opts) {
         $recipe = '\logstore_emitter\xapi\recipes\\'.static::$action_to_recipe[$opts['eventname']];
         $statement = new $recipe($opts);
-        $this->store->saveStatement($statement);
+        $this->repo->saveStatement($statement);
         return $statement;
     }
 }

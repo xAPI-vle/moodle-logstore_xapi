@@ -6,8 +6,9 @@ use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
 use \logstore_emitter\xapi\service as xapi_service;
-use \logstore_emitter\xapi\store as xapi_store;
+use \logstore_emitter\xapi\repository as xapi_repository;
 use \logstore_emitter\moodle\service as moodle_service;
+use \logstore_emitter\moodle\repository as moodle_repository;
 use \moodle_exception as moodle_exception;
 use \stdClass as php_obj;
 
@@ -43,8 +44,8 @@ class store extends php_obj implements log_writer {
         echo '<pre>', print_r($evententries, true), '</pre>';
 
         // Initializes required services.
-        $xapi_service = new xapi_service($this->connect_xapi_store());
-        $moodle_service = new moodle_service();
+        $xapi_service = new xapi_service($this->connect_xapi_repository());
+        $moodle_service = new moodle_service($this->connect_moodle_repository());
 
         // Emits events to other APIs.
         foreach($events as $event) {
@@ -59,7 +60,7 @@ class store extends php_obj implements log_writer {
      */
     public function is_logging() {
         try {
-            $this->connect_xapi_store();
+            $this->connect_xapi_repository();
             return true;
         } catch (moodle_exception $ex) {
             debugging('Cannot connect to LRS: ' . $e->getMessage(), DEBUG_DEVELOPER);
@@ -69,13 +70,22 @@ class store extends php_obj implements log_writer {
 
     /**
      * Creates a connection the xAPI store.
-     * @return xapi_store
+     * @return xapi_repository
      */
-    private function connect_xapi_store() {
-        return new xapi_store(
+    private function connect_xapi_repository() {
+        return new xapi_repository(
             $this->get_config('endpoint', ''),
             $this->get_config('username', ''),
             $this->get_config('password', '')
         );
+    }
+
+    /**
+     * Creates a connection the xAPI store.
+     * @return moodle_repository
+     */
+    private function connect_moodle_repository() {
+        global $DB;
+        return new moodle_repository($DB);
     }
 }

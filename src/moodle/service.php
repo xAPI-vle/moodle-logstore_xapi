@@ -1,11 +1,15 @@
 <?php namespace logstore_emitter\xapi;
+use \core\event\base as base_event;
 use \stdClass as php_obj;
 
 class service extends php_obj {
     /**
      * Constructs a new service.
+     * @param repository $repo The LRS to be used to store statements.
      */
-    public function __construct() {}
+    public function __construct(repository $repo) {
+        $this->repo = $repo;
+    }
 
     /**
      * Creates a new event.
@@ -13,19 +17,34 @@ class service extends php_obj {
      * @return [string => mixed] Event
      */
     public function create(array $opts) {
-        // Constructs the user.
-        global $CFG;
-        $user_id = $opts['userid'];
-        $user_url = $CFG->wwwroot . '/user/profile.php?id=' . $user_id;
-        $opts['user'] = new user($user_id, $user_url);
-
-        // Constructs the object.
-        $restored_url = $this->restore_event($opts)->get_url();
-        $object_id = $restored_url->getParam('id');
-        $object_url = $this->generate_url($restored_url);
-        $opts['object'] = new object($object_id, $object_url);
-
+        $opts['user'] = $this->read_user($opts['userid']);
+        $opts['object'] = $this->read_object($opts);
         return $opts;
+    }
+
+    /**
+     * Reads a user from the repository.
+     * @param string $id User's Identifier.
+     * @return php_obj
+     */
+    private function read_user($id) {
+        global $CFG;
+        $user = $this->repo->read_user($id);
+        $user->url = $CFG->wwwroot . '/user/profile.php?id=' . $id;
+        return $user;
+    }
+
+    /**
+     * Reads a object from the restored event.
+     * @param [string => mixed] $opts
+     * @return php_obj
+     */
+    private function read_object(array $opts) {
+        $restored_url = $this->restore_event($opts)->get_url();
+        return (object) [
+            'id' => $restored_url->getParam('id'),
+            'url' => $this->generate_url($restored_url)
+        ];
     }
 
     /**
@@ -69,6 +88,6 @@ class service extends php_obj {
             'realuserid' => $event['realuserid']
         ];
 
-        return \core\event\base::restore($data, $logextra);
+        return base_event::restore($data, $logextra);
     }
 }

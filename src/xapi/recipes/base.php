@@ -8,6 +8,6 @@ class base extends tincan_statement {
      * @override tincan_statement
      */
     public function __construct(array $options) {
-        parent::construct($options);
+        parent::__construct($options);
     }
 }
