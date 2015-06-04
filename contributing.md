@@ -7,4 +7,4 @@ If you are reporting an issue, please click the links below and your issue will 
 
 ### Code Structure
 Repository = Data layer = Reads and writes data from a location (variable/DB/external API/etc).
-Service = Business layer = Transforms data from a given structure to a required structure.
+Service = Business layer = Operates on data and transforms data from a given structure to a required structure.
