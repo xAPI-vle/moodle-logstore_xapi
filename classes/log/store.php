@@ -112,6 +112,7 @@ class store extends php_obj implements log_writer {
      */
     private function connect_moodle_repository() {
         global $DB;
-        return new moodle_repository($DB);
+        global $CFG;
+        return new moodle_repository($DB, $CFG);
     }
 }
