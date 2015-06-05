@@ -3,7 +3,7 @@ use \TinCan\Verb as tincan_verb;
 use \logstore_emitter\xapi\agent as xapi_agent;
 use \logstore_emitter\xapi\activity as xapi_activity;
 
-class course_module_viewed extends base {
+class module_viewed extends base {
     /**
      * Constructs a new statement for course_module_viewed.
      * @param [String => Mixed] $opts Options to construct the statement with.

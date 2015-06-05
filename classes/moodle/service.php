@@ -18,6 +18,7 @@ class service extends php_obj {
      */
     public function create(array $opts) {
         $opts['user'] = $this->repo->read_user($opts['userid']);
+        $opts['course'] = $this->repo->read_course($opts['courseid']);
         $opts['object'] = $this->repo->read_object($opts);
         return $opts;
     }

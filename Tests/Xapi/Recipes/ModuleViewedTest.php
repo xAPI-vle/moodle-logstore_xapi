@@ -1,10 +1,10 @@
 <?php namespace Tests\Xapi\Recipes;
 use \Tests\Xapi\BaseTest as TestCase;
-use \logstore_emitter\xapi\recipes\course_module_viewed as course_module_viewed;
+use \logstore_emitter\xapi\recipes\module_viewed as module_viewed;
 
-class CourseModuleViewedTest extends TestCase {
+class ModuleViewedTest extends TestCase {
     /**
-     * Tests the __construct method of the course_module_viewed.
+     * Tests the __construct method of the module_viewed.
      */
     public function testConstruct() {
         $test_data = [
@@ -18,7 +18,7 @@ class CourseModuleViewedTest extends TestCase {
                 'url' => 'http://www.example.com'
             ]
         ];
-        $statement = new course_module_viewed($test_data);
+        $statement = new module_viewed($test_data);
         
         $this->assertAgent($test_data['user'], $statement->getActor());
         $this->assertActivity($test_data['object'], $statement->getObject());

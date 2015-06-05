@@ -27,15 +27,27 @@ class TestRepository extends moodle_repository {
     }
 
     /**
-     * Reads a user from the store with the given id.
-     * @param string $user_id
+     * Reads a course from the store with the given id.
+     * @param string $id
      * @return php_obj
      */
-    public function read_user($user_id) {
+    public function read_course($id) {
         return (object) [
-            'id' => $user_id,
+            'id' => $id,
+            'url' => 'http://www.example.com/course?id=' . $id
+        ];
+    }
+
+    /**
+     * Reads a user from the store with the given id.
+     * @param string $id
+     * @return php_obj
+     */
+    public function read_user($id) {
+        return (object) [
+            'id' => $id,
             'name' => 'Bob',
-            'url' => 'http://www.example.com/user/profile.php?id=' . $user_id
+            'url' => 'http://www.example.com/user/profile.php?id=' . $id
         ];
     }
 }
