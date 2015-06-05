@@ -1,5 +1,8 @@
 *Moodle is copyright [Moodle](http://www.moodle.org)*
 
+[![Build Status](https://travis-ci.org/jlowe64/moodle-logstore-xapi.svg?branch=master)](https://travis-ci.org/jlowe64/moodle-logstore-xapi)
+
+
 ## THIS REPO IS UNDER HEAVY DEVELOPMENT AND IS NOT CLOSE TO PRODUCTION READY
 
 ## Installation
