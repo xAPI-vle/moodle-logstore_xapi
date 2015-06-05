@@ -23,10 +23,11 @@ class repository extends php_obj {
     public function read_object(array $opts) {
         $restored_url = $this->restore_event($opts)->get_url();
         $id = $restored_url->getParam('id');
-        $object = $this->store->get_record($opts['target'], ['id' => $id]);
-        $object->id = $id;
-        $object->url = $this->generate_url($restored_url);
-        return $object;
+        $model = $this->store->get_record($opts['target'], ['id' => $id]);
+        $model->id = $id;
+        $model->url = $this->generate_url($restored_url);
+        $model->type = $opts['target'];
+        return $model;
     }
 
     /**
@@ -35,9 +36,10 @@ class repository extends php_obj {
      * @return php_obj
      */
     public function read_course($id) {
-        $user = $this->store->get_record('course', ['id' => $id]);
-        $user->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
-        return $user;
+        $model = $this->store->get_record('course', ['id' => $id]);
+        $model->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
+        $model->type = 'course';
+        return $model;
     }
 
     /**
@@ -46,9 +48,10 @@ class repository extends php_obj {
      * @return php_obj
      */
     public function read_user($id) {
-        $user = $this->store->get_record('user', ['id' => $id]);
-        $user->url = $this->cfg->wwwroot . '/user/profile.php?id=' . $id;
-        return $user;
+        $model = $this->store->get_record('user', ['id' => $id]);
+        $model->url = $this->cfg->wwwroot . '/user/profile.php?id=' . $id;
+        $model->type = 'user';
+        return $model;
     }
 
     /**

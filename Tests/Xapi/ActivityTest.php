@@ -9,7 +9,8 @@ class ActivityTest extends TestCase {
     public function testConstruct() {
         $test_data = (object) [
             'id' => '1',
-            'url' => 'http://www.example.com'
+            'url' => 'http://www.example.com',
+            'type' => 'course'
         ];
         $data = new xapi_activity($test_data);
         $this->assertActivity($test_data, $data);

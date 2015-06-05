@@ -11,15 +11,18 @@ class ModuleViewedTest extends TestCase {
             'user' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'name' => 'Bob'
+                'name' => 'Bob',
+                'type' => 'user'
             ],
             'object' => (object) [
                 'id' => '1',
-                'url' => 'http://www.example.com'
+                'url' => 'http://www.example.com',
+                'type' => 'course_module'
             ],
             'course' => (object) [
                 'id' => '1',
-                'url' => 'http://www.example.com'
+                'url' => 'http://www.example.com',
+                'type' => 'course'
             ]
         ];
         $statement = new module_viewed($test_data);

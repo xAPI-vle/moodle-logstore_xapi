@@ -36,7 +36,17 @@ abstract class BaseTest extends TestCase {
     protected function assertActivity(php_obj $test_data, $data) {
         $this->assertInstanceOf('logstore_emitter\xapi\activity', $data);
         $this->assertEquals($test_data->url, $data->getId());
-        $this->assertEquals(null, $data->getDefinition());
+        $this->assertActivityDefinition($test_data, $data->getDefinition());
+    }
+
+    /**
+     * Asserts that the data is a correctly formed activity from the given test data.
+     * @param php_obj $test_data
+     * @param $data
+     */
+    protected function assertActivityDefinition(php_obj $test_data, $data) {
+        $this->assertInstanceOf('TinCan\ActivityDefinition', $data);
+        $this->assertInternalType('string', $data->getType());
     }
 
     /**

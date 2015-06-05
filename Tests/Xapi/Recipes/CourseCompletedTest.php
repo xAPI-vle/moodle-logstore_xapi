@@ -11,11 +11,13 @@ class CourseCompletedTest extends TestCase {
             'user' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'name' => 'Bob'
+                'name' => 'Bob',
+                'type' => 'user'
             ],
             'object' => (object) [
                 'id' => '1',
-                'url' => 'http://www.example.com'
+                'url' => 'http://www.example.com',
+                'type' => 'course'
             ]
         ];
         $statement = new course_completed($test_data);
