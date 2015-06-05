@@ -2,7 +2,7 @@
     "autoload": {
         "psr-4": {
           "logstore_emitter\\": "classes/",
-          "Tests\\": "tests/"
+          "Tests\\": "Tests/"
         }
     },
     "require-dev": {
