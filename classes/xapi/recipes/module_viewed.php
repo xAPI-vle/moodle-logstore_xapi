@@ -19,7 +19,10 @@ class module_viewed extends base {
                     'en-US' => 'viewed',
                 ]
             ]),
-            'object' => new xapi_activity($opts['object'])
+            'object' => new xapi_activity($opts['object']),
+            'context' => [
+                'contextActivities' => [new xapi_activity($opts['course'])]
+            ]
         ]);
     }
 }

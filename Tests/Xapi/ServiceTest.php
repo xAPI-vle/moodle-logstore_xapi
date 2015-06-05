@@ -26,6 +26,10 @@ class ServiceTest extends TestCase {
                 'id' => '1',
                 'url' => 'http://www.example.com'
             ],
+            'course' => (object) [
+                'id' => '1',
+                'url' => 'http://www.example.com'
+            ],
             'eventname' => '\mod_scorm\event\course_module_viewed'
         ];
         $statement = $this->service->create($test_data);
