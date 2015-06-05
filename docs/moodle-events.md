@@ -28,4 +28,4 @@ realuserid | Description |
 ## Supported Events
 Event Name | Recipe Name
 --- | ---
-\mod_scorm\event\course_module_viewed | [viewed](/recipes/viewed.md)
+\mod_scorm\event\course_module_viewed | [viewed](recipes/viewed.md)
