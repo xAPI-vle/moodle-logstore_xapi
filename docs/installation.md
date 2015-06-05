@@ -1,4 +1,4 @@
-# Moodle Events
+# Installation
 This file documents how to install this plugin. You obviously need to have [Moodle](https://moodle.org/) installed first.
 
 1. Run `cd admin/tool/log/store/` from the root directory of Moodle.
