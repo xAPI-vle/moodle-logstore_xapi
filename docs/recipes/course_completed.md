@@ -13,7 +13,7 @@ This file documents the "course_completed" recipe.
         "name": "Test User",
         "account": {
             "name": "123"
-            "homePage": "http://www.example.com/users/profile.php?id=2"
+            "homePage": "http://www.example.com/users/profile.php?id=123"
         }
     },
     "verb": {

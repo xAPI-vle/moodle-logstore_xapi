@@ -13,7 +13,7 @@ This file documents the "quiz_abandoned" recipe.
         "name": "Test User",
         "account": {
             "name": "123"
-            "homePage": "http://www.example.com/users/profile.php?id=2"
+            "homePage": "http://www.example.com/users/profile.php?id=123"
         }
     },
     "verb": {
@@ -25,7 +25,7 @@ This file documents the "quiz_abandoned" recipe.
     },
     "object": {
         "objectType": "Activity",
-        "id": "http://www.sample.com/mod/scorm/view.php?id=300",
+        "id": "http://www.sample.com/mod/scorm/view.php?id=3",
         "definition": {
             "type": "http://lrs.learninglocker.net/define/type/unknown"
         }
