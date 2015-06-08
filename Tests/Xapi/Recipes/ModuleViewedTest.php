@@ -26,9 +26,10 @@ class ModuleViewedTest extends TestCase {
             ]
         ];
         $statement = new module_viewed($test_data);
-        
+
         $this->assertAgent($test_data['user'], $statement->getActor());
         $this->assertActivity($test_data['object'], $statement->getObject());
+        $this->assertModuleContext($test_data, $statement->getContext());
         $this->assertVerb((object) [
             'id' => 'http://id.tincanapi.com/verb/viewed'
         ], $statement->getVerb());

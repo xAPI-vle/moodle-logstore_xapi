@@ -50,6 +50,22 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
+     * Asserts that the data is a correctly formed activity from the given test data.
+     * @param [string => mixed] $test_data
+     * @param $data
+     */
+    protected function assertModuleContext(array $test_data, $data) {
+        $this->assertInstanceOf('TinCan\Context', $data);
+        $data = $data->getContextActivities();
+        $this->assertInstanceOf('TinCan\ContextActivities', $data);
+        $data = $data->getGrouping();
+        $this->assertInternalType('array', $data);
+        $this->assertEquals(1, count($data));
+        $this->assertArrayHasKey(0, $data);
+        $this->assertActivity($test_data['course'], $data[0]);
+    }
+
+    /**
      * Asserts that the data is a correctly formed verb from the given test data.
      * @param php_obj $test_data
      * @param $data

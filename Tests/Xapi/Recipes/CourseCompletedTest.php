@@ -21,7 +21,7 @@ class CourseCompletedTest extends TestCase {
             ]
         ];
         $statement = new course_completed($test_data);
-        
+
         $this->assertAgent($test_data['user'], $statement->getActor());
         $this->assertActivity($test_data['object'], $statement->getObject());
         $this->assertVerb((object) [
