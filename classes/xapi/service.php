@@ -10,7 +10,9 @@ class service extends php_obj {
         '\mod_data\event\comment_created' => 'comment_created',
         '\mod_quiz\event\attempt_started' => 'quiz_started',
         '\mod_quiz\event\attempt_submitted' => 'quiz_submitted',
-        '\mod_quiz\event\attempt_abandoned' => 'quiz_abandoned'
+        '\mod_quiz\event\attempt_abandoned' => 'quiz_abandoned',
+        '\core\event\user_loggedin' => 'user_loggedin',
+        '\core\event\user_loggedout' => 'user_loggedout'
     ];
 
     /**
