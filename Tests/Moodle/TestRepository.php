@@ -22,7 +22,8 @@ class TestRepository extends moodle_repository {
     public function read_object(array $opts) {
         return (object) [
             'id' => '123',
-            'url' => 'http://www.example.com/object?id=123'
+            'url' => 'http://www.example.com/object?id=123',
+            'type' => 'course'
         ];
     }
 
@@ -34,7 +35,8 @@ class TestRepository extends moodle_repository {
     public function read_course($id) {
         return (object) [
             'id' => $id,
-            'url' => 'http://www.example.com/course?id=' . $id
+            'url' => 'http://www.example.com/course?id=' . $id,
+            'type' => 'course'
         ];
     }
 
@@ -47,7 +49,8 @@ class TestRepository extends moodle_repository {
         return (object) [
             'id' => $id,
             'name' => 'Bob',
-            'url' => 'http://www.example.com/user/profile.php?id=' . $id
+            'url' => 'http://www.example.com/user/profile.php?id=' . $id,
+            'type' => 'user'
         ];
     }
 }

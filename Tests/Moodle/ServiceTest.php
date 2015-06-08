@@ -17,7 +17,8 @@ class TestService extends TestCase {
      */
     public function testCreate() {
         $test_data = [
-            'userid' => '1'
+            'userid' => '1',
+            'courseid' => '1'
         ];
         $opts = $this->service->create($test_data);
 
