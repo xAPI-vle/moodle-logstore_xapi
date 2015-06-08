@@ -66,7 +66,7 @@ class repository extends php_obj {
     /**
      * Restores an event.
      * @param [string => mixed] $opts
-     * @return string
+     * @return php_obj
      */
     private function restore_event(array $opts) {
         $data = [
