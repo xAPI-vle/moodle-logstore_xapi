@@ -3,7 +3,7 @@ use \TinCan\Verb as tincan_verb;
 use \logstore_emitter\xapi\agent as xapi_agent;
 use \logstore_emitter\xapi\activity as xapi_activity;
 
-class module_viewed extends base {
+class module_completed extends base {
     /**
      * Constructs a new statement for course_module_viewed.
      * @param [String => Mixed] $opts Options to construct the statement with.
@@ -13,10 +13,10 @@ class module_viewed extends base {
         parent::__construct([
             'actor' => new xapi_agent($opts['user']),
             'verb' => new tincan_verb([
-                'id' => 'http://id.tincanapi.com/verb/viewed',
+                'id' => 'http://activitystrea.ms/schema/1.0/complete',
                 'display' => [
-                    'en-GB' => 'viewed',
-                    'en-US' => 'viewed',
+                    'en-GB' => 'completed',
+                    'en-US' => 'completed',
                 ]
             ]),
             'object' => new xapi_activity($opts['object']),
