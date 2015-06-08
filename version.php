@@ -20,14 +20,14 @@
  * Setting the $plugin->version to 0 prevents the plugin from being installed.
  * See https://docs.moodle.org/dev/version.php for more info.
  *
- * @package    logstore_xapi
+ * @package    logstore_emitter
  * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'logstore_xapi';
+$plugin->component = 'logstore_emitter';
 $plugin->version = 2015060100;
 $plugin->release = '0.5';
 $plugin->requires = 2014111002;
