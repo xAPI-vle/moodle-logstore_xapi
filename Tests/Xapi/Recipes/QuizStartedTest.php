@@ -1,21 +1,12 @@
-<?php namespace Tests\Xapi;
+<?php namespace Tests\Xapi\Recipes;
 use \Tests\Xapi\BaseTest as TestCase;
-use \logstore_emitter\xapi\service as xapi_service;
-use \TinCan\RemoteLRS as tincan_remote_lrs;
+use \logstore_emitter\xapi\recipes\quiz_started as quiz_started;
 
-class ServiceTest extends TestCase {
+class QuizStartedTest extends TestCase {
     /**
-     * Sets up the tests.
-     * @override TestCase
+     * Tests the __construct method of the quiz_started.
      */
-    public function setup() {
-        $this->service = new xapi_service(new TestRepository(new tincan_remote_lrs('', '1.0.1', '', '')));
-    }
-
-    /**
-     * Tests the create method of the xapi_service.
-     */
-    public function testCreate() {
+    public function testConstruct() {
         $test_data = [
             'user' => (object) [
                 'id' => '1',
@@ -32,15 +23,15 @@ class ServiceTest extends TestCase {
                 'id' => '1',
                 'url' => 'http://www.example.com',
                 'type' => 'course'
-            ],
-            'eventname' => '\mod_data\event\course_module_viewed'
+            ]
         ];
-        $statement = $this->service->create($test_data);
+        $statement = new quiz_started($test_data);
 
         $this->assertAgent($test_data['user'], $statement->getActor());
         $this->assertActivity($test_data['object'], $statement->getObject());
+        $this->assertModuleContext($test_data, $statement->getContext());
         $this->assertVerb((object) [
-            'id' => 'http://id.tincanapi.com/verb/viewed'
+            'id' => 'http://activitystrea.ms/schema/1.0/start'
         ], $statement->getVerb());
     }
 }
