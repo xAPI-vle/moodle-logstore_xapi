@@ -5,7 +5,7 @@ use \logstore_emitter\xapi\activity as xapi_activity;
 
 class module_viewed extends base {
     /**
-     * Constructs a new statement for course_module_viewed.
+     * Constructs a new statement for module_viewed.
      * @param [String => Mixed] $opts Options to construct the statement with.
      * @override base
      */
