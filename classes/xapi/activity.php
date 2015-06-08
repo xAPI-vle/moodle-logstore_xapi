@@ -12,7 +12,7 @@ class activity extends tincan_activity {
         parent::__construct([
             'id' => $object->url,
             'definition' => [
-                'type' => $this->read_activity_type($object->type)
+                'type' => $this->read_activity_type(isset($object->type) ? $object->type : null)
             ]
         ]);
     }
@@ -27,6 +27,6 @@ class activity extends tincan_activity {
             'course' => 'http://adlnet.gov/expapi/activities/course',
             'course_module' => 'http://adlnet.gov/expapi/activities/module'
         ];
-        return $types[$type];
+        return isset($types[$type]) ? $types[$type] : 'http://lrs.learninglocker.net/define/type/unknown';
     }
 }
