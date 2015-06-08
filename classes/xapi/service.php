@@ -12,7 +12,8 @@ class service extends php_obj {
         '\mod_quiz\event\attempt_submitted' => 'quiz_submitted',
         '\mod_quiz\event\attempt_abandoned' => 'quiz_abandoned',
         '\core\event\user_loggedin' => 'user_loggedin',
-        '\core\event\user_loggedout' => 'user_loggedout'
+        '\core\event\user_loggedout' => 'user_loggedout',
+        '\mod_assign\event\submission_graded' => 'submission_graded'
     ];
 
     /**
