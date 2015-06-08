@@ -15,8 +15,8 @@ class quiz_submitted extends base {
             'verb' => new tincan_verb([
                 'id' => 'http://activitystrea.ms/schema/1.0/submit',
                 'display' => [
-                    'en-GB' => 'started',
-                    'en-US' => 'started',
+                    'en-GB' => 'submitted',
+                    'en-US' => 'submitted',
                 ]
             ]),
             'object' => new xapi_activity($opts['object']),
