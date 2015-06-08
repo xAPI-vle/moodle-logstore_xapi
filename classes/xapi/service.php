@@ -9,7 +9,8 @@ class service extends php_obj {
         '\core\event\course_module_completion_updated' => 'module_completed',
         '\mod_data\event\comment_created' => 'comment_created',
         '\mod_quiz\event\attempt_started' => 'quiz_started',
-        'mod_quiz\event\attempt_submitted' => 'quiz_submitted'
+        '\mod_quiz\event\attempt_submitted' => 'quiz_submitted',
+        '\mod_quiz\event\attempt_abandoned' => 'quiz_abandoned'
     ];
 
     /**
