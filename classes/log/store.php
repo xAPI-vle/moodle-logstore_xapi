@@ -59,7 +59,7 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function is_event_ignored(event_base $event) {
-        return isset(xapi_service::$action_to_recipe[$event['eventname']]);
+        return isset(xapi_service::$action_to_recipe[$event->eventname]);
     }
 
     /**
