@@ -1,9 +1,9 @@
-# Module Viewed Recipe
-This file documents the "module_viewed" recipe.
+# Submission Graded Recipe
+This file documents the "submission_graded" recipe.
 
-- [Moodle to xAPI mapping](../../classes/xapi/service.php#L7)
-- [xAPI Recipe](../../classes/xapi/recipes/module_viewed.php)
-- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/ModuleViewedTest.php)
+- [Moodle to xAPI mapping](../../classes/xapi/service.php#L16)
+- [xAPI Recipe](../../classes/xapi/recipes/submission_graded.php)
+- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/SubmissionGradedTest.php)
 
 ## Example
 ```
@@ -17,17 +17,17 @@ This file documents the "module_viewed" recipe.
         }
     },
     "verb": {
-        "id": "http://id.tincanapi.com/verb/viewed",
+        "id": "http://activitystrea.ms/schema/1.0/submit",
         "display": {
-            "en-GB": "viewed",
-            "en-US": "viewed"
+            "en-GB": "submitted",
+            "en-US": "submitted"
         }
     },
     "object": {
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=300",
         "definition": {
-            "type": "http://adlnet.gov/expapi/activities/module"
+            "type": "http://lrs.learninglocker.net/define/type/unknown"
         }
     },
     "context": {

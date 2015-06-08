@@ -1,9 +1,9 @@
-# Module Viewed Recipe
-This file documents the "module_viewed" recipe.
+# Quiz Started Recipe
+This file documents the "quiz_started" recipe.
 
-- [Moodle to xAPI mapping](../../classes/xapi/service.php#L7)
-- [xAPI Recipe](../../classes/xapi/recipes/module_viewed.php)
-- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/ModuleViewedTest.php)
+- [Moodle to xAPI mapping](../../classes/xapi/service.php#L11)
+- [xAPI Recipe](../../classes/xapi/recipes/quiz_started.php)
+- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/QuizStartedTest.php)
 
 ## Example
 ```
@@ -17,17 +17,17 @@ This file documents the "module_viewed" recipe.
         }
     },
     "verb": {
-        "id": "http://id.tincanapi.com/verb/viewed",
+        "id": "http://activitystrea.ms/schema/1.0/start",
         "display": {
-            "en-GB": "viewed",
-            "en-US": "viewed"
+            "en-GB": "started",
+            "en-US": "started"
         }
     },
     "object": {
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=300",
         "definition": {
-            "type": "http://adlnet.gov/expapi/activities/module"
+            "type": "http://lrs.learninglocker.net/define/type/unknown"
         }
     },
     "context": {

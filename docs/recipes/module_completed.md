@@ -1,9 +1,9 @@
-# Module Viewed Recipe
-This file documents the "module_viewed" recipe.
+# Module Completed Recipe
+This file documents the "module_completed" recipe.
 
-- [Moodle to xAPI mapping](../../classes/xapi/service.php#L7)
-- [xAPI Recipe](../../classes/xapi/recipes/module_viewed.php)
-- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/ModuleViewedTest.php)
+- [Moodle to xAPI mapping](../../classes/xapi/service.php#L9)
+- [xAPI Recipe](../../classes/xapi/recipes/module_completed.php)
+- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/ModuleCompletedTest.php)
 
 ## Example
 ```
@@ -17,10 +17,10 @@ This file documents the "module_viewed" recipe.
         }
     },
     "verb": {
-        "id": "http://id.tincanapi.com/verb/viewed",
+        "id": "http://activitystrea.ms/schema/1.0/complete",
         "display": {
-            "en-GB": "viewed",
-            "en-US": "viewed"
+            "en-GB": "completed",
+            "en-US": "completed"
         }
     },
     "object": {

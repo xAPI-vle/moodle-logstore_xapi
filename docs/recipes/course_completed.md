@@ -1,5 +1,9 @@
-# Viewed Recipe
-This file documents the viewed recipe.
+# Course Completed Recipe
+This file documents the "course_completed" recipe.
+
+- [Moodle to xAPI mapping](../../classes/xapi/service.php#L8)
+- [xAPI Recipe](../../classes/xapi/recipes/course_completed.php)
+- [xAPI Recipe Tests](../../Tests/Xapi/Recipes/CourseCompletedTest.php)
 
 ## Example
 ```
@@ -21,7 +25,10 @@ This file documents the viewed recipe.
     },
     "object": {
         "objectType": "Activity",
-        "id": "http://www.sample.com/mod/scorm/view.php?id=300"
+        "id": "http://www.sample.com/mod/scorm/view.php?id=300",
+        "definition": {
+            "type": "http://adlnet.gov/expapi/activities/course"
+        }
     }
 }
 ```
