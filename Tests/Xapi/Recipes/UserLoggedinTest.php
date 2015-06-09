@@ -15,7 +15,8 @@ class UserLoggedinTest extends TestCase {
                 'type' => 'user'
             ],
             'object' => (object) [
-                'url' => 'http://www.example.com'
+                'url' => 'http://www.example.com',
+                'name' => 'Test Course'
             ]
         ];
         $statement = new user_loggedin($test_data);

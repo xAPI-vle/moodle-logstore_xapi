@@ -47,6 +47,14 @@ abstract class BaseTest extends TestCase {
     protected function assertActivityDefinition(php_obj $test_data, $data) {
         $this->assertInstanceOf('TinCan\ActivityDefinition', $data);
         $this->assertInternalType('string', $data->getType());
+        $name = $data->getName();
+        $this->assertInstanceOf('TinCan\LanguageMap', $name);
+        $name = $name->asVersion('1.0.1');
+        $this->assertInternalType('array', $name);
+        $this->assertArrayHasKey('en-GB', $name);
+        $this->assertArrayHasKey('en-US', $name);
+        $this->assertEquals($test_data->name, $name['en-GB']);
+        $this->assertEquals($test_data->name, $name['en-US']);
     }
 
     /**

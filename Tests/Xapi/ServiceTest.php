@@ -26,12 +26,14 @@ class ServiceTest extends TestCase {
             'object' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'type' => 'course_module'
+                'type' => 'course_module',
+                'name' => 'Test Module'
             ],
             'course' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'type' => 'course'
+                'type' => 'course',
+                'name' => 'Test Course'
             ],
             'eventname' => '\mod_data\event\course_module_viewed'
         ];

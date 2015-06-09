@@ -10,7 +10,8 @@ class AgentTest extends TestCase {
         $test_data = (object) [
             'id' => '1',
             'url' => 'http://www.example.com',
-            'name' => 'Bob'
+            'name' => 'Bob',
+            'type' => 'user'
         ];
         $data = new xapi_agent($test_data);
         $this->assertAgent($test_data, $data);

@@ -12,7 +12,8 @@ class activity extends tincan_activity {
         parent::__construct([
             'id' => $object->url,
             'definition' => [
-                'type' => $this->read_activity_type(isset($object->type) ? $object->type : null)
+                'type' => $this->read_activity_type(isset($object->type) ? $object->type : null),
+                'name' => $this->read_activity_name($object)
             ]
         ]);
     }
@@ -28,5 +29,22 @@ class activity extends tincan_activity {
             'course_module' => 'http://adlnet.gov/expapi/activities/module'
         ];
         return isset($types[$type]) ? $types[$type] : 'http://lrs.learninglocker.net/define/type/unknown';
+    }
+
+    /**
+     * Constructs a new activity name.
+     * @param php_obj $object The moodle object to construct the activity name with.
+     * @return string xAPI name
+     */
+    private function read_activity_name($object) {
+        $name = isset($object->fullname) ? $object->fullname : (isset($object->name) ? $object->name : null);
+        if ($name === null) {
+            return null;
+        } else {
+            return [
+                'en-GB' => $name,
+                'en-US' => $name
+            ];
+        }
     }
 }

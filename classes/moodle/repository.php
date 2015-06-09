@@ -39,6 +39,7 @@ class repository extends php_obj {
         $model = $this->store->get_record('course', ['id' => $id]);
         $model->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
         $model->type = 'course';
+        $model->name = $model->fullname;
         return $model;
     }
 

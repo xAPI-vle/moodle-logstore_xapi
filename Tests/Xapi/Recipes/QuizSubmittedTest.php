@@ -17,12 +17,14 @@ class QuizSubmittedTest extends TestCase {
             'object' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'type' => 'course_module'
+                'type' => 'course_module',
+                'name' => 'Test Course'
             ],
             'course' => (object) [
                 'id' => '1',
                 'url' => 'http://www.example.com',
-                'type' => 'course'
+                'type' => 'course',
+                'name' => 'Test Course'
             ]
         ];
         $statement = new quiz_submitted($test_data);
