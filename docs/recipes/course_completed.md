@@ -27,7 +27,11 @@ This file documents the "course_completed" recipe.
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=300",
         "definition": {
-            "type": "http://adlnet.gov/expapi/activities/course"
+            "type": "http://adlnet.gov/expapi/activities/course",
+            "name": {
+                "en-GB": "Test",
+                "en-US": "Test"
+            }
         }
     }
 }

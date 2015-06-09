@@ -27,7 +27,11 @@ This file documents the "quiz_started" recipe.
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=3",
         "definition": {
-            "type": "http://lrs.learninglocker.net/define/type/unknown"
+            "type": "http://lrs.learninglocker.net/define/type/unknown",
+            "name": {
+                "en-GB": "Test",
+                "en-US": "Test"
+            }
         }
     },
     "context": {
@@ -36,7 +40,11 @@ This file documents the "quiz_started" recipe.
                 "objectType": "Activity",
                 "id": "http://www.sample.com/mod/scorm/view.php?id=300",
                 "definition": {
-                    "type": "http://adlnet.gov/expapi/activities/course"
+                    "type": "http://adlnet.gov/expapi/activities/course",
+                    "name": {
+                        "en-GB": "Test",
+                        "en-US": "Test"
+                    }
                 }
             }]
         }

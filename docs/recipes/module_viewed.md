@@ -27,7 +27,11 @@ This file documents the "module_viewed" recipe.
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=3",
         "definition": {
-            "type": "http://adlnet.gov/expapi/activities/module"
+            "type": "http://adlnet.gov/expapi/activities/module",
+            "name": {
+                "en-GB": "Test",
+                "en-US": "Test"
+            }
         }
     },
     "context": {
@@ -36,7 +40,11 @@ This file documents the "module_viewed" recipe.
                 "objectType": "Activity",
                 "id": "http://www.sample.com/mod/scorm/view.php?id=300",
                 "definition": {
-                    "type": "http://adlnet.gov/expapi/activities/course"
+                    "type": "http://adlnet.gov/expapi/activities/course",
+                    "name": {
+                        "en-GB": "Test",
+                        "en-US": "Test"
+                    }
                 }
             }]
         }

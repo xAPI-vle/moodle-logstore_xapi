@@ -27,7 +27,11 @@ This file documents the "user_loggedout" recipe.
         "objectType": "Activity",
         "id": "http://www.sample.com/mod/scorm/view.php?id=300",
         "definition": {
-            "type": "http://lrs.learninglocker.net/define/type/unknown"
+            "type": "http://lrs.learninglocker.net/define/type/unknown",
+            "name": {
+                "en-GB": "Test",
+                "en-US": "Test"
+            }
         }
     }
 }
