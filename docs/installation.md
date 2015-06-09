@@ -4,6 +4,9 @@ This file documents how to install this plugin. You obviously need to have [Mood
 1. Run `cd admin/tool/log/store/` from the root directory of Moodle.
 2. Run `git clone git@github.com:jlowe64/moodle-logstore-xapi.git emitter`.
 3. Run `cd emitter && composer install --no-interaction`.
-4. Run through the Moodle update script.
-5. Go to the admin page and turn on xapi logstore using the little icon to make it visible.
-6. Go to the settings page and add the LRS endpoint, username, and password to connect. Hit save.
+4. Go to "http://www.example.com/admin/index.php".
+5. Follow through the upgrade and enter your LRS details when required.
+6. Go to "http://www.example.com/admin/settings.php?section=managelogging".
+7. Enable the "Logstore Emitter" plugin.
+
+*This requires you to be logged in as an Admin.*
