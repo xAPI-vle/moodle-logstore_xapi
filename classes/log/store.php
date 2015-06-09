@@ -68,7 +68,6 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function insert_event_entries(array $events) {
-        echo '<pre>', print_r($events, true), '</pre>';
 
         // Initializes required services.
         $xapi_service = new xapi_service($this->connect_xapi_repository());
@@ -76,8 +75,8 @@ class store extends php_obj implements log_writer {
 
         // Emits events to other APIs.
         foreach($events as $event) {
-            $moodle_event = $this->moodle_service->create($entry);
-            $xapi_statement = $this->xapi_service->create($moodle_event);
+            $moodle_event = $moodle_service->create($event);
+            $xapi_statement = $xapi_service->create($moodle_event);
         }
     }
 

@@ -30,9 +30,14 @@ class service extends php_obj {
      * @return base_recipe
      */
     public function create(array $opts) {
-        $recipe = '\logstore_emitter\xapi\recipes\\'.static::$action_to_recipe[$opts['eventname']];
-        $statement = new $recipe($opts);
-        $this->repo->create_statement($statement);
-        return $statement;
+        $eventname = $opts['eventname'];
+        if (isset(static::$action_to_recipe[$eventname])) {
+            $recipe = '\logstore_emitter\xapi\recipes\\'.static::$action_to_recipe[$opts['eventname']];
+            $statement = new $recipe($opts);
+            $this->repo->create_statement($statement);
+            return $statement;
+        } else {
+            return null;
+        }
     }
 }

@@ -7,10 +7,10 @@ class repository extends php_obj {
 
     /**
      * Constructs a new repository.
-     * @param php_obj $store
+     * @param $store
      * @param php_obj $cfg
      */
-    public function __construct(php_obj $store, php_obj $cfg) {
+    public function __construct($store, php_obj $cfg) {
         $this->store = $store;
         $this->cfg = $cfg;
     }
@@ -22,7 +22,7 @@ class repository extends php_obj {
      */
     public function read_object(array $opts) {
         $restored_url = $this->restore_event($opts)->get_url();
-        $id = $restored_url->getParam('id');
+        $id = $restored_url->get_param('id');
         $model = $this->store->get_record($opts['target'], ['id' => $id]);
         $model->id = $id;
         $model->url = $this->generate_url($restored_url);
@@ -57,10 +57,10 @@ class repository extends php_obj {
 
     /**
      * Generates the object URL from the given URL.
-     * @param php_obj $url
+     * @param $url
      * @return string URL
      */
-    private function generate_url(php_obj $url) {
+    private function generate_url($url) {
         return $url->get_scheme() . "://" . $url->get_host() . $url->get_path() . '?id=' . $url->get_param('id');
     }
 
