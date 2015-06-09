@@ -59,7 +59,7 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function is_event_ignored(event_base $event) {
-        return isset(xapi_service::$action_to_recipe[$event->eventname]);
+        return !isset(xapi_service::$action_to_recipe[$event->eventname]);
     }
 
     /**
@@ -68,7 +68,6 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function insert_event_entries(array $events) {
-
         // Initializes required services.
         $xapi_service = new xapi_service($this->connect_xapi_repository());
         $moodle_service = new moodle_service($this->connect_moodle_repository());

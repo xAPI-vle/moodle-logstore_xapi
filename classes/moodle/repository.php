@@ -22,11 +22,18 @@ class repository extends php_obj {
      */
     public function read_object(array $opts) {
         $restored_url = $this->restore_event($opts)->get_url();
-        $id = $restored_url->get_param('id');
-        $model = $this->store->get_record($opts['target'], ['id' => $id]);
+        $id = $opts['objectid'];
+        $type = $opts['objecttable'] ?: $opts['target'] ?: null;
+        if ($type !== null) {
+            $model = $this->store->get_record($type, ['id' => $id]);
+        }
+
+        if ($type === null || $model === false) {
+            $model = new php_obj();
+        }
         $model->id = $id;
         $model->url = $this->generate_url($restored_url);
-        $model->type = $opts['target'];
+        $model->type = $type;
         return $model;
     }
 
@@ -52,6 +59,7 @@ class repository extends php_obj {
         $model = $this->store->get_record('user', ['id' => $id]);
         $model->url = $this->cfg->wwwroot . '/user/profile.php?id=' . $id;
         $model->type = 'user';
+        $model->name = $model->username;
         return $model;
     }
 

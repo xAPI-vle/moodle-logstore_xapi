@@ -28,5 +28,13 @@ realuserid | Description |
 ## Supported Events
 Event Name | Recipe Name
 --- | ---
-\mod_scorm\event\course_module_viewed | [viewed](recipes/module_viewed.md)
-\core\event\course_completed | [viewed](recipes/course_completed.md)
+\mod_page\event\course_module_viewed | [module_viewed](recipes/module_viewed.md)
+\core\event\course_completed | [course_completed](recipes/course_completed.md)
+\core\event\course_module_completion_updated | [module_completed](recipes/module_completed.md)
+\mod_data\event\comment_created | [comment_created](recipes/comment_created.md)
+\mod_quiz\event\attempt_started | [quiz_started](recipes/quiz_started.md)
+\mod_quiz\event\attempt_submitted | [quiz_submitted](recipes/quiz_submitted.md)
+\mod_quiz\event\attempt_abandoned | [quiz_abandoned](recipes/quiz_abandoned.md)
+\core\event\user_loggedin | [user_loggedin](recipes/user_loggedin.md)
+\core\event\user_loggedout | [user_loggedout](recipes/user_loggedout.md)
+\mod_assign\event\submission_graded | [submission_grade](recipes/submission_grade.md)
