@@ -64,11 +64,11 @@ class store extends php_obj implements log_writer {
 
     /**
      * Insert events in bulk to the database.
-     * @param array $evententries raw event data
+     * @param array $events raw event data
      * @override helper_writer
      */
     protected function insert_event_entries(array $events) {
-        echo '<pre>', print_r($evententries, true), '</pre>';
+        echo '<pre>', print_r($events, true), '</pre>';
 
         // Initializes required services.
         $xapi_service = new xapi_service($this->connect_xapi_repository());
