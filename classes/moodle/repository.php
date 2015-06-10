@@ -4,6 +4,7 @@ use \stdClass as php_obj;
 
 class repository extends php_obj {
     protected $store;
+    protected $cfg;
 
     /**
      * Constructs a new repository.
@@ -21,7 +22,6 @@ class repository extends php_obj {
      * @return php_obj
      */
     public function read_object(array $opts) {
-        $restored_url = $this->restore_event($opts)->get_url();
         $id = $opts['objectid'];
         $type = $opts['objecttable'] ?: $opts['target'] ?: null;
         if ($type !== null) {
@@ -32,7 +32,6 @@ class repository extends php_obj {
             $model = new php_obj();
         }
         $model->id = $id;
-        $model->url = $this->generate_url($restored_url);
         $model->type = $type;
         return $model;
     }
@@ -47,6 +46,7 @@ class repository extends php_obj {
         $model->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
         $model->type = 'course';
         $model->name = $model->fullname;
+        $model->description = $model->summary;
         return $model;
     }
 
@@ -61,6 +61,16 @@ class repository extends php_obj {
         $model->type = 'user';
         $model->name = $model->username;
         return $model;
+    }
+
+    /**
+     * Reads the event url.
+     * @param [string => mixed] $opts
+     * @return string
+     */
+    public function read_event_url(array $opts) {
+        $restored_url = $this->restore_event($opts)->get_url();
+        return $this->generate_url($restored_url);
     }
 
     /**

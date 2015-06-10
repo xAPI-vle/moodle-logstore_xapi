@@ -31,8 +31,12 @@ use \tool_log\helper\store as helper_store;
 use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
+use \logstore_emitter\xapi\controller as xapi_controller;
 use \logstore_emitter\xapi\service as xapi_service;
 use \logstore_emitter\xapi\repository as xapi_repository;
+use \logstore_emitter\translator\service as translator_service;
+use \logstore_emitter\translator\repository as translator_repository;
+use \logstore_emitter\moodle\controller as moodle_controller;
 use \logstore_emitter\moodle\service as moodle_service;
 use \logstore_emitter\moodle\repository as moodle_repository;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
@@ -59,7 +63,7 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function is_event_ignored(event_base $event) {
-        return !isset(xapi_service::$action_to_recipe[$event->eventname]);
+        return !isset(moodle_controller::$routes[$event->eventname]);
     }
 
     /**
@@ -71,11 +75,16 @@ class store extends php_obj implements log_writer {
         // Initializes required services.
         $xapi_service = new xapi_service($this->connect_xapi_repository());
         $moodle_service = new moodle_service($this->connect_moodle_repository());
+        $translator_service = new translator_service();
+        $xapi_controller = new xapi_controller($xapi_service);
+        $moodle_controller = new moodle_controller($moodle_service);
+        $translator_controller = new translator_controller($translator_service);
 
         // Emits events to other APIs.
-        foreach($events as $event) {
-            $moodle_event = $moodle_service->create($event);
-            $xapi_statement = $xapi_service->create($moodle_event);
+        foreach ($events as $event) {
+            $moodle_event = $moodle_controller->create($event);
+            $translator_event = $translator_controller->create($moodle_event);
+            $xapi_event = $xapi_controller->create($translator_event);
         }
     }
 

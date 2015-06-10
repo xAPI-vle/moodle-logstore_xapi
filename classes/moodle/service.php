@@ -3,6 +3,8 @@ use \core\event\base as base_event;
 use \stdClass as php_obj;
 
 class service extends php_obj {
+    protected $repo;
+
     /**
      * Constructs a new service.
      * @param repository $repo The LRS to be used to store statements.
@@ -12,14 +14,25 @@ class service extends php_obj {
     }
 
     /**
-     * Creates a new event.
+     * Reads data for an event.
      * @param [string => mixed] $opts
-     * @return [string => mixed] Event
+     * @return [string => mixed]
      */
-    public function create(array $opts) {
-        $opts['user'] = $this->repo->read_user($opts['userid']);
-        $opts['course'] = $this->repo->read_course($opts['courseid']);
-        $opts['object'] = $this->repo->read_object($opts);
-        return $opts;
+    private function read_event(array $opts) {
+        $opts['url'] = $this->repo->read_event_url($opts);
+        return [
+            'user' => $this->repo->read_user($opts['userid']),
+            'course' => $this->repo->read_course($opts['courseid']),
+            'event' => $opts,
+        ];
+    }
+
+    /**
+     * Reads data for a course_viewed event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_course_viewed_event(array $opts) {
+        return $this->read_event($opts);
     }
 }
