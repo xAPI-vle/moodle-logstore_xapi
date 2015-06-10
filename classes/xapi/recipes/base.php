@@ -16,7 +16,7 @@ class base extends tincan_statement {
      * @param [string => mixed] $opts
      * @return string
      */
-    private function read_lang(array $opts) {
+    protected function read_lang(array $opts) {
         return isset($opts['course']->lang) ? $opts['course']->lang : 'en';
     }
 }
