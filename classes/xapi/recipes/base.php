@@ -10,4 +10,13 @@ class base extends tincan_statement {
     public function __construct(array $options) {
         parent::__construct($options);
     }
+
+    /**
+     * Reads the language from the event.
+     * @param [string => mixed] $event
+     * @return string
+     */
+    private function read_lang(array $event) {
+        return isset($event['course']->lang) ? $event['course']->lang : 'en';
+    }
 }

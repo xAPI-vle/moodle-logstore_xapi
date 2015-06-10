@@ -13,7 +13,8 @@ class activity extends tincan_activity {
             'id' => $object->url,
             'definition' => [
                 'type' => $this->read_activity_type(isset($object->type) ? $object->type : null),
-                'name' => $this->read_activity_name($object)
+                'name' => $this->read_activity_name($object),
+                'description' => $this->read_activity_description($object),
             ]
         ]);
     }
@@ -37,14 +38,38 @@ class activity extends tincan_activity {
      * @return string xAPI name
      */
     private function read_activity_name($object) {
-        $name = isset($object->fullname) ? $object->fullname : (isset($object->name) ? $object->name : null);
+        $name = isset($object->name) ? $object->name : null;
         if ($name === null) {
             return null;
         } else {
             return [
-                'en-GB' => $name,
-                'en-US' => $name
+                $this->read_lang($object) => $name
             ];
         }
+    }
+
+    /**
+     * Constructs a new activity description.
+     * @param php_obj $object The moodle object to construct the activity description with.
+     * @return string xAPI description
+     */
+    private function read_activity_description($object) {
+        $description = isset($object->description) ? $object->description : null;
+        if ($description === null) {
+            return null;
+        } else {
+            return [
+                $this->read_lang($object) => $description
+            ];
+        }
+    }
+
+    /**
+     * Reads the language from the given object.
+     * @param php_obj $object The moodle object to construct the activity name with.
+     * @return string language
+     */
+    private function read_lang($object) {
+        return isset($object->lang) ? $object->lang : 'en';
     }
 }
