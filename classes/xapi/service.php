@@ -30,7 +30,7 @@ class service extends php_obj {
                 'platform' => $opts['context_platform'],
                 'language' => $opts['context_lang'],
                 'extensions' => [
-                    $opts['context_ext_key'] => $opts['event'],
+                    $opts['context_ext_key'] => $opts['context_ext'],
                 ],
             ],
             'timestamp' => $opts['time'],
@@ -60,9 +60,9 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     public function read_course_viewed_event(array $opts) {
-        $data = array_merge($this->read_event($opts), [
+        return array_merge($this->read_viewed_event($opts), [
             'object' => [
-                'id' => $opts['object_url'],
+                'id' => $opts['obj_url'],
                 'definition' => [
                     'type' => 'http://adlnet.gov/expapi/activities/course',
                     'name' => [
@@ -70,8 +70,8 @@ class service extends php_obj {
                         'en-US' => $opts['obj_name'],
                     ],
                     'description' => [
-                        'en-GB' => $opts['obj_description'],
-                        'en-US' => $opts['obj_description'],
+                        'en-GB' => $opts['obj_description'] ?: 'A course',
+                        'en-US' => $opts['obj_description'] ?: 'A course',
                     ],
                     'extensions' => [
                         $opts['obj_ext_key'] => $opts['obj_ext']
@@ -87,7 +87,7 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     public function create_event(array $statement) {
-        $this->repo->create_statement($statement);
+        $this->repo->create_event($statement);
         return $statement;
     }
 }

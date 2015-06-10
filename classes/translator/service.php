@@ -21,7 +21,7 @@ class service extends php_obj {
             'obj_name' => $opts['course']->fullname,
             'obj_description' => $opts['course']->summary,
             'obj_ext' => $opts['course'],
-            'object_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_course',
+            'obj_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_course',
             'context_lang' => $opts['course']->lang,
             'context_platform' => 'Moodle',
             'context_ext' => $opts['event'],
@@ -36,7 +36,7 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     public function read_course_viewed_event(array $opts) {
-        $data = array_merge($this->read_event($opts), [
+        return array_merge($this->read_event($opts), [
             'recipe' => 'course_viewed'
         ]);
     }

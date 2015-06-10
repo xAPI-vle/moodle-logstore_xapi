@@ -23,7 +23,8 @@ class controller extends php_obj {
     public function create(array $opts) {
         $route = $opts['recipe'];
         if (isset(static::$routes[$route])) {
-            return $this->service->{static::$routes[$route]}($opts);
+            $event = $this->service->{static::$routes[$route]}($opts);
+            return $this->service->create_event($event);
         } else {
             return null;
         }

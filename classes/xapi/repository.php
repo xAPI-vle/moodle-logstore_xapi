@@ -13,12 +13,13 @@ class repository extends php_obj {
     }
 
     /**
-     * Creates a statement in the store.
-     * @param tincan_statement $statement
-     * @return tincan_statement
+     * Creates an event in the store.
+     * @param [string => mixed] $event
+     * @return [string => mixed]
      */
-    public function create_statement(tincan_statement $statement) {
-        $this->store->saveStatement($statement);
-        return $statement;
+    public function create_event(array $event) {
+        $response = $this->store->saveStatement(new tincan_statement($event));
+        var_dump($response);
+        return $event;
     }
 }
