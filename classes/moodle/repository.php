@@ -1,4 +1,5 @@
 <?php namespace logstore_emitter\moodle;
+use \core\event\base as base_event;
 use \stdClass as php_obj;
 
 class repository extends php_obj {
