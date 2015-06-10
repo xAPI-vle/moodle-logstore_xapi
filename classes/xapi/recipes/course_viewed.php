@@ -23,9 +23,9 @@ class course_viewed extends base {
             'object' => new xapi_activity($opts['object']),
             'context' => [
                 'platform' => 'Moodle',
-                'language' => $this->read_lang($event),
+                'language' => $this->read_lang($opts),
                 'extensions' => [
-                    'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log' => $event
+                    'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log' => $opts
                 ]
             ]
         ]);

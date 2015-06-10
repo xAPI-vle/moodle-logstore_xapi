@@ -12,11 +12,11 @@ class base extends tincan_statement {
     }
 
     /**
-     * Reads the language from the event.
-     * @param [string => mixed] $event
+     * Reads the language from the opts.
+     * @param [string => mixed] $opts
      * @return string
      */
-    private function read_lang(array $event) {
-        return isset($event['course']->lang) ? $event['course']->lang : 'en';
+    private function read_lang(array $opts) {
+        return isset($opts['course']->lang) ? $opts['course']->lang : 'en';
     }
 }
