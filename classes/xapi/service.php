@@ -1,5 +1,4 @@
 <?php namespace logstore_emitter\xapi;
-use \logstore_emitter\xapi\recipes\base as base_recipe;
 use \stdClass as php_obj;
 
 class service extends php_obj {

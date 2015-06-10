@@ -1,5 +1,4 @@
-<?php namespace logstore_emitter\moodle;
-use \core\event\base as base_event;
+<?php namespace logstore_emitter\translator;
 use \stdClass as php_obj;
 
 class service extends php_obj {

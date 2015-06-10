@@ -1,5 +1,5 @@
 <?php namespace logstore_emitter\xapi;
-use \logstore_emitter\xapi\recipes\base as base_recipe;
+use \TinCan\Statement as tincan_statement;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
 use \stdClass as php_obj;
 
@@ -14,10 +14,10 @@ class repository extends php_obj {
 
     /**
      * Creates a statement in the store.
-     * @param base_recipe $statement
-     * @return base_recipe
+     * @param tincan_statement $statement
+     * @return tincan_statement
      */
-    public function create_statement(base_recipe $statement) {
+    public function create_statement(tincan_statement $statement) {
         $this->store->saveStatement($statement);
         return $statement;
     }
