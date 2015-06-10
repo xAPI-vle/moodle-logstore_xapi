@@ -25,7 +25,7 @@ class course_viewed extends base {
                 'platform' => 'Moodle',
                 'language' => $this->read_lang($opts),
                 'extensions' => [
-                    'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log' => $opts
+                    base::LOG_EXTENSION => $this->read_context_extensions($opts)
                 ]
             ]
         ]);
