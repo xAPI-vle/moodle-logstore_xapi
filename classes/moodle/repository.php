@@ -17,21 +17,31 @@ class repository extends php_obj {
     }
 
     /**
-     * Reads a user from the store with the given id.
-     * @param [string => mixed] $opts
+     * Reads an object from the store with the given id.
+     * @param string $id
+     * @param string $type
      * @return php_obj
      */
-    public function read_object(array $opts) {
-        $id = $opts['objectid'];
-        $type = $opts['objecttable'] ?: $opts['target'] ?: null;
-        if ($type !== null) {
-            $model = $this->store->get_record($type, ['id' => $id]);
-        }
+    public function read_object($id, $type) {
+        $model = $this->store->get_record($type, ['id' => $id]);
+        return $model;
+    }
 
-        if ($type === null || $model === false) {
-            $model = new php_obj();
-        }
-        $model->id = $id;
+    /**
+     * Reads an object from the store with the given id.
+     * @param string $id
+     * @param string $type
+     * @return php_obj
+     */
+    public function read_module($id, $type) {
+        $model = $this->read_object($id, $type);
+        $module = $this->store->get_record('modules', ['name' => $type]);
+        $course_module = $this->store->get_record('course_modules', [
+            'instance' => $id,
+            'module' => $module->id,
+            'course' => $model->course
+        ]);
+        $model->url = $this->cfg->wwwroot . '/mod/'.$type.'/view.php?id=' . $course_module->id;
         return $model;
     }
 
@@ -41,7 +51,7 @@ class repository extends php_obj {
      * @return php_obj
      */
     public function read_course($id) {
-        $model = $this->store->get_record('course', ['id' => $id]);
+        $model = $this->read_object($id, 'course');
         $model->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
         return $model;
     }
@@ -52,7 +62,7 @@ class repository extends php_obj {
      * @return php_obj
      */
     public function read_user($id) {
-        $model = $this->store->get_record('user', ['id' => $id]);
+        $model = $this->read_object($id, 'user');
         $model->url = $this->cfg->wwwroot;
         return $model;
     }

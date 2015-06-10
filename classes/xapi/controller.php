@@ -4,7 +4,8 @@ use \stdClass as php_obj;
 class controller extends php_obj {
     protected $service;
     public static $routes = [
-        'course_viewed' => 'read_course_viewed_event'
+        'course_viewed' => 'read_course_viewed_event',
+        'module_viewed' => 'read_module_viewed_event',
     ];
 
     /**

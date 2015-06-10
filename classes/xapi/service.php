@@ -55,26 +55,69 @@ class service extends php_obj {
     }
 
     /**
+     * Reads data for a course from the opts.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    private function read_course(array $opts) {
+        return [
+            'id' => $opts['course_url'],
+            'definition' => [
+                'type' => 'http://adlnet.gov/expapi/activities/course',
+                'name' => [
+                    'en-GB' => $opts['course_name'],
+                    'en-US' => $opts['course_name'],
+                ],
+                'description' => [
+                    'en-GB' => $opts['course_description'] ?: 'A course',
+                    'en-US' => $opts['course_description'] ?: 'A course',
+                ],
+                'extensions' => [
+                    $opts['course_ext_key'] => $opts['course_ext']
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Reads data for a course_viewed event.
      * @param [string => mixed] $opts
      * @return [string => mixed]
      */
     public function read_course_viewed_event(array $opts) {
         return array_merge($this->read_viewed_event($opts), [
+            'object' => $this->read_course($opts),
+        ]);
+    }
+
+    /**
+     * Reads data for a module_viewed event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_module_viewed_event(array $opts) {
+        return array_merge_recursive($this->read_viewed_event($opts), [
             'object' => [
-                'id' => $opts['obj_url'],
+                'id' => $opts['module_url'],
                 'definition' => [
-                    'type' => 'http://adlnet.gov/expapi/activities/course',
+                    'type' => 'http://activitystrea.ms/schema/1.0/page',
                     'name' => [
-                        'en-GB' => $opts['obj_name'],
-                        'en-US' => $opts['obj_name'],
+                        'en-GB' => $opts['module_name'],
+                        'en-US' => $opts['module_name'],
                     ],
                     'description' => [
-                        'en-GB' => $opts['obj_description'] ?: 'A course',
-                        'en-US' => $opts['obj_description'] ?: 'A course',
+                        'en-GB' => $opts['module_description'] ?: 'A module',
+                        'en-US' => $opts['module_description'] ?: 'A module',
                     ],
                     'extensions' => [
-                        $opts['obj_ext_key'] => $opts['obj_ext']
+                        $opts['module_ext_key'] => $opts['module_ext']
+                    ],
+                ],
+            ],
+            'context' => [
+                'contextActivities' => [
+                    'grouping' => [
+                        $this->read_course($opts),
                     ],
                 ],
             ],

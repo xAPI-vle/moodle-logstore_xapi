@@ -34,4 +34,15 @@ class service extends php_obj {
     public function read_course_viewed_event(array $opts) {
         return $this->read_event($opts);
     }
+
+    /**
+     * Reads data for a course_viewed event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_module_viewed_event(array $opts) {
+        return array_merge($this->read_event($opts), [
+            'module' => $this->repo->read_module($opts['objectid'], $opts['objecttable'])
+        ]);
+    }
 }
