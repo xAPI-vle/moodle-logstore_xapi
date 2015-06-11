@@ -262,12 +262,12 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     public function read_assignment_graded_event(array $opts) {
-        return array_merge($this->read_event($opts), [
+        return array_merge_recursive($this->read_event($opts), [
             'verb' => [
-                'id' => 'http://adlnet.gov/expapi/verbs/completed',
+                'id' => 'http://www.tincanapi.co.uk/verbs/evaluated',
                 'display' => [
-                    'en-GB' => 'completed',
-                    'en-US' => 'completed',
+                    'en-GB' => 'evaluated',
+                    'en-US' => 'evaluated',
                 ],
             ],
             'result' => [
@@ -275,6 +275,31 @@ class service extends php_obj {
                     'raw' => $opts['grade_result'],
                 ],
                 'completion' => true,
+            ],
+            'object' => $this->read_module($opts),
+            'context' => [
+                'contextActivities' => [
+                    'grouping' => [
+                        $this->read_course($opts),
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Reads data for a assignment_submitted event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_submitted_event(array $opts) {
+        return array_merge_recursive($this->read_event($opts), [
+            'verb' => [
+                'id' => 'http://adlnet.gov/expapi/verbs/completed',
+                'display' => [
+                    'en-GB' => 'completed',
+                    'en-US' => 'completed',
+                ],
             ],
             'object' => $this->read_module($opts),
             'context' => [

@@ -82,10 +82,23 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     public function read_assignment_graded_event(array $opts) {
-        $grade = $this->repo->read_assignment_grade($opts['objectid']);
+        $grade = $this->repo->read_object($opts['objectid'], $opts['objecttable']);
         return array_merge($this->read_event($opts), [
             'grade' => $grade,
             'module' => $this->repo->read_module($grade->assignment, 'assign'),
+        ]);
+    }
+
+    /**
+     * Reads data for a assignment_submitted event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_submitted_event(array $opts) {
+        $submission = $this->repo->read_object($opts['objectid'], $opts['objecttable']);
+        return array_merge($this->read_event($opts), [
+            'submission' => $submission,
+            'module' => $this->repo->read_module($submission->assignment, 'assign'),
         ]);
     }
 }

@@ -78,14 +78,4 @@ class repository extends php_obj {
         $model->url = $this->cfg->wwwroot;
         return $model;
     }
-
-    /**
-     * Reads a user from the store with the given id.
-     * @param string $id
-     * @return php_obj
-     */
-    public function read_assignment_grade($id) {
-        $model = $this->read_object($id, 'assign_grades');
-        return $model;
-    }
 }

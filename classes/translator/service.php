@@ -147,4 +147,15 @@ class service extends php_obj {
             'grade_result' => $opts['grade']->grade,
         ]);
     }
+
+    /**
+     * Reads data for a assignment_submitted event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_submitted_event(array $opts) {
+        return array_merge($this->read_module_viewed_event($opts), [
+            'recipe' => 'assignment_submitted',
+        ]);
+    }
 }
