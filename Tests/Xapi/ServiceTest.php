@@ -102,6 +102,24 @@ class ServiceTest extends TestCase {
         $this->assertEquals($test_data['attempt_duration'], $event['result']['duration']);
     }
 
+    /**
+     * Tests the user_loggedin method of the xapi_service.
+     */
+    public function testReadUserLoggedinEvent() {
+        $test_data = array_merge(
+            $this->constructUser(),
+            $this->constructLog(),
+            $this->contructObject('app'),
+            ['recipe' => 'user_loggedin']
+        );
+        $event = $this->service->read_user_loggedin_event($test_data);
+
+        $this->assertUser($test_data, $event['actor']);
+        $this->assertVerb('https://brindlewaye.com/xAPITerms/verbs/loggedin/', 'logged in to', $event['verb']);
+        $this->assertObject('app', $test_data, $event['object']);
+        $this->assertLog($test_data, $event);
+    }
+
     private function constructUser() {
         return [
             'user_id' => 1,
