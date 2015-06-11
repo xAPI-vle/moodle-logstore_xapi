@@ -72,7 +72,7 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * Tests the attempt_completed method of the xapi_service.
+     * Tests the read_attempt_completed_event method of the xapi_service.
      */
     public function testReadAttemptCompletedEvent() {
         $test_data = array_merge(
@@ -102,7 +102,7 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * Tests the user_loggedin method of the xapi_service.
+     * Tests the read_user_loggedin_event method of the xapi_service.
      */
     public function testReadUserLoggedinEvent() {
         $test_data = array_merge(
@@ -120,7 +120,7 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * Tests the user_loggedout method of the xapi_service.
+     * Tests the read_user_loggedout_event method of the xapi_service.
      */
     public function testReadUserLoggedoutEvent() {
         $test_data = array_merge(
@@ -135,6 +135,28 @@ class ServiceTest extends TestCase {
         $this->assertVerb('https://brindlewaye.com/xAPITerms/verbs/loggedout/', 'logged out of', $event['verb']);
         $this->assertObject('app', $test_data, $event['object']);
         $this->assertLog($test_data, $event);
+    }
+
+    /**
+     * Tests the read_assignment_graded_event method of the xapi_service.
+     */
+    public function testReadAssignmentGradedEvent() {
+        $test_data = array_merge(
+            $this->constructUser(),
+            $this->constructLog(),
+            $this->contructObject('course'),
+            $this->contructObject('module'),
+            ['recipe' => 'assignment_graded', 'grade_result' => 1]
+        );
+        $event = $this->service->read_assignment_graded_event($test_data);
+
+        $this->assertUser($test_data, $event['actor']);
+        $this->assertVerb('http://www.tincanapi.co.uk/verbs/evaluated', 'evaluated', $event['verb']);
+        $this->assertObject('course', $test_data, $event['context']['contextActivities']['grouping'][0]);
+        $this->assertObject('module', $test_data, $event['object']);
+        $this->assertLog($test_data, $event);
+        $this->assertEquals($test_data['grade_result'], $event['result']['score']['raw']);
+        $this->assertEquals(true, $event['result']['completion']);
     }
 
     private function constructUser() {
