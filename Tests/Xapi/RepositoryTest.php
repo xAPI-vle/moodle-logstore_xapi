@@ -1,7 +1,6 @@
 <?php namespace Tests\Xapi;
-use \Tests\Xapi\BaseTest as TestCase;
+use \Tests\BaseTest as TestCase;
 use \logstore_emitter\xapi\repository as xapi_repository;
-use \logstore_emitter\xapi\recipes\base as base_recipe;
 
 class RepositoryTest extends TestCase {
     /**
@@ -13,10 +12,10 @@ class RepositoryTest extends TestCase {
     }
 
     /**
-     * Tests the saveStatement method of the xapi_repository.
+     * Tests the create_event method of the xapi_repository.
      */
-    public function testSaveStatement() {
-        $test_data = new base_recipe([
+    public function testCreateEvent() {
+        $test_data = [
             'actor' => [
                 'name' => 'Bob',
                 'account' => [
@@ -34,9 +33,9 @@ class RepositoryTest extends TestCase {
             'object' => [
                 'id' => 'http://www.example.com'
             ]
-        ]);
-        $statement = $this->repo->create_statement($test_data);
+        ];
+        $event = $this->repo->create_event($test_data);
 
-        $this->assertEquals($test_data, $statement);
+        $this->assertEquals($test_data, $event);
     }
 }
