@@ -64,7 +64,7 @@ class repository extends php_obj {
      */
     public function read_course($id) {
         $model = $this->read_object($id, 'course');
-        $model->url = $this->cfg->wwwroot . '/course.php?id=' . $id;
+        $model->url = $this->cfg->wwwroot.($id > 0 ? '/course.php?id=' . $id : '');
         return $model;
     }
 
@@ -80,56 +80,12 @@ class repository extends php_obj {
     }
 
     /**
-     * Reads the event url.
-     * @param [string => mixed] $opts
-     * @return string
-     */
-    public function read_event_url(array $opts) {
-        $restored_url = $this->restore_event($opts)->get_url();
-        return $this->generate_url($restored_url);
-    }
-
-    /**
-     * Generates the object URL from the given URL.
-     * @param $url
-     * @return string URL
-     */
-    private function generate_url($url) {
-        return $url->get_scheme() . "://" . $url->get_host() . $url->get_path() . '?id=' . $url->get_param('id');
-    }
-
-    /**
-     * Restores an event.
-     * @param [string => mixed] $opts
+     * Reads a user from the store with the given id.
+     * @param string $id
      * @return php_obj
      */
-    private function restore_event(array $opts) {
-        $data = [
-            'eventname' => $opts['eventname'],
-            'component' => $opts['component'],
-            'action' => $opts['action'],
-            'target' => $opts['target'],
-            'objecttable' => $opts['objecttable'],
-            'objectid' => $opts['objectid'],
-            'crud' => $opts['crud'],
-            'edulevel' => $opts['edulevel'],
-            'contextid' => $opts['contextid'],
-            'contextlevel' => $opts['contextlevel'],
-            'contextinstanceid' => $opts['contextinstanceid'],
-            'userid' => $opts['userid'],
-            'courseid' => $opts['courseid'],
-            'relateduserid' => $opts['relateduserid'],
-            'anonymous' => $opts['anonymous'],
-            'other' => $opts['other'],
-            'timecreated' => $opts['timecreated']
-        ];
-
-        $logextra = [
-            'origin' => $opts['origin'],
-            'ip' => $opts['ip'],
-            'realuserid' => $opts['realuserid']
-        ];
-
-        return base_event::restore($data, $logextra);
+    public function read_assignment_grade($id) {
+        $model = $this->read_object($id, 'assign_grades');
+        return $model;
     }
 }

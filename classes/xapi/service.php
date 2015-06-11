@@ -239,7 +239,7 @@ class service extends php_obj {
     }
 
     /**
-     * Reads data for a user_loggedin event.
+     * Reads data for a user_loggedout event.
      * @param [string => mixed] $opts
      * @return [string => mixed]
      */
@@ -253,6 +253,37 @@ class service extends php_obj {
                 ],
             ],
             'object' => $this->read_app($opts),
+        ]);
+    }
+
+    /**
+     * Reads data for a assignment_graded event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_graded_event(array $opts) {
+        return array_merge($this->read_event($opts), [
+            'verb' => [
+                'id' => 'http://adlnet.gov/expapi/verbs/completed',
+                'display' => [
+                    'en-GB' => 'completed',
+                    'en-US' => 'completed',
+                ],
+            ],
+            'result' => [
+                'score' => [
+                    'raw' => $opts['grade_result'],
+                ],
+                'completion' => true,
+            ],
+            'object' => $this->read_module($opts),
+            'context' => [
+                'contextActivities' => [
+                    'grouping' => [
+                        $this->read_course($opts),
+                    ],
+                ],
+            ],
         ]);
     }
 

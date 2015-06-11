@@ -14,6 +14,7 @@ class controller extends php_obj {
         '\mod_quiz\event\attempt_reviewed' => 'read_attempt_reviewed_event',
         '\core\event\user_loggedin' => 'read_user_loggedin_event',
         '\core\event\user_loggedout' => 'read_user_loggedout_event',
+        '\mod_assign\event\submission_graded' => 'read_assignment_graded_event',
     ];
 
     /**

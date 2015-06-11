@@ -135,4 +135,16 @@ class service extends php_obj {
             'app_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_course',
         ]);
     }
+
+    /**
+     * Reads data for a assignment_graded event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_graded_event(array $opts) {
+        return array_merge($this->read_module_viewed_event($opts), [
+            'recipe' => 'assignment_graded',
+            'grade_result' => $opts['grade']->grade,
+        ]);
+    }
 }

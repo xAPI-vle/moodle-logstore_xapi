@@ -18,7 +18,6 @@ class service extends php_obj {
      * @return [string => mixed]
      */
     private function read_event(array $opts) {
-        $opts['url'] = $this->repo->read_event_url($opts);
         return [
             'user' => $this->repo->read_user($opts['userid']),
             'course' => $this->repo->read_course($opts['courseid']),
@@ -75,5 +74,18 @@ class service extends php_obj {
      */
     public function read_user_loggedout_event(array $opts) {
         return $this->read_event($opts);
+    }
+
+    /**
+     * Reads data for a assignment_graded event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_assignment_graded_event(array $opts) {
+        $grade = $this->repo->read_assignment_grade($opts['objectid']);
+        return array_merge($this->read_event($opts), [
+            'grade' => $grade,
+            'module' => $this->repo->read_module($grade->assignment, 'assign'),
+        ]);
     }
 }

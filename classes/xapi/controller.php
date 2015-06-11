@@ -10,6 +10,7 @@ class controller extends php_obj {
         'attempt_completed' => 'read_attempt_completed_event',
         'user_loggedin' => 'read_user_loggedin_event',
         'user_loggedout' => 'read_user_loggedout_event',
+        'assignment_graded' => 'read_assignment_graded_event',
     ];
 
     /**
