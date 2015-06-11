@@ -12,6 +12,15 @@ class ServiceTest extends TestCase {
     }
 
     /**
+     * Tests the create_event method of the xapi_service.
+     */
+    public function testCreateEvent() {
+        $test_data = [];
+        $event = $this->service->create_event($test_data);
+        $this->assertEquals($test_data, $event);
+    }
+
+    /**
      * Tests the read_course_viewed_event method of the xapi_service.
      */
     public function testReadCourseViewedEvent() {
