@@ -159,6 +159,26 @@ class ServiceTest extends TestCase {
         $this->assertEquals(true, $event['result']['completion']);
     }
 
+    /**
+     * Tests the read_assignment_submitted_event method of the xapi_service.
+     */
+    public function testReadAssignmentSubmittedEvent() {
+        $test_data = array_merge(
+            $this->constructUser(),
+            $this->constructLog(),
+            $this->contructObject('course'),
+            $this->contructObject('module'),
+            ['recipe' => 'assignment_submitted']
+        );
+        $event = $this->service->read_assignment_submitted_event($test_data);
+
+        $this->assertUser($test_data, $event['actor']);
+        $this->assertVerb('http://adlnet.gov/expapi/verbs/completed', 'completed', $event['verb']);
+        $this->assertObject('course', $test_data, $event['context']['contextActivities']['grouping'][0]);
+        $this->assertObject('module', $test_data, $event['object']);
+        $this->assertLog($test_data, $event);
+    }
+
     private function constructUser() {
         return [
             'user_id' => 1,
