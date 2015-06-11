@@ -10,6 +10,9 @@ class TestRemoteLrs extends tincan_remote_lrs {
      * @override tincan_remote_lrs
      */
     public function saveStatement($statement) {
-        return $statement;
+        return (object) [
+            'success' => true,
+            'response' => $statement,
+        ];
     }
 }

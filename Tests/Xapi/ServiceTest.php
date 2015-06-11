@@ -1,6 +1,5 @@
 <?php namespace Tests\Xapi;
 use \Tests\BaseTest as TestCase;
-use \logstore_emitter\xapi\repository as xapi_repository;
 use \logstore_emitter\xapi\service as xapi_service;
 
 class ServiceTest extends TestCase {
@@ -9,7 +8,7 @@ class ServiceTest extends TestCase {
      * @override TestCase
      */
     public function setup() {
-        $this->service = new xapi_service(new xapi_repository(new TestRemoteLrs('', '1.0.1', '', '')));
+        $this->service = new xapi_service(new TestRepository(new TestRemoteLrs('', '1.0.1', '', '')));
     }
 
     /**
