@@ -72,6 +72,36 @@ class ServiceTest extends TestCase {
         $this->assertLog($test_data, $event);
     }
 
+    /**
+     * Tests the attempt_completed method of the xapi_service.
+     */
+    public function testReadAttemptCompletedEvent() {
+        $test_data = array_merge(
+            $this->constructUser(),
+            $this->constructLog(),
+            $this->contructObject('course'),
+            $this->contructObject('module'),
+            $this->constructAttempt(),
+            [
+                'recipe' => 'attempt_completed',
+                'attempt_result' => 1,
+                'attempt_completed' => true,
+                'attempt_duration' => 'P01DT',
+            ]
+        );
+        $event = $this->service->read_attempt_completed_event($test_data);
+
+        $this->assertUser($test_data, $event['actor']);
+        $this->assertVerb('http://adlnet.gov/expapi/verbs/completed', 'completed', $event['verb']);
+        $this->assertObject('course', $test_data, $event['context']['contextActivities']['grouping'][0]);
+        $this->assertObject('module', $test_data, $event['context']['contextActivities']['grouping'][1]);
+        $this->assertAttempt($test_data, $event['object']);
+        $this->assertLog($test_data, $event);
+        $this->assertEquals($test_data['attempt_result'], $event['result']['score']['raw']);
+        $this->assertEquals($test_data['attempt_completed'], $event['result']['completion']);
+        $this->assertEquals($test_data['attempt_duration'], $event['result']['duration']);
+    }
+
     private function constructUser() {
         return [
             'user_id' => 1,

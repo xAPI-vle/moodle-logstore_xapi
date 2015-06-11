@@ -88,7 +88,7 @@ class service extends php_obj {
     }
 
     /**
-     * Reads data for a attempt_started event.
+     * Reads data for a attempt_reviewed event.
      * @param [string => mixed] $opts
      * @return [string => mixed]
      */
