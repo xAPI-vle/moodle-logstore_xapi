@@ -19,7 +19,15 @@ class repository extends php_obj {
      */
     public function create_event(array $event) {
         $response = $this->store->saveStatement(new tincan_statement($event));
-        var_dump($response);
+        if ($response->success === false) {
+            \logstore_emitter\logger::log('tincan_remote_lrs error.');
+            \logstore_emitter\logger::error([
+                'response' => isset($response->content) ? $response->content : $response,
+            ]);
+            
+        } else {
+            \logstore_emitter\logger::log('Statement sent.');
+        }
         return $event;
     }
 }

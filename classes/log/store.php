@@ -63,7 +63,7 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function is_event_ignored(event_base $event) {
-        return !isset(moodle_controller::$routes[$event->eventname]);
+        return !(isset(moodle_controller::$routes[$event->eventname]) && $event->userid > 0);
     }
 
     /**

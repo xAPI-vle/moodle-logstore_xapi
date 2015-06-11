@@ -46,6 +46,18 @@ class repository extends php_obj {
     }
 
     /**
+     * Reads a quiz attempt from the store with the given id.
+     * @param string $id
+     * @return php_obj
+     */
+    public function read_attempt($id) {
+        $model = $this->read_object($id, 'quiz_attempts');
+        $model->url = $this->cfg->wwwroot . '/mod/quiz/attempt.php?attempt='.$id;
+        $model->name = 'Attempt '.$id;
+        return $model;
+    }
+
+    /**
      * Reads a course from the store with the given id.
      * @param string $id
      * @return php_obj

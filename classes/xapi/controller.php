@@ -6,6 +6,10 @@ class controller extends php_obj {
     public static $routes = [
         'course_viewed' => 'read_course_viewed_event',
         'module_viewed' => 'read_module_viewed_event',
+        'attempt_started' => 'read_attempt_started_event',
+        'attempt_completed' => 'read_attempt_completed_event',
+        'user_loggedin' => 'read_user_loggedin_event',
+        'user_loggedout' => 'read_user_loggedout_event',
     ];
 
     /**
@@ -23,6 +27,7 @@ class controller extends php_obj {
      */
     public function create(array $opts) {
         $route = $opts['recipe'];
+        \logstore_emitter\logger::log($route);
         if (isset(static::$routes[$route])) {
             $event = $this->service->{static::$routes[$route]}($opts);
             return $this->service->create_event($event);

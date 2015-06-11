@@ -2,3 +2,4 @@ vendor
 .DS_STORE
 *.sublime-project
 *.sublime-workspace
+logs

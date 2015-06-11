@@ -10,6 +10,10 @@ class controller extends php_obj {
         '\mod_url\event\course_module_viewed' => 'read_module_viewed_event',
         '\mod_folder\event\course_module_viewed' => 'read_module_viewed_event',
         '\mod_book\event\course_module_viewed' => 'read_module_viewed_event',
+        '\mod_quiz\event\attempt_preview_started' => 'read_attempt_started_event',
+        '\mod_quiz\event\attempt_reviewed' => 'read_attempt_reviewed_event',
+        '\core\event\user_loggedin' => 'read_user_loggedin_event',
+        '\core\event\user_loggedout' => 'read_user_loggedout_event',
     ];
 
     /**

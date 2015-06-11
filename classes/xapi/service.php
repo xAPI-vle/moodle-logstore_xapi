@@ -55,6 +55,31 @@ class service extends php_obj {
     }
 
     /**
+     * Reads data for a app from the opts.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    private function read_app(array $opts) {
+        return [
+            'id' => $opts['app_url'],
+            'definition' => [
+                'type' => 'http://activitystrea.ms/schema/1.0/application',
+                'name' => [
+                    'en-GB' => $opts['app_name'],
+                    'en-US' => $opts['app_name'],
+                ],
+                'description' => [
+                    'en-GB' => $opts['app_description'],
+                    'en-US' => $opts['app_description'],
+                ],
+                'extensions' => [
+                    $opts['app_ext_key'] => $opts['app_ext']
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Reads data for a course from the opts.
      * @param [string => mixed] $opts
      * @return [string => mixed]
@@ -69,11 +94,36 @@ class service extends php_obj {
                     'en-US' => $opts['course_name'],
                 ],
                 'description' => [
-                    'en-GB' => $opts['course_description'] ?: 'A course',
-                    'en-US' => $opts['course_description'] ?: 'A course',
+                    'en-GB' => $opts['course_description'],
+                    'en-US' => $opts['course_description'],
                 ],
                 'extensions' => [
                     $opts['course_ext_key'] => $opts['course_ext']
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Reads data for a module from the opts.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    private function read_module(array $opts) {
+        return [
+            'id' => $opts['module_url'],
+            'definition' => [
+                'type' => 'http://adlnet.gov/expapi/activities/module',
+                'name' => [
+                    'en-GB' => $opts['module_name'],
+                    'en-US' => $opts['module_name'],
+                ],
+                'description' => [
+                    'en-GB' => $opts['module_description'],
+                    'en-US' => $opts['module_description'],
+                ],
+                'extensions' => [
+                    $opts['module_ext_key'] => $opts['module_ext']
                 ],
             ],
         ];
@@ -97,23 +147,7 @@ class service extends php_obj {
      */
     public function read_module_viewed_event(array $opts) {
         return array_merge_recursive($this->read_viewed_event($opts), [
-            'object' => [
-                'id' => $opts['module_url'],
-                'definition' => [
-                    'type' => 'http://activitystrea.ms/schema/1.0/page',
-                    'name' => [
-                        'en-GB' => $opts['module_name'],
-                        'en-US' => $opts['module_name'],
-                    ],
-                    'description' => [
-                        'en-GB' => $opts['module_description'] ?: 'A module',
-                        'en-US' => $opts['module_description'] ?: 'A module',
-                    ],
-                    'extensions' => [
-                        $opts['module_ext_key'] => $opts['module_ext']
-                    ],
-                ],
-            ],
+            'object' => $this->read_module($opts),
             'context' => [
                 'contextActivities' => [
                     'grouping' => [
@@ -121,6 +155,104 @@ class service extends php_obj {
                     ],
                 ],
             ],
+        ]);
+    }
+
+    /**
+     * Reads data for a attempt_started event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_attempt_started_event(array $opts) {
+        return array_merge_recursive($this->read_event($opts), [
+            'verb' => [
+                'id' => 'http://activitystrea.ms/schema/1.0/start',
+                'display' => [
+                    'en-GB' => 'started',
+                    'en-US' => 'started',
+                ],
+            ],
+            'object' => [
+                'id' => $opts['attempt_url'],
+                'definition' => [
+                    'type' => 'http://activitystrea.ms/schema/1.0/page',
+                    'name' => [
+                        'en-GB' => $opts['attempt_name'],
+                        'en-US' => $opts['attempt_name'],
+                    ],
+                    'extensions' => [
+                        $opts['attempt_ext_key'] => $opts['attempt_ext']
+                    ],
+                ],
+            ],
+            'context' => [
+                'contextActivities' => [
+                    'grouping' => [
+                        $this->read_course($opts),
+                        $this->read_module($opts),
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Reads data for a attempt_completed event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_attempt_completed_event(array $opts) {
+        return array_merge($this->read_attempt_started_event($opts), [
+            'verb' => [
+                'id' => 'http://adlnet.gov/expapi/verbs/completed',
+                'display' => [
+                    'en-GB' => 'completed',
+                    'en-US' => 'completed',
+                ],
+            ],
+            'result' => [
+                'score' => [
+                    'raw' => $opts['attempt_result'],
+                ],
+                'completion' => $opts['attempt_completed'],
+                'duration' => $opts['attempt_duration'],
+            ],
+        ]);
+    }
+
+    /**
+     * Reads data for a user_loggedin event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_user_loggedin_event(array $opts) {
+        return array_merge($this->read_event($opts), [
+            'verb' => [
+                'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
+                'display' => [
+                    'en-GB' => 'logged in to',
+                    'en-US' => 'logged in to',
+                ],
+            ],
+            'object' => $this->read_app($opts),
+        ]);
+    }
+
+    /**
+     * Reads data for a user_loggedin event.
+     * @param [string => mixed] $opts
+     * @return [string => mixed]
+     */
+    public function read_user_loggedout_event(array $opts) {
+        return array_merge($this->read_event($opts), [
+            'verb' => [
+                'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedout/',
+                'display' => [
+                    'en-GB' => 'logged out of',
+                    'en-US' => 'logged out of',
+                ],
+            ],
+            'object' => $this->read_app($opts),
         ]);
     }
 
