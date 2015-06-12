@@ -27,7 +27,7 @@ class controller extends php_obj {
      * @param [string => mixed] $opts
      * @return [string => mixed]
      */
-    public function create(array $opts) {
+    public function create_event(array $opts) {
         $route = $opts['recipe'];
         \logstore_emitter\logger::log($route);
         if (isset(static::$routes[$route])) {

@@ -86,9 +86,9 @@ class store extends php_obj implements log_writer {
 
         // Emits events to other APIs.
         foreach ($events as $event) {
-            $moodle_event = $moodle_controller->create($event);
-            $translator_event = $translator_controller->create($moodle_event);
-            $xapi_event = $xapi_controller->create($translator_event);
+            $moodle_event = $moodle_controller->create_event($event);
+            $translator_event = $translator_controller->create_event($moodle_event);
+            $xapi_event = $xapi_controller->create_event($translator_event);
         }
     }
 

@@ -31,7 +31,7 @@ class controller extends php_obj {
      * @param [string => mixed] $opts
      * @return [string => mixed]
      */
-    public function create(array $opts) {
+    public function create_event(array $opts) {
         $route = $opts['event']['eventname'];
         if (isset(static::$routes[$route])) {
             return $this->service->{static::$routes[$route]}($opts);
