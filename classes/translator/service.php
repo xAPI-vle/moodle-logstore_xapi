@@ -78,7 +78,7 @@ class service extends php_obj {
             'module_name' => $opts['module']->name,
             'module_description' => $opts['module']->intro ?: 'A module',
             'module_ext' => $opts['module'],
-            'module_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_quiz',
+            'module_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_module',
             'course_url' => $opts['course']->url,
             'course_name' => $opts['course']->fullname ?: 'A Moodle course',
             'course_description' => $opts['course']->summary ?: 'A Moodle course',
