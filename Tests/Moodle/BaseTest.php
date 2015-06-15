@@ -101,54 +101,41 @@ abstract class BaseTest extends TestsBase {
         ]);
     }
 
-    // TODO: Done some of this, but not all!!!
     protected function assertCourseViewed($test_data, $event) {
         $this->assertUser($test_data['userid'], $event['user']);
         $this->assertCourse($test_data['courseid'], $event['course']);
         $this->assertEquals($test_data, $event['event']);
     }
 
-    protected function assertModuleViewed($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
-        $this->assertModule($test_data['objectid'], $event['module'], 'page');
-        $this->assertEquals($test_data, $event['event']);
+    protected function assertModuleViewed($test_data, $event, $type) {
+        $this->assertCourseViewed($test_data, $event);
+        $this->assertModule($test_data['objectid'], $event['module'], $type);
     }
 
     protected function assertAttemptStarted($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
+        $this->assertCourseViewed($test_data, $event);
         $this->assertModule(1, $event['module'], 'quiz');
         $this->assertAttempt($test_data['objectid'], $event['attempt']);
-        $this->assertEquals($test_data, $event['event']);
     }
 
     protected function assertUserLoggedin($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
-        $this->assertEquals($test_data, $event['event']);
+        $this->assertCourseViewed($test_data, $event);
     }
 
     protected function assertUserLoggedout($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
-        $this->assertEquals($test_data, $event['event']);
+        $this->assertCourseViewed($test_data, $event);
     }
 
     protected function assertAssignmentGraded($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
+        $this->assertCourseViewed($test_data, $event);
         $this->assertModule(1, $event['module'], 'assign');
         $this->assertRecord($test_data['objectid'], $event['grade']);
-        $this->assertEquals($test_data, $event['event']);
     }
 
     protected function assertAssignmentSubmitted($test_data, $event) {
-        $this->assertUser($test_data['userid'], $event['user']);
-        $this->assertCourse($test_data['courseid'], $event['course']);
+        $this->assertCourseViewed($test_data, $event);
         $this->assertModule(1, $event['module'], 'assign');
         $this->assertRecord($test_data['objectid'], $event['submission']);
-        $this->assertEquals($test_data, $event['event']);
     }
 
     protected function assertRecord($test_data, $actual_data) {

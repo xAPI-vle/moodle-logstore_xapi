@@ -25,7 +25,7 @@ class ServiceTest extends BaseTest {
     public function testReadModuleViewedEvent() {
         $test_data = $this->constructPageViewed();
         $event = $this->service->read_module_viewed_event($test_data);
-        $this->assertModuleViewed($test_data, $event);
+        $this->assertModuleViewed($test_data, $event, 'page');
     }
 
     /**
