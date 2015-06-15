@@ -17,12 +17,23 @@ class repository extends php_obj {
 
     /**
      * Reads an object from the store with the given id.
+     * @param string $type
+     * @param [string => mixed] $query
+     * @return php_obj
+     */
+    protected function read_store($type, array $query) {
+        $model = $this->store->get_record($type, $query);
+        return $model;
+    }
+
+    /**
+     * Reads an object from the store with the given id.
      * @param string $id
      * @param string $type
      * @return php_obj
      */
     public function read_object($id, $type) {
-        $model = $this->store->get_record($type, ['id' => $id]);
+        $model = $this->read_store($type, ['id' => $id]);
         return $model;
     }
 
@@ -34,8 +45,8 @@ class repository extends php_obj {
      */
     public function read_module($id, $type) {
         $model = $this->read_object($id, $type);
-        $module = $this->store->get_record('modules', ['name' => $type]);
-        $course_module = $this->store->get_record('course_modules', [
+        $module = $this->read_store('modules', ['name' => $type]);
+        $course_module = $this->read_store('course_modules', [
             'instance' => $id,
             'module' => $module->id,
             'course' => $model->course

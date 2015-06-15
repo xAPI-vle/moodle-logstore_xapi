@@ -190,9 +190,9 @@ abstract class BaseTest extends TestsBase {
     }
 
     protected function assertUser($test_data, $actual_data) {
-        $this->assertEquals($test_data->id ,$actual_data['user_id']);
-        $this->assertEquals($test_data->url ,$actual_data['user_url']);
-        $this->assertEquals($test_data->username ,$actual_data['user_name']);
+        $this->assertEquals($test_data->id, $actual_data['user_id']);
+        $this->assertEquals($test_data->url, $actual_data['user_url']);
+        $this->assertEquals($test_data->username, $actual_data['user_name']);
     }
 
     protected function assertEvent($test_data, $actual_data) {
