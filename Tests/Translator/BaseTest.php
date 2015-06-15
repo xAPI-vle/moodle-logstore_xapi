@@ -115,7 +115,7 @@ abstract class BaseTest extends TestsBase {
     }
 
     protected function constructAttempt() {
-        return [
+        return (object) [
             'url' => 'http://www.example.com/attempt_url',
             'name' => 'Test attempt_name',
             'timestart' => 1433946701,
@@ -154,8 +154,11 @@ abstract class BaseTest extends TestsBase {
         $this->assertCourse('course', $test_data['course'], $event);
         $this->assertModule('module', $test_data['module'], $event);
         $this->assertEvent($test_data['event'], $event);
-        $this->assertAttempt($test_data['attempt'], $event);
         $this->assertEquals('attempt_completed', $event['recipe']);
+        $attempt = $test_data['attempt'];
+        $this->assertAttempt($attempt, $event);
+        $this->assertEquals((float) $attempt->sumgrades, $event['attempt_result']);
+        $this->assertEquals($attempt->state === 'finished', $event['attempt_completed']);
     }
 
     protected function assertUserLoggedin($test_data, $event) {
@@ -226,8 +229,6 @@ abstract class BaseTest extends TestsBase {
         $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_attempt';
         $this->assertEquals($test_data->url, $actual_data['attempt_url']);
         $this->assertEquals($test_data->name, $actual_data['attempt_name']);
-        $this->assertEquals((float) $test_data->sumgrades, $actual_data['attempt_result']);
-        $this->assertEquals($test_data->state === 'finished', $actual_data['attempt_completed']);
         $this->assertEquals($test_data, $actual_data['attempt_ext']);
         $this->assertEquals($ext_key, $actual_data['attempt_ext_key']);
     }

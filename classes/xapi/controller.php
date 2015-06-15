@@ -28,7 +28,7 @@ class controller extends php_obj {
      * @return [string => mixed]
      */
     public function create_event(array $opts) {
-        $route = $opts['recipe'];
+        $route = isset($opts['recipe']) ? $opts['recipe'] : '';
         \logstore_emitter\logger::log($route);
         if (isset(static::$routes[$route])) {
             $event = $this->service->{static::$routes[$route]}($opts);
