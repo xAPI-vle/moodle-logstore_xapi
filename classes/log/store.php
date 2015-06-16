@@ -31,14 +31,14 @@ use \tool_log\helper\store as helper_store;
 use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
-use \logstore_emitter\xapi\controller as xapi_controller;
-use \logstore_emitter\xapi\service as xapi_service;
-use \logstore_emitter\xapi\repository as xapi_repository;
-use \logstore_emitter\translator\controller as translator_controller;
-use \logstore_emitter\translator\service as translator_service;
-use \logstore_emitter\moodle\controller as moodle_controller;
-use \logstore_emitter\moodle\service as moodle_service;
-use \logstore_emitter\moodle\repository as moodle_repository;
+use \XREmitter\Controller as xapi_controller;
+use \XREmitter\Service as xapi_service;
+use \XREmitter\Repository as xapi_repository;
+use \MXTranslator\Controller as translator_controller;
+use \MXTranslator\Service as translator_service;
+use \LogEmitter\Controller as moodle_controller;
+use \LogEmitter\service as moodle_service;
+use \LogEmitter\Repository as moodle_repository;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
 use \moodle_exception as moodle_exception;
 use \stdClass as php_obj;
@@ -63,11 +63,7 @@ class store extends php_obj implements log_writer {
      * @override helper_writer
      */
     protected function is_event_ignored(event_base $event) {
-        $ignored = !(isset(moodle_controller::$routes[$event->eventname]) && $event->userid > 0);
-        if ($ignored) {
-            \logstore_emitter\logger::log('Ignoring '.$event->eventname);
-        }
-        return $ignored;
+        return !(isset(moodle_controller::$routes[$event->eventname]) && $event->userid > 0);
     }
 
     /**
