@@ -10,8 +10,6 @@ return array(
     'XREmitter\\' => array($vendorDir . '/learninglocker/xapi-recipe-emitter/src'),
     'TinCan\\' => array($vendorDir . '/rusticisoftware/tincan/src'),
     'Tests\\' => array($baseDir . '/Tests', $vendorDir . '/learninglocker/moodle-log-expander/tests', $vendorDir . '/learninglocker/moodle-xapi-translator/tests', $vendorDir . '/learninglocker/xapi-recipe-emitter/tests'),
-    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'MXTranslator\\' => array($vendorDir . '/learninglocker/moodle-xapi-translator/src'),
     'LogExpander\\' => array($vendorDir . '/learninglocker/moodle-log-expander/src'),
-    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
 );
