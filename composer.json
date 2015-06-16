@@ -9,6 +9,9 @@
         "phpunit/phpunit": "~4.6"
     },
     "require": {
-        "rusticisoftware/tincan": "0.12.*"
+        "rusticisoftware/tincan": "0.12.*",
+        "learninglocker/moodle-log-expander": "dev-master",
+        "learninglocker/moodle-xapi-translator": "dev-master",
+        "learninglocker/xapi-recipe-emitter": "dev-master"
     }
 }
