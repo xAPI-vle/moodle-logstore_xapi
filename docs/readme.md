@@ -1,6 +1,6 @@
 - [Installation](installation.md)
-- [Supported Events](supported-events.md)
-- [Plugin Design](plugin-design.md)
+- [Supported Events](#supported-events)
+- [Plugin Design](#plugin-design)
 
 ## Supported Events
 - \core\event\course_viewed
