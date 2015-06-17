@@ -1,4 +1,3 @@
-# Installation
 1. [Get the requirements](#requirements).
 2. [Download the plugin](#downloading).
 3. [Install the plugin](#installing).
