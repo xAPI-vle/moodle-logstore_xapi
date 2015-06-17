@@ -1,4 +1,6 @@
 language: php
 php: 5.5
-install: composer update --no-interaction --dev
+install:
+  - composer clean-vendors
+  - composer install --prefer-source --no-interaction
 script: ./vendor/bin/phpunit

@@ -13,5 +13,21 @@
         "learninglocker/moodle-log-expander": "dev-master",
         "learninglocker/moodle-xapi-translator": "dev-master",
         "learninglocker/xapi-recipe-emitter": "dev-master"
+    },
+    "scripts": {
+        "clean-vendors":[
+            "rm -f composer.lock",
+            "rm -rf vendor"
+        ],
+        "build": [
+            "composer clean-vendors",
+            "composer install --prefer-source --no-dev",
+            "find vendor/ -type d -name '.git' | xargs rm -rf",
+            "find vendor/ -type f -name '.gitignore' | xargs rm -f"
+        ],
+        "dev": [
+            "composer clean-vendors",
+            "composer install --prefer-source"
+        ]
     }
 }

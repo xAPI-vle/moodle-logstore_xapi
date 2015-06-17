@@ -1,57 +1,5 @@
 [
     {
-        "name": "rusticisoftware/tincan",
-        "version": "0.12.0",
-        "version_normalized": "0.12.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/RusticiSoftware/TinCanPHP.git",
-            "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/RusticiSoftware/TinCanPHP/zipball/93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
-            "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
-            "shasum": ""
-        },
-        "require": {
-            "php": "~5.4"
-        },
-        "require-dev": {
-            "phpdocumentor/phpdocumentor": "2.*",
-            "phpunit/phpunit": "@stable"
-        },
-        "time": "2015-01-15 16:36:29",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "TinCan\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Brian J. Miller",
-                "email": "brian.miller@tincanapi.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "Tin Can API Library",
-        "homepage": "http://rusticisoftware.github.io/TinCanPHP/",
-        "keywords": [
-            "Experience API",
-            "e-learning",
-            "scorm",
-            "tin can",
-            "tincan",
-            "xAPI"
-        ]
-    },
-    {
         "name": "learninglocker/moodle-log-expander",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -116,18 +64,70 @@
         ]
     },
     {
+        "name": "rusticisoftware/tincan",
+        "version": "0.12.0",
+        "version_normalized": "0.12.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RusticiSoftware/TinCanPHP.git",
+            "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RusticiSoftware/TinCanPHP/zipball/93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
+            "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
+            "shasum": ""
+        },
+        "require": {
+            "php": "~5.4"
+        },
+        "require-dev": {
+            "phpdocumentor/phpdocumentor": "2.*",
+            "phpunit/phpunit": "@stable"
+        },
+        "time": "2015-01-15 16:36:29",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "TinCan\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Brian J. Miller",
+                "email": "brian.miller@tincanapi.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Tin Can API Library",
+        "homepage": "http://rusticisoftware.github.io/TinCanPHP/",
+        "keywords": [
+            "Experience API",
+            "e-learning",
+            "scorm",
+            "tin can",
+            "tincan",
+            "xAPI"
+        ]
+    },
+    {
         "name": "learninglocker/xapi-recipe-emitter",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-            "reference": "7a2f2ddbcf361415a1d0b47b5c3136fcb07dfc95"
+            "reference": "c86d71de017ff3037a273de7600528c16bc893c5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/7a2f2ddbcf361415a1d0b47b5c3136fcb07dfc95",
-            "reference": "7a2f2ddbcf361415a1d0b47b5c3136fcb07dfc95",
+            "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/c86d71de017ff3037a273de7600528c16bc893c5",
+            "reference": "c86d71de017ff3037a273de7600528c16bc893c5",
             "shasum": ""
         },
         "require": {
@@ -136,7 +136,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.6"
         },
-        "time": "2015-06-16 14:13:50",
+        "time": "2015-06-16 15:37:43",
         "type": "library",
         "installation-source": "source",
         "autoload": {
