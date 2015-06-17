@@ -14,15 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * English strings for xapi
+ * External xapi log store plugin
  *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
- *
- * @package    logstore_emitter
- * @copyright  2015 Jerrett Fowler
+ * @package    logstore_xapi
+ * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
+ *                  Ryan Smith <ryan.smith@ht2.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

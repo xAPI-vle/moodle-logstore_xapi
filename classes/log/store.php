@@ -15,10 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Logstore emitter.
- * @package logstore_emitter
- * @copyright 2015 Jerrett Fowler {@link http://charitylearning.org}
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * External xapi log store plugin
+ *
+ * @package    logstore_xapi
+ * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
+ *                  Ryan Smith <ryan.smith@ht2.co.uk>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace logstore_emitter\log;

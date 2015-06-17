@@ -15,20 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External xapi log store.
+ * External xapi log store plugin
  *
- * Setting the $plugin->version to 0 prevents the plugin from being installed.
- * See https://docs.moodle.org/dev/version.php for more info.
- *
- * @package    logstore_emitter
+ * @package    logstore_xapi
  * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
+ *                  Ryan Smith <ryan.smith@ht2.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'logstore_emitter';
-$plugin->version = 2015060100;
+$plugin->component = 'logstore_xapi';
+$plugin->version = 2015061700;
 $plugin->release = '0.5';
 $plugin->requires = 2014111002;
 $plugin->maturity = MATURITY_BETA;

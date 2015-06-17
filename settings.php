@@ -15,20 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * xAPI log store settings.
+ * External xapi log store plugin
  *
- * @copyright 2015 Jerrett Fowler <jfowler@charitylearning.org>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package   logstore_emitter
+ * @package    logstore_xapi
+ * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
+ *                  Ryan Smith <ryan.smith@ht2.co.uk>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
     //endpoint
-    $settings->add(new admin_setting_configtext('logstore_emitter/endpoint', get_string('endpoint', 'logstore_emitter'), '', 'http://your.domain.com/endpoint/location/', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('logstore_xapi/endpoint', get_string('endpoint', 'logstore_xapi'), '', 'http://your.domain.com/endpoint/location/', PARAM_TEXT));
     //username
-    $settings->add(new admin_setting_configtext('logstore_emitter/username', get_string('username', 'logstore_emitter'), '', 'username', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('logstore_xapi/username', get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
     //key or password
-    $settings->add(new admin_setting_configtext('logstore_emitter/password', get_string('password', 'logstore_emitter'), '', 'password', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('logstore_xapi/password', get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
 }
