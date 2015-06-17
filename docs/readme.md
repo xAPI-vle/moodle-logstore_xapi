@@ -31,3 +31,5 @@ The plugin uses the three parts listed above in the following way.
 4. The Translator translates expanded events to xAPI recipe options.
 5. The plugin passes the translated events from step 4 to the Emitter.
 6. The Emitter constructs the translated events as xAPI statements and emits them to the [configured LRS](installation.md#configuration).
+
+These parts have been separated into their own repositories to improve their reusability since these parts will be used in other projects.
