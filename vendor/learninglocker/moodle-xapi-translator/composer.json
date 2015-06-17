@@ -1,0 +1,13 @@
+{
+    "name": "learninglocker/moodle-xapi-translator",
+    "license": "GPL v3",
+    "autoload": {
+        "psr-4": {
+          "MXTranslator\\": "src/",
+          "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.6"
+    }
+}

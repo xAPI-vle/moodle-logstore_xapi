@@ -1,0 +1,38 @@
+{
+    "name": "rusticisoftware/tincan",
+    "type": "library",
+    "description": "Tin Can API Library",
+    "homepage": "http://rusticisoftware.github.io/TinCanPHP/",
+    "keywords": [
+        "tin can",
+        "tincan",
+        "xapi",
+        "experience api",
+        "e-learning",
+        "scorm"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Brian J. Miller",
+            "email": "brian.miller@tincanapi.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@tincanapi.com",
+        "issues": "https://github.com/RusticiSoftware/TinCanPHP/issues"
+    },
+    "require": {
+        "php": "~5.4"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.*",
+        "phpunit/phpunit": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "TinCan\\": "src/"
+        }
+    }
+}
