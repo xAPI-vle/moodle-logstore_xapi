@@ -33,3 +33,14 @@ The plugin uses the three parts listed above in the following way.
 6. The Emitter constructs the translated events as xAPI statements and emits them to the [configured LRS](installation.md#configuration).
 
 These parts have been separated into their own repositories to improve their reusability since these parts will be used in other projects.
+
+## Plugin Release Process
+This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
+
+1. Run `composer build` on the branch to be released.
+2. Commit changes from step 1.
+3. Create release on Github.
+  1. Document patches.
+  2. Document minor changes.
+  3. Document major changes.
+  4. Document migrations and additional notes.
