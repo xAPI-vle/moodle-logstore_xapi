@@ -1,6 +1,7 @@
 1. [Get the requirements](#requirements).
 2. [Download the plugin](#downloading).
 3. [Install the plugin](#installing).
+4. [Configure the plugin](#configuring)
 
 ## Requirements
 You obviously need to have [Moodle](https://moodle.org/) installed first and you need to be logged in as an Admin.
@@ -21,3 +22,8 @@ You obviously need to have [Moodle](https://moodle.org/) installed first and you
 2. Follow through the upgrade and enter your LRS details when required.
 3. Go to "http://www.example.com/admin/settings.php?section=managelogging".
 4. Enable the "Logstore Emitter" plugin.
+
+## Configuring
+1. Go to "http://www.example.com/admin/settings.php?section=logsettingxapi".
+2. Modify your LRS details.
+3. Click "Save changes".
