@@ -11,8 +11,7 @@ Moodle Event Name | xAPI Recipe Example
 \mod_quiz\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_url\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_folder\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_book\event\course_module_viewed |
-[ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_book\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_quiz\event\attempt_preview_started | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_quiz\event\attempt_reviewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_scorm\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
