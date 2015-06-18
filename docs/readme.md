@@ -4,18 +4,20 @@
 - [Plugin Release Process](#plugin-release-process)
 
 ## Supported Events
-- \core\event\course_viewed
-- \mod_page\event\course_module_viewed
-- \mod_quiz\event\course_module_viewed
-- \mod_url\event\course_module_viewed
-- \mod_folder\event\course_module_viewed
-- \mod_book\event\course_module_viewed
-- \mod_quiz\event\attempt_preview_started
-- \mod_quiz\event\attempt_reviewed
-- \core\event\user_loggedin
-- \core\event\user_loggedout
-- \mod_assign\event\submission_graded
-- \mod_assign\event\assessable_submitted
+Moodle Event Name | xAPI Recipe Example
+--- | ---
+\core\event\course_viewed | [CourseViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/CourseViewed.json)
+\mod_page\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_quiz\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_url\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_folder\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_book\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_quiz\event\attempt_preview_started | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_quiz\event\attempt_reviewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\core\event\user_loggedin | [UserLoggedin](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedin.json)
+\core\event\user_loggedout | [UserLoggedout](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedout.json)
+\mod_assign\event\submission_graded | [AssignmentGraded](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentGraded.json)
+\mod_assign\event\assessable_submitted  | [AssignmentSubmitted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentSubmitted.json)
 
 ## Plugin Design
 The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
