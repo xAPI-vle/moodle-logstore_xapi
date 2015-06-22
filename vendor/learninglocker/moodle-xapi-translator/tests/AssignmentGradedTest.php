@@ -17,11 +17,13 @@ class AssignmentGradedTest extends ModuleViewedTest {
             'grade' => (object) [
                 'grade' => 1,
             ],
+            'graded_user' => $this->constructUser(),
         ]);
     }
 
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertEquals($input['grade']->grade, $output['grade_result']);
+        $this->assertUser($input['graded_user'], $output, 'graded_user');
     }
 }

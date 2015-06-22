@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "actor": {
+        "objectType": "Agent",
+        "name": "ryansmith",
+        "account": {
+            "name": "3",
+            "homePage": "http://localhost/moodle"
+        }
+    },
+    "verb": {
+        "id": "https://brindlewaye.com/xAPITerms/verbs/loggedin/",
+        "display": {
+            "en-GB": "logged in to",
+            "en-US": "logged in to"
+        }
+    },
+    "context": {
+        "platform": "Moodle",
+        "extensions": {
+            "http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log": {
+                "eventname": "\\core\\event\\user_loggedin",
+                "component": "core",
+                "action": "loggedin",
+                "objecttable": "user",
+                "objectid": "3",
+                "crud": "r",
+                "contextid": 1,
+                "contextlevel": 10,
+                "userid": "3",
+                "other": "a:1:{s:8:\"username\";s:9:\"ryansmith\";}",
+                "timecreated": 1434553404,
+                "origin": "web",
+                "ip": "127.0.0.1",
+                "object": "user"
+            }
+        }
+    },
+    "timestamp": "2015-06-17T16:03:24+01:00",
+    "object": {
+        "objectType": "Activity",
+        "id": "http://localhost/moodle",
+        "definition": {
+            "type": "http://activitystrea.ms/schema/1.0/application",
+            "name": {
+                "en-GB": "A Moodle course",
+                "en-US": "A Moodle course"
+            },
+            "description": {
+                "en-GB": "A Moodle course",
+                "en-US": "A Moodle course"
+            },
+            "extensions": {
+                "http://lrs.learninglocker.net/define/extensions/moodle_course": {
+                    "url": "http://localhost/moodle"
+                }
+            }
+        }
+    },
+    "authority": {
+        "objectType": "Agent",
+        "name": "New Client",
+        "mbox": "mailto:hello@learninglocker.net"
+    },
+    "stored": "2015-06-17T15:03:24.484500+00:00",
+    "id": "1d5e50a4-4aae-4fb2-9383-5271bccbc8c0"
+}

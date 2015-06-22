@@ -6,18 +6,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-            "reference": "e5ba31da9f1f5f4f54874170c8f75081c2eb8bc7"
+            "reference": "323cf39cbfa3841d1a843157d971bcabe10efffb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/e5ba31da9f1f5f4f54874170c8f75081c2eb8bc7",
-            "reference": "e5ba31da9f1f5f4f54874170c8f75081c2eb8bc7",
+            "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/323cf39cbfa3841d1a843157d971bcabe10efffb",
+            "reference": "323cf39cbfa3841d1a843157d971bcabe10efffb",
             "shasum": ""
         },
         "require-dev": {
             "phpunit/phpunit": "~4.6"
         },
-        "time": "2015-06-16 13:21:06",
+        "time": "2015-06-18 10:49:13",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -38,18 +38,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-            "reference": "5de936993ec26d3067b1af98f4527b6c4fb28198"
+            "reference": "645596ff24731cd06db1e77c0404166d8ce35620"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/5de936993ec26d3067b1af98f4527b6c4fb28198",
-            "reference": "5de936993ec26d3067b1af98f4527b6c4fb28198",
+            "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/645596ff24731cd06db1e77c0404166d8ce35620",
+            "reference": "645596ff24731cd06db1e77c0404166d8ce35620",
             "shasum": ""
         },
         "require-dev": {
             "phpunit/phpunit": "~4.6"
         },
-        "time": "2015-06-16 14:45:26",
+        "time": "2015-06-18 11:01:48",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -122,12 +122,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-            "reference": "c86d71de017ff3037a273de7600528c16bc893c5"
+            "reference": "9641afb438872fc0c270a67c88ca2966185ff905"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/c86d71de017ff3037a273de7600528c16bc893c5",
-            "reference": "c86d71de017ff3037a273de7600528c16bc893c5",
+            "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/9641afb438872fc0c270a67c88ca2966185ff905",
+            "reference": "9641afb438872fc0c270a67c88ca2966185ff905",
             "shasum": ""
         },
         "require": {
@@ -136,7 +136,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.6"
         },
-        "time": "2015-06-16 15:37:43",
+        "time": "2015-06-18 10:30:25",
         "type": "library",
         "installation-source": "source",
         "autoload": {

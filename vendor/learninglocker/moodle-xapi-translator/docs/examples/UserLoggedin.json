@@ -1,0 +1,39 @@
+{
+    "user_id": "2",
+    "user_url": "http:\/\/localhost\/moodle",
+    "user_name": "testuser",
+    "context_lang": null,
+    "context_platform": "Moodle",
+    "context_ext": {
+        "eventname": "\\core\\event\\user_loggedin",
+        "component": "core",
+        "action": "loggedin",
+        "target": "user",
+        "objecttable": "user",
+        "objectid": "2",
+        "crud": "r",
+        "edulevel": 0,
+        "contextid": 1,
+        "contextlevel": 10,
+        "contextinstanceid": "0",
+        "userid": "2",
+        "courseid": 0,
+        "relateduserid": null,
+        "anonymous": 0,
+        "other": "a:1:{s:8:\"username\";s:13:\"ben@ht2.co.uk\";}",
+        "timecreated": 1434625073,
+        "origin": "web",
+        "ip": "127.0.0.1",
+        "realuserid": null
+    },
+    "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
+    "time": "2015-06-18T11:57:53+01:00",
+    "recipe": "user_loggedin",
+    "app_url": "http:\/\/localhost\/moodle",
+    "app_name": "A Moodle course",
+    "app_description": "A Moodle course",
+    "app_ext": {
+        "url": "http:\/\/localhost\/moodle"
+    },
+    "app_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course"
+}

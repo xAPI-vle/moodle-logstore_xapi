@@ -11,6 +11,7 @@ class AssignmentGraded extends Event {
         $grade = $this->repo->readObject($opts['objectid'], $opts['objecttable']);
         return array_merge(parent::read($opts), [
             'grade' => $grade,
+            'graded_user' => $this->repo->readUser($grade->userid),
             'module' => $this->repo->readModule($grade->assignment, 'assign'),
         ]);
     }

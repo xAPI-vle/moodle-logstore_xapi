@@ -1,0 +1,39 @@
+{
+    "user_id": "2",
+    "user_url": "http:\/\/localhost\/moodle",
+    "user_name": "testuser",
+    "context_lang": null,
+    "context_platform": "Moodle",
+    "context_ext": {
+        "eventname": "\\core\\event\\user_loggedout",
+        "component": "core",
+        "action": "loggedout",
+        "target": "user",
+        "objecttable": "user",
+        "objectid": "2",
+        "crud": "r",
+        "edulevel": 0,
+        "contextid": 1,
+        "contextlevel": 10,
+        "contextinstanceid": "0",
+        "userid": "2",
+        "courseid": 0,
+        "relateduserid": null,
+        "anonymous": 0,
+        "other": "a:1:{s:9:\"sessionid\";s:26:\"cdf3k2u6aoh2f8qbaue0m8ke76\";}",
+        "timecreated": 1434625038,
+        "origin": "web",
+        "ip": "127.0.0.1",
+        "realuserid": null
+    },
+    "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
+    "time": "2015-06-18T11:57:18+01:00",
+    "recipe": "user_loggedout",
+    "app_url": "http:\/\/localhost\/moodle",
+    "app_name": "A Moodle course",
+    "app_description": "A Moodle course",
+    "app_ext": {
+        "url": "http:\/\/localhost\/moodle"
+    },
+    "app_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course"
+}

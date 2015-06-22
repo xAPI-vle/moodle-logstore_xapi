@@ -22,11 +22,19 @@ class AssignmentGraded extends Event {
                 ],
                 'completion' => true,
             ],
-            'object' => $this->readModule($opts),
+            'object' => [
+                'objectType' => 'Agent',
+                'name' => $opts['graded_user_name'],
+                'account' => [
+                    'homePage' => $opts['graded_user_url'],
+                    'name' => $opts['graded_user_id'],
+                ],
+            ],
             'context' => [
                 'contextActivities' => [
                     'grouping' => [
                         $this->readCourse($opts),
+                        $this->readModule($opts),
                     ],
                 ],
             ],

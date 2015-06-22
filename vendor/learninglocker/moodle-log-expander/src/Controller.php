@@ -10,6 +10,7 @@ class Controller extends PhpObj {
         '\mod_url\event\course_module_viewed' => 'ModuleEvent',
         '\mod_folder\event\course_module_viewed' => 'ModuleEvent',
         '\mod_book\event\course_module_viewed' => 'ModuleEvent',
+        '\mod_scorm\event\course_module_viewed' => 'ModuleEvent',
         '\mod_quiz\event\attempt_preview_started' => 'AttemptEvent',
         '\mod_quiz\event\attempt_reviewed' => 'AttemptEvent',
         '\core\event\user_loggedin' => 'Event',

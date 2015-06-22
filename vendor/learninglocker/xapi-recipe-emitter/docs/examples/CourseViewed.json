@@ -1,0 +1,98 @@
+{
+    "version": "1.0.0",
+    "actor": {
+        "objectType": "Agent",
+        "name": "ryansmith",
+        "account": {
+            "name": "2",
+            "homePage": "http://localhost/moodle"
+        }
+    },
+    "verb": {
+        "id": "http://id.tincanapi.com/verb/viewed",
+        "display": {
+            "en-GB": "viewed",
+            "en-US": "viewed"
+        }
+    },
+    "context": {
+        "platform": "Moodle",
+        "extensions": {
+            "http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log": {
+                "eventname": "\\core\\event\\course_viewed",
+                "component": "core",
+                "action": "viewed",
+                "crud": "r",
+                "edulevel": 2,
+                "contextid": 24,
+                "contextlevel": 50,
+                "contextinstanceid": "2",
+                "userid": "2",
+                "courseid": "2",
+                "other": "N;",
+                "timecreated": 1434539407,
+                "origin": "web",
+                "ip": "127.0.0.1",
+                "object": "course"
+            }
+        }
+    },
+    "timestamp": "2015-06-17T12:10:07+01:00",
+    "object": {
+        "objectType": "Activity",
+        "id": "http://localhost/moodle/course.php?id=2",
+        "definition": {
+            "type": "http://adlnet.gov/expapi/activities/course",
+            "name": {
+                "en-GB": "My Test Course 1",
+                "en-US": "My Test Course 1"
+            },
+            "description": {
+                "en-GB": "<p>A test course.</p>",
+                "en-US": "<p>A test course.</p>"
+            },
+            "extensions": {
+                "http://lrs.learninglocker.net/define/extensions/moodle_course": {
+                    "id": "2",
+                    "category": "1",
+                    "sortorder": "10002",
+                    "fullname": "My Test Course 1",
+                    "shortname": "MTC1",
+                    "idnumber": "MTC1",
+                    "summary": "<p>A test course.</p>",
+                    "summaryformat": "1",
+                    "format": "weeks",
+                    "showgrades": "1",
+                    "newsitems": "5",
+                    "startdate": "1433890800",
+                    "marker": "0",
+                    "maxbytes": "0",
+                    "legacyfiles": "0",
+                    "showreports": "0",
+                    "visible": "1",
+                    "visibleold": "1",
+                    "groupmode": "0",
+                    "groupmodeforce": "0",
+                    "defaultgroupingid": "0",
+                    "lang": "",
+                    "calendartype": "",
+                    "theme": "",
+                    "timecreated": "1433844784",
+                    "timemodified": "1433844784",
+                    "requested": "0",
+                    "enablecompletion": "0",
+                    "completionnotify": "0",
+                    "cacherev": "1434018611",
+                    "url": "http://localhost/moodle/course.php?id=2"
+                }
+            }
+        }
+    },
+    "authority": {
+        "objectType": "Agent",
+        "name": "New Client",
+        "mbox": "mailto:hello@learninglocker.net"
+    },
+    "stored": "2015-06-17T11:10:07.938000+00:00",
+    "id": "89cd2edf-e90e-436e-9976-3afbf844bf70"
+}

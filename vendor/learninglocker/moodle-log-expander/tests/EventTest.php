@@ -49,7 +49,7 @@ class EventTest extends PhpUnitTestCase {
         $this->assertEquals($input, $output->id);
     }
 
-    private function assertUser($input, $output) {
+    protected function assertUser($input, $output) {
         $this->assertRecord($input, $output);
         $this->assertEquals($this->cfg->wwwroot, $output->url);
     }

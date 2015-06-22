@@ -27,17 +27,17 @@ abstract class EventTest extends PhpUnitTestCase {
 
     protected function constructInput() {
         return array_merge(
-            $this->constructUser(),
+            $this->constructUser('user'),
             $this->constructLog(),
             ['recipe' => static::$recipe_name]
         );
     }
 
-    private function constructUser() {
+    protected function constructUser($type) {
         return [
-            'user_id' => 1,
-            'user_url' => 'http://www.example.com/user_url',
-            'user_name' => 'Test user_name',
+            $type.'_id' => 1,
+            $type.'_url' => 'http://www.example.com/'.$type.'_url',
+            $type.'_name' => 'Test '.$type.'_name',
         ];
     }
 
@@ -77,14 +77,14 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     protected function assertOutput($input, $output) {
-        $this->assertUser($input, $output['actor']);
+        $this->assertUser($input, $output['actor'], 'user');
         $this->assertLog($input, $output);
     }
 
-    private function assertUser($input, $output) {
-        $this->assertEquals($input['user_id'], $output['account']['name']);
-        $this->assertEquals($input['user_url'], $output['account']['homePage']);
-        $this->assertEquals($input['user_name'], $output['name']);
+    protected function assertUser($input, $output, $type) {
+        $this->assertEquals($input[$type.'_id'], $output['account']['name']);
+        $this->assertEquals($input[$type.'_url'], $output['account']['homePage']);
+        $this->assertEquals($input[$type.'_name'], $output['name']);
     }
 
     private function assertLog($input, $output) {

@@ -37,7 +37,7 @@ abstract class EventTest extends PhpUnitTestCase {
         ];
     }
 
-    private function constructUser() {
+    protected function constructUser() {
         return (object) [
             'id' => 1,
             'url' => 'http://www.example.com/user_url',
@@ -62,15 +62,15 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     protected function assertOutput($input, $output) {
-        $this->assertUser($input['user'], $output);
+        $this->assertUser($input['user'], $output, 'user');
         $this->assertEvent($input['event'], $output);
         $this->assertEquals(static::$recipe_name, $output['recipe']);
     }
 
-    private function assertUser($input, $output) {
-        $this->assertEquals($input->id, $output['user_id']);
-        $this->assertEquals($input->url, $output['user_url']);
-        $this->assertEquals($input->username, $output['user_name']);
+    protected function assertUser($input, $output, $type) {
+        $this->assertEquals($input->id, $output[$type.'_id']);
+        $this->assertEquals($input->url, $output[$type.'_url']);
+        $this->assertEquals($input->username, $output[$type.'_name']);
     }
 
     protected function assertCourse($input, $output, $type) {
