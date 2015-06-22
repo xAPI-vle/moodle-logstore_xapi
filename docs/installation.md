@@ -15,13 +15,13 @@ You obviously need to have [Moodle](https://moodle.org/) installed first and you
 
 #### Downloading via Git (for developers)
 1. Run `cd admin/tool/log/store/` from the root directory of Moodle.
-2. Run `git clone git@github.com:jlowe64/moodle-logstore-xapi.git emitter`.
+2. Run `git clone git@github.com:jlowe64/moodle-logstore-xapi.git xapi`.
 
 ## Installing
 1. Go to "http://www.example.com/admin/index.php".
 2. Follow through the upgrade and enter your LRS details when required.
 3. Go to "http://www.example.com/admin/settings.php?section=managelogging".
-4. Enable the "Logstore Emitter" plugin.
+4. Enable the "Logstore xAPI" plugin.
 
 ## Configuring
 1. Go to "http://www.example.com/admin/settings.php?section=logsettingxapi".
