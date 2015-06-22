@@ -1,4 +1,6 @@
 {
+    "name": "jlowe64/moodle-logstore-xapi",
+    "license": "GPL v3",
     "autoload": {
         "psr-4": {
           "logstore_xapi\\": "classes/",
