@@ -8,7 +8,7 @@ You obviously need to have [Moodle](https://moodle.org/) installed first and you
 
 ## Downloading
 #### Downloading via Zip (for users)
-1. [Download the plugin](https://github.com/LearningLocker/learninglocker/archive/develop.zip).
+1. [Download the plugin](https://github.com/jlowe64/moodle-logstore-xapi/releases) as a zip or tar.
 2. Go to "http://www.example.com/admin/tool/installaddon/index.php".
 3. Drag and drop your download.
 4. Click "Install the plugin from the ZIP file".
