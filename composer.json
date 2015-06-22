@@ -12,9 +12,9 @@
     },
     "require": {
         "rusticisoftware/tincan": "0.12.*",
-        "learninglocker/moodle-log-expander": "dev-master",
-        "learninglocker/moodle-xapi-translator": "dev-master",
-        "learninglocker/xapi-recipe-emitter": "dev-master"
+        "learninglocker/moodle-log-expander": "~0.0",
+        "learninglocker/moodle-xapi-translator": "~0.0",
+        "learninglocker/xapi-recipe-emitter": "~0.0"
     },
     "scripts": {
         "clean-vendors":[
@@ -31,5 +31,7 @@
             "composer clean-vendors",
             "composer install --prefer-source"
         ]
-    }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
 }

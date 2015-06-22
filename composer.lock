@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9389d2230680fb08c14c8efa6c01b9c",
+    "hash": "d12448c56dec832daae55638f0bafe53",
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "dev-master",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
@@ -38,7 +38,7 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "dev-master",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
@@ -68,7 +68,7 @@
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "dev-master",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
@@ -152,13 +152,9 @@
     ],
     "packages-dev": null,
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {
-        "learninglocker/moodle-log-expander": 20,
-        "learninglocker/moodle-xapi-translator": 20,
-        "learninglocker/xapi-recipe-emitter": 20
-    },
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
