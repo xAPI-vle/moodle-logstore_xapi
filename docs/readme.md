@@ -24,9 +24,9 @@ Moodle Event Name | xAPI Recipe Example
 ## Plugin Design
 The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
 
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter)
+- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
+- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
+- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
 
 The plugin uses the three parts listed above in the following way.
 
