@@ -1,6 +1,7 @@
 - [Installation](installation.md)
 - [Supported Events](#supported-events)
 - [Plugin Design](#plugin-design)
+- [Adding Events](#adding-events.md)
 - [Plugin Release Process](#plugin-release-process)
 
 ## Supported Events
@@ -37,6 +38,19 @@ The plugin uses the three parts listed above in the following way.
 6. The Emitter constructs the translated events as xAPI statements and emits them to the [configured LRS](installation.md#configuration).
 
 These parts have been separated into their own repositories to improve their reusability since these parts will be used in other projects.
+
+## Adding Events
+Assuming you've already [installed (using Git)](installation.md), you'll need to follow the steps below to begin developing.
+
+1. Run `cd admin/tool/log/store/xapi` from the root directory of Moodle.
+2. Run `php -r "readfile('https://getcomposer.org/installer');" | php` to install Composer.
+3. Run `php composer.phar dev` to install the dependencies from their Github repositories (rather than Packagist).
+
+You'll now be able to modify and test events, by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
+
+- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander)
+- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator)
+- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter)
 
 ## Plugin Release Process
 This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
