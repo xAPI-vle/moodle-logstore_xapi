@@ -1,7 +1,7 @@
 - [Installation](installation.md)
 - [Supported Events](#supported-events)
 - [Plugin Design](#plugin-design)
-- [Adding Events](#adding-events.md)
+- [Adding Events](#adding-events)
 - [Plugin Release Process](#plugin-release-process)
 
 ## Supported Events
