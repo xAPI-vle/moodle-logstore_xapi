@@ -46,7 +46,7 @@ Assuming you've already [installed (using Git)](installation.md), you'll need to
 2. Run `php -r "readfile('https://getcomposer.org/installer');" | php` to install Composer.
 3. Run `php composer.phar dev` to install the dependencies from their Github repositories (rather than Packagist).
 
-You'll now be able to modify and test events, by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
+You'll now be able to modify and test events by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
 - [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander)
 - [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator)
