@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace logstore_emitter\log;
+namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
 require_once __DIR__ . '/../../vendor/autoload.php';
