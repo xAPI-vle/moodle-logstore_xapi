@@ -4,7 +4,7 @@ install:
   - composer install --prefer-source --no-interaction
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
-  - zip xapi *
+  - zip xapi * -r
   - git add xapi.zip
   - git commit -m "Builds zip file."
   - git push --force --quiet "https://$GH_TOKEN@$GH_REF" $TRAVIS_BRANCH:$TRAVIS_BRANCH
