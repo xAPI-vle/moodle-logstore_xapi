@@ -2,7 +2,7 @@ language: php
 php: 5.5
 install: composer install --prefer-source --no-interaction
 script: ./vendor/bin/phpunit
-after-script:
+after_script:
   - composer install --prefer-source --no-interaction --no-dev
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
