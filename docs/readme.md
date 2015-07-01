@@ -56,8 +56,9 @@ You'll now be able to modify and test events by updating the code inside the "ve
 This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
 
 1. Run `sh build.sh` on the branch to be released.
-2. Commit changes from step 1.
-3. Create release on Github.
+2. Modify the VERSION file.
+3. Modify the version.php file.
+4. Create release on Github.
   1. Document patches.
   2. Document minor changes.
   3. Document major changes.
