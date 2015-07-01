@@ -1,1 +1,3 @@
-git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" ${TRAVIS_BRANCH}:${TRAVIS_BRANCH} > /dev/null 2>&1
+#!/usr/bin/env sh
+
+git push "https://${GH_TOKEN}@${GH_REF}" ${TRAVIS_BRANCH}:${TRAVIS_BRANCH}
