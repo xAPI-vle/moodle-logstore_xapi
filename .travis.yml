@@ -7,7 +7,10 @@ after_script:
   - composer install --prefer-source --no-interaction --no-dev
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
-  - zip xapi * -r
+  - cd ..
+  - mv moodle-logstore-xapi xapi
+  - zip xapi xapi/xapi -r
+  - cd xapi
   - git add xapi.zip
   - git commit -m "Builds zip file."
   - sh push.sh
