@@ -1,8 +1,0 @@
-language: php
-php:
-  - 5.5
-  - 5.4
-  - hhvm
-before_script:
-  - cp tests/Config.php.travis-ci tests/Config.php
-  - composer install --dev
