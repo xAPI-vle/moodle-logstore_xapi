@@ -9,7 +9,7 @@ after_script:
   - git config user.email "travis@nodemeatspace.com"
   - cd ..
   - mv moodle-logstore-xapi xapi
-  - zip xapi xapi/xapi -r
+  - zip xapi/xapi xapi -r
   - cd xapi
   - git add xapi.zip
   - git commit -m "Builds zip file."
