@@ -8,10 +8,8 @@ after_script:
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
   - zip xapi * -r
-  - git status
   - git add xapi.zip
   - git commit -m "Builds zip file."
-  - git status
   - sh push.sh
 env:
   global:
