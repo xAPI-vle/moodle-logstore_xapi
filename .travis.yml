@@ -3,12 +3,15 @@ php: 5.5
 install: composer install --prefer-source --no-interaction
 script: ./vendor/bin/phpunit
 after_script:
+  - git checkout $TRAVIS_BRANCH
   - composer install --prefer-source --no-interaction --no-dev
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
   - zip xapi * -r
+  - git status
   - git add xapi.zip
   - git commit -m "Builds zip file."
+  - git status
   - sh push.sh
 env:
   global:
