@@ -1,7 +1,6 @@
 language: php
 php: 5.5
 install:
-  - composer clean-vendors
   - composer install --prefer-source --no-interaction
   - git config user.name "Travis-CI"
   - git config user.email "travis@nodemeatspace.com"
