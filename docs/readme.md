@@ -44,7 +44,7 @@ Assuming you've already [installed (using Git)](installation.md), you'll need to
 
 1. Run `cd admin/tool/log/store/xapi` from the root directory of Moodle.
 2. Run `php -r "readfile('https://getcomposer.org/installer');" | php` to install Composer.
-3. Run `php composer.phar dev` to install the dependencies from their Github repositories (rather than Packagist).
+3. Run `php composer.phar install --prefer-source` to install the dependencies from their Github repositories (rather than Packagist).
 
 You'll now be able to modify and test events by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
