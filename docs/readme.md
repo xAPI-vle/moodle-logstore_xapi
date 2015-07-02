@@ -40,7 +40,7 @@ The plugin uses the three parts listed above in the following way.
 These parts have been separated into their own repositories to improve their reusability since these parts will be used in other projects.
 
 ## Adding Events
-Assuming you've already [installed (using Git)](installation.md), you'll need to follow the steps below to begin developing.
+Assuming you've already [installed](installation.md), you'll need to follow the steps below to begin developing.
 
 1. Run `cd admin/tool/log/store/xapi` from the root directory of Moodle.
 2. Run `php -r "readfile('https://getcomposer.org/installer');" | php` to install Composer.
