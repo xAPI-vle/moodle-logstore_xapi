@@ -16,12 +16,6 @@
         "learninglocker/moodle-xapi-translator": "~0.0",
         "learninglocker/xapi-recipe-emitter": "~0.0"
     },
-    "scripts": {
-        "dev": [
-            "rm -rf vendor",
-            "composer install --prefer-source"
-        ]
-    },
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
