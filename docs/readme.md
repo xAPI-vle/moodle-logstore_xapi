@@ -55,12 +55,12 @@ You'll now be able to modify and test events by updating the code inside the "ve
 ## Plugin Release Process
 This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
 
+1. Modify the VERSION file.
+1. Modify the version.php file.
+1. Commit and push the changes made.
 1. Run `sh build.sh` on the branch to be released.
-2. Modify the VERSION file.
-3. Modify the version.php file.
-4. Commit and push the changes made in steps 2 and 3.
-5. Create release on Github.
+1. Create release on Github.
   1. Document patches.
-  2. Document minor changes.
-  3. Document major changes.
-  4. Document migrations and additional notes.
+  1. Document minor changes.
+  1. Document major changes.
+  1. Document migrations and additional notes.
