@@ -12,7 +12,7 @@ You obviously need to have [Moodle](https://moodle.org/) installed first and you
 10. Set your “password” to your LRS basic auth password (e.g. “bc7e0a2edd5d1969b6d774e679d4eb4e7a35be13”).
 11. Click “Save changes”.
 12. Go to "http://www.example.com/admin/settings.php?section=managelogging" (replacing “www.example.com” with your own domain).
-13. Enable the "logstore_xapi" plugin.
+13. Enable the "Logstore xAPI" plugin.
 
 *Note that the above example LRS endpoint, username, and password utilise the [demo LRS](http://demo.learninglocker.net/) provided by [Learning Locker](http://learninglocker.net/). If you're utilising the demo LRS, you can login to the website with the email “demouser@learninglocker.net” and the password “demouser”. Once logged in, you can view statements on the ["Statements" page for the "Demo" LRS](http://demo.learninglocker.net/lrs/554a45e98fbdd7cd406c171e/statements).*
 
