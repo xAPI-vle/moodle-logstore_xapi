@@ -14,12 +14,18 @@ Moodle Event Name | xAPI Recipe Example
 \mod_folder\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_book\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_scorm\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_forum\event\user_report_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_forum\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_resource\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
+\mod_quiz\event\attempt_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
 \mod_quiz\event\attempt_preview_started | [AttemptStarted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptStarted.json)
 \mod_quiz\event\attempt_reviewed | [AttemptCompleted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptCompleted.json)
+\mod_quiz\event\attempt_abandoned | [AttemptCompleted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptCompleted.json)
 \core\event\user_loggedin | [UserLoggedin](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedin.json)
 \core\event\user_loggedout | [UserLoggedout](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedout.json)
 \mod_assign\event\submission_graded | [AssignmentGraded](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentGraded.json)
 \mod_assign\event\assessable_submitted  | [AssignmentSubmitted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentSubmitted.json)
+\mod_forum\event\discussion_viewed  | [DiscussionViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/DiscussionViewed.json)
 
 ## Plugin Design
 The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
