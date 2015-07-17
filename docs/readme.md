@@ -1,4 +1,4 @@
-- [Installation](installation.md)
+- [Drag and Drop Moodle installation](installation.md)
 - [Supported Events](#supported-events)
 - [Plugin Design](#plugin-design)
 - [Adding Events](#adding-events)
