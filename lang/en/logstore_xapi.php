@@ -26,7 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['endpoint'] = 'Endpoint';
-$string['modulename'] = 'Logstore xAPI';
 $string['settings'] = 'General Settings';
 $string['xapifieldset'] = 'Custom example fieldset';
 $string['xapi'] = 'xAPI';
