@@ -27,12 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['endpoint'] = 'Endpoint';
 $string['modulename'] = 'Logstore xAPI';
-$string['modulenameplural'] = 'xAPI';
-$string['modulename_help'] = 'Use the logstore xAPI module for... | The logstore xAPI plugin allows...';
 $string['settings'] = 'General Settings';
 $string['xapifieldset'] = 'Custom example fieldset';
-$string['xapiname'] = 'xAPI name';
-$string['xapiname_help'] = 'This is the content of the help tooltip associated with the xAPIname field. Markdown syntax is supported.';
 $string['xapi'] = 'xAPI';
 $string['password'] = 'Password';
 $string['pluginadministration'] = 'Logstore xAPI administration';
