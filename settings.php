@@ -22,14 +22,18 @@
  *                  Ryan Smith <ryan.smith@ht2.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    //endpoint
-    $settings->add(new admin_setting_configtext('logstore_xapi/endpoint', get_string('endpoint', 'logstore_xapi'), '', 'http://your.domain.com/endpoint/location/', PARAM_TEXT));
-    //username
-    $settings->add(new admin_setting_configtext('logstore_xapi/username', get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
-    //key or password
-    $settings->add(new admin_setting_configtext('logstore_xapi/password', get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
+    // Endpoint.
+    $settings->add(new admin_setting_configtext('logstore_xapi/endpoint', 
+        get_string('endpoint', 'logstore_xapi'), '', 
+        'http://your.domain.com/endpoint/location/', PARAM_TEXT));
+    // Username.
+    $settings->add(new admin_setting_configtext('logstore_xapi/username', 
+        get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
+    // Key or password.
+    $settings->add(new admin_setting_configtext('logstore_xapi/password', 
+        get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
 }

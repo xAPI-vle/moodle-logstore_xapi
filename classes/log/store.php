@@ -26,7 +26,7 @@
 namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once(__DIR__ . '/../../vendor/autoload.php');
 use \tool_log\log\writer as log_writer;
 use \tool_log\log\manager as log_manager;
 use \tool_log\helper\store as helper_store;
@@ -42,6 +42,10 @@ use \TinCan\RemoteLRS as tincan_remote_lrs;
 use \moodle_exception as moodle_exception;
 use \stdClass as php_obj;
 
+/**
+ * This class processes events and enables them to be sent to a logstore.
+ *
+ */
 class store extends php_obj implements log_writer {
     use helper_store;
     use helper_reader;
@@ -56,31 +60,31 @@ class store extends php_obj implements log_writer {
     }
 
     /**
-     * Should the event be ignored (not logged)?
+     * Should the event be ignored (not logged)? Overrides helper_writer.
      * @param event_base $event
      * @return bool
-     * @override helper_writer
+     * 
      */
     protected function is_event_ignored(event_base $event) {
         return !(isset(moodle_controller::$routes[$event->eventname]) && $event->userid > 0);
     }
 
     /**
-     * Insert events in bulk to the database.
+     * Insert events in bulk to the database. Overrides helper_writer.
      * @param array $events raw event data
-     * @override helper_writer
+     *
      */
     protected function insert_event_entries(array $events) {
         // Initializes required services.
-        $xapi_controller = new xapi_controller($this->connect_xapi_repository());
-        $moodle_controller = new moodle_controller($this->connect_moodle_repository());
-        $translator_controller = new translator_controller();
+        $xapicontroller = new xapi_controller($this->connect_xapi_repository());
+        $moodlecontroller = new moodle_controller($this->connect_moodle_repository());
+        $translatorcontroller = new translator_controller();
 
         // Emits events to other APIs.
         foreach ($events as $event) {
-            $moodle_event = $moodle_controller->createEvent($event);
-            $translator_event = $translator_controller->createEvent($moodle_event);
-            $xapi_event = $xapi_controller->createEvent($translator_event);
+            $moodleevent = $moodlecontroller->createEvent($event);
+            $translatorevent = $translatorcontroller->createEvent($moodleevent);
+            $xapievent = $xapicontroller->createEvent($translatorevent);
         }
     }
 
