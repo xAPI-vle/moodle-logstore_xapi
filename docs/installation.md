@@ -7,7 +7,7 @@ You obviously need to have [Moodle](https://moodle.org/) installed first and you
 5. Click “Install plugin!”.
 6. Click “Upgrade Moodle database now”.
 7. Click “Continue”.
-8. Set your “endpoint” to your LRS endpoint (e.g. “http://demo.learninglocker.net/data/xAPI”).
+8. Set your “endpoint” to your LRS endpoint (e.g. “<http://demo.learninglocker.net/data/xAPI>”).
 9. Set your “username” to your LRS basic auth username (e.g. “d416e6220812740d3922eb09813ebb4163e8eb3e”).
 10. Set your “password” to your LRS basic auth password (e.g. “bc7e0a2edd5d1969b6d774e679d4eb4e7a35be13”).
 11. Click “Save changes”.
