@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "1f463bcadc09186297f0ffb558ce5b63ab96c530"
+                "reference": "02f389fd6e582e2030deb77e1a834a2a74bae890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/1f463bcadc09186297f0ffb558ce5b63ab96c530",
-                "reference": "1f463bcadc09186297f0ffb558ce5b63ab96c530",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/02f389fd6e582e2030deb77e1a834a2a74bae890",
+                "reference": "02f389fd6e582e2030deb77e1a834a2a74bae890",
                 "shasum": ""
             },
             "require-dev": {
@@ -34,7 +34,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2015-08-07 12:10:55"
+            "time": "2015-08-07 18:22:00"
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
