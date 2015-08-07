@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "17214646cb86b89e46e358300ad4d0de",
+    "hash": "e37fecec025b5c21bfa240fe546a4f43",
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",

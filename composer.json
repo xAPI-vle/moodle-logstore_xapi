@@ -4,7 +4,7 @@
     "autoload": {
         "psr-4": {
           "logstore_xapi\\": "classes/",
-          "Tests\\": "Tests/"
+          "Tests\\": "tests/"
         }
     },
     "require-dev": {
