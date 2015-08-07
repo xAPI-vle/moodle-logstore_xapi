@@ -1,4 +1,4 @@
 language: php
 php: 5.5
-install: composer install --prefer-source --no-interaction
+install: composer install --no-interaction
 script: ./vendor/bin/phpunit
