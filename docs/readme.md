@@ -26,6 +26,8 @@ Moodle Event Name | xAPI Recipe Example
 \mod_assign\event\submission_graded | [AssignmentGraded](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentGraded.json)
 \mod_assign\event\assessable_submitted  | [AssignmentSubmitted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentSubmitted.json)
 \mod_forum\event\discussion_viewed  | [DiscussionViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/DiscussionViewed.json)
+\core\event\user_created | [UserRegistered](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserRegistered.json)
+\core\event\user_enrolment_created | [EnrolmentCreated](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/EnrolmentCreated.json)
 
 ## Plugin Design
 The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
@@ -48,9 +50,7 @@ These parts have been separated into their own repositories to improve their reu
 ## Adding Events
 Assuming you've already [installed](installation.md), you'll need to follow the steps below to begin developing.
 
-1. Run `cd admin/tool/log/store/xapi` from the root directory of Moodle.
-2. Run `php -r "readfile('https://getcomposer.org/installer');" | php` to install Composer.
-3. Run `php composer.phar install --prefer-source` to install the dependencies from their Github repositories (rather than Packagist).
+From the root directory of Moodle run `cd admin/tool/log/store/xapi; php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source`.
 
 You'll now be able to modify and test events by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
