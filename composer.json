@@ -4,11 +4,12 @@
     "autoload": {
         "psr-4": {
           "logstore_xapi\\": "classes/",
-          "Tests\\": "Tests/"
+          "Tests\\": "tests/"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.6"
+        "phpunit/phpunit": "~4.6",
+        "learninglocker/statementfactory": "~0.0"
     },
     "require": {
         "rusticisoftware/tincan": "0.12.*",
