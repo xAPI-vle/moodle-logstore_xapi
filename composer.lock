@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v0.3.3",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "1297731f6f74134abfd6d941ed8202ccd4969dad"
+                "reference": "afbf3178fc0d3a2785371c9e2d2b837f75ea12d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/1297731f6f74134abfd6d941ed8202ccd4969dad",
-                "reference": "1297731f6f74134abfd6d941ed8202ccd4969dad",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/afbf3178fc0d3a2785371c9e2d2b837f75ea12d3",
+                "reference": "afbf3178fc0d3a2785371c9e2d2b837f75ea12d3",
                 "shasum": ""
             },
             "require-dev": {
@@ -34,20 +34,20 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2015-08-07 18:35:38"
+            "time": "2015-08-11 15:27:19"
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v0.3.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "901bf150f7ead4b9c560d93c37cf78b8972e0649"
+                "reference": "11798bd08fd5e335b492f3fb6d56a2aa268de3a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/901bf150f7ead4b9c560d93c37cf78b8972e0649",
-                "reference": "901bf150f7ead4b9c560d93c37cf78b8972e0649",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/11798bd08fd5e335b492f3fb6d56a2aa268de3a1",
+                "reference": "11798bd08fd5e335b492f3fb6d56a2aa268de3a1",
                 "shasum": ""
             },
             "require-dev": {
@@ -64,20 +64,20 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2015-08-07 12:10:55"
+            "time": "2015-08-11 15:27:22"
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v0.3.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "2415134020535f5529440e0b6de6a9461f79a1ef"
+                "reference": "acf9e1b174be7e3a55c076ffd59ac461df9256c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/2415134020535f5529440e0b6de6a9461f79a1ef",
-                "reference": "2415134020535f5529440e0b6de6a9461f79a1ef",
+                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/acf9e1b174be7e3a55c076ffd59ac461df9256c6",
+                "reference": "acf9e1b174be7e3a55c076ffd59ac461df9256c6",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2015-08-07 12:10:56"
+            "time": "2015-08-11 15:27:24"
         },
         {
             "name": "rusticisoftware/tincan",
@@ -590,16 +590,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.2",
+            "version": "4.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "748c6963c0a8c983fa69ee8884c885d0e98209bf"
+                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/748c6963c0a8c983fa69ee8884c885d0e98209bf",
-                "reference": "748c6963c0a8c983fa69ee8884c885d0e98209bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fd3050e26e3105f416d74c4d33aea659b406c59d",
+                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-07 12:56:50"
+            "time": "2015-08-10 09:16:56"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
