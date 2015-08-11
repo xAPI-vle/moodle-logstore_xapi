@@ -28,6 +28,7 @@ Moodle Event Name | xAPI Recipe Example
 \mod_forum\event\discussion_viewed  | [DiscussionViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/DiscussionViewed.json)
 \core\event\user_created | [UserRegistered](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserRegistered.json)
 \core\event\user_enrolment_created | [EnrolmentCreated](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/EnrolmentCreated.json)
+\mod_scorm\event\sco_launched | [ScormLaunched](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ScormLaunched.json)
 
 ## Plugin Design
 The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
