@@ -28,9 +28,16 @@ abstract class TestCase extends PhpUnitTestCase {
 
     public function testCreateEvent() {
         $input = $this->constructInput();
+
         $moodle_event = $this->moodle_controller->createEvent($input);
+        $this->assertTrue($moodle_event != null, 'Check that the event exists in the expander controller.');
+
         $translator_event = $this->translator_controller->createEvent($moodle_event);
+        $this->assertTrue($translator_event != null, 'Check that the event exists in the translator controller.');
+
         $xapi_event = $this->xapi_controller->createEvent($translator_event);
+        $this->assertTrue($xapi_event != null, 'Check that the event exists in the emitter controller.');
+
         $this->assertOutput($input, $xapi_event);
     }
 
