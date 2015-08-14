@@ -1,5 +1,5 @@
 # Supported Events
-This page documents the Moodle log events supported by this plugin.
+This page documents the [Moodle log events](https://docs.moodle.org/dev/Event_2) supported by this plugin.
 
 Moodle Event Name | xAPI Recipe Example
 --- | ---
