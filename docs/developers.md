@@ -14,7 +14,13 @@ cd admin/tool/log/store; rm -rf xapi; git clone git@github.com:jlowe64/moodle-lo
 If you hadn't already installed the plugin, you'll need to login as an admin and navigate to "http://www.example.com/admin/index.php" (replacing “www.example.com” with your own domain). Once there you can follow on from step 6 of the [user installation guide](installation.md).
 
 ## Adding Events
-Assuming you've installed using the [instructions above](#setup), you can modify and test events by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the [plugin design](readme.md#plugin-design) you should understand what each of these directories are responsible for. Each of the parts have their own documentation on their respective Github repositories (linked below).
+Assuming you've installed using the [instructions above](#setup), you can modify and test events by updating the code inside the directories below.
+
+- vendor/learninglocker/moodle-log-expander
+- vendor/learninglocker/moodle-xapi-translator
+- vendor/learninglocker/xapi-recipe-emitter
+
+If you've read the [plugin design](design.md) you should understand what each of these directories are responsible for. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
 - [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
 - [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
