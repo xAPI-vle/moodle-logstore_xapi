@@ -1,85 +1,12 @@
-- [Drag and Drop Moodle installation](installation.md)
-- [Supported Events](#supported-events)
-- [Plugin Design](#plugin-design)
-- [Adding Events](#adding-events)
-- [Plugin Release Process](#plugin-release-process)
+# [Moodle Logstore xAPI](https://moodle.org/plugins/view/logstore_xapi)
+> Emits events from the [Moodle](https://moodle.org/) Logstore as [xAPI](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md) statements.
 
-## Supported Events
-Moodle Event Name | xAPI Recipe Example
---- | ---
-\core\event\course_viewed | [CourseViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/CourseViewed.json)
-\mod_page\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_quiz\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_url\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_folder\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_book\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_scorm\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_forum\event\user_report_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_forum\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_resource\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_quiz\event\attempt_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_choice\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_data\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_feedback\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_lesson\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_lti\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_wiki\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_workshop\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_chat\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_glossary\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_imscp\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_survey\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_url\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_facetoface\event\course_module_viewed | [ModuleViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ModuleViewed.json)
-\mod_quiz\event\attempt_preview_started | [AttemptStarted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptStarted.json)
-\mod_quiz\event\attempt_reviewed | [AttemptCompleted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptCompleted.json)
-\mod_quiz\event\attempt_abandoned | [AttemptCompleted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AttemptCompleted.json)
-\core\event\user_loggedin | [UserLoggedin](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedin.json)
-\core\event\user_loggedout | [UserLoggedout](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserLoggedout.json)
-\mod_assign\event\submission_graded | [AssignmentGraded](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentGraded.json)
-\mod_assign\event\assessable_submitted  | [AssignmentSubmitted](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/AssignmentSubmitted.json)
-\mod_forum\event\discussion_viewed  | [DiscussionViewed](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/DiscussionViewed.json)
-\core\event\user_created | [UserRegistered](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/UserRegistered.json)
-\core\event\user_enrolment_created | [EnrolmentCreated](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/EnrolmentCreated.json)
-\mod_scorm\event\sco_launched | [ScormLaunched](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/examples/ScormLaunched.json)
+[![Build Status](https://travis-ci.org/jlowe64/moodle-logstore_xapi.svg?branch=master)](https://travis-ci.org/jlowe64/moodle-logstore_xapi)
+[![Moodle Plugin Directory](http://img.shields.io/badge/moodle-plugin-orange.svg)](https://moodle.org/plugins/view/logstore_xapi)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/LearningLocker/learninglocker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## Plugin Design
-The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
-
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter)
-
-The plugin uses the three parts listed above in the following way.
-
-1. The plugin passes raw event data from the logstore_standard_log to the Expander.
-2. The Expander expands events with data from your Moodle Database.
-3. The plugin passes the expanded events from step 2 to the Translator.
-4. The Translator translates expanded events to xAPI recipe options.
-5. The plugin passes the translated events from step 4 to the Emitter.
-6. The Emitter constructs the translated events as xAPI statements and emits them to the [configured LRS](installation.md#configuration).
-
-These parts have been separated into their own repositories to improve their reusability since these parts will be used in other projects.
-
-## Adding Events
-Assuming you've already [installed](installation.md), you'll need to follow the steps below to begin developing.
-
-From the root directory of Moodle run `cd admin/tool/log/store/xapi; php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source`.
-
-You'll now be able to modify and test events by updating the code inside the "vendor/learninglocker/moodle-log-expander", "vendor/learninglocker/moodle-xapi-translator", and "vendor/learninglocker/xapi-recipe-emitter" directories. If you've read the section on [plugin design](#plugin-design) you should understand what each of these directories are responsible for in this plugin. Each of the parts have their own documentation on their respective Github repositories (linked below).
-
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
-
-## Plugin Release Process
-This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
-
-1. Modify the version.php file.
-1. Commit and push the changes made.
-1. Run `sh build.sh` on the branch to be released.
-1. Create release on Github.
-  1. Document patches.
-  1. Document minor changes.
-  1. Document major changes.
-  1. Document migrations and additional notes.
+- [Installation](installation.md)
+- [Report bugs, enhancements, and questions](../contributing.md#issue-templates)
+- [Supported events](events.md)
+- [Developer documentation](developers.md)
+- [Plugin design](design.md)
