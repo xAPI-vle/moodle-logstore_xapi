@@ -6,6 +6,6 @@
 
 - [Installation](docs/installation.md)
 - [Report bugs, enhancements, and questions](contributing.md#issue-templates)
-- [Supported events](events.md)
-- [Developer documentation](developers.md)
-- [Plugin design](design.md)
+- [Supported events](docs/events.md)
+- [Developer documentation](docs/developers.md)
+- [Plugin design](docs/design.md)
