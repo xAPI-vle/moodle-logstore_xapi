@@ -63,7 +63,7 @@ class store extends php_obj implements log_writer {
      * Should the event be ignored (not logged)? Overrides helper_writer.
      * @param event_base $event
      * @return bool
-     * 
+     *
      */
     protected function is_event_ignored(event_base $event) {
         return false;
@@ -85,8 +85,16 @@ class store extends php_obj implements log_writer {
             // $this->error_log('');
             // $this->error_log_value('event', $event);
             $moodleevent = $moodlecontroller->createEvent($event);
+            if (is_null($moodleevent)) {
+                continue;
+            }
+
             // $this->error_log_value('moodleevent', $moodleevent);
             $translatorevent = $translatorcontroller->createEvent($moodleevent);
+            if (is_null($translatorevent)) {
+                continue;
+            }
+
             // $this->error_log_value('translatorevent', $translatorevent);
             $xapievent = $xapicontroller->createEvent($translatorevent);
             // $this->error_log_value('xapievent', $xapievent);
