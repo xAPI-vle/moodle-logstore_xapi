@@ -8,7 +8,7 @@
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v0.4.0",
+            "version": "v0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
@@ -38,7 +38,7 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v0.4.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
@@ -68,7 +68,7 @@
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v0.4.0",
+            "version": "v0.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
