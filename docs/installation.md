@@ -17,4 +17,6 @@ This page contains a guide for users wanting to install the plugin. You obviousl
 
 *Note that the above example LRS endpoint, username, and password utilise the [demo LRS](http://demo.learninglocker.net/) provided by [Learning Locker](http://learninglocker.net/). If you're utilising the demo LRS, you can login to the website with the email “demouser@learninglocker.net” and the password “demouser”. Once logged in, you can view statements on the ["Statements" page for the "Demo" LRS](http://demo.learninglocker.net/lrs/554a45e98fbdd7cd406c171e/statements).*
 
+* If zip installation is disabled, you can unzip the zip file to moodle/admin/tool/log/store instead of steps 3 to 5 above.*
+
 *The settings you configured in steps 8, 9, and 10 can be changed by navigating to "http://www.example.com/admin/settings.php?section=logsettingxapi" (replacing “www.example.com” with your own domain).*
