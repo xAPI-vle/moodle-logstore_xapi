@@ -110,8 +110,16 @@ class store extends php_obj implements log_writer {
             }
 
             // $this->error_log_value('translatorevent', $translatorevent);
-            $xapievent = $xapicontroller->createEvent($translatorevent);
-            // $this->error_log_value('xapievent', $xapievent);
+            if (isset($translatorevent['multiple_events']) && $translatorevent['multiple_events'] == true) {
+                foreach ($translatorevent['events'] as $index => $singletranslatorevent) {
+                    $xapievent = $xapicontroller->createEvent($singletranslatorevent);
+                    // $this->error_log_value('xapievent', $xapievent);
+                }
+            } 
+            else {
+                $xapievent = $xapicontroller->createEvent($translatorevent);
+                // $this->error_log_value('xapievent', $xapievent);
+            }
         }
     }
 
