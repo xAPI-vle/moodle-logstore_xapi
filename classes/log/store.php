@@ -63,7 +63,7 @@ class store extends php_obj implements log_writer {
      * Should the event be ignored (not logged)? Overrides helper_writer.
      * @param event_base $event
      * @return bool
-     * 
+     *
      */
     protected function is_event_ignored(event_base $event) {
         return false;
@@ -75,6 +75,19 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function insert_event_entries(array $events) {
+        global $DB;
+
+        // If in background mode, just save them in the database
+        if (get_config('logstore_xapi', 'backgroundmode')) {
+            $DB->insert_records('logstore_xapi_log', $events);
+        } else {
+            $this->process_events($events);
+        }
+
+    }
+
+    public function process_events(array $events) {
+
         // Initializes required services.
         $xapicontroller = new xapi_controller($this->connect_xapi_repository());
         $moodlecontroller = new moodle_controller($this->connect_moodle_repository());
@@ -82,11 +95,20 @@ class store extends php_obj implements log_writer {
 
         // Emits events to other APIs.
         foreach ($events as $event) {
+            $event = (array) $event;
             // $this->error_log('');
             // $this->error_log_value('event', $event);
             $moodleevent = $moodlecontroller->createEvent($event);
+            if (is_null($moodleevent)) {
+                continue;
+            }
+
             // $this->error_log_value('moodleevent', $moodleevent);
             $translatorevent = $translatorcontroller->createEvent($moodleevent);
+            if (is_null($translatorevent)) {
+                continue;
+            }
+
             // $this->error_log_value('translatorevent', $translatorevent);
             $xapievent = $xapicontroller->createEvent($translatorevent);
             // $this->error_log_value('xapievent', $xapievent);

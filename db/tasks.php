@@ -15,18 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External xapi log store plugin
+ * Standard log reader/writer cron task.
  *
  * @package    logstore_xapi
- * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
- *                  Ryan Smith <ryan.smith@ht2.co.uk>
+ * @copyright  2015 Michael Aherne
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2015081002;
-$plugin->release = '0.5.1';
-$plugin->requires = 2014111000;
-$plugin->maturity = MATURITY_BETA;
+$tasks = array(
+    array(
+        'classname' => '\logstore_xapi\task\emit_task',
+        'blocking' => 0,
+        'minute' => '*/5',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
+);

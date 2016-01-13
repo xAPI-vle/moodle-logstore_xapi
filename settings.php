@@ -27,13 +27,18 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
     // Endpoint.
-    $settings->add(new admin_setting_configtext('logstore_xapi/endpoint', 
-        get_string('endpoint', 'logstore_xapi'), '', 
+    $settings->add(new admin_setting_configtext('logstore_xapi/endpoint',
+        get_string('endpoint', 'logstore_xapi'), '',
         'http://your.domain.com/endpoint/location/', PARAM_URL));
     // Username.
-    $settings->add(new admin_setting_configtext('logstore_xapi/username', 
+    $settings->add(new admin_setting_configtext('logstore_xapi/username',
         get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
     // Key or password.
-    $settings->add(new admin_setting_configtext('logstore_xapi/password', 
+    $settings->add(new admin_setting_configtext('logstore_xapi/password',
         get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
+
+    // Switch background batch mode on
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
+        get_string('backgroundmode', 'logstore_xapi'),
+        get_string('backgroundmode_desc', 'logstore_xapi'), 0));
 }
