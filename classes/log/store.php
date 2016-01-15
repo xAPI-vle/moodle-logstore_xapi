@@ -51,6 +51,8 @@ class store extends php_obj implements log_writer {
     use helper_reader;
     use helper_writer;
 
+    protected $loggingenabled = false;
+
     /**
      * Constructs a new store.
      * @param log_manager $manager
@@ -83,7 +85,6 @@ class store extends php_obj implements log_writer {
         } else {
             $this->process_events($events);
         }
-
     }
 
     public function process_events(array $events) {
@@ -96,39 +97,33 @@ class store extends php_obj implements log_writer {
         // Emits events to other APIs.
         foreach ($events as $event) {
             $event = (array) $event;
-            // $this->error_log('');
-            // $this->error_log_value('event', $event);
+            $this->error_log('');
+            $this->error_log_value('event', $event);
             $moodleevent = $moodlecontroller->createEvent($event);
             if (is_null($moodleevent)) {
                 continue;
             }
-
-            // $this->error_log_value('moodleevent', $moodleevent);
-            $translatorevent = $translatorcontroller->createEvent($moodleevent);
-            if (is_null($translatorevent)) {
+            $this->error_log_value('moodleevent', $moodleevent);
+            $translatorevents = $translatorcontroller->createEvents($moodleevent);
+            if (is_null($translatorevents)) {
                 continue;
             }
-
-            // $this->error_log_value('translatorevent', $translatorevent);
-            if (isset($translatorevent['multiple_events']) && $translatorevent['multiple_events'] == true) {
-                foreach ($translatorevent['events'] as $index => $singletranslatorevent) {
-                    $xapievent = $xapicontroller->createEvent($singletranslatorevent);
-                    // $this->error_log_value('xapievent', $xapievent);
-                }
-            } 
-            else {
+            $this->error_log_value('translatorevents', $translatorevents);
+            foreach ($translatorevents as $index => $translatorevent) {
                 $xapievent = $xapicontroller->createEvent($translatorevent);
-                // $this->error_log_value('xapievent', $xapievent);
+                $this->error_log_value('xapievent', $xapievent);
             }
         }
     }
 
     private function error_log_value($key, $value) {
-        $this->error_log('['.$key.'] '.json_encode($value));
+            $this->error_log('['.$key.'] '.json_encode($value));
     }
 
     private function error_log($message) {
-        error_log($message."\r\n", 3, __DIR__.'/error_log.txt');
+        if ($this->loggingenabled) {
+            error_log($message."\r\n", 3, __DIR__.'/error_log.txt');
+        }
     }
 
     /**
