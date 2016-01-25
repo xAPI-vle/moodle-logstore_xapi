@@ -105,9 +105,6 @@ class store extends php_obj implements log_writer {
             }
             $this->error_log_value('moodleevent', $moodleevent);
             $translatorevents = $translatorcontroller->createEvents($moodleevent);
-            if (is_null($translatorevents)) {
-                continue;
-            }
             $this->error_log_value('translatorevents', $translatorevents);
             foreach ($translatorevents as $index => $translatorevent) {
                 $xapievent = $xapicontroller->createEvent($translatorevent);
