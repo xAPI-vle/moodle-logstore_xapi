@@ -95,22 +95,19 @@ class store extends php_obj implements log_writer {
         $translatorcontroller = new translator_controller();
 
         // Emits events to other APIs.
-        foreach ($events as $event) {
-            $event = (array) $event;
-            $this->error_log('');
-            $this->error_log_value('event', $event);
-            $moodleevent = $moodlecontroller->createEvent($event);
-            if (is_null($moodleevent)) {
-                continue;
-            }
-            $this->error_log_value('moodleevent', $moodleevent);
-            $translatorevents = $translatorcontroller->createEvents($moodleevent);
-            $this->error_log_value('translatorevents', $translatorevents);
-            foreach ($translatorevents as $index => $translatorevent) {
-                $xapievent = $xapicontroller->createEvent($translatorevent);
-                $this->error_log_value('xapievent', $xapievent);
-            }
+        foreach ($events as $index => $event) {
+            $events[$index] = (array) $event;
         }
+
+        $this->error_log('');
+        $this->error_log_value('events', $events);
+        $moodleevents = $moodlecontroller->createEvents($events);
+        $this->error_log_value('moodleevent', $moodleevents);
+        $translatorevents = $translatorcontroller->createEvents($moodleevents);
+        $this->error_log_value('translatorevents', $translatorevents);
+        $xapievents = $xapicontroller->createEvents($translatorevents);
+        $this->error_log_value('xapievents', $xapievents);
+
     }
 
     private function error_log_value($key, $value) {
