@@ -105,8 +105,23 @@ class store extends php_obj implements log_writer {
         $this->error_log_value('moodleevent', $moodleevents);
         $translatorevents = $translatorcontroller->createEvents($moodleevents);
         $this->error_log_value('translatorevents', $translatorevents);
-        $xapievents = $xapicontroller->createEvents($translatorevents);
-        $this->error_log_value('xapievents', $xapievents);
+
+        if (empty($translatorevents)) {
+            return;
+        }
+
+        // Split statements into batches.
+        $eventbatches = array($translatorevents);
+        $maxbatchsize = get_config('logstore_xapi', 'maxbatchsize');
+
+        if (!empty($maxbatchsize) && $maxbatchsize < count($translatorevents)) {
+            $eventbatches = array_chunk($translatorevents, $maxbatchsize);
+        }
+
+        foreach ($eventbatches as $translatoreventsbatch) {
+            $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
+            $this->error_log_value('xapievents', $xapievents);
+        }
 
     }
 
