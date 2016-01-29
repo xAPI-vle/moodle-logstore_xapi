@@ -29,20 +29,22 @@ abstract class TestCase extends PhpUnitTestCase {
     public function testCreateEvent() {
         $input = $this->constructInput();
 
-        $moodle_event = $this->moodle_controller->createEvent($input);
-        $this->assertTrue($moodle_event != null, 'Check that the event exists in the expander controller.');
+        $moodle_events = $this->moodle_controller->createEvents([$input]);
+        $this->assertNotNull($moodle_events, 'Check that the events exist in the expander controller.');
 
-        $translator_event = $this->translator_controller->createEvent($moodle_event);
-        $this->assertTrue($translator_event != null, 'Check that the event exists in the translator controller.');
+        $translator_events = $this->translator_controller->createEvents($moodle_events);
+        $this->assertNotNull($translator_events, 'Check that the events exist in the translator controller.');
 
-        $xapi_event = $this->xapi_controller->createEvent($translator_event);
-        $this->assertTrue($xapi_event != null, 'Check that the event exists in the emitter controller.');
+        $xapi_events = $this->xapi_controller->createEvents($translator_events);
+        $this->assertNotNull($xapi_events, 'Check that the events exist in the emitter controller.');
 
-        $this->assertOutput($input, $xapi_event);
+        $this->assertOutput($input, $xapi_events);
     }
 
     protected function assertOutput($input, $output) {
-        $this->assertValidXapiStatement((new TinCanStatement($output))->asVersion('1.0.0'));
+        foreach ($output as $outputpart) {
+            $this->assertValidXapiStatement((new TinCanStatement($outputpart))->asVersion('1.0.0'));
+        }
     }
 
     protected function assertValidXapiStatement($output) {
