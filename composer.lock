@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v0.4.2",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "3f3e477585628845a3395541a2d75062344db9b5"
+                "reference": "7b85f8924b71cabf6b806cd16411acb584a70bd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/3f3e477585628845a3395541a2d75062344db9b5",
-                "reference": "3f3e477585628845a3395541a2d75062344db9b5",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/7b85f8924b71cabf6b806cd16411acb584a70bd2",
+                "reference": "7b85f8924b71cabf6b806cd16411acb584a70bd2",
                 "shasum": ""
             },
             "require-dev": {
@@ -38,16 +38,16 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v0.4.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "a05507c6ffcd718223c429df3ce69c9af58ff264"
+                "reference": "8498dd5bd9e2cb0eb633eecb08e14ab8279d0222"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/a05507c6ffcd718223c429df3ce69c9af58ff264",
-                "reference": "a05507c6ffcd718223c429df3ce69c9af58ff264",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/8498dd5bd9e2cb0eb633eecb08e14ab8279d0222",
+                "reference": "8498dd5bd9e2cb0eb633eecb08e14ab8279d0222",
                 "shasum": ""
             },
             "require-dev": {
@@ -68,16 +68,16 @@
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v0.4.3",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "9559415f5ffc8f6f3f0fcf47b079ea1eff4b78cb"
+                "reference": "8323888d85e6a40bc32a3fa9ba6e2bf7bac56521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/9559415f5ffc8f6f3f0fcf47b079ea1eff4b78cb",
-                "reference": "9559415f5ffc8f6f3f0fcf47b079ea1eff4b78cb",
+                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/8323888d85e6a40bc32a3fa9ba6e2bf7bac56521",
+                "reference": "8323888d85e6a40bc32a3fa9ba6e2bf7bac56521",
                 "shasum": ""
             },
             "require": {
