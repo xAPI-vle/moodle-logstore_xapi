@@ -36,6 +36,7 @@ use \core\event\base as event_base;
 use \XREmitter\Controller as xapi_controller;
 use \XREmitter\Repository as xapi_repository;
 use \MXTranslator\Controller as translator_controller;
+use \MXTranslator\Events\Event as Event;
 use \LogExpander\Controller as moodle_controller;
 use \LogExpander\Repository as moodle_repository;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
@@ -53,12 +54,21 @@ class store extends php_obj implements log_writer {
 
     protected $loggingenabled = false;
 
+    /** @var bool $logguests true if logging guest access */
+    protected $logguests;
+
+    /** @var array $routes An array of routes to include */
+    protected $routes = array();
+
     /**
      * Constructs a new store.
      * @param log_manager $manager
      */
     public function __construct(log_manager $manager) {
         $this->helper_setup($manager);
+        $this->logguests = $this->get_config('logguests', 1);
+        $routes = $this->get_config('routes', '');
+        $this->routes = $routes === '' ? array() : explode(',', $routes);
     }
 
     /**
@@ -68,6 +78,17 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function is_event_ignored(event_base $event) {
+
+        if ((!CLI_SCRIPT or PHPUNIT_TEST) and !$this->logguests) {
+            // Always log inside CLI scripts because we do not login there.
+            if (!isloggedin() or isguestuser()) {
+                return true;
+            }
+        }
+        if (!in_array($event->eventname, $this->routes))
+            // Ignore event if the store settings do not want to store it.
+            return true;
+
         return false;
     }
 
@@ -102,12 +123,19 @@ class store extends php_obj implements log_writer {
         $this->error_log('');
         $this->error_log_value('events', $events);
         $moodleevents = $moodlecontroller->createEvents($events);
+
+		// Clear the user email if mbox setting is not set to mbox
+		$mbox = get_config('logstore_xapi', 'mbox');
+		foreach(array_keys($moodleevents) as $event_key) {
+			if (!$mbox) $moodleevents[$event_key]['user']->email = '';
+		}
+
         $this->error_log_value('moodleevent', $moodleevents);
         $translatorevents = $translatorcontroller->createEvents($moodleevents);
         $this->error_log_value('translatorevents', $translatorevents);
 
         if (empty($translatorevents)) {
-            return;
+            return array();
         }
 
         // Split statements into batches.
@@ -118,11 +146,18 @@ class store extends php_obj implements log_writer {
             $eventbatches = array_chunk($translatorevents, $maxbatchsize);
         }
 
+		$translator_event = new Event();
+		$translator_event_read_return = @$translator_event->read(array());
+
+		$sent_events = array();
         foreach ($eventbatches as $translatoreventsbatch) {
             $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
+			foreach(array_keys($xapievents) as $key)
+				if (is_numeric($key))
+					$sent_events[$xapievents[$key]['context']['extensions'][$translator_event_read_return[0]['context_ext_key']]['id']] = $xapievents['last_action_result'];
             $this->error_log_value('xapievents', $xapievents);
         }
-
+	return $sent_events;
     }
 
     private function error_log_value($key, $value) {
