@@ -51,9 +51,6 @@ class emit_task extends \core\task\scheduled_task {
 
         $events = $DB->get_records('logstore_xapi_log');
         $store_return = $store->process_events($events);
-
-        error_log("emittask store_return ". var_export($store_return, true) ."\r\n", 3, '/var/www/html/admin/tool/log/store/xapi/classes/log/error_log.txt');
-
 		foreach(array_keys($store_return) as $event_id)
 			{
 			if ($store_return[$event_id] == 'success')
