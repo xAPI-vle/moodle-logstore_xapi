@@ -78,16 +78,15 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function is_event_ignored(event_base $event) {
-
-        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$this->logguests) {
+        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$this->logguests && (!isloggedin() || isguestuser())) {
             // Always log inside CLI scripts because we do not login there.
-            if (!isloggedin() || isguestuser()) {
-                return true;
-            }
+			return true;
         }
-        if (!in_array($event->eventname, $this->routes))
+
+        if (!in_array($event->eventname, $this->routes)) {
             // Ignore event if the store settings do not want to store it.
             return true;
+		}
 
         return false;
     }
