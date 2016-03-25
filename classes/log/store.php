@@ -58,7 +58,7 @@ class store extends php_obj implements log_writer {
     protected $logguests;
 
     /** @var array $routes An array of routes to include */
-    protected $routes = array();
+    protected $routes = [];
 
     /**
      * Constructs a new store.
@@ -68,7 +68,7 @@ class store extends php_obj implements log_writer {
         $this->helper_setup($manager);
         $this->logguests = $this->get_config('logguests', 1);
         $routes = $this->get_config('routes', '');
-        $this->routes = $routes === '' ? array() : explode(',', $routes);
+        $this->routes = $routes === '' ? [] : explode(',', $routes);
     }
 
     /**
@@ -79,9 +79,9 @@ class store extends php_obj implements log_writer {
      */
     protected function is_event_ignored(event_base $event) {
 
-        if ((!CLI_SCRIPT or PHPUNIT_TEST) and !$this->logguests) {
+        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$this->logguests) {
             // Always log inside CLI scripts because we do not login there.
-            if (!isloggedin() or isguestuser()) {
+            if (!isloggedin() || isguestuser()) {
                 return true;
             }
         }
@@ -135,7 +135,7 @@ class store extends php_obj implements log_writer {
         $this->error_log_value('translatorevents', $translatorevents);
 
         if (empty($translatorevents)) {
-            return array();
+            return [];
         }
 
         // Split statements into batches.
@@ -147,14 +147,16 @@ class store extends php_obj implements log_writer {
         }
 
 		$translator_event = new Event();
-		$translator_event_read_return = @$translator_event->read(array());
+		$translator_event_read_return = @$translator_event->read([]);
 
-		$sent_events = array();
+		$sent_events = [];
         foreach ($eventbatches as $translatoreventsbatch) {
             $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
-			foreach(array_keys($xapievents) as $key)
-				if (is_numeric($key))
+			foreach(array_keys($xapievents) as $key) {
+				if (is_numeric($key)) {
 					$sent_events[$xapievents[$key]['context']['extensions'][$translator_event_read_return[0]['context_ext_key']]['id']] = $xapievents['last_action_result'];
+				}
+			}
             $this->error_log_value('xapievents', $xapievents);
         }
 	return $sent_events;
