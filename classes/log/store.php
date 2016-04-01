@@ -126,8 +126,8 @@ class store extends php_obj implements log_writer {
 		// Clear the user email if mbox setting is not set to mbox
 		$mbox = get_config('logstore_xapi', 'mbox');
 		foreach(array_keys($moodleevents) as $event_key) {
-			if (!$mbox) $moodleevents[$event_key]['user']->email = '';
-		}
+			$moodleevents[$event_key]['sendmbox'] = $mbox;
+		} 
 
         $this->error_log_value('moodleevent', $moodleevents);
         $translatorevents = $translatorcontroller->createEvents($moodleevents);
