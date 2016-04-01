@@ -50,10 +50,13 @@ class emit_task extends \core\task\scheduled_task {
         $store = new store($manager);
 
         $events = $DB->get_records('logstore_xapi_log');
-        $store->process_events($events);
-
-        $DB->delete_records_list('logstore_xapi_log', 'id', array_keys($events));
-
+        $store_return = $store->process_events($events);
+		foreach(array_keys($store_return) as $event_id) {
+			if ($store_return[$event_id] == 'success') {
+				$DB->delete_records_list('logstore_xapi_log', 'id', array($event_id));
+			} else {
+			}
+		}
         mtrace("Sent learning records to LRS.");
     }
 }
