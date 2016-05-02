@@ -41,4 +41,8 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
         get_string('backgroundmode', 'logstore_xapi'),
         get_string('backgroundmode_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsize',
+        get_string('maxbatchsize', 'logstore_xapi'),
+        get_string('maxbatchsize_desc', 'logstore_xapi'), 30, PARAM_INT));
 }
