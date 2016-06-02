@@ -12,7 +12,7 @@
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
-        "rusticisoftware/tincan": "0.12.*",
+        "rusticisoftware/tincan": "0.40.0",
         "learninglocker/moodle-log-expander": "~1.0",
         "learninglocker/moodle-xapi-translator": "~1.0",
         "learninglocker/xapi-recipe-emitter": "~1.0"

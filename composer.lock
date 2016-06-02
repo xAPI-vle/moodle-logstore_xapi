@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "7b85f8924b71cabf6b806cd16411acb584a70bd2"
+                "reference": "bb3f7f3c525efa86da97e0bd136d64ac0d3f848a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/7b85f8924b71cabf6b806cd16411acb584a70bd2",
-                "reference": "7b85f8924b71cabf6b806cd16411acb584a70bd2",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/bb3f7f3c525efa86da97e0bd136d64ac0d3f848a",
+                "reference": "bb3f7f3c525efa86da97e0bd136d64ac0d3f848a",
                 "shasum": ""
             },
             "require-dev": {
@@ -38,16 +38,16 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "8498dd5bd9e2cb0eb633eecb08e14ab8279d0222"
+                "reference": "63ab6aee5ac89a97670510e9c64c816fa596dc0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/8498dd5bd9e2cb0eb633eecb08e14ab8279d0222",
-                "reference": "8498dd5bd9e2cb0eb633eecb08e14ab8279d0222",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/63ab6aee5ac89a97670510e9c64c816fa596dc0a",
+                "reference": "63ab6aee5ac89a97670510e9c64c816fa596dc0a",
                 "shasum": ""
             },
             "require-dev": {
@@ -68,20 +68,20 @@
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "8323888d85e6a40bc32a3fa9ba6e2bf7bac56521"
+                "reference": "5eea38faa2978091a0bd091a364c72545595fa59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/8323888d85e6a40bc32a3fa9ba6e2bf7bac56521",
-                "reference": "8323888d85e6a40bc32a3fa9ba6e2bf7bac56521",
+                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/5eea38faa2978091a0bd091a364c72545595fa59",
+                "reference": "5eea38faa2978091a0bd091a364c72545595fa59",
                 "shasum": ""
             },
             "require": {
-                "rusticisoftware/tincan": "0.12.*"
+                "rusticisoftware/tincan": "0.40.*"
             },
             "require-dev": {
                 "learninglocker/statementfactory": "~0.0",
@@ -102,16 +102,16 @@
         },
         {
             "name": "rusticisoftware/tincan",
-            "version": "0.12.0",
+            "version": "0.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RusticiSoftware/TinCanPHP.git",
-                "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a"
+                "reference": "9d32934072f36734e70b2f598b6d80768c498cba5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RusticiSoftware/TinCanPHP/zipball/93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
-                "reference": "93c1cef7962fbf4ef7b55481fcfaedd71de8924a",
+                "url": "https://api.github.com/repos/RusticiSoftware/TinCanPHP/zipball/d32934072f36734e70b2f598b6d80768c498cba5",
+                "reference": "d32934072f36734e70b2f598b6d80768c498cba5",
                 "shasum": ""
             },
             "require": {
