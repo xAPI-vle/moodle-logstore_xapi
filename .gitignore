@@ -4,3 +4,4 @@
 vendor
 classes/log/error_log.txt
 composer.phar
+.idea/
