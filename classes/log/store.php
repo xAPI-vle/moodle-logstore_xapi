@@ -144,7 +144,7 @@ class store extends php_obj implements log_writer {
             $this->connect_xapi_repository();
             return true;
         } catch (moodle_exception $ex) {
-            debugging('Cannot connect to LRS: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            debugging('Cannot connect to LRS: ' . $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         }
     }
