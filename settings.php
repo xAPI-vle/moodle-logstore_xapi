@@ -29,7 +29,7 @@ if ($hassiteconfig) {
     // Endpoint.
     $settings->add(new admin_setting_configtext('logstore_xapi/endpoint',
         get_string('endpoint', 'logstore_xapi'), '',
-        'http://your.domain.com/endpoint/location/', PARAM_URL));
+        'http://example.com/endpoint/location/', PARAM_URL));
     // Username.
     $settings->add(new admin_setting_configtext('logstore_xapi/username',
         get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
