@@ -5,8 +5,9 @@ class ScormScorerawTest extends TestCase {
         return array_merge(parent::constructInput(), [
           'objecttable' => 'scorm_scoes_track',
           'objectid' => 1,
+          'contextinstanceid' => 1,
           'eventname' => '\mod_scorm\event\scoreraw_submitted',
-          'other' => 'a:3:{s:9:"attemptid";i:2;s:10:"cmielement";s:18:"cmi.core.score.raw";s:8:"cmivalue";s:1:"0";}',
+          'other' => 'a:3:{s:9:"attemptid";i:1;s:10:"cmielement";s:18:"cmi.core.score.raw";s:8:"cmivalue";s:3:"100";}',
         ]);
     }
 }
