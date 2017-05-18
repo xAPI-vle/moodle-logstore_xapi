@@ -38,16 +38,16 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "79767d4d693cf77d5a39f107f5a4d6bed5924941"
+                "reference": "b669e853189eec93e6d6ad1fba530cd6e2855a1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/79767d4d693cf77d5a39f107f5a4d6bed5924941",
-                "reference": "79767d4d693cf77d5a39f107f5a4d6bed5924941",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/b669e853189eec93e6d6ad1fba530cd6e2855a1d",
+                "reference": "b669e853189eec93e6d6ad1fba530cd6e2855a1d",
                 "shasum": ""
             },
             "require-dev": {
@@ -64,7 +64,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-05-16T19:16:07+00:00"
+            "time": "2017-05-18T19:43:09+00:00"
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
