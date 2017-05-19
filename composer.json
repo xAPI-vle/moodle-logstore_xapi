@@ -12,10 +12,11 @@
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
-        "rusticisoftware/tincan": "0.40.0",
-        "learninglocker/moodle-log-expander": "~1.1",
-        "learninglocker/moodle-xapi-translator": "~1.1",
-        "learninglocker/xapi-recipe-emitter": "~1.1"
+        "php": "~5.5 || ^7.0.3",
+        "rusticisoftware/tincan": "1.0.0",
+        "learninglocker/moodle-log-expander": "~1.2",
+        "learninglocker/moodle-xapi-translator": "~1.2",
+        "learninglocker/xapi-recipe-emitter": "~1.2"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"

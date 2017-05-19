@@ -154,12 +154,17 @@ class store extends php_obj implements log_writer {
      * @return xapi_repository
      */
     private function connect_xapi_repository() {
-        return new xapi_repository(new tincan_remote_lrs(
+        global $CFG;
+        $remote_lrs = new tincan_remote_lrs(
             $this->get_config('endpoint', ''),
             '1.0.1',
             $this->get_config('username', ''),
             $this->get_config('password', '')
-        ));
+        );
+        if (!empty($CFG->proxyhost)) {
+          $remote_lrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
+        }
+        return new xapi_repository($remote_lrs);
     }
 
     /**
