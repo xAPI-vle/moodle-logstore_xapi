@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbbf2d0c51c17d472a593e583266c703",
+    "content-hash": "28aa03d60b23e761f21fb9babbf832b3",
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
@@ -38,16 +38,16 @@
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "c2dc73df0009fbea92bcf15beddcb2a5c4a77338"
+                "reference": "445fd165856d16eeafa0cee401be8235e0e9e1a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/c2dc73df0009fbea92bcf15beddcb2a5c4a77338",
-                "reference": "c2dc73df0009fbea92bcf15beddcb2a5c4a77338",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/445fd165856d16eeafa0cee401be8235e0e9e1a7",
+                "reference": "445fd165856d16eeafa0cee401be8235e0e9e1a7",
                 "shasum": ""
             },
             "require-dev": {
@@ -64,20 +64,20 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-06-01T15:11:18+00:00"
+            "time": "2017-06-05T19:30:29+00:00"
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "dbd525f05d2376ce9fdbef592a927df3c3c39e4e"
+                "reference": "2aa9b421d8d88e378075d37ed797496ed5a9a5bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/dbd525f05d2376ce9fdbef592a927df3c3c39e4e",
-                "reference": "dbd525f05d2376ce9fdbef592a927df3c3c39e4e",
+                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/2aa9b421d8d88e378075d37ed797496ed5a9a5bc",
+                "reference": "2aa9b421d8d88e378075d37ed797496ed5a9a5bc",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-06-01T14:49:52+00:00"
+            "time": "2017-06-05T18:49:31+00:00"
         },
         {
             "name": "namshi/jose",
@@ -1425,16 +1425,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.0",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "885db865f6b2b918404a1fae28f9ac640f71f994"
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/885db865f6b2b918404a1fae28f9ac640f71f994",
-                "reference": "885db865f6b2b918404a1fae28f9ac640f71f994",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1476,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-28T10:56:20+00:00"
+            "time": "2017-06-02T22:05:06+00:00"
         },
         {
             "name": "webmozart/assert",
