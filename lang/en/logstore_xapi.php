@@ -44,3 +44,9 @@ $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This 
         statements that will be sent in a single operation. Setting this to zero will cause all available statements to
         be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
+$string['routes'] = 'Include actions with these routes';
+$string['filters'] = 'Filter logs';
+$string['logguests'] = 'Log guest actions';
+$string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
+$string['mbox'] = 'Send user email';
+$string['mbox_desc'] = 'Statements identify the user with its email (mbox) or with its userid on the moodle platform (account). Checking this will send the email (mbox).';
