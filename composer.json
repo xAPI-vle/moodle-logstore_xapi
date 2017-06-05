@@ -16,7 +16,7 @@
         "rusticisoftware/tincan": "1.0.0",
         "learninglocker/moodle-log-expander": "~1.4",
         "learninglocker/moodle-xapi-translator": "~1.5",
-        "learninglocker/xapi-recipe-emitter": "~1.5"
+        "learninglocker/xapi-recipe-emitter": "~1.6"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"

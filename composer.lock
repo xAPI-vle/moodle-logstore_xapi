@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "28aa03d60b23e761f21fb9babbf832b3",
+    "content-hash": "72af2780b5612170b5a1b18ccb685f73",
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
@@ -68,16 +68,16 @@
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "2aa9b421d8d88e378075d37ed797496ed5a9a5bc"
+                "reference": "a27700453593a2257d2624652c9311b9c3b3fedf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/2aa9b421d8d88e378075d37ed797496ed5a9a5bc",
-                "reference": "2aa9b421d8d88e378075d37ed797496ed5a9a5bc",
+                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/a27700453593a2257d2624652c9311b9c3b3fedf",
+                "reference": "a27700453593a2257d2624652c9311b9c3b3fedf",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-06-05T18:49:31+00:00"
+            "time": "2017-06-05T20:04:40+00:00"
         },
         {
             "name": "namshi/jose",
