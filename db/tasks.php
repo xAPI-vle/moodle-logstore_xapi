@@ -28,7 +28,7 @@ $tasks = array(
     array(
         'classname' => '\logstore_xapi\task\emit_task',
         'blocking' => 0,
-        'minute' => '*/5',
+        'minute' => '*/1',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
