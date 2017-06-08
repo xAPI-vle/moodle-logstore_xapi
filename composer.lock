@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "92f009bb7f8d70e70901b9bc66545344",
+    "content-hash": "0db2954f2210c8f2a338a55357fc6a21",
     "packages": [
         {
             "name": "learninglocker/moodle-log-expander",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "86384c3737870e652e924b3aef979c932b23b5cb"
+                "reference": "8f69d9dd872b964dd4ba9aae8325a2319b18e562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/86384c3737870e652e924b3aef979c932b23b5cb",
-                "reference": "86384c3737870e652e924b3aef979c932b23b5cb",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/8f69d9dd872b964dd4ba9aae8325a2319b18e562",
+                "reference": "8f69d9dd872b964dd4ba9aae8325a2319b18e562",
                 "shasum": ""
             },
             "require-dev": {
@@ -34,20 +34,20 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-06-01T14:57:00+00:00"
+            "time": "2017-06-08T19:54:20+00:00"
         },
         {
             "name": "learninglocker/moodle-xapi-translator",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "d206b41d00d7993b5fdac3d336abcdd3f787e3f6"
+                "reference": "5b35aed982c65e503ebc4f1982df9e68fbd2bc3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/d206b41d00d7993b5fdac3d336abcdd3f787e3f6",
-                "reference": "d206b41d00d7993b5fdac3d336abcdd3f787e3f6",
+                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/5b35aed982c65e503ebc4f1982df9e68fbd2bc3f",
+                "reference": "5b35aed982c65e503ebc4f1982df9e68fbd2bc3f",
                 "shasum": ""
             },
             "require-dev": {
@@ -64,7 +64,7 @@
             "license": [
                 "GPL v3"
             ],
-            "time": "2017-06-06T02:29:51+00:00"
+            "time": "2017-06-08T19:56:18+00:00"
         },
         {
             "name": "learninglocker/xapi-recipe-emitter",
@@ -1425,7 +1425,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.1",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
