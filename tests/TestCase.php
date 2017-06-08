@@ -19,7 +19,7 @@ abstract class TestCase extends PhpUnitTestCase {
     public function setup() {
         $this->cfg = (object) [
             'wwwroot' => 'http://www.example.com',
-            'release' => '1.0.0',
+            'release' => '1.0.0'
         ];
         $this->xapi_controller = new xapi_controller(new xapi_repository(new xapi_remote_lrs('', '1.0.1', '', '')));
         $this->moodle_controller = new moodle_controller(new moodle_repository((object) [], $this->cfg));
@@ -31,6 +31,12 @@ abstract class TestCase extends PhpUnitTestCase {
 
         $moodle_events = $this->moodle_controller->createEvents([$input]);
         $this->assertNotNull($moodle_events, 'Check that the events exist in the expander controller.');
+
+        //Hack to add Moodle plugin config setting for sendmbox - need to make config function
+        $moodle_events = [array_merge(
+            $moodle_events[0],
+            ['sendmbox' => false]
+        )];
 
         $translator_events = $this->translator_controller->createEvents($moodle_events);
         $this->assertNotNull($translator_events, 'Check that the events exist in the translator controller.');
@@ -61,7 +67,7 @@ abstract class TestCase extends PhpUnitTestCase {
             'relateduserid' => '1',
             'courseid' => '1',
             'timecreated' => 1433946701,
-            'eventname' => '\core\event\course_viewed',
+            'eventname' => '\core\event\course_viewed'
         ];
     }
 }
