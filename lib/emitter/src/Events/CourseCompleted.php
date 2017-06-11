@@ -19,7 +19,7 @@ class CourseCompleted extends Event
      * Sets the language equivalent for completed. 
      * @var array
      */
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'completed'
     ];
     /**

@@ -2,7 +2,7 @@
 use \stdClass as PhpObj;
 
 abstract class Event extends PhpObj {
-    protected static $verb_display;
+    protected static $verbDisplay;
 
     /**
      * Reads data for an event.
@@ -130,8 +130,8 @@ abstract class Event extends PhpObj {
 
     protected function readVerbDisplay($opts) {
         $lang = $opts['context_lang'];
-        $lang = isset(static::$verb_display[$lang]) ? $lang : array_keys(static::$verb_display)[0];
-        return [$lang => static::$verb_display[$lang]];
+        $lang = isset(static::$verbDisplay[$lang]) ? $lang : array_keys(static::$verbDisplay)[0];
+        return [$lang => static::$verbDisplay[$lang]];
     }
 
 }

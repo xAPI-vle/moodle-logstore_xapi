@@ -84,7 +84,7 @@
     "verb": {
         "id": "http:\/\/adlnet.gov\/expapi\/verbs\/scored",
         "display": {
-            "en": "recieved grade for"
+            "en": "received grade for"
         }
     },
     "result": {

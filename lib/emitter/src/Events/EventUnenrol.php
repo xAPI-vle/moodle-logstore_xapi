@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class EventUnenrol extends EventEnrol {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'unregistered from'
     ];
 

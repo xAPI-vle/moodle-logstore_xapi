@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class ScormLaunched extends Event {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'launched'
     ];
 

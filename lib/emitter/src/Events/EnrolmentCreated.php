@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class EnrolmentCreated extends Event {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'enrolled onto'
     ];
 

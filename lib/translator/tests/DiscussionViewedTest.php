@@ -34,12 +34,12 @@ class DiscussionViewedTest extends ModuleViewedTest {
     }
 
     private function assertDiscussion($input, $output, $type) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_discussion';
+        $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_discussion';
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->name, $output[$type.'_name']);
         $this->assertEquals('A Moodle discussion.', $output[$type.'_description']);
         $this->assertEquals(static::$xapiType.$input->type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
-        $this->assertEquals($ext_key, $output[$type.'_ext_key']);
+        $this->assertEquals($extKey, $output[$type.'_ext_key']);
     }
 }

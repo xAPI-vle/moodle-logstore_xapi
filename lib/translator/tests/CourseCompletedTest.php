@@ -32,12 +32,12 @@ class CourseCompletedTest extends EventTest {
 
     /**
      * Constructs the event with the given event name
-     * @param $event_name
+     * @param $eventName
      * @return array
      */
-    private function constructEvent($event_name) {
+    private function constructEvent($eventName) {
         return [
-            'eventname' => $event_name,
+            'eventname' => $eventName,
             'timecreated' => 1433946701,
         ];
     }

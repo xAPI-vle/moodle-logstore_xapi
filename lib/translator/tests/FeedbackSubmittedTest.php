@@ -68,12 +68,12 @@ class FeedbackSubmittedTest extends ModuleViewedTest {
     }
 
     protected function assertAttempt($input, $output) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_attempt';
+        $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_attempt';
         $this->assertEquals($input->url, $output['attempt_url']);
         $this->assertEquals($input->name, $output['attempt_name']);
         $this->assertEquals(static::$xapiType.$input->type, $output['attempt_type']);
         $this->assertEquals($input, $output['attempt_ext']);
-        $this->assertEquals($ext_key, $output['attempt_ext_key']);
+        $this->assertEquals($extKey, $output['attempt_ext_key']);
     }
 
 }

@@ -56,9 +56,9 @@ abstract class EventTest extends PhpUnitTestCase {
         ];
     }
 
-    private function constructEvent($event_name) {
+    private function constructEvent($eventName) {
         return [
-            'eventname' => $event_name,
+            'eventname' => $eventName,
             'timecreated' => 1433946701,
         ];
     }
@@ -116,18 +116,18 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     protected function assertCourse($input, $output, $type) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
+        $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->fullname, $output[$type.'_name']);
         $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
         $this->assertEquals(static::$xapiType.$input->type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
-        $this->assertEquals($ext_key, $output[$type.'_ext_key']);
+        $this->assertEquals($extKey, $output[$type.'_ext_key']);
     }
 
     protected function assertApp($input, $output, $type) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
+        $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
         $app_type = 'http://id.tincanapi.com/activitytype/site';
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
@@ -135,7 +135,7 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
         $this->assertEquals($app_type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
-        $this->assertEquals($ext_key, $output[$type.'_ext_key']);
+        $this->assertEquals($extKey, $output[$type.'_ext_key']);
     }
 
     protected function assertSource($input, $output, $type) {
@@ -148,10 +148,10 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     private function assertEvent($input, $output) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log';
+        $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log';
         $this->assertEquals('Moodle', $output['context_platform']);
         $this->assertEquals($input, $output['context_ext']);
-        $this->assertEquals($ext_key, $output['context_ext_key']);
+        $this->assertEquals($extKey, $output['context_ext_key']);
         $this->assertEquals(date('c', $input['timecreated']), $output['time']);
     }
 
@@ -163,9 +163,9 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     protected function createExampleFile($output) {
-        $class_array = explode('\\', get_class($this));
-        $event_name = str_replace('Test', '', array_pop($class_array));
-        $example_file = __DIR__.'/../docs/examples/'.$event_name.'.json';
-        file_put_contents($example_file, json_encode($output, JSON_PRETTY_PRINT));
+        $classArray = explode('\\', get_class($this));
+        $eventName = str_replace('Test', '', array_pop($classArray));
+        $exampleFile = __DIR__.'/../docs/examples/'.$eventName.'.json';
+        file_put_contents($exampleFile, json_encode($output, JSON_PRETTY_PRINT));
     }
 }

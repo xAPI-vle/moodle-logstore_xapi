@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class ScormStatusSubmitted extends ScormEvent {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'completed'
     ];
 

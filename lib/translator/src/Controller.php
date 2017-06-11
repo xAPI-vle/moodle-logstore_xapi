@@ -62,10 +62,10 @@ class Controller extends PhpObj {
         foreach ($events as $index => $opts) {
             $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
             if (isset(static::$routes[$route])) {
-                    $route_events = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
-                    foreach ($route_events as $route_event) {
+                    $routeEvents = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
+                    foreach ($routeEvents as $routeEvent) {
                     try {
-                        $event = '\MXTranslator\Events\\'.$route_event;
+                        $event = '\MXTranslator\Events\\'.$routeEvent;
                         foreach ((new $event())->read($opts) as $index => $result) {
                              array_push($results, $result);
                          }

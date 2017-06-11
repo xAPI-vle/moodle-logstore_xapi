@@ -40,7 +40,7 @@ class AssignmentGradedTest extends EventTest {
             $output['context']['extensions']['http://lrs.learninglocker.net/define/extensions/info']
         );
         $this->assertValidXapiStatement($output);
-        $this->assertVerb('http://adlnet.gov/expapi/verbs/scored', 'recieved grade for', $output['verb']);
+        $this->assertVerb('http://adlnet.gov/expapi/verbs/scored', 'received grade for', $output['verb']);
         $this->assertObject('module', $input, $output['object']);
         $this->assertObject('course', $input, $output['context']['contextActivities']['parent'][0]);
         $this->assertEquals($input['grade_score_raw'], $output['result']['score']['raw']);

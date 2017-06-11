@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 abstract class Viewed extends Event {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'viewed'
     ];
 

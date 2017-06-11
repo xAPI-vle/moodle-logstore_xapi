@@ -92,9 +92,9 @@ class EventTest extends PhpUnitTestCase {
     }
 
     protected function createExampleFile($output) {
-        $class_array = explode('\\', get_class($this));
-        $event_name = str_replace('Test', '', array_pop($class_array));
-        $example_file = __DIR__.'/../docs/examples/'.$event_name.'.json';
-        file_put_contents($example_file, json_encode($output, JSON_PRETTY_PRINT));
+        $classArray = explode('\\', get_class($this));
+        $eventName = str_replace('Test', '', array_pop($classArray));
+        $exampleFile = __DIR__.'/../docs/examples/'.$eventName.'.json';
+        file_put_contents($exampleFile, json_encode($output, JSON_PRETTY_PRINT));
     }
 }

@@ -40,7 +40,7 @@ class ScormEvent extends Event {
                 $verb = 'completed';
         }
 
-        static::$verb_display = ['en' => $verb];
+        static::$verbDisplay = ['en' => $verb];
 
         $lang = [
             'id' => $verbUrl,

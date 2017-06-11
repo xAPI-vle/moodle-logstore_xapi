@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class ScormScoreRawSubmitted extends ScormEvent {
-    protected static $verb_display;
+    protected static $verbDisplay;
 
     /**
      * Reads data for an event.

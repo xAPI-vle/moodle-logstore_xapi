@@ -1,7 +1,7 @@
 <?php namespace XREmitter\Events;
 
 class UserRegistered extends Event {
-    protected static $verb_display = [
+    protected static $verbDisplay = [
         'en' => 'registered to'
     ];
 

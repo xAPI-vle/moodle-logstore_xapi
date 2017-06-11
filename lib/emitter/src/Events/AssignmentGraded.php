@@ -1,8 +1,8 @@
 <?php namespace XREmitter\Events;
 
 class AssignmentGraded extends Event {
-    protected static $verb_display = [
-        'en' => 'recieved grade for'
+    protected static $verbDisplay = [
+        'en' => 'received grade for'
     ];
 
     /**

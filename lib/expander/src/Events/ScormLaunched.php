@@ -8,10 +8,10 @@ class ScormLaunched extends Event {
      * @override Event
      */
     public function read(array $opts) {
-        $scorm_scoes = $this->repo->readObject($opts['objectid'], $opts['objecttable']);
+        $scormScoes = $this->repo->readObject($opts['objectid'], $opts['objecttable']);
         return array_merge(parent::read($opts), [
-            'module' => $this->repo->readModule($scorm_scoes->scorm, 'scorm'),
-            'scorm_scoes' => $scorm_scoes
+            'module' => $this->repo->readModule($scormScoes->scorm, 'scorm'),
+            'scorm_scoes' => $scormScoes
         ]);
     }
 }
