@@ -2,7 +2,7 @@
 use \XREmitter\Events\EventEnrol as Event;
 
 class EventEnrolTest extends EventTest {
-    protected static $recipe_name = 'training_session_enrol';
+    protected static $recipeName = 'training_session_enrol';
 
     /**
      * Sets up the tests.

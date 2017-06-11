@@ -2,7 +2,7 @@
 use \XREmitter\Events\EventUnenrol as Event;
 
 class EventUnenrolTest extends EventTest {
-    protected static $recipe_name = 'training_session_unenrol';
+    protected static $recipeName = 'training_session_unenrol';
 
     /**
      * Sets up the tests.

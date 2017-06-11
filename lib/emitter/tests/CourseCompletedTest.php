@@ -17,7 +17,7 @@ class CourseCompletedTest extends EventTest
     /**
      * @var string
      */
-    protected static $recipe_name = 'course_completed';
+    protected static $recipeName = 'course_completed';
 
     /**
      * Sets up the tests.

@@ -2,7 +2,7 @@
 use \XREmitter\Events\UserLoggedout as Event;
 
 class UserLoggedoutTest extends EventTest {
-    protected static $recipe_name = 'user_loggedout';
+    protected static $recipeName = 'user_loggedout';
 
     /**
      * Sets up the tests.

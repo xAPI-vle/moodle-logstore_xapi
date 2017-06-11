@@ -2,7 +2,7 @@
 use \XREmitter\Events\AttemptCompleted as Event;
 
 class AttemptCompletedTest extends EventTest {
-    protected static $recipe_name = 'attempt_completed';
+    protected static $recipeName = 'attempt_completed';
 
     /**
      * Sets up the tests.

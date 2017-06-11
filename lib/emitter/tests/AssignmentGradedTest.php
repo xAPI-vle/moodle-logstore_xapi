@@ -2,7 +2,7 @@
 use \XREmitter\Events\AssignmentGraded as Event;
 
 class AssignmentGradedTest extends EventTest {
-    protected static $recipe_name = 'assignment_graded';
+    protected static $recipeName = 'assignment_graded';
 
     /**
      * Sets up the tests.

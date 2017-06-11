@@ -2,7 +2,7 @@
 use \MXTranslator\Events\ScormEvent as Event;
 
 class ScormEventTest extends ModuleViewedTest {
-    protected static $recipe_name = 'scorm_event';
+    protected static $recipeName = 'scorm_event';
 
     /**
      * Sets up the tests.

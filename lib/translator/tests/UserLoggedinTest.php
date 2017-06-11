@@ -2,7 +2,7 @@
 use \MXTranslator\Events\UserLoggedin as Event;
 
 class UserLoggedinTest extends UserEventTest {
-    protected static $recipe_name = 'user_loggedin';
+    protected static $recipeName = 'user_loggedin';
     
     /**
      * Sets up the tests.

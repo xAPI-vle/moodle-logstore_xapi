@@ -2,7 +2,7 @@
 use \MXTranslator\Events\FeedbackSubmitted as Event;
 
 class FeedbackSubmittedTest extends ModuleViewedTest {
-    protected static $recipe_name = 'attempt_completed';
+    protected static $recipeName = 'attempt_completed';
 
     /**
      * Sets up the tests.

@@ -2,7 +2,7 @@
 use \MXTranslator\Events\EnrolmentCreated as Event;
 
 class EnrolmentCreatedTest extends EventTest {
-    protected static $recipe_name = 'enrolment_created';
+    protected static $recipeName = 'enrolment_created';
     
     /**
      * Sets up the tests.

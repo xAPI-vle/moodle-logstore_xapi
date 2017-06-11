@@ -4,7 +4,7 @@ use \MXTranslator\Events\Event as Event;
 
 abstract class EventTest extends PhpUnitTestCase {
     protected static $xapiType = 'http://lrs.learninglocker.net/define/type/moodle/';
-    protected static $recipe_name;
+    protected static $recipeName;
 
     /**
      * Sets up the tests.
@@ -105,7 +105,7 @@ abstract class EventTest extends PhpUnitTestCase {
     protected function assertOutput($input, $output) {
         $this->assertApp($input['app'], $output, 'app');
         $this->assertEvent($input['event'], $output);
-        $this->assertEquals(static::$recipe_name, $output['recipe']);
+        $this->assertEquals(static::$recipeName, $output['recipe']);
         $this->assertInfo($input['info'], $output['context_info']);
     }
 

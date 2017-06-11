@@ -2,7 +2,7 @@
 use \XREmitter\Events\ScormScoreRawSubmitted as Event;
 
 class ScormScoreRawSubmittedTest extends ScormEventTest {
-    protected static $recipe_name = 'scorm_scoreraw_submitted';
+    protected static $recipeName = 'scorm_scoreraw_submitted';
 
     /**
      * Sets up the tests.

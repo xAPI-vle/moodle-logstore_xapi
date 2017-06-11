@@ -2,7 +2,7 @@
 use \MXTranslator\Events\UserLoggedout as Event;
 
 class UserLoggedoutTest extends UserEventTest {
-    protected static $recipe_name = 'user_loggedout';
+    protected static $recipeName = 'user_loggedout';
     
     /**
      * Sets up the tests.

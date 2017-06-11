@@ -2,7 +2,7 @@
 use \MXTranslator\Events\AttemptAbandoned as Event;
 
 class AttemptAbandonedTest extends AttemptReviewedTest {
-    protected static $recipe_name = 'attempt_abandoned';
+    protected static $recipeName = 'attempt_abandoned';
 
     /**
      * Sets up the tests.

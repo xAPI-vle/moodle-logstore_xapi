@@ -2,7 +2,7 @@
 use \MXTranslator\Events\AssignmentGraded as Event;
 
 class AssignmentGradedTest extends ModuleViewedTest {
-    protected static $recipe_name = 'assignment_graded';
+    protected static $recipeName = 'assignment_graded';
 
     /**
  * Sets up the tests.

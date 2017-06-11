@@ -2,7 +2,7 @@
 use \XREmitter\Events\AssignmentSubmitted as Event;
 
 class AssignmentSubmittedTest extends EventTest {
-    protected static $recipe_name = 'assignment_submitted';
+    protected static $recipeName = 'assignment_submitted';
 
     /**
      * Sets up the tests.

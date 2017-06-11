@@ -2,7 +2,7 @@
 use \MXTranslator\Events\AssignmentSubmitted as Event;
 
 class AssignmentSubmittedTest extends ModuleViewedTest {
-    protected static $recipe_name = 'assignment_submitted';
+    protected static $recipeName = 'assignment_submitted';
 
     /**
      * Sets up the tests.

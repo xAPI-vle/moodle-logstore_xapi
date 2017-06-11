@@ -2,7 +2,7 @@
 use \XREmitter\Events\UserLoggedin as Event;
 
 class UserLoggedinTest extends EventTest {
-    protected static $recipe_name = 'user_loggedin';
+    protected static $recipeName = 'user_loggedin';
 
     /**
      * Sets up the tests.

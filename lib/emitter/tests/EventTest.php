@@ -5,7 +5,7 @@ use \Locker\XApi\Statement as Statement;
 
 abstract class EventTest extends PhpUnitTestCase {
     protected static $xapiType = 'http://lrs.learninglocker.net/define/type/moodle/';
-    protected static $recipe_name;
+    protected static $recipeName;
 
     /**
      * Sets up the tests.
@@ -29,7 +29,7 @@ abstract class EventTest extends PhpUnitTestCase {
             $this->constructLog(),
             $this->constructApp(),
             $this->constructSource(),
-            ['recipe' => static::$recipe_name]
+            ['recipe' => static::$recipeName]
         );
     }
 

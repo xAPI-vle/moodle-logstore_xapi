@@ -42,8 +42,7 @@
         "url": "http:\/\/www.example.com"
     },
     "info": {
-        "https:\/\/moodle.org\/": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-Log-Expander": null
+        "https:\/\/moodle.org\/": "1.0.0"
     },
     "event": {
         "userid": 1,
@@ -117,6 +116,6 @@
                 "type": "object"
             }
         },
-        "timemodified": 1497206145
+        "timemodified": 1497207558
     }
 }

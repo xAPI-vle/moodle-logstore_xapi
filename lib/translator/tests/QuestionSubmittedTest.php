@@ -2,7 +2,7 @@
 use \MXTranslator\Events\QuestionSubmitted as Event;
 
 class QuestionSubmittedTest extends AttemptStartedTest {
-    protected static $recipe_name = 'attempt_question_completed';
+    protected static $recipeName = 'attempt_question_completed';
 
     /**
      * Sets up the tests.

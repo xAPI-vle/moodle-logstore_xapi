@@ -2,7 +2,7 @@
 use \MXTranslator\Events\AttemptReviewed as Event;
 
 class AttemptReviewedTest extends AttemptStartedTest {
-    protected static $recipe_name = 'attempt_completed';
+    protected static $recipeName = 'attempt_completed';
 
     /**
      * Sets up the tests.

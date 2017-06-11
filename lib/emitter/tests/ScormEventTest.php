@@ -2,7 +2,7 @@
 use \XREmitter\Events\ScormEvent as Event;
 
 class ScormEventTest extends EventTest {
-    protected static $recipe_name = 'scorm_event';
+    protected static $recipeName = 'scorm_event';
 
     /**
      * Sets up the tests.

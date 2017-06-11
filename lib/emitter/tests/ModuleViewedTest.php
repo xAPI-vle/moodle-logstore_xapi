@@ -2,7 +2,7 @@
 use \XREmitter\Events\ModuleViewed as Event;
 
 class ModuleViewedTest extends EventTest {
-    protected static $recipe_name = 'module_viewed';
+    protected static $recipeName = 'module_viewed';
 
     /**
      * Sets up the tests.

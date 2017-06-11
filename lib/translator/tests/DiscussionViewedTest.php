@@ -2,7 +2,7 @@
 use \MXTranslator\Events\DiscussionViewed as Event;
 
 class DiscussionViewedTest extends ModuleViewedTest {
-    protected static $recipe_name = 'discussion_viewed';
+    protected static $recipeName = 'discussion_viewed';
 
     /**
      * Sets up the tests.

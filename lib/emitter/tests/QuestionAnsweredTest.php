@@ -2,7 +2,7 @@
 use \XREmitter\Events\QuestionAnswered as Event;
 
 class QuestionAnsweredTest extends EventTest {
-    protected static $recipe_name = 'attempt_question_completed';
+    protected static $recipeName = 'attempt_question_completed';
 
     /**
      * Sets up the tests.
