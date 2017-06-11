@@ -20,13 +20,14 @@
  * @package    logstore_xapi
  * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
  *                  Ryan Smith <ryan.smith@ht2.co.uk>
+ *                  David Pesce <david.pesce@exputo.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'logstore_xapi';
-$plugin->version = 2017060500;
-$plugin->release = '1.5.0';
+$plugin->version = 2017061100;
+$plugin->release = '2.0.0';
 $plugin->requires = 2014111000;
 $plugin->maturity = MATURITY_STABLE;
