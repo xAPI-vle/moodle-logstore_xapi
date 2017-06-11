@@ -4,6 +4,7 @@
         "username": "test_username",
         "lang": "en",
         "fullname": "test_fullname",
+        "email": "test@test.com",
         "type": "object",
         "url": "http:\/\/www.example.com"
     },
@@ -12,6 +13,7 @@
         "username": "test_username",
         "lang": "en",
         "fullname": "test_fullname",
+        "email": "test@test.com",
         "type": "object",
         "url": "http:\/\/www.example.com"
     },
@@ -41,7 +43,7 @@
     },
     "info": {
         "https:\/\/moodle.org\/": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-Log-Expander": "1.1.0"
+        "https:\/\/github.com\/LearningLocker\/Moodle-Log-Expander": null
     },
     "event": {
         "userid": 1,

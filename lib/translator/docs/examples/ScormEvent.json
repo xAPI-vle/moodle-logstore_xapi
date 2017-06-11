@@ -31,7 +31,7 @@
     "source_name": "Moodle",
     "source_description": "Moodle is a open source learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments.",
     "source_type": "http:\/\/id.tincanapi.com\/activitytype\/source",
-    "recipe": "scorm_launched",
+    "recipe": "scorm_event",
     "course_url": "http:\/\/www.example.com\/course_url",
     "course_name": "Test course_fullname",
     "course_description": "Test course_summary",
@@ -54,5 +54,14 @@
         "intro": "Test module_intro",
         "type": "moodle_module"
     },
-    "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module"
+    "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
+    "scorm_url": "http:\/\/www.example.com\/module_url",
+    "scorm_name": "Test module_name",
+    "scorm_scoes_id": 1,
+    "scorm_scoes_type": "http:\/\/adlnet.gov\/expapi\/activities\/lesson",
+    "scorm_scoes_url": "http:\/\/www.example.com\/module_url",
+    "scorm_scoes_name": "Sco title",
+    "scorm_scoes_description": "Sco title",
+    "scorm_attempt": 2,
+    "scorm_status": "completed"
 }

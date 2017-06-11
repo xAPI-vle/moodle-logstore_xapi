@@ -1,5 +1,6 @@
 {
     "user_id": 1,
+    "user_email": "test@test.com",
     "user_url": "http:\/\/www.example.com\/user_url",
     "user_name": "Test user_name",
     "context_lang": "en",
@@ -10,9 +11,7 @@
     },
     "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
     "context_info": {
-        "https:\/\/moodle.org\/": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-Log-Expander": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-xAPI-Translator": "1.1.0"
+        "https:\/\/moodle.org\/": "1.0.0"
     },
     "time": "2015-06-10T14:31:41+00:00",
     "app_url": "http:\/\/www.example.com",
@@ -26,6 +25,7 @@
         "lang": "en",
         "type": "moodle_site"
     },
+    "sendmbox": true,
     "app_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course",
     "source_url": "http:\/\/moodle.org",
     "source_name": "Moodle",
@@ -67,8 +67,8 @@
         "state": "finished",
         "questions": [
             {
-                "id": 1,
-                "questionid": 1,
+                "id": 11,
+                "questionid": 11,
                 "maxmark": "5.0000000",
                 "steps": [
                     {
@@ -84,16 +84,17 @@
                         "fraction": "1.0000000"
                     }
                 ],
-                "responsesummary": "test answer",
-                "rightanswer": "test answer"
+                "responsesummary": "5",
+                "rightanswer": "5",
+                "variant": "1"
             }
         ]
     },
     "attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_attempt",
     "attempt_name": "Test attempt_name",
     "question_attempt_ext": {
-        "id": 1,
-        "questionid": 1,
+        "id": 11,
+        "questionid": 11,
         "maxmark": "5.0000000",
         "steps": [
             {
@@ -109,44 +110,59 @@
                 "fraction": "1.0000000"
             }
         ],
-        "responsesummary": "test answer",
-        "rightanswer": "test answer"
+        "responsesummary": "5",
+        "rightanswer": "5",
+        "variant": "1"
     },
     "question_attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_question_attempt",
     "question_ext": {
-        "id": 1,
-        "name": "test question {$index}",
-        "questiontext": "test questiontext",
-        "url": "http:\/\/localhost\/moodle\/question\/question.php?id=23",
+        "id": "11",
+        "name": "test question 11",
+        "questiontext": "test question",
+        "url": "http:\/\/localhost\/moodle\/question\/question.php?id=11",
         "answers": {
             "1": {
                 "id": "1",
-                "answer": "test answer"
+                "answer": "5",
+                "fraction": "1.00"
             },
             "2": {
                 "id": "2",
-                "answer": "wrong test answer"
+                "answer": "10",
+                "fraction": "0.00"
             }
         },
-        "qtype": "multichoice"
+        "qtype": "numerical",
+        "numerical": {
+            "answers": {
+                "1": {
+                    "id": "1",
+                    "question": "11",
+                    "answer": "1",
+                    "tolerance": "1"
+                },
+                "2": {
+                    "id": "2",
+                    "question": "11",
+                    "answer": "2",
+                    "tolerance": "1"
+                }
+            }
+        }
     },
     "question_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_question",
-    "question_name": "test question {$index}",
-    "question_description": "test questiontext",
-    "question_url": "http:\/\/localhost\/moodle\/question\/question.php?id=23",
-    "attempt_score_scaled": "1.0000000",
+    "question_name": "test question 11",
+    "question_description": "test question",
+    "question_url": "http:\/\/localhost\/moodle\/question\/question.php?id=11",
+    "attempt_score_scaled": 1,
     "attempt_score_raw": 5,
     "attempt_score_min": 0,
-    "attempt_score_max": "5.0000000",
-    "attempt_response": "moodle_quiz_question_answer_1",
-    "attempt_completed": true,
-    "attempt_success": true,
-    "interaction_type": "choice",
-    "interaction_choices": {
-        "moodle_quiz_question_answer_1": "test answer",
-        "moodle_quiz_question_answer_2": "wrong test answer"
-    },
+    "attempt_score_max": 5,
+    "attempt_response": "5",
     "interaction_correct_responses": [
-        "moodle_quiz_question_answer_1"
-    ]
+        "4[:]6"
+    ],
+    "interaction_type": "numeric",
+    "attempt_completed": true,
+    "attempt_success": true
 }

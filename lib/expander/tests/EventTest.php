@@ -52,9 +52,7 @@ class EventTest extends PhpUnitTestCase {
     }
 
     protected function assertInfo($input, $output) {
-        $version = str_replace("\n", "", str_replace("\r", "", file_get_contents(__DIR__.'/../VERSION')));
         $this->assertEquals($this->cfg->release, $output->{'https://moodle.org/'});
-        $this->assertEquals($version, $output->{'https://github.com/LearningLocker/Moodle-Log-Expander'});
     }
 
     protected function assertRecord($input, $output) {

@@ -58,11 +58,5 @@
                 }
             }
         }
-    },
-    "verb": {
-        "id": "http:\/\/adlnet.gov\/expapi\/verbs\/completed",
-        "display": {
-            "en": "completed"
-        }
     }
 }

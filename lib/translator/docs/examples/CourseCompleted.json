@@ -1,5 +1,6 @@
 {
     "user_id": 1,
+    "user_email": "test@test.com",
     "user_url": "http:\/\/www.example.com\/user_url",
     "user_name": "Test user_name",
     "context_lang": "en",
@@ -10,9 +11,7 @@
     },
     "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
     "context_info": {
-        "https:\/\/moodle.org\/": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-Log-Expander": "1.0.0",
-        "https:\/\/github.com\/LearningLocker\/Moodle-xAPI-Translator": "1.0.0"
+        "https:\/\/moodle.org\/": "1.0.0"
     },
     "time": "2015-06-10T14:31:41+00:00",
     "app_url": "http:\/\/www.example.com",
@@ -26,6 +25,7 @@
         "lang": "en",
         "type": "moodle_site"
     },
+    "sendmbox": true,
     "app_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course",
     "source_url": "http:\/\/moodle.org",
     "source_name": "Moodle",

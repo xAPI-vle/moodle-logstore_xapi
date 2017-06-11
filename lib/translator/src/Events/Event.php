@@ -11,8 +11,6 @@ class Event extends PhpObj {
      * @return [String => Mixed]
      */
     public function read(array $opts) {
-        $version = trim(file_get_contents(__DIR__.'/../../VERSION'));
-        $opts['info']->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'} = $version;
         $app_name = $opts['app']->fullname ?: 'A Moodle site';
 
         return [[

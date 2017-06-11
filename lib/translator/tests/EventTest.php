@@ -43,8 +43,7 @@ abstract class EventTest extends PhpUnitTestCase {
 
     protected function constructInfo() {
         return (object) [
-            'https://moodle.org/' => '1.0.0',
-            'https://github.com/LearningLocker/Moodle-Log-Expander' => '1.0.0',
+            'https://moodle.org/' => '1.0.0'
         ];
     }
 
@@ -157,18 +156,9 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     private function assertInfo($input, $output) {
-        $version = str_replace("\n", "", str_replace("\r", "", file_get_contents(__DIR__.'/../VERSION')));
         $this->assertEquals(
             $input->{'https://moodle.org/'},
             $output->{'https://moodle.org/'}
-        );
-        $this->assertEquals(
-            $input->{'https://github.com/LearningLocker/Moodle-Log-Expander'},
-            $output->{'https://github.com/LearningLocker/Moodle-Log-Expander'}
-        );
-        $this->assertEquals(
-            $version,
-            $output->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'}
         );
     }
 
