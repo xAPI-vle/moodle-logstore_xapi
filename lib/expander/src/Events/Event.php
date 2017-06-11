@@ -26,7 +26,6 @@ class Event extends PhpObj {
             'app' => $this->repo->readSite(),
             'info' => (object) [
                 'https://moodle.org/' => $this->repo->readRelease(),
-                'https://github.com/LearningLocker/Moodle-Log-Expander' => $version,
             ],
             'event' => $opts,
         ];
