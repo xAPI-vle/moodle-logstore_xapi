@@ -4,103 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0db2954f2210c8f2a338a55357fc6a21",
+    "content-hash": "ec99a19150b6dcfc55ef03770d477faf",
     "packages": [
-        {
-            "name": "learninglocker/moodle-log-expander",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LearningLocker/Moodle-Log-Expander.git",
-                "reference": "8f69d9dd872b964dd4ba9aae8325a2319b18e562"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-Log-Expander/zipball/8f69d9dd872b964dd4ba9aae8325a2319b18e562",
-                "reference": "8f69d9dd872b964dd4ba9aae8325a2319b18e562",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LogExpander\\": "src/",
-                    "LogExpander\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL v3"
-            ],
-            "time": "2017-06-08T19:54:20+00:00"
-        },
-        {
-            "name": "learninglocker/moodle-xapi-translator",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LearningLocker/Moodle-xAPI-Translator.git",
-                "reference": "5b35aed982c65e503ebc4f1982df9e68fbd2bc3f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/Moodle-xAPI-Translator/zipball/5b35aed982c65e503ebc4f1982df9e68fbd2bc3f",
-                "reference": "5b35aed982c65e503ebc4f1982df9e68fbd2bc3f",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MXTranslator\\": "src/",
-                    "MXTranslator\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL v3"
-            ],
-            "time": "2017-06-08T19:56:18+00:00"
-        },
-        {
-            "name": "learninglocker/xapi-recipe-emitter",
-            "version": "v1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LearningLocker/xAPI-Recipe-Emitter.git",
-                "reference": "a27700453593a2257d2624652c9311b9c3b3fedf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/xAPI-Recipe-Emitter/zipball/a27700453593a2257d2624652c9311b9c3b3fedf",
-                "reference": "a27700453593a2257d2624652c9311b9c3b3fedf",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~5.5 || ^7.0.3",
-                "rusticisoftware/tincan": "1.0.0"
-            },
-            "require-dev": {
-                "learninglocker/statementfactory": "~0.0",
-                "phpunit/phpunit": "~4.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "XREmitter\\": "src/",
-                    "XREmitter\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL v3"
-            ],
-            "time": "2017-06-05T20:04:40+00:00"
-        },
         {
             "name": "namshi/jose",
             "version": "7.2.3",
@@ -219,16 +124,16 @@
         },
         {
             "name": "symfony/polyfill-php56",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php56.git",
-                "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c"
+                "reference": "bc0b7d6cb36b10cfabb170a3e359944a95174929"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/1dd42b9b89556f18092f3d1ada22cb05ac85383c",
-                "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c",
+                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/bc0b7d6cb36b10cfabb170a3e359944a95174929",
+                "reference": "bc0b7d6cb36b10cfabb170a3e359944a95174929",
                 "shasum": ""
             },
             "require": {
@@ -238,7 +143,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -271,20 +176,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-09T08:25:21+00:00"
         },
         {
             "name": "symfony/polyfill-util",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-util.git",
-                "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb"
+                "reference": "ebccbde4aad410f6438d86d7d261c6b4d2b9a51d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/746bce0fca664ac0a575e465f65c6643faddf7fb",
-                "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb",
+                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/ebccbde4aad410f6438d86d7d261c6b4d2b9a51d",
+                "reference": "ebccbde4aad410f6438d86d7d261c6b4d2b9a51d",
                 "shasum": ""
             },
             "require": {
@@ -293,7 +198,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -323,7 +228,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-09T08:25:21+00:00"
         },
         {
             "name": "willdurand/negotiation",

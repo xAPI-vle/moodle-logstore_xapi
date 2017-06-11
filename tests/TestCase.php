@@ -32,11 +32,11 @@ abstract class TestCase extends PhpUnitTestCase {
         $moodle_events = $this->moodle_controller->createEvents([$input]);
         $this->assertNotNull($moodle_events, 'Check that the events exist in the expander controller.');
 
-        //Hack to add Moodle plugin config setting for sendmbox - need to make config function
+/*        //Hack to add Moodle plugin config setting for sendmbox - need to make config function
         $moodle_events = [array_merge(
             $moodle_events[0],
             ['sendmbox' => false]
-        )];
+        )];*/
 
         $translator_events = $this->translator_controller->createEvents($moodle_events);
         $this->assertNotNull($translator_events, 'Check that the events exist in the translator controller.');
