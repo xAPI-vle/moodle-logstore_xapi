@@ -135,10 +135,10 @@ abstract class EventTest extends PhpUnitTestCase {
 
     protected function assertValidXapiStatement($output) {
         $errors = Statement::createFromJson(json_encode($output))->validate();
-        $errors_json = json_encode(array_map(function ($error) {
+        $errorsJson = json_encode(array_map(function ($error) {
             return (string) $error;
         }, $errors));
-        $this->assertEmpty($errors, $errors_json);
+        $this->assertEmpty($errors, $errorsJson);
     }
 
     protected function assertInfo($input, $output) {
@@ -155,11 +155,11 @@ abstract class EventTest extends PhpUnitTestCase {
     }
 
     protected function assertLog($input, $output) {
-        $actual_context = $output['context'];
-        $this->assertEquals($input['context_lang'], $actual_context['language']);
-        $this->assertEquals($input['context_platform'], $actual_context['platform']);
-        $this->assertArrayHasKey($input['context_ext_key'], $actual_context['extensions']);
-        $this->assertEquals($input['context_ext'], $actual_context['extensions'][$input['context_ext_key']]);
+        $actualContext = $output['context'];
+        $this->assertEquals($input['context_lang'], $actualContext['language']);
+        $this->assertEquals($input['context_platform'], $actualContext['platform']);
+        $this->assertArrayHasKey($input['context_ext_key'], $actualContext['extensions']);
+        $this->assertEquals($input['context_ext'], $actualContext['extensions'][$input['context_ext_key']]);
         $this->assertEquals($input['time'], $output['timestamp']);
     }
 
@@ -170,9 +170,9 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals($input[$type.'_description'], $output['definition']['description'][$input['context_lang']]);
     }
 
-    protected function assertVerb($verbId, $verb_name, $output) {
+    protected function assertVerb($verbId, $verbName, $output) {
         $this->assertEquals($verbId, $output['id']);
-        $this->assertEquals($verb_name, $output['display']['en']);
+        $this->assertEquals($verbName, $output['display']['en']);
     }
 
     protected function assertAttempt($input, $output) {

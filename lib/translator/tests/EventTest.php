@@ -128,23 +128,23 @@ abstract class EventTest extends PhpUnitTestCase {
 
     protected function assertApp($input, $output, $type) {
         $extKey = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
-        $app_type = 'http://id.tincanapi.com/activitytype/site';
+        $appType = 'http://id.tincanapi.com/activitytype/site';
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->fullname, $output[$type.'_name']);
         $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
-        $this->assertEquals($app_type, $output[$type.'_type']);
+        $this->assertEquals($appType, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
         $this->assertEquals($extKey, $output[$type.'_ext_key']);
     }
 
     protected function assertSource($input, $output, $type) {
-        $app_type = 'http://id.tincanapi.com/activitytype/source';
+        $appType = 'http://id.tincanapi.com/activitytype/source';
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->fullname, $output[$type.'_name']);
         $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
-        $this->assertEquals($app_type, $output[$type.'_type']);
+        $this->assertEquals($appType, $output[$type.'_type']);
     }
 
     private function assertEvent($input, $output) {

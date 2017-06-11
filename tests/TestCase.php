@@ -55,10 +55,10 @@ abstract class TestCase extends PhpUnitTestCase {
 
     protected function assertValidXapiStatement($output) {
         $errors = LockerStatement::createFromJson(json_encode($output))->validate();
-        $errors_json = json_encode(array_map(function ($error) {
+        $errorsJson = json_encode(array_map(function ($error) {
             return (string) $error;
         }, $errors));
-        $this->assertEmpty($errors, $errors_json);
+        $this->assertEmpty($errors, $errorsJson);
     }
 
     protected function constructInput() {

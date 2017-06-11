@@ -11,7 +11,7 @@ class Event extends PhpObj {
      * @return [String => Mixed]
      */
     public function read(array $opts) {
-        $app_name = $opts['app']->fullname ?: 'A Moodle site';
+        $appName = $opts['app']->fullname ?: 'A Moodle site';
 
         return [[
             'user_id' => $opts['user']->id,
@@ -26,8 +26,8 @@ class Event extends PhpObj {
             'context_info' => $opts['info'],
             'time' => date('c', $opts['event']['timecreated']),
             'app_url' => $opts['app']->url,
-            'app_name' => $app_name,
-            'app_description' => strip_tags($opts['app']->summary) ?: $app_name,
+            'app_name' => $appName,
+            'app_description' => strip_tags($opts['app']->summary) ?: $appName,
             'app_type' => 'http://id.tincanapi.com/activitytype/site',
             'app_ext' => $opts['app'],
             'sendmbox' => $opts['sendmbox'],

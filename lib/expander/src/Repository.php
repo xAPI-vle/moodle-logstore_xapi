@@ -72,12 +72,12 @@ class Repository extends PhpObj {
     public function readModule($id, $type) {
         $model = $this->readObject($id, $type);
         $module = $this->readStoreRecord('modules', ['name' => $type]);
-        $course_module = $this->readStoreRecord('course_modules', [
+        $courseModule = $this->readStoreRecord('course_modules', [
             'instance' => $id,
             'module' => $module->id,
             'course' => $model->course
         ]);
-        $model->url = $this->cfg->wwwroot . '/mod/'.$type.'/view.php?id=' . $course_module->id;
+        $model->url = $this->cfg->wwwroot . '/mod/'.$type.'/view.php?id=' . $courseModule->id;
         return $model;
     }
 
@@ -172,12 +172,12 @@ class Repository extends PhpObj {
      * @param String $id
      * @return PhpObj
      */
-    public function readGradeComment($grade_id, $assignment_id) {
+    public function readGradeComment($gradeId, $assignmentId) {
         $model = $this->readStoreRecord(
             'assignfeedback_comments',
             [
-                'assignment' => $assignment_id,
-                'grade' => $grade_id
+                'assignment' => $assignmentId,
+                'grade' => $gradeId
             ]
         );
         return $model;
