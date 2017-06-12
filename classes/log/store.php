@@ -100,7 +100,12 @@ class store extends php_obj implements log_writer {
 
         // If in background mode, just save them in the database
         if (get_config('logstore_xapi', 'backgroundmode')) {
-            $DB->insert_records('logstore_xapi_log', $events);
+            $events = array_filter($events, function ($event) {
+                return array_key_exists($event['eventname'], moodle_controller::$routes);
+            });
+            if (!empty($events)) {
+                $DB->insert_records('logstore_xapi_log', $events);
+            }
         } else {
             $this->process_events($events);
         }
@@ -124,7 +129,7 @@ class store extends php_obj implements log_writer {
 
         // Clear the user email if mbox setting is not set to mbox
         $mbox = get_config('logstore_xapi', 'mbox');
-        foreach(array_keys($moodleevents) as $event_key) {
+        foreach (array_keys($moodleevents) as $event_key) {
             $moodleevents[$event_key]['sendmbox'] = $mbox;
         }
 
@@ -150,7 +155,7 @@ class store extends php_obj implements log_writer {
         $sent_events = [];
         foreach ($eventbatches as $translatoreventsbatch) {
             $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
-            foreach(array_keys($xapievents) as $key) {
+            foreach (array_keys($xapievents) as $key) {
                 if (is_numeric($key)) {
                     $sent_events[$xapievents[$key]['context']['extensions'][$translator_event_read_return[0]['context_ext_key']]['id']] = $xapievents['last_action_result'];
                 }
@@ -198,7 +203,7 @@ class store extends php_obj implements log_writer {
             $this->get_config('password', '')
         );
         if (!empty($CFG->proxyhost)) {
-          $remote_lrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
+            $remote_lrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
         }
         return new xapi_repository($remote_lrs);
     }
