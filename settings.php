@@ -59,15 +59,13 @@ if ($hassiteconfig) {
         get_string('filters_help', 'logstore_xapi')));
 
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/logguests',
-        get_string('logguests',
-        'logstore_xapi'), '', '0'));
+        get_string('logguests', 'logstore_xapi'), '', '0'));
 
     $menu_routes = array();
     $routes = translator_controller::$routes;
     foreach (array_keys($routes) as $route_key) $menu_routes[$route_key] = $route_key;
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
-        get_string('routes',
-        'logstore_xapi'), '', '1', $menu_routes));
+        get_string('routes', 'logstore_xapi'), '', $menu_routes, $menu_routes));
 
 }
