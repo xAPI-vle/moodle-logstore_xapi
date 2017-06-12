@@ -8,14 +8,14 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
      * @override AttemtStarted
      */
     public function read(array $opts) {
-        $translatorevents = [];
+        $translatorEvents = [];
 
         $feedback = parent::parseFeedback($opts);
 
-        // Push question statements to $translatorevents['events'].
+        // Push question statements to $translatorEvents['events'].
         foreach ($feedback->questions as $questionId => $questionAttempt) {
             array_push(
-                $translatorevents,
+                $translatorEvents,
                 $this->questionStatement(
                     parent::read($opts)[0],
                     $questionAttempt
@@ -23,7 +23,7 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
             );
         }
 
-        return $translatorevents;
+        return $translatorEvents;
     }
 
     /**
@@ -35,7 +35,7 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
      */
     protected function questionStatement($template, $questionAttempt) {
 
-        $translatorevent = [
+        $translatorEvent = [
             'recipe' => 'attempt_question_completed',
             'question_attempt_ext' => $questionAttempt,
             'question_attempt_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_question_attempt',
@@ -57,37 +57,37 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
 
         switch ($questionAttempt->question->typ) {
             case 'multichoice':
-                $translatorevent['interaction_type'] = 'choice';
-                $translatorevent['interaction_choices'] = (object)[];
+                $translatorEvent['interaction_type'] = 'choice';
+                $translatorEvent['interaction_choices'] = (object)[];
                 foreach ($questionAttempt->options as $index => $option) {
-                    $translatorevent['interaction_choices']->$index = $option->description;
+                    $translatorEvent['interaction_choices']->$index = $option->description;
                 }
                 break;
             case 'multichoicerated':
-                $translatorevent['interaction_type'] = 'likert';
-                $translatorevent['interaction_scale'] = (object)[];
+                $translatorEvent['interaction_type'] = 'likert';
+                $translatorEvent['interaction_scale'] = (object)[];
                 foreach ($questionAttempt->options as $index => $option) {
-                    $translatorevent['interaction_scale']->$index = $option->description;
+                    $translatorEvent['interaction_scale']->$index = $option->description;
                 }
                 break;
             case 'textfield':
-                $translatorevent['interaction_type'] = 'fill-in';
+                $translatorEvent['interaction_type'] = 'fill-in';
                 break;
             case 'textarea':
-                $translatorevent['interaction_type'] = 'long-fill-in';
+                $translatorEvent['interaction_type'] = 'long-fill-in';
                 break;
             case 'numeric':
-                $translatorevent['interaction_type'] = 'numeric';
+                $translatorEvent['interaction_type'] = 'numeric';
                 break;
             case 'info':
-                $translatorevent['interaction_type'] = 'other';
+                $translatorEvent['interaction_type'] = 'other';
                 break;
             default:
                 // Unsupported type. 
                 break;
         }
 
-        return array_merge($template, $translatorevent);
+        return array_merge($template, $translatorEvent);
     }
 
 }

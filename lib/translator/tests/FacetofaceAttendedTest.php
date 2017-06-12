@@ -21,9 +21,9 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
         ]);
     }
 
-    private function constructSignup($id) {
+    private function constructSignup($faceToFaceId) {
         $signups =  (object) [  
-            "id" => $id,
+            "id" => $faceToFaceId,
             "sessionid" => "1",
             "userid" => "1",
             "mailedreminder" => "0",
@@ -40,9 +40,9 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
         return $signups;
     }
 
-    private function constructStatus($id) {
+    private function constructStatus($faceToFaceId) {
         return (object) [
-            "id" => $id,
+            "id" => $faceToFaceId,
             "signupid" => "4",
             "statuscode" => "90",
             "superceded" => "1",
@@ -50,13 +50,13 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
             "note" => "",
             "advice" => null,
             "createdby" => "1",
-            "timecreated" => "143394660".$id // Earlier than the final status
+            "timecreated" => "143394660".$faceToFaceId // Earlier than the final status
         ];
     }
 
-    private function constructFinalStatus($id) {
+    private function constructFinalStatus($faceToFaceId) {
         return (object) [
-            "id" => $id,
+            "id" => $faceToFaceId,
             "signupid" => "4",
             "statuscode" => "100",
             "superceded" => "0",

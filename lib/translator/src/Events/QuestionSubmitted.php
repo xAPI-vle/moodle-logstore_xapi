@@ -8,16 +8,16 @@ class QuestionSubmitted extends AttemptStarted {
      * @override AttemtStarted
      */
     public function read(array $opts) {
-        $translatorevents = [];
+        $translatorEvents = [];
 
-        // Push question statements to $translatorevents['events'].
+        // Push question statements to $translatorEvents['events'].
         foreach ($opts['attempt']->questions as $questionId => $questionAttempt) {
             $question = $this->expandQuestion(
                 $opts['questions'][$questionAttempt->questionid],
                 $opts['questions']
             );
             array_push(
-                $translatorevents,
+                $translatorEvents,
                 $this->questionStatement(
                     parent::read($opts)[0],
                     $questionAttempt,
@@ -26,7 +26,7 @@ class QuestionSubmitted extends AttemptStarted {
             );
         }
 
-        return $translatorevents;
+        return $translatorEvents;
     }
 
     /**
@@ -76,7 +76,7 @@ class QuestionSubmitted extends AttemptStarted {
         // For questions, only include data relevant to the current question in the attempt extension. 
         $template['attempt_ext']->questions = [$questionAttempt];
 
-        $translatorevent = [
+        $translatorEvent = [
             'recipe' => 'attempt_question_completed',
             'attempt_ext' => $template['attempt_ext'],
             'question_attempt_ext' => $questionAttempt,
@@ -98,10 +98,10 @@ class QuestionSubmitted extends AttemptStarted {
         $submittedState = $this->getLastState($questionAttempt);
 
         if (!is_null($submittedState->timestamp)) {
-            $translatorevent['time'] = date('c', $submittedState->timestamp);
+            $translatorEvent['time'] = date('c', $submittedState->timestamp);
         }
 
-        $translatorevent = $this->resultFromState($translatorevent, $questionAttempt, $submittedState);
+        $translatorEvent = $this->resultFromState($translatorEvent, $questionAttempt, $submittedState);
 
         $numerictypes = [
             'numerical',
@@ -120,92 +120,92 @@ class QuestionSubmitted extends AttemptStarted {
         ];
 
         if (in_array($question->qtype, $matchtypes)) {
-             $translatorevent = $this->matchStatement($translatorevent, $questionAttempt, $question);
+             $translatorEvent = $this->matchStatement($translatorEvent, $questionAttempt, $question);
         } else if (in_array($question->qtype, $numerictypes)) {
-             $translatorevent = $this->numericStatement($translatorevent, $questionAttempt, $question);
+             $translatorEvent = $this->numericStatement($translatorEvent, $questionAttempt, $question);
         } else if (in_array($question->qtype, $fillintypes)) {
-             $translatorevent = $this->shortanswerStatement($translatorevent, $questionAttempt, $question);
+             $translatorEvent = $this->shortanswerStatement($translatorEvent, $questionAttempt, $question);
         } else if (!is_null($question->answers) && ($question->answers !== [])) {
-            $translatorevent = $this->multichoiceStatement($translatorevent, $questionAttempt, $question);
+            $translatorEvent = $this->multichoiceStatement($translatorEvent, $questionAttempt, $question);
         }
 
         if (strpos($question->qtype, 'calculated') === 0) {
-            $translatorevent['question_url'] .= '&variant='.$questionAttempt->variant;
-            $translatorevent['question_name'] .= ' - variant '.$questionAttempt->variant;
-            $translatorevent['question_description'] .= ' - variant '.$questionAttempt->variant;
+            $translatorEvent['question_url'] .= '&variant='.$questionAttempt->variant;
+            $translatorEvent['question_name'] .= ' - variant '.$questionAttempt->variant;
+            $translatorEvent['question_description'] .= ' - variant '.$questionAttempt->variant;
         }
 
-        return array_merge($template, $translatorevent);
+        return array_merge($template, $translatorEvent);
     }
 
     /**
      * Add some result data to translator event for an individual question attempt based on Moodle's question attempt state
-     * @param [String => Mixed] $translatorevent
+     * @param [String => Mixed] $translatorEvent
      * @param PHPObj $questionAttempt
      * @param PHPObj $submittedState
      * @return [String => Mixed]
      */
-    public function resultFromState($translatorevent, $questionAttempt, $submittedState) {
+    public function resultFromState($translatorEvent, $questionAttempt, $submittedState) {
         $maxMark = isset($questionAttempt->maxmark) ? $questionAttempt->maxmark : 100;
         $scaledScore = $submittedState->fraction;
         $rawScore = $scaledScore * floatval($maxMark);
 
         switch ($submittedState->state) {
             case "todo":
-                $translatorevent['attempt_completed'] = false;
-                $translatorevent['attempt_success'] = null;
+                $translatorEvent['attempt_completed'] = false;
+                $translatorEvent['attempt_success'] = null;
                 break;
             case "gaveup":
-                $translatorevent['attempt_completed'] = false;
-                $translatorevent['attempt_success'] = false;
+                $translatorEvent['attempt_completed'] = false;
+                $translatorEvent['attempt_success'] = false;
                 break;
             case "complete":
-                $translatorevent['attempt_completed'] = true;
-                $translatorevent['attempt_success'] = null;
+                $translatorEvent['attempt_completed'] = true;
+                $translatorEvent['attempt_success'] = null;
                 break;
             case "gradedwrong":
-                $translatorevent['attempt_completed'] = true;
-                $translatorevent['attempt_success'] = false;
-                $translatorevent['attempt_score_scaled'] = $scaledScore;
-                $translatorevent['attempt_score_raw'] = $rawScore;
+                $translatorEvent['attempt_completed'] = true;
+                $translatorEvent['attempt_success'] = false;
+                $translatorEvent['attempt_score_scaled'] = $scaledScore;
+                $translatorEvent['attempt_score_raw'] = $rawScore;
                 break;
             case "gradedpartial":
-                $translatorevent['attempt_completed'] = true;
-                $translatorevent['attempt_success'] = false;
-                $translatorevent['attempt_score_scaled'] = $scaledScore;
-                $translatorevent['attempt_score_raw'] = $rawScore;
+                $translatorEvent['attempt_completed'] = true;
+                $translatorEvent['attempt_success'] = false;
+                $translatorEvent['attempt_score_scaled'] = $scaledScore;
+                $translatorEvent['attempt_score_raw'] = $rawScore;
                 break;
             case "gradedright":
-                $translatorevent['attempt_completed'] = true;
-                $translatorevent['attempt_success'] = true;
-                $translatorevent['attempt_score_scaled'] = $scaledScore;
-                $translatorevent['attempt_score_raw'] = $rawScore;
+                $translatorEvent['attempt_completed'] = true;
+                $translatorEvent['attempt_success'] = true;
+                $translatorEvent['attempt_score_scaled'] = $scaledScore;
+                $translatorEvent['attempt_score_raw'] = $rawScore;
                 break;
             default:
-                $translatorevent['attempt_completed'] = null;
-                $translatorevent['attempt_success'] = null;
+                $translatorEvent['attempt_completed'] = null;
+                $translatorEvent['attempt_success'] = null;
                 break;
         }
 
-        return $translatorevent;
+        return $translatorEvent;
     }
 
     /**
      * Add data specifc to multichoice and true/false question types to a translator event.
-     * @param [String => Mixed] $translatorevent
+     * @param [String => Mixed] $translatorEvent
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function multichoiceStatement($translatorevent, $questionAttempt, $question) {
+    public function multichoiceStatement($translatorEvent, $questionAttempt, $question) {
         $choices = [];
         foreach ($question->answers as $answer) {
             $choices['moodle_quiz_question_answer_'.$answer->id] = strip_tags($answer->answer);
         }
 
         // If there are answers, assume multiple choice until proven otherwise.
-        $translatorevent['interaction_type'] = 'choice';
-        $translatorevent['interaction_choices'] = $choices;
+        $translatorEvent['interaction_type'] = 'choice';
+        $translatorEvent['interaction_choices'] = $choices;
 
         $responses = [];
         $correctResponses = [];
@@ -221,43 +221,43 @@ class QuestionSubmitted extends AttemptStarted {
         }
 
         if ($responses != []) {
-            $translatorevent['attempt_response'] = implode('[,]', $responses);
+            $translatorEvent['attempt_response'] = implode('[,]', $responses);
         }
 
-        $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
+        $translatorEvent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
 
         // Special handling of true-false question type (some overlap with multichoice).
         if ($question->qtype == 'truefalse') {
-            $translatorevent['interaction_type'] = 'true-false';
-            $translatorevent['interaction_choices'] = null;
+            $translatorEvent['interaction_type'] = 'true-false';
+            $translatorEvent['interaction_choices'] = null;
 
             if ($questionAttempt->responsesummary == 'True') {
-                $translatorevent['attempt_response'] = 'true';
+                $translatorEvent['attempt_response'] = 'true';
             } else if ($questionAttempt->responsesummary == 'False') {
-                $translatorevent['attempt_response'] = 'false';
+                $translatorEvent['attempt_response'] = 'false';
             }
 
             if ($questionAttempt->rightanswer == 'True') {
-                $translatorevent['interaction_correct_responses'] = ['true'];
+                $translatorEvent['interaction_correct_responses'] = ['true'];
             } else if ($questionAttempt->rightanswer == 'False') {
-                $translatorevent['interaction_correct_responses'] = ['false'];
+                $translatorEvent['interaction_correct_responses'] = ['false'];
             }
         }
 
 
-        return $translatorevent;
+        return $translatorEvent;
     }
 
     /**
      * Add data specifc to numeric question types to a translator event.
-     * @param [String => Mixed] $translatorevent
+     * @param [String => Mixed] $translatorEvent
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function numericStatement($translatorevent, $questionAttempt, $question) {
+    public function numericStatement($translatorEvent, $questionAttempt, $question) {
 
-        $translatorevent['interaction_type'] = 'numeric';
+        $translatorEvent['interaction_type'] = 'numeric';
 
 
         $correctAnswerId = null;
@@ -306,25 +306,25 @@ class QuestionSubmitted extends AttemptStarted {
                     break;
             }
             $rigthtanswerstring = strval($toleranceMin) . '[:]' . strval($toleranceMax);
-            $translatorevent['interaction_correct_responses'] = [$rigthtanswerstring];
+            $translatorEvent['interaction_correct_responses'] = [$rigthtanswerstring];
         } else {
-            $translatorevent['interaction_correct_responses'] = [$questionAttempt->rightanswer];
+            $translatorEvent['interaction_correct_responses'] = [$questionAttempt->rightanswer];
         }
 
-        return $translatorevent;
+        return $translatorEvent;
     }
 
     /**
      * Add data specifc to shortanswer question types to a translator event.
-     * @param [String => Mixed] $translatorevent
+     * @param [String => Mixed] $translatorEvent
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function shortanswerStatement($translatorevent, $questionAttempt, $question) {
+    public function shortanswerStatement($translatorEvent, $questionAttempt, $question) {
 
-        $translatorevent['interaction_type'] = 'fill-in';
-        $translatorevent['interaction_correct_responses'] = [];
+        $translatorEvent['interaction_type'] = 'fill-in';
+        $translatorEvent['interaction_correct_responses'] = [];
 
         foreach ($question->answers as $answer) {
             if (intval($answer->fraction) === 1) {
@@ -334,23 +334,23 @@ class QuestionSubmitted extends AttemptStarted {
                 } else {
                     $correctResponse = '{case_matters=false}'.$answer->answer;
                 }
-                array_push($translatorevent['interaction_correct_responses'], $correctResponse);
+                array_push($translatorEvent['interaction_correct_responses'], $correctResponse);
             }
         }
 
-        return $translatorevent;
+        return $translatorEvent;
     }
 
     /**
      * Add data specifc to matching question types to a translator event.
-     * @param [String => Mixed] $translatorevent
+     * @param [String => Mixed] $translatorEvent
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function matchStatement($translatorevent, $questionAttempt, $question) {
+    public function matchStatement($translatorEvent, $questionAttempt, $question) {
 
-        $translatorevent['interaction_type'] = 'matching';
+        $translatorEvent['interaction_type'] = 'matching';
 
         $targets = [];
         $sources = [];
@@ -381,7 +381,7 @@ class QuestionSubmitted extends AttemptStarted {
         ksort($responseSourcesPos);
         $responseSources = array_values($responseSourcesPos);
 
-        $translatorevent['attempt_response'] = '';
+        $translatorEvent['attempt_response'] = '';
         if (count($responseTargets) == count($responseSources) && count($responseTargets) > 0) {
             $responses = [];
             foreach ($responseTargets as $index => $targetId) {
@@ -390,14 +390,14 @@ class QuestionSubmitted extends AttemptStarted {
                     $responseSources[$index].'[.]'.$targetId
                 );
             }
-            $translatorevent['attempt_response'] = implode('[,]', $responses);
+            $translatorEvent['attempt_response'] = implode('[,]', $responses);
         }
 
-        $translatorevent['interaction_target'] = $targets;
-        $translatorevent['interaction_source'] = $sources;
-        $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
+        $translatorEvent['interaction_target'] = $targets;
+        $translatorEvent['interaction_source'] = $sources;
+        $translatorEvent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
 
-        return $translatorevent;
+        return $translatorEvent;
     }
 
     /**

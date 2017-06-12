@@ -25,15 +25,15 @@ class FacetofaceAttend extends FacetofaceEnrol {
             $this->sessionDuration += $date->timefinish;
         }
 
-        $translatorevents = [];
+        $translatorEvents = [];
         foreach ($opts['signups'] as $signupIndex => $signup) {
             $signupEvent = $this->getSignupEvent($signup, $opts);
             if (!is_null($signupEvent)) {
-                $translatorevent = array_merge(parent::read($opts)[0], $signupEvent);
-                array_push($translatorevents,$translatorevent);
+                $translatorEvent = array_merge(parent::read($opts)[0], $signupEvent);
+                array_push($translatorEvents,$translatorEvent);
             }
         }
-        return $translatorevents;
+        return $translatorEvents;
     }
 
     /**

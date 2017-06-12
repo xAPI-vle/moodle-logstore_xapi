@@ -109,9 +109,9 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
 
         // Initializes required services.
-        $xapicontroller = new xapi_controller($this->connect_xapi_repository());
-        $moodlecontroller = new moodle_controller($this->connect_moodle_repository());
-        $translatorcontroller = new translator_controller();
+        $xapiController = new xapi_controller($this->connect_xapi_repository());
+        $moodleController = new moodle_controller($this->connect_moodle_repository());
+        $translatorController = new translator_controller();
 
         // Emits events to other APIs.
         foreach ($events as $index => $event) {
@@ -120,45 +120,45 @@ class store extends php_obj implements log_writer {
 
         $this->error_log('');
         $this->error_log_value('events', $events);
-        $moodleevents = $moodlecontroller->createEvents($events);
+        $moodleEvents = $moodleController->createEvents($events);
 
         // Clear the user email if mbox setting is not set to mbox
         $mbox = get_config('logstore_xapi', 'mbox');
-        foreach(array_keys($moodleevents) as $event_key) {
-            $moodleevents[$event_key]['sendmbox'] = $mbox;
+        foreach(array_keys($moodleEvents) as $event_key) {
+            $moodleEvents[$event_key]['sendmbox'] = $mbox;
         }
 
-        $this->error_log_value('moodleevent', $moodleevents);
-        $translatorevents = $translatorcontroller->createEvents($moodleevents);
-        $this->error_log_value('translatorevents', $translatorevents);
+        $this->error_log_value('moodleevent', $moodleEvents);
+        $translatorEvents = $translatorController->createEvents($moodleEvents);
+        $this->error_log_value('translatorevents', $translatorEvents);
 
-        if (empty($translatorevents)) {
+        if (empty($translatorEvents)) {
             return [];
         }
 
         // Split statements into batches.
-        $eventbatches = array($translatorevents);
-        $maxbatchsize = get_config('logstore_xapi', 'maxbatchsize');
+        $eventBatches = array($translatorEvents);
+        $maxBatchSize = get_config('logstore_xapi', 'maxbatchsize');
 
-        if (!empty($maxbatchsize) && $maxbatchsize < count($translatorevents)) {
-            $eventbatches = array_chunk($translatorevents, $maxbatchsize);
+        if (!empty($maxBatchSize) && $maxBatchSize < count($translatorEvents)) {
+            $eventBatches = array_chunk($translatorEvents, $maxBatchSize);
         }
 
-        $translator_event = new Event();
-        $translator_event_read_return = @$translator_event->read([]);
+        $translatorEvent = new Event();
+        $translatorEventReadReturn = @$translatorEvent->read([]);
 
-        $sent_events = [];
-        foreach ($eventbatches as $translatoreventsbatch) {
-            $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
-            foreach(array_keys($xapievents) as $key) {
+        $sentEvents = [];
+        foreach ($eventBatches as $translatorEventsBatch) {
+            $xapiEvents = $xapiController->createEvents($translatorEventsBatch);
+            foreach(array_keys($xapiEvents) as $key) {
                 if (is_numeric($key)) {
-                    $sent_events[$xapievents[$key]['context']['extensions'][$translator_event_read_return[0]['context_ext_key']]['id']] = $xapievents['last_action_result'];
+                    $sentEvents[$xapiEvents[$key]['context']['extensions'][$translatorEventReadReturn[0]['context_ext_key']]['id']] = $xapiEvents['last_action_result'];
                 }
             }
-            $this->error_log_value('xapievents', $xapievents);
+            $this->error_log_value('xapievents', $xapiEvents);
         }
 
-        return $sent_events;
+        return $sentEvents;
     }
 
     private function error_log_value($key, $value) {

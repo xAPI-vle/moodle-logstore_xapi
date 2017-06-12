@@ -38,10 +38,10 @@ abstract class TestCase extends PhpUnitTestCase {
             ['sendmbox' => false]
         )];
 
-        $translator_events = $this->translator_controller->createEvents($moodle_events);
-        $this->assertNotNull($translator_events, 'Check that the events exist in the translator controller.');
+        $translatorEvents = $this->translator_controller->createEvents($moodle_events);
+        $this->assertNotNull($translatorEvents, 'Check that the events exist in the translator controller.');
 
-        $xapi_events = $this->xapi_controller->createEvents($translator_events);
+        $xapi_events = $this->xapi_controller->createEvents($translatorEvents);
         $this->assertNotNull($xapi_events, 'Check that the events exist in the emitter controller.');
 
         $this->assertOutput($input, $xapi_events);
