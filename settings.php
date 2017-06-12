@@ -68,6 +68,6 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes',
-        'logstore_xapi'), '', '', $menu_routes));
+        'logstore_xapi'), '', '1', $menu_routes));
 
 }
