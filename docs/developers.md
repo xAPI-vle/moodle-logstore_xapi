@@ -26,6 +26,12 @@ If you've read the [plugin design](design.md) you should understand what each of
 - [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
 - [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
 
+##PHPUnit Test Filter
+All PHPUnit tests should pass, but if you'd like to only run the tests for specific events, add the 'filter' option.
+```
+vendor/bin/phpunit --filter <Test_Name>
+```
+
 ## Release Process
 This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.
 
