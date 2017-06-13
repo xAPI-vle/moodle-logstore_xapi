@@ -13,6 +13,9 @@
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory>./tests/</directory>
+            <directory>./lib/expander/tests/</directory>
+            <directory>./lib/translator/tests/</directory>
+            <directory>./lib/emitter/tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

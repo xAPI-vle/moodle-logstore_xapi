@@ -1,0 +1,147 @@
+{
+    "user": {
+        "id": 1,
+        "username": "test_username",
+        "lang": "en",
+        "fullname": "test_fullname",
+        "email": "test@test.com",
+        "type": "object",
+        "url": "http:\/\/www.example.com"
+    },
+    "relateduser": {
+        "id": 1,
+        "username": "test_username",
+        "lang": "en",
+        "fullname": "test_fullname",
+        "email": "test@test.com",
+        "type": "object",
+        "url": "http:\/\/www.example.com"
+    },
+    "course": {
+        "id": 1,
+        "category": "1",
+        "fullname": "test_name",
+        "shortname": "test_name",
+        "summary": "test_summary",
+        "lang": "en",
+        "timecreated": 1433946702,
+        "timemodified": 1433946702,
+        "type": "object",
+        "url": "http:\/\/www.example.com\/course\/view.php?id=1"
+    },
+    "app": {
+        "id": 1,
+        "category": "1",
+        "fullname": "test_name",
+        "shortname": "test_name",
+        "summary": "test_summary",
+        "lang": "en",
+        "timecreated": 1433946702,
+        "timemodified": 1433946702,
+        "type": "site",
+        "url": "http:\/\/www.example.com"
+    },
+    "info": {
+        "https:\/\/moodle.org\/": "1.0.0"
+    },
+    "event": {
+        "userid": 1,
+        "relateduserid": 1,
+        "courseid": 1,
+        "timecreated": 1433946701,
+        "eventname": "\\mod_facetoface\\event\\signup_success",
+        "objecttable": "facetoface_sessions",
+        "objectid": 1
+    },
+    "module": {
+        "id": "1",
+        "course": "1",
+        "name": "test_name",
+        "type": "object",
+        "url": "http:\/\/www.example.com\/mod\/facetoface\/view.php?id=1"
+    },
+    "session": {
+        "id": 1,
+        "facetoface": "1",
+        "timecreated": 1433946702,
+        "timemodified": 1433946702,
+        "type": "object",
+        "dates": {
+            "1": {
+                "id": "1",
+                "sessionid": 1,
+                "timestart": 1433941702,
+                "timefinish": 1433946702,
+                "type": "object"
+            },
+            "2": {
+                "id": "2",
+                "sessionid": 1,
+                "timestart": 1433941702,
+                "timefinish": 1433946702,
+                "type": "object"
+            }
+        },
+        "url": "http:\/\/www.example.com\/mod\/facetoface\/signup.php?s=1"
+    },
+    "signups": {
+        "1": {
+            "id": "1",
+            "sessionid": 1,
+            "userid": "1",
+            "type": "object",
+            "statuses": {
+                "1": {
+                    "id": "1",
+                    "signupid": "1",
+                    "statuscode": "100",
+                    "type": "object"
+                },
+                "2": {
+                    "id": "2",
+                    "signupid": "1",
+                    "statuscode": "100",
+                    "type": "object"
+                }
+            },
+            "attendee": {
+                "id": "1",
+                "username": "test_username",
+                "lang": "en",
+                "fullname": "test_fullname",
+                "email": "test@test.com",
+                "type": "object",
+                "url": "http:\/\/www.example.com"
+            }
+        },
+        "2": {
+            "id": "2",
+            "sessionid": 1,
+            "userid": "1",
+            "type": "object",
+            "statuses": {
+                "1": {
+                    "id": "1",
+                    "signupid": "2",
+                    "statuscode": "100",
+                    "type": "object"
+                },
+                "2": {
+                    "id": "2",
+                    "signupid": "2",
+                    "statuscode": "100",
+                    "type": "object"
+                }
+            },
+            "attendee": {
+                "id": "1",
+                "username": "test_username",
+                "lang": "en",
+                "fullname": "test_fullname",
+                "email": "test@test.com",
+                "type": "object",
+                "url": "http:\/\/www.example.com"
+            }
+        }
+    }
+}

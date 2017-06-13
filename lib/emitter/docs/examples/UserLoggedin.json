@@ -1,0 +1,80 @@
+{
+    "actor": {
+        "name": "Test user_name",
+        "account": {
+            "homePage": "http:\/\/www.example.com\/user_url",
+            "name": "1"
+        }
+    },
+    "context": {
+        "platform": "Moodle",
+        "language": "en",
+        "extensions": {
+            "http:\/\/www.example.com\/context_ext_key": {
+                "test_context_ext_key": "test_context_ext_value"
+            },
+            "http:\/\/lrs.learninglocker.net\/define\/extensions\/info": {
+                "https:\/\/moodle.org\/": "1.0.0"
+            }
+        },
+        "contextActivities": {
+            "grouping": [
+                {
+                    "id": "http:\/\/www.example.com\/app_url",
+                    "definition": {
+                        "type": "http:\/\/id.tincanapi.com\/activitytype\/site",
+                        "name": {
+                            "en": "Test app_name"
+                        },
+                        "description": {
+                            "en": "Test app_description"
+                        },
+                        "extensions": {
+                            "http:\/\/www.example.com\/app_ext_key": {
+                                "test_app_ext_key": "test_app_ext_value"
+                            }
+                        }
+                    }
+                }
+            ],
+            "category": [
+                {
+                    "id": "http:\/\/www.example.com\/source_url",
+                    "definition": {
+                        "type": "http:\/\/id.tincanapi.com\/activitytype\/source",
+                        "name": {
+                            "en": "Test source_name"
+                        },
+                        "description": {
+                            "en": "Test source_description"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "timestamp": "2015-01-01T01:00Z",
+    "verb": {
+        "id": "https:\/\/brindlewaye.com\/xAPITerms\/verbs\/loggedin\/",
+        "display": {
+            "en": "logged in to"
+        }
+    },
+    "object": {
+        "id": "http:\/\/www.example.com\/app_url",
+        "definition": {
+            "type": "http:\/\/id.tincanapi.com\/activitytype\/site",
+            "name": {
+                "en": "Test app_name"
+            },
+            "description": {
+                "en": "Test app_description"
+            },
+            "extensions": {
+                "http:\/\/www.example.com\/app_ext_key": {
+                    "test_app_ext_key": "test_app_ext_value"
+                }
+            }
+        }
+    }
+}

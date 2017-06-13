@@ -38,10 +38,10 @@ abstract class TestCase extends PhpUnitTestCase {
             ['sendmbox' => false]
         )];
 
-        $translator_events = $this->translator_controller->createEvents($moodle_events);
-        $this->assertNotNull($translator_events, 'Check that the events exist in the translator controller.');
+        $translatorEvents = $this->translator_controller->createEvents($moodle_events);
+        $this->assertNotNull($translatorEvents, 'Check that the events exist in the translator controller.');
 
-        $xapi_events = $this->xapi_controller->createEvents($translator_events);
+        $xapi_events = $this->xapi_controller->createEvents($translatorEvents);
         $this->assertNotNull($xapi_events, 'Check that the events exist in the emitter controller.');
 
         $this->assertOutput($input, $xapi_events);
@@ -55,10 +55,10 @@ abstract class TestCase extends PhpUnitTestCase {
 
     protected function assertValidXapiStatement($output) {
         $errors = LockerStatement::createFromJson(json_encode($output))->validate();
-        $errors_json = json_encode(array_map(function ($error) {
+        $errorsJson = json_encode(array_map(function ($error) {
             return (string) $error;
         }, $errors));
-        $this->assertEmpty($errors, $errors_json);
+        $this->assertEmpty($errors, $errorsJson);
     }
 
     protected function constructInput() {
