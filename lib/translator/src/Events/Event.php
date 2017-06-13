@@ -22,6 +22,12 @@ use \MXTranslator\Repository as Repository;
 use \stdClass as PhpObj;
 
 class Event extends PhpObj {
+
+    /**
+     * @var string
+     */
+    const CONTEXT_EXT_KEY = 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log';
+
     protected static $xapitype = 'http://lrs.learninglocker.net/define/type/moodle/';
 
     /**
@@ -41,7 +47,7 @@ class Event extends PhpObj {
                 || $opts['course']->lang == '' ? "en" : $opts['course']->lang,
             'context_platform' => 'Moodle',
             'context_ext' => $opts['event'],
-            'context_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log',
+            'context_ext_key' => self::CONTEXT_EXT_KEY,
             'context_info' => $opts['info'],
             'time' => date('c', $opts['event']['timecreated']),
             'app_url' => $opts['app']->url,
