@@ -6,6 +6,7 @@ class Controller extends PhpObj {
     public static $routes = [
         '\core\event\course_viewed' => 'CourseViewed',
         '\core\event\course_completed' => 'CourseCompleted',
+        '\core\event\course_module_completion_updated' =>'CourseModuleCompleted',
         '\mod_page\event\course_module_viewed' => 'ModuleViewed',
         '\mod_quiz\event\course_module_viewed' => 'ModuleViewed',
         '\mod_url\event\course_module_viewed' => 'ModuleViewed',
