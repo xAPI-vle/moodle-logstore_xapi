@@ -4,5 +4,5 @@
 **Related Issues**
 - #{{issue_number}}
 
-**Additional Information**
-- {{Additional Info}}
+**PR Type**
+- Fix or Enhancement
