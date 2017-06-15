@@ -43,7 +43,8 @@ class Controller extends PhpObj {
         '\mod_facetoface\event\take_attendance' => 'FacetofaceAttended',
         '\core\event\course_completed'=>'CourseCompleted',
         '\mod_scorm\event\scoreraw_submitted'=>'ScormSubmitted',
-        '\mod_scorm\event\status_submitted'=>'ScormSubmitted'
+        '\mod_scorm\event\status_submitted'=>'ScormSubmitted',
+        '\core\event\course_module_completion_updated' =>'CourseModuleCompleted'
     ];
     /**
      * Constructs a new Controller.
