@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nikolay.mikov
- * Date: 5.6.2017 г.
- * Time: 11:50
- */
+
 
 namespace XREmitter\Events;
 
@@ -27,7 +22,7 @@ class CourseModuleCompleted extends Event
     public function read(array $opts)
     {
 
-        return array_merge_recursive(parent::read($opts), [
+        return array_merge(parent::read($opts), [
             'verb' => [
                 'id' => 'http://adlnet.gov/expapi/verbs/completed',
                 'display' => $this->readVerbDisplay($opts),

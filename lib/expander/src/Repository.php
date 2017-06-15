@@ -81,6 +81,34 @@ class Repository extends PhpObj {
         return $model;
     }
 
+
+    /**
+     * Reads module from the store with the given contextinstanceid.
+     * @param String $contextinstanceid
+     * @return PhpObj
+     */
+
+    public function readModuleByContext($contextinstanceid)
+    {
+        $model = $this->readObject($contextinstanceid,'course_modules');
+        return $model;
+    }
+
+    /**
+     * Reads module from the store with the given cm.
+     * @param String $cm
+     * @return PhpObj
+     */
+
+
+    public function readModuleType($cm)
+    {
+        $model = $this->readObject($cm->module,'modules');
+        return $model;
+    }
+
+
+
     /**
      * Reads a quiz attempt from the store with the given id.
      * @param String $id
