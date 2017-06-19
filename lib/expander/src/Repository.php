@@ -96,14 +96,14 @@ class Repository extends PhpObj {
 
     /**
      * Reads module from the store with the given cm.
-     * @param String $cm
+     * @param String $module_number_id
      * @return PhpObj
      */
 
 
-    public function readModuleType($cm)
+    public function readModuleType($module_number_id)
     {
-        $model = $this->readObject($cm->module,'modules');
+        $model = $this->readObject($module_number_id,'modules');
         return $model;
     }
 

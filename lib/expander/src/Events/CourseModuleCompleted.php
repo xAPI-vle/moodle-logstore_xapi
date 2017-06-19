@@ -12,11 +12,11 @@ class CourseModuleCompleted extends  Event
 
         $contextinstanceid = $opts['contextinstanceid'];
 
-        $cm = $this->repo->readModuleByContext($contextinstanceid);
-        $cmtype = $this->repo->readModuleType($cm);
+        $course_module = $this->repo->readModuleByContext($contextinstanceid);
+        $course_module_type = $this->repo->readModuleType($course_module->module);
 
         return array_merge(parent::read($opts), [
-            'module' => $this->repo->readModule($cm->instance, $cmtype->name)
+            'module' => $this->repo->readModule($course_module->instance, $course_module_type->name)
         ]);
 
     }
