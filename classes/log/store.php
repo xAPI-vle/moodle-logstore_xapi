@@ -98,7 +98,7 @@ class store extends php_obj implements log_writer {
     protected function insert_event_entries(array $events) {
         global $DB;
 
-        // If in background mode, just save them in the database
+        // If in background mode, just save them in the database.
         if (get_config('logstore_xapi', 'backgroundmode')) {
             $DB->insert_records('logstore_xapi_log', $events);
         } else {
@@ -109,9 +109,9 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
 
         // Initializes required services.
-        $xapiController = new xapi_controller($this->connect_xapi_repository());
-        $moodleController = new moodle_controller($this->connect_moodle_repository());
-        $translatorController = new translator_controller();
+        $xapicontroller = new xapi_controller($this->connect_xapi_repository());
+        $moodlecontroller = new moodle_controller($this->connect_moodle_repository());
+        $translatorcontroller = new translator_controller();
 
         // Emits events to other APIs.
         foreach ($events as $index => $event) {
@@ -120,45 +120,46 @@ class store extends php_obj implements log_writer {
 
         $this->error_log('');
         $this->error_log_value('events', $events);
-        $moodleEvents = $moodleController->createEvents($events);
+        $moodleevents = $moodlecontroller->create_events($events);
 
-        // Clear the user email if mbox setting is not set to mbox
+        // Clear the user email if mbox setting is not set to mbox.
         $mbox = get_config('logstore_xapi', 'mbox');
-        foreach(array_keys($moodleEvents) as $event_key) {
-            $moodleEvents[$event_key]['sendmbox'] = $mbox;
+        foreach (array_keys($moodleevents) as $eventkey) {
+            $moodleevents[$eventkey]['sendmbox'] = $mbox;
         }
 
-        $this->error_log_value('moodleevent', $moodleEvents);
-        $translatorEvents = $translatorController->createEvents($moodleEvents);
-        $this->error_log_value('translatorevents', $translatorEvents);
+        $this->error_log_value('moodleevent', $moodleevents);
+        $translatorevents = $translatorcontroller->create_events($moodleevents);
+        $this->error_log_value('translatorevents', $translatorevents);
 
-        if (empty($translatorEvents)) {
+        if (empty($translatorevents)) {
             return [];
         }
 
         // Split statements into batches.
-        $eventBatches = array($translatorEvents);
-        $maxBatchSize = get_config('logstore_xapi', 'maxbatchsize');
+        $eventbatches = array($translatorevents);
+        $maxbatchsize = get_config('logstore_xapi', 'maxbatchsize');
 
-        if (!empty($maxBatchSize) && $maxBatchSize < count($translatorEvents)) {
-            $eventBatches = array_chunk($translatorEvents, $maxBatchSize);
+        if (!empty($maxbatchsize) && $maxbatchsize < count($translatorevents)) {
+            $eventbatches = array_chunk($translatorevents, $maxbatchsize);
         }
 
-        $translatorEvent = new Event();
-        $translatorEventReadReturn = @$translatorEvent->read([]);
+        $translatorevent = new Event();
+        $translatoreventreadreturn = @$translatorevent->read([]);
 
-        $sentEvents = [];
-        foreach ($eventBatches as $translatorEventsBatch) {
-            $xapiEvents = $xapiController->createEvents($translatorEventsBatch);
-            foreach(array_keys($xapiEvents) as $key) {
+        $sentevents = [];
+        foreach ($eventbatches as $translatoreventsbatch) {
+            $xapievents = $xapicontroller->create_events($translatoreventsbatch);
+            foreach (array_keys($xapievents) as $key) {
                 if (is_numeric($key)) {
-                    $sentEvents[$xapiEvents[$key]['context']['extensions'][$translatorEventReadReturn[0]['context_ext_key']]['id']] = $xapiEvents['last_action_result'];
+                    $k = $xapievents[$key]['context']['extensions'][$translatoreventreadreturn[0]['context_ext_key']]['id'];
+                    $sentevents[$k] = $xapievents['last_action_result'];
                 }
             }
-            $this->error_log_value('xapievents', $xapiEvents);
+            $this->error_log_value('xapievents', $xapievents);
         }
 
-        return $sentEvents;
+        return $sentevents;
     }
 
     private function error_log_value($key, $value) {
@@ -167,6 +168,7 @@ class store extends php_obj implements log_writer {
 
     private function error_log($message) {
         if ($this->loggingenabled) {
+            // @codingStandardsIgnoreLine
             error_log($message."\r\n", 3, __DIR__.'/error_log.txt');
         }
     }
@@ -191,16 +193,16 @@ class store extends php_obj implements log_writer {
      */
     private function connect_xapi_repository() {
         global $CFG;
-        $remote_lrs = new tincan_remote_lrs(
+        $remotelrs = new tincan_remote_lrs(
             $this->get_config('endpoint', ''),
             '1.0.1',
             $this->get_config('username', ''),
             $this->get_config('password', '')
         );
         if (!empty($CFG->proxyhost)) {
-          $remote_lrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
+            $remotelrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
         }
-        return new xapi_repository($remote_lrs);
+        return new xapi_repository($remotelrs);
     }
 
     /**

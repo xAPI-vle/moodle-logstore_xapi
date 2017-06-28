@@ -6,15 +6,14 @@
           "logstore_xapi\\": "classes/",
           "Tests\\": "tests/",
           "XREmitter\\": "lib/emitter/src/",
-          "XREmitter\\Tests\\": "lib/emitter/tests/",
+          "XREmitter\\Tests\\": "tests/lib/emitter/",
           "LogExpander\\": "lib/expander/src/",
-          "LogExpander\\Tests\\": "lib/expander/tests/",
+          "LogExpander\\Tests\\": "tests/lib/expander/",
           "MXTranslator\\": "lib/translator/src/",
-          "MXTranslator\\Tests\\": "lib/translator/tests/"
+          "MXTranslator\\Tests\\": "tests/lib/translator/"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.6",
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
