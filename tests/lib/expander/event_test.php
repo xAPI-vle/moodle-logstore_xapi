@@ -111,7 +111,7 @@ class event_test extends \advanced_testcase {
 
     protected function create_example_file($output) {
         $classarray = explode('\\', get_class($this));
-        $eventname = str_replace('Test', '', array_pop($classarray));
+        $eventname = str_replace('_test', '', array_pop($classarray));
         $examplefile = __DIR__ . '/../../../lib/expander/docs/examples/' . $eventname . '.json';
         file_put_contents($examplefile, json_encode($output, JSON_PRETTY_PRINT));
     }

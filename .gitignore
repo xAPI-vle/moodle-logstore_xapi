@@ -5,4 +5,3 @@ vendor
 classes/log/error_log.txt
 composer.phar
 .idea/
-lib/*/docs/examples/*_test.json

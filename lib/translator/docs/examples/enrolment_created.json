@@ -13,7 +13,7 @@
     "context_info": {
         "https:\/\/moodle.org\/": "1.0.0"
     },
-    "time": "2015-06-10T14:31:41+00:00",
+    "time": "2015-06-10T22:31:41+08:00",
     "app_url": "http:\/\/www.example.com",
     "app_name": "Test site_fullname",
     "app_description": "Test site_summary",
@@ -31,7 +31,7 @@
     "source_name": "Moodle",
     "source_description": "Moodle is a open source learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments.",
     "source_type": "http:\/\/id.tincanapi.com\/activitytype\/source",
-    "recipe": "discussion_viewed",
+    "recipe": "enrolment_created",
     "course_url": "http:\/\/www.example.com\/course_url",
     "course_name": "Test course_fullname",
     "course_description": "Test course_summary",
@@ -44,27 +44,7 @@
         "type": "moodle_course"
     },
     "course_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course",
-    "module_url": "http:\/\/www.example.com\/module_url",
-    "module_name": "Test module_name",
-    "module_description": "Test module_intro",
-    "module_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_module",
-    "module_ext": {
-        "url": "http:\/\/www.example.com\/module_url",
-        "name": "Test module_name",
-        "intro": "Test module_intro",
-        "type": "moodle_module"
-    },
-    "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
-    "discussion_url": "http:\/\/www.example.com\/discussion_url",
-    "discussion_name": "Test discussion_name",
-    "discussion_description": "A Moodle discussion.",
-    "discussion_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_discussion",
-    "discussion_ext": {
-        "url": "http:\/\/www.example.com\/discussion_url",
-        "name": "Test discussion_name",
-        "type": "moodle_discussion",
-        "ext": "discussion_ext",
-        "ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_discussion"
-    },
-    "discussion_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_discussion"
+    "instructor_id": 1,
+    "instructor_url": "http:\/\/www.example.com\/user_url",
+    "instructor_name": "Test user_name"
 }

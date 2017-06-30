@@ -13,7 +13,7 @@
     "context_info": {
         "https:\/\/moodle.org\/": "1.0.0"
     },
-    "time": "2015-06-10T14:31:41+00:00",
+    "time": "2015-06-10T22:31:41+08:00",
     "app_url": "http:\/\/www.example.com",
     "app_name": "Test site_fullname",
     "app_description": "Test site_summary",
@@ -31,7 +31,7 @@
     "source_name": "Moodle",
     "source_description": "Moodle is a open source learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments.",
     "source_type": "http:\/\/id.tincanapi.com\/activitytype\/source",
-    "recipe": "attempt_question_completed",
+    "recipe": "attempt_completed",
     "course_url": "http:\/\/www.example.com\/course_url",
     "course_name": "Test course_fullname",
     "course_description": "Test course_summary",
@@ -56,82 +56,23 @@
     },
     "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
     "attempt_url": "http:\/\/www.example.com\/attempt_url",
-    "attempt_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_feedback_attempt",
-    "attempt_ext": null,
-    "attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_feedback_attempt",
+    "attempt_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_attempt",
+    "attempt_ext": {
+        "url": "http:\/\/www.example.com\/attempt_url",
+        "name": "Test attempt_name",
+        "type": "moodle_attempt",
+        "timestart": 1433946701,
+        "timefinish": 1433946701,
+        "sumgrades": 1,
+        "state": "finished"
+    },
+    "attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_attempt",
     "attempt_name": "Test attempt_name",
-    "attempt_score_raw": "1",
+    "attempt_score_raw": 1,
     "attempt_score_min": 0,
-    "attempt_score_max": "1",
-    "attempt_score_scaled": 1,
-    "attempt_success": null,
+    "attempt_score_max": 5,
+    "attempt_score_scaled": 0.2,
+    "attempt_success": false,
     "attempt_completed": true,
-    "attempt_duration": null,
-    "question_attempt_ext": {
-        "question": {
-            "id": "1",
-            "feedback": "1",
-            "name": "example MCQ",
-            "label": "",
-            "presentation": "r>>>>>0#### incorrect|1#### correct",
-            "typ": "multichoicerated",
-            "hasvalue": "1",
-            "position": "1",
-            "required": "0",
-            "dependitem": "0",
-            "dependvalue": "",
-            "options": "",
-            "template": false,
-            "url": "http:\/\/www.example.com\/question_url"
-        },
-        "options": [
-            {
-                "description": "Not selected"
-            },
-            {
-                "description": "incorrect",
-                "value": "0"
-            },
-            {
-                "description": "correct",
-                "value": "1"
-            }
-        ],
-        "score": {
-            "max": "1",
-            "raw": "1",
-            "min": 0,
-            "scaled": 1
-        },
-        "response": "2"
-    },
-    "question_attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_feedback_question_attempt",
-    "question_ext": {
-        "id": "1",
-        "feedback": "1",
-        "name": "example MCQ",
-        "label": "",
-        "presentation": "r>>>>>0#### incorrect|1#### correct",
-        "typ": "multichoicerated",
-        "hasvalue": "1",
-        "position": "1",
-        "required": "0",
-        "dependitem": "0",
-        "dependvalue": "",
-        "options": "",
-        "template": false,
-        "url": "http:\/\/www.example.com\/question_url"
-    },
-    "question_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_feedback_question",
-    "question_name": "example MCQ",
-    "question_description": "example MCQ",
-    "question_url": "http:\/\/www.example.com\/question_url",
-    "attempt_response": "2",
-    "interaction_correct_responses": null,
-    "interaction_type": "likert",
-    "interaction_scale": {
-        "0": "Not selected",
-        "1": "incorrect",
-        "2": "correct"
-    }
+    "attempt_duration": "PT0S"
 }
