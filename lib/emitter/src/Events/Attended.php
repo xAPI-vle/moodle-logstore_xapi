@@ -1,7 +1,25 @@
-<?php namespace XREmitter\Events;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace XREmitter\Events;
+
+defined('MOODLE_INTERNAL') || die();
 
 class Attended extends Event {
-    protected static $verbDisplay = [
+    protected static $verbdisplay = [
         'en' => 'attended'
     ];
 
@@ -15,7 +33,7 @@ class Attended extends Event {
         $statement = array_merge_recursive(parent::read($opts), [
             'verb' => [
                 'id' => 'http://adlnet.gov/expapi/verbs/attended',
-                'display' => $this->readVerbDisplay($opts),
+                'display' => $this->read_verb_display($opts),
             ],
             'object' => [
                 'id' => $opts['session_url'],
@@ -34,13 +52,13 @@ class Attended extends Event {
                 'completion' => $opts['attempt_completion']
             ],
             'context' => [
-                'instructor' => $this->readUser($opts, 'user'),
+                'instructor' => $this->read_user($opts, 'user'),
                 'contextActivities' => [
                     'grouping' => [
-                        $this->readCourse($opts),
+                        $this->read_course($opts),
                     ],
                     'parent' => [
-                        $this->readModule($opts),
+                        $this->read_module($opts),
                     ],
                     'category' => [
                         [
@@ -54,8 +72,8 @@ class Attended extends Event {
             ],
         ]);
 
-        // Overwrite actor, don't merge it. 
-        $statement['actor'] = $this->readUser($opts, 'attendee');
+        // Overwrite actor, don't merge it.
+        $statement['actor'] = $this->read_user($opts, 'attendee');
 
         return $statement;
     }

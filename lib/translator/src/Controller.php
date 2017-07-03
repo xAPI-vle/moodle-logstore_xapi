@@ -1,4 +1,23 @@
-<?php namespace MXTranslator;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace MXTranslator;
+
+defined('MOODLE_INTERNAL') || die();
+
 use \stdClass as PhpObj;
 
 class Controller extends PhpObj {
@@ -11,8 +30,8 @@ class Controller extends PhpObj {
         '\mod_url\event\course_module_viewed' => 'ModuleViewed',
         '\mod_folder\event\course_module_viewed' => 'ModuleViewed',
         '\mod_forum\event\course_module_viewed' => 'ModuleViewed',
-        '\mod_forum\event\discussion_viewed' =>  'DiscussionViewed',
-        '\mod_forum\event\user_report_viewed' =>  'ModuleViewed',
+        '\mod_forum\event\discussion_viewed' => 'DiscussionViewed',
+        '\mod_forum\event\user_report_viewed' => 'ModuleViewed',
         '\mod_book\event\course_module_viewed' => 'ModuleViewed',
         '\mod_scorm\event\course_module_viewed' => 'ModuleViewed',
         '\mod_resource\event\course_module_viewed' => 'ModuleViewed',
@@ -39,37 +58,41 @@ class Controller extends PhpObj {
         '\core\event\user_created' => 'UserRegistered',
         '\core\event\user_enrolment_created' => 'EnrolmentCreated',
         '\mod_scorm\event\sco_launched' => 'ScormLaunched',
-        '\mod_feedback\event\response_submitted' => ['FeedbackSubmitted','FeedbackQuestionSubmitted'],
+        '\mod_feedback\event\response_submitted' => ['FeedbackSubmitted', 'FeedbackQuestionSubmitted'],
         '\mod_facetoface\event\signup_success' => 'FacetofaceEnrol',
         '\mod_facetoface\event\cancel_booking' => 'FacetofaceUnenrol',
         '\mod_facetoface\event\take_attendance' => 'FacetofaceAttend',
         '\mod_scorm\event\scoreraw_submitted' => 'ScormScoreRawSubmitted',
-        '\mod_scorm\event\status_submitted' => 'ScormStatusSubmitted'
+        '\mod_scorm\event\status_submitted' => 'ScormStatusSubmitted',
     ];
 
     /**
      * Constructs a new Controller.
      */
-    public function __construct() {}
+    public function __construct() {
+        // Empty.
+    }
 
     /**
      * Creates a new event.
      * @param [String => Mixed] $events
      * @return [String => Mixed]
      */
-    public function createEvents(array $events) {
+    public function create_events(array $events) {
         $results = [];
         foreach ($events as $index => $opts) {
             $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
             if (isset(static::$routes[$route])) {
-                    $routeEvents = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
-                    foreach ($routeEvents as $routeEvent) {
+                $routeevents = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
+                foreach ($routeevents as $routeevent) {
                     try {
-                        $event = '\MXTranslator\Events\\'.$routeEvent;
+                        $event = '\MXTranslator\Events\\' . $routeevent;
                         foreach ((new $event())->read($opts) as $index => $result) {
-                             array_push($results, $result);
-                         }
-                    } catch (UnnecessaryEvent $ex) {}
+                                array_push($results, $result);
+                        }
+                    } catch (UnnecessaryEvent $ex) { // @codingStandardsIgnoreLine
+                        // Empty.
+                    }
                 }
             }
         }

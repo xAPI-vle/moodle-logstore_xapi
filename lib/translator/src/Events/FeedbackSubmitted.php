@@ -1,4 +1,22 @@
-<?php namespace MXTranslator\Events;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace MXTranslator\Events;
+
+defined('MOODLE_INTERNAL') || die();
 
 class FeedbackSubmitted extends ModuleViewed {
     /**
@@ -9,12 +27,12 @@ class FeedbackSubmitted extends ModuleViewed {
      */
     public function read(array $opts) {
 
-        $feedback = $this->parseFeedback($opts);
+        $feedback = $this->parse_feedback($opts);
 
         return [array_merge(parent::read($opts)[0], [
             'recipe' => 'attempt_completed',
             'attempt_url' => $opts['attempt']->url,
-            'attempt_type' => static::$xapiType.$opts['attempt']->type,
+            'attempt_type' => static::$xapitype.$opts['attempt']->type,
             'attempt_ext' => $opts['attempt'],
             'attempt_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_attempt',
             'attempt_name' => $opts['attempt']->name,
@@ -34,29 +52,29 @@ class FeedbackSubmitted extends ModuleViewed {
      * @param [Array => Mixed] $opts
      * @return [PHPObj => Mixed]
      */
-    public function parseFeedback($opts){
-        $parsedQuestions = [];
-        $scoreMax = 0;
-        $scoreRaw = 0;
+    public function parse_feedback($opts) {
+        $parsedquestions = [];
+        $scoremax = 0;
+        $scoreraw = 0;
 
         foreach ($opts['questions'] as $item => $question) {
-            // Find the response to the current question
-            $currentResponse = null;
-            foreach ($opts['attempt']->responses as $responseId => $response) {
+            // Find the response to the current question.
+            $currentresponse = null;
+            foreach ($opts['attempt']->responses as $responseid => $response) {
                 if (!empty($response->item) && $response->item == $item) {
-                    $currentResponse = $response;
+                    $currentresponse = $response;
                 }
             }
 
-            if (is_null($currentResponse)) {
+            if (is_null($currentresponse)) {
                 // Perhaps a label or the learner did not answer this question - don't add to the array.
                 break;
             }
 
-            // Parse the current question
-            $parsedQuestion = (object)[
+            // Parse the current question.
+            $parsedquestion = (object)[
                 'question' => $question,
-                'options' => $this->parseQuestionPresentation($question->presentation, $question->typ),
+                'options' => $this->parse_question_presentation($question->presentation, $question->typ),
                 'score' => (object) [
                     'max' => 0,
                     'raw' => 0
@@ -64,59 +82,57 @@ class FeedbackSubmitted extends ModuleViewed {
                 'response' => null
             ];
 
-            $parsedQuestion->response = $currentResponse->id;
+            $parsedquestion->response = $currentresponse->id;
 
-            // Add scores and response
-            foreach ($parsedQuestion->options as $optionIndex => $option) {
-                if (isset($option->value) && $option->value > $parsedQuestion->score->max) {
-                    $parsedQuestion->score->max = $option->value;
+            // Add scores and response.
+            foreach ($parsedquestion->options as $optionindex => $option) {
+                if (isset($option->value) && $option->value > $parsedquestion->score->max) {
+                    $parsedquestion->score->max = $option->value;
                 }
 
-                // Find the option the learner selected
-                if ($optionIndex == $currentResponse->id){
+                // Find the option the learner selected.
+                if ($optionindex == $currentresponse->id) {
                     if (isset($option->value)) {
-                        $parsedQuestion->score->raw = $option->value;
+                        $parsedquestion->score->raw = $option->value;
                     }
                 }
             }
 
-            $scoreMax += $parsedQuestion->score->max;
-            $scoreRaw += $parsedQuestion->score->raw;
+            $scoremax += $parsedquestion->score->max;
+            $scoreraw += $parsedquestion->score->raw;
 
-            if ($parsedQuestion->score->max == 0) {
-                $parsedQuestion->score->max = null;
-                $parsedQuestion->score->raw = null;
-            }
-            else {
-                $parsedQuestion->score->min = 0;
-                $parsedQuestion->score->scaled = $parsedQuestion->score->raw / $parsedQuestion->score->max;
+            if ($parsedquestion->score->max == 0) {
+                $parsedquestion->score->max = null;
+                $parsedquestion->score->raw = null;
+            } else {
+                $parsedquestion->score->min = 0;
+                $parsedquestion->score->scaled = $parsedquestion->score->raw / $parsedquestion->score->max;
             }
 
             array_push(
-                $parsedQuestions, 
-                $parsedQuestion
+                $parsedquestions,
+                $parsedquestion
             );
         }
 
-        $scoreMin = null;
-        $scoreScaled = null;
-        if ($scoreMax == 0){
-            $scoreMax = null;
-            $scoreRaw = null;
-        }
-        else {
-            $scoreScaled = $scoreRaw / $scoreMax;
-            $scoreMin = 0;
+        $scoremin = null;
+        $scorescaled = null;
+        if ($scoremax == 0) {
+            $scoremax = null;
+            $scoreraw = null;
+        } else {
+            $scorescaled = $scoreraw / $scoremax;
+            $scoremin = 0;
         }
 
         return (object)[
-            'questions' => $parsedQuestions,
+            'questions' => $parsedquestions,
             'score' => (object) [
-                'max' => $scoreMax,
-                'raw' => $scoreRaw,
-                'min' => $scoreMin,
-                'scaled' => $scoreScaled
-            ] 
+                'max' => $scoremax,
+                'raw' => $scoreraw,
+                'min' => $scoremin,
+                'scaled' => $scorescaled
+            ]
         ];
     }
 
@@ -126,9 +142,9 @@ class FeedbackSubmitted extends ModuleViewed {
      * @param [String => Mixed] $type
      * @return [Array => Mixed]
      */
-    protected function parseQuestionPresentation ($presentation, $type){
+    protected function parse_question_presentation($presentation, $type) {
 
-        // Text areas don't have options or scores
+        // Text areas don't have options or scores.
         if ($type == 'textarea') {
             return [];
         }
@@ -151,14 +167,14 @@ class FeedbackSubmitted extends ModuleViewed {
                     ]);
                     break;
                 case 'multichoicerated':
-                    $optionArr = explode('#### ', $option);
+                    $optionarr = explode('#### ', $option);
                     array_push($return, (object)[
-                        'description' => $optionArr[1],
-                        'value' => $optionArr[0]
+                        'description' => $optionarr[1],
+                        'value' => $optionarr[0]
                     ]);
                     break;
                 default:
-                    // Unsupported type. 
+                    // Unsupported type.
                     return [];
                     break;
             }
