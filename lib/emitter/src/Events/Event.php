@@ -62,7 +62,7 @@ abstract class Event extends PhpObj {
                 'name' => $opts[$key.'_name'],
                 'account' => [
                     'homePage' => $opts[$key.'_url'],
-                    'name' => $opts[$key.'_id'],
+                    'name' => $opts[$key.'_account'],
                 ],
             ];
         }

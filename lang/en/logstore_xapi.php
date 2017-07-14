@@ -50,3 +50,5 @@ $string['logguests'] = 'Log guest actions';
 $string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
 $string['mbox'] = 'Send user email';
 $string['mbox_desc'] = 'Statements identify the user with its email (mbox) or with its userid on the moodle platform (account). Checking this will send the email (mbox).';
+$string['account'] = 'Account';
+$string['account_desc'] = 'User field from the Moodle Datastore to send in the xAPI Actor Account field';

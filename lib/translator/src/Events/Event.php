@@ -31,12 +31,14 @@ class Event extends PhpObj {
      */
     public function read(array $opts) {
         $appname = $opts['app']->fullname ?: 'A Moodle site';
+		$subField = get_config('logstore_xapi', 'account') ?: 'id';
 
         return [[
             'user_id' => $opts['user']->id,
             'user_email' => $opts['user']->email,
             'user_url' => $opts['user']->url,
             'user_name' => $opts['user']->fullname,
+			'user_account' => $opts['user']->$subField,
             'context_lang' => is_null($opts['course']->lang)
                 || $opts['course']->lang == '' ? "en" : $opts['course']->lang,
             'context_platform' => 'Moodle',
