@@ -150,10 +150,12 @@ class store extends php_obj implements log_writer {
         $sentevents = [];
         foreach ($eventbatches as $translatoreventsbatch) {
             $xapievents = $xapicontroller->create_events($translatoreventsbatch);
-            foreach (array_keys($xapievents) as $key) {
+            $statements = $xapievents['statements'];
+            $response = $xapievents['response'];
+            foreach (array_keys($statements) as $key) {
                 if (is_numeric($key)) {
-                    $k = $xapievents[$key]['context']['extensions'][$translatoreventreadreturn[0]['context_ext_key']]['id'];
-                    $sentevents[$k] = $xapievents['last_action_result'];
+                    $k = $statements[$key]['context']['extensions'][$translatoreventreadreturn[0]['context_ext_key']]['id'];
+                    $sentevents[$k] = $this->getlast_action_result($response);
                 }
             }
             $this->error_log_value('xapievents', $xapievents);
@@ -162,6 +164,19 @@ class store extends php_obj implements log_writer {
         return $sentevents;
     }
 
+    /**
+     * Get last action result from Learning Locker.
+     * @param Object TinCan\LRSResponse
+     *
+     */
+    private function getlast_action_result($response){
+        if ($response->success == 1) {
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+    
     private function error_log_value($key, $value) {
         $this->error_log('['.$key.'] '.json_encode($value));
     }
