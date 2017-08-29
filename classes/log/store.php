@@ -176,7 +176,7 @@ class store extends php_obj implements log_writer {
             return "failure";
         }
     }
-    
+
     private function error_log_value($key, $value) {
         $this->error_log('['.$key.'] '.json_encode($value));
     }
