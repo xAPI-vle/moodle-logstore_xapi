@@ -169,7 +169,7 @@ class store extends php_obj implements log_writer {
      * @param Object TinCan\LRSResponse
      *
      */
-    private function getlast_action_result($response){
+    private function getlast_action_result($response) {
         if ($response->success == 1) {
             return "success";
         } else {
