@@ -65,10 +65,16 @@ class store extends php_obj implements log_writer {
      * @param log_manager $manager
      */
     public function __construct(log_manager $manager) {
+        global $CFG;
+        
         $this->helper_setup($manager);
         $this->logguests = $this->get_config('logguests', 1);
         $routes = $this->get_config('routes', '');
         $this->routes = $routes === '' ? [] : explode(',', $routes);
+        
+        if (!empty($CFG->debug) and $CFG->debug >= DEBUG_DEVELOPER) {
+            $this->loggingenabled = true;
+        }
     }
 
     /**
