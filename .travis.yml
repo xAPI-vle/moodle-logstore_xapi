@@ -21,7 +21,6 @@ before_install:
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install node
-  - pwd
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
@@ -45,6 +44,7 @@ script:
   # run codechecker without the vendor/ directory
   - rm -rf "$(find -type d -name xapi)/vendor"
   - moodle-plugin-ci codechecker
+  - cd $TRAVIS_BUILD_DIR
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
