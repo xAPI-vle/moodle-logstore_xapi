@@ -1,7 +1,9 @@
 .DS_STORE
-*.sublime-project
-*.sublime-workspace
-vendor
-classes/log/error_log.txt
-composer.phar
-.idea/
+/.idea
+/*.sublime-project
+/*.sublime-workspace
+/classes/log/error_log.txt
+/composer.phar
+/node_modules
+/package-lock.json
+/vendor
