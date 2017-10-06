@@ -14,13 +14,11 @@ find ../moodle_logstore_build -type f -name '.gitignore' | xargs rm -rf
 find ../moodle_logstore_build -type f -name 'composer.*' | xargs rm -rf
 find ../moodle_logstore_build -type f -name 'phpunit.*' | xargs rm -rf
 find ../moodle_logstore_build -type f -name '*.md' | xargs rm -rf
+find ../moodle_logstore_build -type f -name 'node_modules' | xargs rm -rf
+find ../moodle_logstore_build -type f -name 'package-lock.json' | xargs rm -rf
+find ../moodle_logstore_build -type f -name 'package.json' | xargs rm -rf
 
 # Creates the zip file.
 mv ../moodle_logstore_build xapi
 zip -r xapi.zip xapi -x "xapi/.git/**/*"
 rm -rf xapi
-
-# Updates Github.
-git add xapi.zip
-git commit -m "Builds zip file."
-git push
