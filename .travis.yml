@@ -52,7 +52,7 @@ after_success:
     npm i last-release-git;
     semantic-release pre;
     semantic-release post;
-  fi
+    fi
 
 before_deploy:
   - sh build.sh
