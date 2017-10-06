@@ -21,6 +21,7 @@ before_install:
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install node
+  - pwd
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
