@@ -18,6 +18,7 @@ env:
 #   - DB=mysqli
 
 before_install:
+  - echo $TRAVIS_PHP_VERSION
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install node
@@ -47,7 +48,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.1" ]; then
     git fetch --tags;
     npm i semantic-release;
     npm i last-release-git;
