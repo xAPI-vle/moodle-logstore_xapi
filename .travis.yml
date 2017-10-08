@@ -47,7 +47,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     git fetch --tags;
     npm i semantic-release;
     npm i last-release-git;
