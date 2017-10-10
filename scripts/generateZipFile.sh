@@ -1,24 +1,20 @@
 #!/usr/bin/env sh
 
-# Creates a folder to zip.
-rm -f xapi.zip
-php -r "readfile('https://getcomposer.org/installer');" | php
-php composer.phar install --no-interaction --no-dev
-cp -r . ../moodle_logstore_build
+# Installs composer production dependencies.
+rm -rf vendor
+composer install --no-interaction --no-dev
 
-# Removes unused files and folders.
-find ../moodle_logstore_build -type d -name 'tests' | xargs rm -rf
-find ../moodle_logstore_build -type d -name 'docs' | xargs rm -rf
-find ../moodle_logstore_build -type d -name '.git' | xargs rm -rf
-find ../moodle_logstore_build -type f -name '.gitignore' | xargs rm -rf
-find ../moodle_logstore_build -type f -name 'composer.*' | xargs rm -rf
-find ../moodle_logstore_build -type f -name 'phpunit.*' | xargs rm -rf
-find ../moodle_logstore_build -type f -name '*.md' | xargs rm -rf
-find ../moodle_logstore_build -type f -name 'node_modules' | xargs rm -rf
-find ../moodle_logstore_build -type f -name 'package-lock.json' | xargs rm -rf
-find ../moodle_logstore_build -type f -name 'package.json' | xargs rm -rf
+# Creates folder to zip.
+rm -rf xapi
+mkdir -p ./xapi/classes && cp -r ./classes ./xapi
+mkdir -p ./xapi/db && cp -r ./db ./xapi
+mkdir -p ./xapi/lang && cp -r ./lang ./xapi
+mkdir -p ./xapi/lib && cp -r ./lib ./xapi
+mkdir -p ./xapi/vendor && cp -r ./vendor ./xapi
+cp ./LICENSE ./xapi
+cp ./README.md ./xapi
+cp ./settings.php ./xapi
+cp ./version.php ./xapi
 
 # Creates the zip file.
-mv ../moodle_logstore_build xapi
-zip -r xapi.zip xapi -x "xapi/.git/**/*"
-rm -rf xapi
+zip -r xapi.zip xapi
