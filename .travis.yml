@@ -52,8 +52,7 @@ after_success:
     git fetch --tags;
     npm i semantic-release;
     npm i last-release-git;
-    ./node_modules/.bin/semantic-release pre;
-    ./node_modules/.bin/semantic-release post;
+    ./node_modules/.bin/semantic-release pre && ./node_modules/.bin/semantic-release post;
     fi
 
 before_deploy:
