@@ -10,6 +10,8 @@ php:
   - 7.0
   - 5.6
 
+node_js: 8
+
 env:
   global:
     - MOODLE_BRANCH=MOODLE_32_STABLE
