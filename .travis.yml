@@ -6,9 +6,9 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
+  - 7.0
+  - 5.6
 
 env:
   global:
@@ -19,9 +19,11 @@ env:
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
+  - echo "Travis tag $TRAVIS_TAG"
+  - echo "Travis branch $TRAVIS_BRANCH"
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
-  - nvm install node
+  - nvm install 8
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
@@ -52,8 +54,8 @@ after_success:
     git fetch --tags;
     npm i semantic-release;
     npm i last-release-git;
-    ./node_modules/.bin/semantic-release pre;
-    ./node_modules/.bin/semantic-release post;
+    export BUILD_LEADER_ID=1;
+    ./node_modules/.bin/semantic-release pre && ./node_modules/.bin/semantic-release post;
     fi
 
 before_deploy:

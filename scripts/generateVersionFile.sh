@@ -1,4 +1,4 @@
-release=$(echo "${TRAVIS_TAG//v}")
+release="$TRAVIS_TAG"
 
 year=$(date +"%Y")
 
@@ -9,5 +9,5 @@ versionPrefix=$(date +"%Y%m%d")
 versionSuffix=$(printf %02d $todaysReleases)
 version="$versionPrefix$versionSuffix"
 
-template=$(cat templateVersionFile)
+template=$(cat ./scripts/templateVersionFile)
 eval "echo \"$template\"" > version.php
