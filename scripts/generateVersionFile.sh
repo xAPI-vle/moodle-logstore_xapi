@@ -1,4 +1,4 @@
-release=$(echo "${TRAVIS_TAG//v}")
+release="$TRAVIS_BRANCH"
 
 year=$(date +"%Y")
 

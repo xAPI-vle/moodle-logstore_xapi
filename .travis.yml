@@ -19,6 +19,8 @@ env:
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
+  - echo "Travis tag $TRAVIS_TAG"
+  - echo "Travis branch $TRAVIS_BRANCH"
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install 8
