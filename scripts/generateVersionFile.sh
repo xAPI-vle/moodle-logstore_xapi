@@ -1,4 +1,4 @@
-release="$TRAVIS_BRANCH"
+release="$TRAVIS_TAG"
 
 year=$(date +"%Y")
 
