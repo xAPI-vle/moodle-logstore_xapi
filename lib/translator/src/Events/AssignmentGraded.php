@@ -51,6 +51,7 @@ class AssignmentGraded extends ModuleViewed {
             'graded_user_id' => $opts['graded_user']->id,
             'graded_user_url' => $opts['graded_user']->url,
             'graded_user_name' => $opts['graded_user']->fullname,
+            'graded_user_email' => $opts['graded_user']->email,
             'grade_score_raw' => $scoreraw,
             'grade_score_min' => $scoremin,
             'grade_score_max' => $scoremax,
