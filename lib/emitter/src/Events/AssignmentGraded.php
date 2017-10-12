@@ -58,14 +58,7 @@ class AssignmentGraded extends Event {
         ]);
 
         // Excluded from array merge to make sure that the actor is overwritten e.g. if a different IFI is used.
-        $statement['actor'] = [
-            'objectType' => 'Agent',
-            'name' => $opts['graded_user_name'],
-            'account' => [
-                'homePage' => $opts['graded_user_url'],
-                'name' => $opts['graded_user_id'],
-            ],
-        ];
+        $statement['actor'] = $this->read_user($opts, "graded_user");
 
         if (!is_null($opts['grade_success'])) {
             $statement['result']['success'] = $opts['grade_success'];
