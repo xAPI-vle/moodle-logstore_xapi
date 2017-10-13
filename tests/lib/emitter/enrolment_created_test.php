@@ -43,6 +43,6 @@ class enrolment_created_test extends event_test {
         parent::assert_output($input, $output);
         $this->assert_verb('http://www.tincanapi.co.uk/verbs/enrolled_onto_learning_plan', 'enrolled onto', $output['verb']);
         $this->assert_object('course', $input, $output['object']);
-        $this->assert_user($input, $output['context']['instructor'], 'instructor');
+        $this->assert_user($input, $output['context']['instructor'], 'user');
     }
 }
