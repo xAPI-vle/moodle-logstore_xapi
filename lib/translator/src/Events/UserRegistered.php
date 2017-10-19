@@ -31,6 +31,7 @@ class UserRegistered extends Event {
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
             'user_name' => $opts['relateduser']->fullname,
+            'user_email' => $opts['relateduser']->email,
         ])];
     }
 }
