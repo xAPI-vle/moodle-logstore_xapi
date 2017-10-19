@@ -53,6 +53,7 @@ class emit_task extends \core\task\scheduled_task {
         foreach (array_keys($storereturn) as $eventid) {
             if ($storereturn[$eventid] == 'success') {
                 $DB->delete_records_list('logstore_xapi_log', 'id', array($eventid));
+                mtrace("Event id ".$eventid." has been successfully sent to LRS.");
             }
         }
 
