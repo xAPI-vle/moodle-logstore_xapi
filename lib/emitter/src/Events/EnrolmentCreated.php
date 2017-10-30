@@ -37,8 +37,9 @@ class EnrolmentCreated extends Event {
             ],
             'object' => $this->read_course($opts),
             'context' => [
-                'instructor' => parent::read($opts)['actor'],
+            	'instructor' => $this->read_user($opts, 'instructor'),
             ],
         ]);
+        
     }
 }
