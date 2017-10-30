@@ -31,8 +31,10 @@ class EnrolmentCreated extends CourseViewed {
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
             'user_name' => $opts['relateduser']->fullname,
+            'user_email' => $opts['relateduser']->email,
             'instructor_id' => $opts['user']->id,
             'instructor_url' => $opts['user']->url,
+            'instructor_email' => $opts['user']->email,
             'instructor_name' => $opts['user']->fullname,
         ])];
     }
