@@ -40,6 +40,5 @@ class EnrolmentCreated extends Event {
                 'instructor' => $this->read_user($opts, 'instructor'),
             ],
         ]);
-        
     }
 }
