@@ -7,11 +7,15 @@
     "release": {
         "getLastRelease": "last-release-git",
         "verifyConditions": [
-            "travis",
-            "github"
+            "@semantic-release/condition-travis",
+            "@semantic-release/github"
         ],
         "publish": [
-            "github"
+            "@semantic-release/github"
         ]
+    },
+    "devDependencies": {
+        "last-release-git": "0.0.3",
+        "semantic-release": "^10.0.1"
     }
 }
