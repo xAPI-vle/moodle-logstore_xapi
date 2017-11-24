@@ -1,10 +1,17 @@
 {
-  "name": "moodle-logstore_xapi",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xAPI-vle/moodle-logstore_xapi.git"
-  },
-  "release": {
-    "getLastRelease": "last-release-git"
-  }
+    "name": "moodle-logstore_xapi",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xAPI-vle/moodle-logstore_xapi.git"
+    },
+    "release": {
+        "getLastRelease": "last-release-git",
+        "verifyConditions": [
+            "travis",
+            "github"
+        ],
+        "publish": [
+            "github"
+        ]
+    }
 }
