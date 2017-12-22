@@ -69,14 +69,14 @@ When adding new events or modifying existing events, we recommend that you follo
 If this is your first pull request, you need to follow the steps below.
 
 1. Click the "Fork" button (top right of Github). Github will fork (copy) this repository as your own so you can make changes.
-2. Run `git remote set-url origin https://github.com/YOUR_USERNAME/Moodle-Log-Expander.git` (replacing `YOUR_USERNAME` for your Github username).
+2. Run `git remote set-url origin https://github.com/YOUR_USERNAME/moodle-logstore_xapi.git` (replacing `YOUR_USERNAME` for your Github username).
 
 Once this is done, you can then follow the steps for [subsequent pull requests](#subsequent-pull-requests) below.
 
 ### Subsequent Pull Requests
 1. Run `git add -A; git commit -am "DESCRIPTION";` to commit your changes (replacing `DESCRIPTION` with a description of what you've changed).
 2. Run `git push` to push your commits to your forked repository.
-3. Go to "https://github.com/YOUR_USERNAME/Moodle-Log-Expander/pulls" (replacing `YOUR_USERNAME` for your Github username).
+3. Go to "https://github.com/YOUR_USERNAME/moodle-logstore_xapi/pulls" (replacing `YOUR_USERNAME` for your Github username).
 4. Click the "New pull request" button to begin creating your pull request.
 5. Click the "Create pull request" button (twice) to confirm the creation of your pull request.
 
