@@ -1,9 +1,9 @@
 # Plugin Design
 This page documents how the plugin is designed. The plugin [controls and configures](../classes/log/store.php) the three parts listed below.
 
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter)
+- [Moodle Log Expander](../lib/expander)
+- [Moodle to xAPI Translator](../lib/translator)
+- [xAPI Recipe Emitter](../lib/emitter)
 
 The plugin uses the three parts listed above in the following way.
 
