@@ -1,10 +1,3 @@
-## Installation and Upgrading
-You'll need to install [Composer](https://getcomposer.org/) first.
-
-- Install with `composer require learninglocker/moodle-log-expander`.
-- Update with `composer update learninglocker/moodle-log-expander`.
-
-
 ## Supported Events
 Mapping for moodle event names to expander event classes can be found in the [Controller](../src/Controller.php).
 
