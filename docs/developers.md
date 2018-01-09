@@ -16,15 +16,15 @@ If you hadn't already installed the plugin, you'll need to login as an admin and
 ## Adding Events
 Assuming you've followed the [instructions above](#setup), you can modify and test events by updating the code inside the directories below.
 
-- vendor/learninglocker/moodle-log-expander
-- vendor/learninglocker/moodle-xapi-translator
-- vendor/learninglocker/xapi-recipe-emitter
+- lib/expander
+- lib/translator
+- lib/emitter
 
 If you've read the [plugin design](design.md) you should understand what each of these directories are responsible for. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
+- [Moodle Log Expander](../lib/expander/docs/readme.md#adding-events)
+- [Moodle to xAPI Translator](../lib/translator/docs/readme.md#adding-events)
+- [xAPI Recipe Emitter](../lib/emitter/docs/readme.md#adding-events)
 
 ## PHPUnit
 Run these with the [Moodle PHPUnit test framework](https://docs.moodle.org/dev/PHPUnit):
