@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 release="$TRAVIS_TAG"
 
 year=$(date +"%Y")

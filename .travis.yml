@@ -51,10 +51,9 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.1" ]; then
-    git fetch --tags;
     npm install;
     export BUILD_LEADER_ID=1;
-    ./node_modules/.bin/semantic-release;
+    npm run semantic-release;
     fi
 
 before_deploy:
