@@ -20,7 +20,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class AssignmentSubmitted extends Event {
     protected static $verbdisplay = [
-        'en' => 'submitted'
+        'en' => 'completed'
     ];
 
     /**
@@ -32,7 +32,7 @@ class AssignmentSubmitted extends Event {
     public function read(array $opts) {
         return array_merge_recursive(parent::read($opts), [
             'verb' => [
-                'id' => 'http://adlnet.gov/expapi/verbs/submitted',
+                'id' => 'http://adlnet.gov/expapi/verbs/completed',
                 'display' => $this->read_verb_display($opts),
             ],
             'object' => $this->read_module($opts),
