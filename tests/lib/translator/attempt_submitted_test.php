@@ -55,7 +55,6 @@ class attempt_submitted_test extends attempt_started_test {
     protected function assert_attempt($input, $output) {
         parent::assert_attempt($input, $output);
         $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
-        $this->assertEquals($input->state === 'submitted', $output['attempt_submitted']);
     }
 
     protected function assert_grade_items($input, $output) {

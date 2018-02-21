@@ -42,7 +42,7 @@ class attempt_reviewed_test extends event_test {
 
     protected function assert_output($input, $output) {
         parent::assert_output($input, $output);
-        $this->assert_verb('http://activitystrea.ms/schema/1.0/start', 'started', $output['verb']);
+        $this->assert_verb('http://adlnet.gov/expapi/verbs/reviewed', 'reviewed', $output['verb']);
         $this->assert_object('module', $input, $output['context']['contextActivities']['grouping'][2]);
         $this->assert_object('course', $input, $output['context']['contextActivities']['grouping'][1]);
         $this->assert_attempt($input, $output['object']);
