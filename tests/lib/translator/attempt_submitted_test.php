@@ -20,7 +20,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use \MXTranslator\Events\AttemptReviewed as Event;
 
-class attempt_reviewed_test extends attempt_started_test {
+class attempt_submitted_test extends attempt_started_test {
     protected static $recipename = 'attempt_submitted';
 
     /**
