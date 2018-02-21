@@ -2,16 +2,12 @@
     "name": "xAPI-vle/moodle-logstore-xapi",
     "license": "GPL v3",
     "autoload": {
-        "psr-4": {
-          "logstore_xapi\\": "classes/",
-          "Tests\\": "tests/",
-          "XREmitter\\": "lib/emitter/src/",
-          "XREmitter\\Tests\\": "tests/lib/emitter/",
-          "LogExpander\\": "lib/expander/src/",
-          "LogExpander\\Tests\\": "tests/lib/expander/",
-          "MXTranslator\\": "lib/translator/src/",
-          "MXTranslator\\Tests\\": "tests/lib/translator/"
-        }
+        "files": [
+            "src/transformer/events/course_viewed.php",
+            "src/transformer/utils/constants.php",
+            "src/transformer/utils/read_activity.php",
+            "src/transformer/utils/read_user.php"
+        ]
     },
     "require-dev": {
         "learninglocker/statementfactory": "~0.0"
