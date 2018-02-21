@@ -2,27 +2,29 @@
 
 namespace transformer\events;
 
+use transformer\utils as utils;
+
 function course_viewed($event) {
     return [
-        'actor' => \transformer\utils\read_user($event, 'user'),
+        'actor' => utils\read_user($event, 'user'),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => 'viewed',
         ],
-        'object' => \transformer\utils\read_activity($event, 'course'),
+        'object' => utils\read_activity($event, 'course'),
         'timestamp' => $event['time'],
         'context' => [
             'platform' => $event['context_platform'],
             'language' => $event['context_lang'],
             'extensions' => [
-                \transformer\utils\info_extension => $event['context_info'],
+                utils\info_extension => $event['context_info'],
             ],
             'contextActivities' => [
                 'grouping' => [
-                    \transformer\utils\read_activity($event, 'app')
+                    utils\read_activity($event, 'app')
                 ],
                 'category' => [
-                    \transformer\utils\read_activity($event, 'source')
+                    utils\read_activity($event, 'source')
                 ]
             ],
         ]
