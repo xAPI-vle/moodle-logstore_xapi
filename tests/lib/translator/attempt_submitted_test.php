@@ -21,7 +21,7 @@ defined('MOODLE_INTERNAL') || die();
 use \MXTranslator\Events\AttemptReviewed as Event;
 
 class attempt_reviewed_test extends attempt_started_test {
-    protected static $recipename = 'attempt_reviewed';
+    protected static $recipename = 'attempt_submitted';
 
     /**
      * Sets up the tests.
@@ -55,7 +55,7 @@ class attempt_reviewed_test extends attempt_started_test {
     protected function assert_attempt($input, $output) {
         parent::assert_attempt($input, $output);
         $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
-        $this->assertEquals($input->state === 'finished', $output['attempt_reviewed']);
+        $this->assertEquals($input->state === 'finished', $output['attempt_submitted']);
     }
 
     protected function assert_grade_items($input, $output) {
