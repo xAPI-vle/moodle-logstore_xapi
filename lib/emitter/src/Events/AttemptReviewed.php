@@ -32,7 +32,7 @@ class AttemptReviewed extends Event {
     public function read(array $opts) {
         return array_merge_recursive(parent::read($opts), [
             'verb' => [
-                'id' => 'http://activitystrea.ms/schema/1.0/review',
+                'id' => 'http://adlnet.gov/expapi/verbs/reviewed',
                 'display' => $this->read_verb_display($opts),
             ],
             'object' => [
