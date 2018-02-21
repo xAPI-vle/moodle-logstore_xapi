@@ -69,7 +69,7 @@ class AttemptSubmitted extends AttemptStarted {
         }
 
         return [array_merge(parent::read($opts)[0], [
-            'recipe' => 'attempt_completed',
+            'recipe' => 'attempt_submitted',
             'attempt_score_raw' => $scoreraw,
             'attempt_score_min' => $scoremin,
             'attempt_score_max' => $scoremax,
