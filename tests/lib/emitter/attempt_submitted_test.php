@@ -54,7 +54,7 @@ class attempt_submitted_test extends event_test {
 
     protected function assert_output($input, $output) {
         parent::assert_output($input, $output);
-        $this->assert_verb('http://adlnet.gov/expapi/verbs/submitted', 'submitted', $output['verb']);
+        $this->assert_verb('http://adlnet.gov/expapi/verbs/completed', 'completed', $output['verb']);
         $this->assert_attempt($input, $output['context']['contextActivities']['grouping'][2]);
         $this->assert_object('course', $input, $output['context']['contextActivities']['grouping'][1]);
         $this->assert_object('module', $input, $output['object']);
