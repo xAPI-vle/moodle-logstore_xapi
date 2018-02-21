@@ -18,7 +18,7 @@ namespace XREmitter\Tests;
 
 defined('MOODLE_INTERNAL') || die();
 
-use \XREmitter\Events\AttemptCompleted as Event;
+use \XREmitter\Events\AttemptReviewed as Event;
 
 class attempt_reviewed_test extends event_test {
     protected static $recipename = 'attempt_reviewed';
