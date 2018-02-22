@@ -21,6 +21,12 @@ $statement = \transformer\events\course_viewed([
     'plugin_url' => 'http://www.example.org/plugin',
     'plugin_version' => '1.0.0',
     'repo' => $repo,
-], []);
-echo(json_encode($statement, JSON_PRETTY_PRINT));
-echo("\n");
+], [
+    'userid' => 1,
+    'courseid' => 1,
+    'timecreated' => time()
+]);
+// echo(json_encode($statement, JSON_PRETTY_PRINT));
+// echo("\n");
+
+\loader\load_to_log([], [$statement]);

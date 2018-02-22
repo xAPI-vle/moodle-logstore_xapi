@@ -13,7 +13,7 @@ function get_user(array $config, $user) {
             'name' => $user->fullname,
             'account' => [
                 'homePage' => $user->url,
-                'name' => $user->id,
+                'name' => strval($user->id),
             ],
         ];
     }
