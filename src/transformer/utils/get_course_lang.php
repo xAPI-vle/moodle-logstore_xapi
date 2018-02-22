@@ -1,6 +1,6 @@
 <?php
 
-namespace extractor\utils;
+namespace transformer\utils;
 
 function get_course_lang($course) {
     $has_lang = is_null($course->lang) || $course->lang == '';

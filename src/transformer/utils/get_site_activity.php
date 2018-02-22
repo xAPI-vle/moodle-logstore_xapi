@@ -2,13 +2,13 @@
 
 namespace transformer\utils;
 
-function get_app_activity(array $event) {
+function get_site_activity(array $config, array $event, $lang) {
     return [
         'id' => $event['app_url'],
         'definition' => [
             'type' => app_type,
             'name' => [
-                $event['context_lang'] => $event['app_name'],
+                $lang => $event['app_name'],
             ],
         ],
     ];

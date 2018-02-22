@@ -1,6 +1,6 @@
 <?php
 
-namespace extractor\utils;
+namespace transformer\utils;
 
 function create_timestamp($time) {
     return date('c', $time);

@@ -12,12 +12,6 @@ $repo = new \extractor\FakeRepository(
     ]
 );
 
-$event = \extractor\events\course_viewed([
-    'repo' => $repo,
-], []);
-echo(json_encode($event, JSON_PRETTY_PRINT));
-echo("\n");
-
 $statement = \transformer\events\course_viewed([
     'source_url' => 'http://moodle.org',
     'source_name' => 'Moodle',
@@ -26,6 +20,7 @@ $statement = \transformer\events\course_viewed([
     'send_mbox' => false,
     'plugin_url' => 'http://www.example.org/plugin',
     'plugin_version' => '1.0.0',
-], $event);
+    'repo' => $repo,
+], []);
 echo(json_encode($statement, JSON_PRETTY_PRINT));
 echo("\n");
