@@ -16,20 +16,33 @@ If you hadn't already installed the plugin, you'll need to login as an admin and
 ## Adding Events
 Assuming you've followed the [instructions above](#setup), you can modify and test events by updating the code inside the directories below.
 
-- vendor/learninglocker/moodle-log-expander
-- vendor/learninglocker/moodle-xapi-translator
-- vendor/learninglocker/xapi-recipe-emitter
+- lib/expander
+- lib/translator
+- lib/emitter
 
 If you've read the [plugin design](design.md) you should understand what each of these directories are responsible for. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
+- [Moodle Log Expander](../lib/expander/docs/readme.md#adding-events)
+- [Moodle to xAPI Translator](../lib/translator/docs/readme.md#adding-events)
+- [xAPI Recipe Emitter](../lib/emitter/docs/readme.md#adding-events)
 
-##PHPUnit Test Filter
-All PHPUnit tests should pass, but if you'd like to only run the tests for specific events, add the 'filter' option.
+## PHPUnit
+Run these with the [Moodle PHPUnit test framework](https://docs.moodle.org/dev/PHPUnit):
+
 ```
-vendor/bin/phpunit --filter <Test_Name>
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite
+```
+
+### Test Filter
+All PHPUnit tests should pass, but if you'd like to only run the tests for specific events, add the `--filter` option:
+
+```
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite --filter <Test_Name>
+```
+
+e.g.:
+```
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite --filter course_completed_test
 ```
 
 ## Release Process

@@ -1,4 +1,22 @@
-<?php namespace XREmitter\Events;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace XREmitter\Events;
+
+defined('MOODLE_INTERNAL') || die();
 
 class ScormEvent extends Event {
     /**
@@ -9,48 +27,48 @@ class ScormEvent extends Event {
      */
     public function read(array $opts) {
         return array_merge(parent::read($opts), [
-            'object' => $this->readModule($opts),
+            'object' => $this->read_module($opts),
             'context' => [
                 'contextActivities' => [
                     'grouping' => [
-                        $this->readCourse($opts),
-                        $this->readScormScoes($opts),
+                        $this->read_course($opts),
+                        $this->read_scorm_scoes($opts),
                     ],
                 ],
             ],
         ]);
     }
 
-    protected function readScormVerb($opts) {
-        $scormStatus = $opts['scorm_status'];
-        $verbBaseUrl = 'http://adlnet.gov/expapi/verbs/';
+    protected function read_scorm_verb($opts) {
+        $scormstatus = $opts['scorm_status'];
+        $verbbaseurl = 'http://adlnet.gov/expapi/verbs/';
         $verb = array();
 
-        switch ($scormStatus) {
+        switch ($scormstatus) {
             case 'failed':
-                $verbUrl = $verbBaseUrl . $scormStatus;
-                $verb = $scormStatus;
+                $verburl = $verbbaseurl . $scormstatus;
+                $verb = $scormstatus;
                 break;
             case 'passed':
-                $verbUrl = $verbBaseUrl . $scormStatus;
-                $verb = $scormStatus;
+                $verburl = $verbbaseurl . $scormstatus;
+                $verb = $scormstatus;
                 break;
             default:
-                $verbUrl = $verbBaseUrl . 'completed';
+                $verburl = $verbbaseurl . 'completed';
                 $verb = 'completed';
         }
 
-        static::$verbDisplay = ['en' => $verb];
+        static::$verbdisplay = ['en' => $verb];
 
         $lang = [
-            'id' => $verbUrl,
-            'display' => $this->readVerbDisplay($opts),
+            'id' => $verburl,
+            'display' => $this->read_verb_display($opts),
         ];
 
         return $lang;
     }
 
-    protected function readScormScoes($opts) {
+    protected function read_scorm_scoes($opts) {
         return [
             'id' => $opts['module_url'],
             'definition' => [

@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * xAPI log store upgrade.
  *
@@ -61,7 +63,14 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
         // Adding indexes to table logstore_xapi_log.
         $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, array('timecreated'));
         $table->add_index('course-time', XMLDB_INDEX_NOTUNIQUE, array('courseid', 'anonymous', 'timecreated'));
-        $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE, array('userid', 'contextlevel', 'contextinstanceid', 'crud', 'edulevel', 'timecreated'));
+        $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE, array(
+            'userid',
+            'contextlevel',
+            'contextinstanceid',
+            'crud',
+            'edulevel',
+            'timecreated'
+        ));
 
         // Conditionally launch create table for logstore_xapi_log.
         if (!$dbman->table_exists($table)) {

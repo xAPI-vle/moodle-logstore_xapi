@@ -1,10 +1,28 @@
-<?php namespace MXTranslator\Events;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace MXTranslator\Events;
+
+defined('MOODLE_INTERNAL') || die();
 
 class FacetofaceAttend extends FacetofaceEnrol {
 
-    protected $sessionDuration ;
+    protected $sessionduration;
     protected $statuscodes;
-    protected $partialAttendanceDurationCredit;
+    protected $partialattendancedurationcredit;
 
     /**
      * Reads data for an event.
@@ -25,15 +43,15 @@ class FacetofaceAttend extends FacetofaceEnrol {
             $this->sessionDuration += $date->timefinish;
         }
 
-        $translatorEvents = [];
-        foreach ($opts['signups'] as $signupIndex => $signup) {
-            $signupEvent = $this->getSignupEvent($signup, $opts);
-            if (!is_null($signupEvent)) {
-                $translatorEvent = array_merge(parent::read($opts)[0], $signupEvent);
-                array_push($translatorEvents,$translatorEvent);
+        $translatorevents = [];
+        foreach ($opts['signups'] as $signupindex => $signup) {
+            $signupevent = $this->get_signup_event($signup, $opts);
+            if (!is_null($signupevent)) {
+                $translatorevent = array_merge(parent::read($opts)[0], $signupevent);
+                array_push($translatorevents, $translatorevent);
             }
         }
-        return $translatorEvents;
+        return $translatorevents;
     }
 
     /**
@@ -42,39 +60,38 @@ class FacetofaceAttend extends FacetofaceEnrol {
      * @param [String => Mixed] $opts
      * @return [String => Mixed]
      */
-    private function getSignupEvent($signup, $opts) {
-
-        $currentStatus = null;
-        $previousAttendance = false;
-        $previousPartialAttendance = false;
+    private function get_signup_event($signup, $opts) {
+        $currentstatus = null;
+        $previousattendance = false;
+        $previouspartialattendance = false;
         foreach ($signup->statuses as $status) {
             if ($status->timecreated == $opts['event']['timecreated']) {
-                $currentStatus = $status;
-            } else if ($status->timecreated < $opts['event']['timecreated'] 
+                $currentstatus = $status;
+            } else if ($status->timecreated < $opts['event']['timecreated']
                 && $status->statuscode == $this->statuscodes->partial) {
-                $previousPartialAttendance = true;
-            } else if ($status->timecreated < $opts['event']['timecreated'] 
+                $previouspartialattendance = true;
+            } else if ($status->timecreated < $opts['event']['timecreated']
                 && $status->statuscode == $this->statuscodes->attended) {
-                $previousAttendance = true;
+                $previousattendance = true;
             }
         }
 
-        if (is_null($currentStatus)){
+        if (is_null($currentstatus)) {
             // There is no status with a timestamp matching the event.
             return null;
         }
 
         $duration = null;
         $completion = null;
-        if ($currentStatus->statuscode == $this->statuscodes->attended){
-            if ($previousAttendance == true){
+        if ($currentstatus->statuscode == $this->statuscodes->attended) {
+            if ($previousattendance == true) {
                 // Attendance has already been recorded for this user and session.'
                 return null;
             }
             $duration = $this->sessionDuration;
             $completion = true;
-        } else if ($currentStatus->statuscode == $this->statuscodes->partial){
-            if ($previousPartialAttendance == true){
+        } else if ($currentstatus->statuscode == $this->statuscodes->partial) {
+            if ($previouspartialattendance == true) {
                 // Partial attendance has already been recorded for this user and session.
                 return null;
             }

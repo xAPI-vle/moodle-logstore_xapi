@@ -1,4 +1,23 @@
-<?php namespace XREmitter;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace XREmitter;
+
+defined('MOODLE_INTERNAL') || die();
+
 use \stdClass as PhpObj;
 
 class Controller extends PhpObj {
@@ -10,7 +29,8 @@ class Controller extends PhpObj {
         'module_viewed' => 'ModuleViewed',
         'attempt_started' => 'AttemptStarted',
         'attempt_abandoned' => 'AttemptCompleted',
-        'attempt_completed' => 'AttemptCompleted',
+        'attempt_submitted' => 'AttemptCompleted',
+        'attempt_reviewed' => 'AttemptReviewed',
         'attempt_question_completed' => 'QuestionAnswered',
         'user_loggedin' => 'UserLoggedin',
         'user_loggedout' => 'UserLoggedout',
@@ -40,7 +60,7 @@ class Controller extends PhpObj {
      * @param [String => Mixed] $events
      * @return [String => Mixed]
      */
-    public function createEvents(array $events) {
+    public function create_events(array $events) {
         $statements = [];
         foreach ($events as $index => $opts) {
             $route = isset($opts['recipe']) ? $opts['recipe'] : '';
@@ -51,6 +71,6 @@ class Controller extends PhpObj {
                 array_push($statements, $service->read($opts));
             }
         }
-        return $this->repo->createEvents($statements);
+        return $this->repo->create_events($statements);
     }
 }

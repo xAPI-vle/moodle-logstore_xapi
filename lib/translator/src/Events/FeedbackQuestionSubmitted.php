@@ -1,4 +1,22 @@
-<?php namespace MXTranslator\Events;
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace MXTranslator\Events;
+
+defined('MOODLE_INTERNAL') || die();
 
 class FeedbackQuestionSubmitted extends FeedbackSubmitted {
     /**
@@ -8,86 +26,86 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
      * @override AttemtStarted
      */
     public function read(array $opts) {
-        $translatorEvents = [];
+        $translatorevents = [];
 
-        $feedback = parent::parseFeedback($opts);
+        $feedback = parent::parse_feedback($opts);
 
-        // Push question statements to $translatorEvents['events'].
-        foreach ($feedback->questions as $questionId => $questionAttempt) {
+        // Push question statements to $translatorevents['events'].
+        foreach ($feedback->questions as $questionid => $questionattempt) {
             array_push(
-                $translatorEvents,
-                $this->questionStatement(
+                $translatorevents,
+                $this->question_statement(
                     parent::read($opts)[0],
-                    $questionAttempt
+                    $questionattempt
                 )
             );
         }
 
-        return $translatorEvents;
+        return $translatorevents;
     }
 
     /**
      * Build a translator event for an individual question attempt.
      * @param [String => Mixed] $template
-     * @param PHPObj $questionAttempt
+     * @param PHPObj $questionattempt
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    protected function questionStatement($template, $questionAttempt) {
+    protected function question_statement($template, $questionattempt) {
 
-        $translatorEvent = [
+        $translatorevent = [
             'recipe' => 'attempt_question_completed',
-            'question_attempt_ext' => $questionAttempt,
+            'question_attempt_ext' => $questionattempt,
             'question_attempt_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_question_attempt',
-            'question_ext' => $questionAttempt->question,
+            'question_ext' => $questionattempt->question,
             'question_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_question',
-            'question_name' => $questionAttempt->question->name ?: 'A Moodle feedback question',
-            'question_description' => $questionAttempt->question->name ?: 'A Moodle feedback question',
-            'question_url' => $questionAttempt->question->url,
-            'attempt_score_scaled' => $questionAttempt->score->scaled,
-            'attempt_score_raw' => $questionAttempt->score->raw, 
-            'attempt_score_min' => $questionAttempt->score->min, 
-            'attempt_score_max' => $questionAttempt->score->max,
-            'attempt_response' => $questionAttempt->response,
+            'question_name' => $questionattempt->question->name ?: 'A Moodle feedback question',
+            'question_description' => $questionattempt->question->name ?: 'A Moodle feedback question',
+            'question_url' => $questionattempt->question->url,
+            'attempt_score_scaled' => $questionattempt->score->scaled,
+            'attempt_score_raw' => $questionattempt->score->raw,
+            'attempt_score_min' => $questionattempt->score->min,
+            'attempt_score_max' => $questionattempt->score->max,
+            'attempt_response' => $questionattempt->response,
             'attempt_success' => null,
             'attempt_completed' => true,
             'interaction_correct_responses' => null,
-            'attempt_ext' => null // For questions the attempt extension is not used, so there's no need to pass that bulk of data
+            'attempt_ext' => null // For questions the attempt extension is not used, so there's no need to pass that bulk of data.
         ];
 
-        switch ($questionAttempt->question->typ) {
+        switch ($questionattempt->question->typ) {
             case 'multichoice':
-                $translatorEvent['interaction_type'] = 'choice';
-                $translatorEvent['interaction_choices'] = (object)[];
-                foreach ($questionAttempt->options as $index => $option) {
-                    $translatorEvent['interaction_choices']->$index = $option->description;
+                $translatorevent['interaction_type'] = 'choice';
+                $translatorevent['interaction_choices'] = (object)[];
+                foreach ($questionattempt->options as $index => $option) {
+                    $translatorevent['interaction_choices']->$index = $option->description;
                 }
                 break;
             case 'multichoicerated':
-                $translatorEvent['interaction_type'] = 'likert';
-                $translatorEvent['interaction_scale'] = (object)[];
-                foreach ($questionAttempt->options as $index => $option) {
-                    $translatorEvent['interaction_scale']->$index = $option->description;
+                $translatorevent['interaction_type'] = 'likert';
+                $translatorevent['interaction_scale'] = (object)[];
+                foreach ($questionattempt->options as $index => $option) {
+                    $translatorevent['interaction_scale']->$index = $option->description;
                 }
                 break;
             case 'textfield':
-                $translatorEvent['interaction_type'] = 'fill-in';
+                $translatorevent['interaction_type'] = 'fill-in';
                 break;
             case 'textarea':
-                $translatorEvent['interaction_type'] = 'long-fill-in';
+                $translatorevent['interaction_type'] = 'long-fill-in';
                 break;
             case 'numeric':
-                $translatorEvent['interaction_type'] = 'numeric';
+                $translatorevent['interaction_type'] = 'numeric';
                 break;
             case 'info':
-                $translatorEvent['interaction_type'] = 'other';
+                $translatorevent['interaction_type'] = 'other';
                 break;
             default:
-                // Unsupported type. 
+                // Unsupported type.
                 break;
         }
 
-        return array_merge($template, $translatorEvent);
+        return array_merge($template, $translatorevent);
     }
 
 }
