@@ -26,7 +26,5 @@ $statement = \transformer\events\course_viewed([
     'courseid' => 1,
     'timecreated' => time()
 ]);
-// echo(json_encode($statement, JSON_PRETTY_PRINT));
-// echo("\n");
 
-\loader\load_to_log([], [$statement]);
+\loader\log\load([], [$statement]);
