@@ -24,7 +24,7 @@ use \PHPUnit_Framework_TestCase as PhpUnitTestCase;
 use \MXTranslator\Events\Event as Event;
 
 abstract class event_test extends \advanced_testcase {
-    protected static $xapitype = 'http://lrs.learninglocker.net/define/type/moodle/';
+    protected static $xapitype = 'http://id.tincanapi.com/activitytype/lms';
     protected static $recipename;
 
     /**

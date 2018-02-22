@@ -28,7 +28,7 @@ class Event extends PhpObj {
      */
     const CONTEXT_EXT_KEY = 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log';
 
-    protected static $xapitype = 'http://lrs.learninglocker.net/define/type/moodle/';
+    protected static $xapitype = 'http://id.tincanapi.com/activitytype/lms';
 
     /**
      * Reads data for an event.
