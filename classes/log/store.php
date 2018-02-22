@@ -148,8 +148,6 @@ class store extends php_obj implements log_writer {
             $eventbatches = array_chunk($translatorevents, $maxbatchsize);
         }
 
-        $translatorevent = new Event();
-        $translatoreventreadreturn = @$translatorevent->read([]);
 
         $sentevents = [];
         foreach ($eventbatches as $translatoreventsbatch) {
@@ -158,7 +156,7 @@ class store extends php_obj implements log_writer {
             $response = $xapievents['response'];
             foreach (array_keys($statements) as $key) {
                 if (is_numeric($key)) {
-                    $k = $statements[$key]['context']['extensions'][$translatoreventreadreturn[0]['context_ext_key']]['id'];
+                    $k = $xapievents[$key]['context']['extensions'][Event::CONTEXT_EXT_KEY]['id'];
                     $sentevents[$k] = $this->getlast_action_result($response);
                 }
             }
