@@ -4,7 +4,7 @@ namespace src;
 
 require_once(__DIR__ . '/autoload.php');
 
-$repo = new \extractor\FakeRepository(
+$repo = new \transformer\FakeRepository(
     (object) [],
     (object) [
         'wwwroot' => 'http://www.example.com',
