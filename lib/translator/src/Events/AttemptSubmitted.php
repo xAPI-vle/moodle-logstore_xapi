@@ -18,7 +18,7 @@ namespace MXTranslator\Events;
 
 defined('MOODLE_INTERNAL') || die();
 
-class AttemptReviewed extends AttemptStarted {
+class AttemptSubmitted extends AttemptStarted {
     /**
      * Reads data for an event.
      * @param [String => Mixed] $opts
@@ -69,7 +69,7 @@ class AttemptReviewed extends AttemptStarted {
         }
 
         return [array_merge(parent::read($opts)[0], [
-            'recipe' => 'attempt_reviewed',
+            'recipe' => 'attempt_submitted',
             'attempt_score_raw' => $scoreraw,
             'attempt_score_min' => $scoremin,
             'attempt_score_max' => $scoremax,

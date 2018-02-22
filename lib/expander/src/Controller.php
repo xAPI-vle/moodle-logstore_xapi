@@ -50,6 +50,7 @@ class Controller extends PhpObj {
         '\mod_quiz\event\attempt_preview_started' => 'AttemptEvent',
         '\mod_quiz\event\attempt_reviewed' => 'AttemptEvent',
         '\mod_quiz\event\attempt_viewed' => 'AttemptEvent',
+        '\mod_quiz\event\attempt_submitted' => 'AttemptEvent',
         '\core\event\user_loggedin' => 'Event',
         '\core\event\user_loggedout' => 'Event',
         '\mod_assign\event\submission_graded' => 'AssignmentGraded',

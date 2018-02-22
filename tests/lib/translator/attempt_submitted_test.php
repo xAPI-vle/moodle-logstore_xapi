@@ -18,10 +18,10 @@ namespace MXTranslator\Tests;
 
 defined('MOODLE_INTERNAL') || die();
 
-use \MXTranslator\Events\AttemptReviewed as Event;
+use \MXTranslator\Events\AttemptSubmitted as Event;
 
-class attempt_reviewed_test extends attempt_started_test {
-    protected static $recipename = 'attempt_reviewed';
+class attempt_submitted_test extends attempt_started_test {
+    protected static $recipename = 'attempt_submitted';
 
     /**
      * Sets up the tests.
