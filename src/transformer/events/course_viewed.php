@@ -17,10 +17,7 @@ function course_viewed(array $config, array $event) {
             'platform' => $config['source_name'],
             'language' => $event['course_lang'],
             'extensions' => [
-                utils\info_extension => [
-                    $config['source_url'] => $config['source_version'],
-                    $config['plugin_url'] => $config['plugin_version'],
-                ],
+                utils\info_extension => utils\get_info($config),
             ],
             'contextActivities' => [
                 'grouping' => [
