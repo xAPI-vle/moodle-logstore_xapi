@@ -5,6 +5,7 @@
 /classes/log/error_log.txt
 /composer.phar
 /node_modules
+/notes.md
 /package-lock.json
 /vendor
 /xapi

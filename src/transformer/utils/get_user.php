@@ -2,8 +2,8 @@
 
 namespace transformer\utils;
 
-function read_user(array $event, $key) {
-    if (isset($event['sendmbox']) && $event['sendmbox'] == true) {
+function get_user(array $config, array $event, $key) {
+    if (isset($config['sendmbox']) && $config['sendmbox'] == true) {
         return [
             'name' => $event[$key.'_name'],
             'mbox' => $event[$key.'_email'],

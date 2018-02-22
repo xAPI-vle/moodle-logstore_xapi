@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace LogExpander;
-
-defined('MOODLE_INTERNAL') || die();
+namespace extractor;
 
 use \stdClass as PhpObj;
 use Exception;
@@ -244,7 +242,7 @@ class Repository extends PhpObj {
      */
     public function read_course($id) {
         if ($id == 0) {
-            $courses = $this->store->get_records('course', array());
+            $courses = $this->read_store_records('course', array());
 
             // Since get_records will return the ids as Key values for the array,
             // just use key to find the first id in the course table for the index page.

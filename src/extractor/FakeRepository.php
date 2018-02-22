@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace LogExpander\Tests;
+namespace extractor;
 
-defined('MOODLE_INTERNAL') || die();
-
-use \LogExpander\Repository as MoodleRepository;
 use \stdClass as PhpObj;
 
-class TestRepository extends MoodleRepository {
+require_once(__DIR__.'/Repository.php');
+
+class FakeRepository extends Repository {
 
     protected $fakemoodledatabase;
 
