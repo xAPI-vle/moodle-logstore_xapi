@@ -25,7 +25,7 @@ use \XREmitter\Events\Event as Event;
 use \Locker\XApi\Statement as Statement;
 
 abstract class event_test extends \advanced_testcase {
-    protected static $xapitype = 'http://lrs.learninglocker.net/define/type/moodle/';
+    protected static $xapitype = 'http://id.tincanapi.com/activitytype/lms';
     protected static $recipename;
 
     /**
