@@ -41,7 +41,7 @@ class ScormScoreRawSubmitted extends ScormEvent {
             $scoremin = $opts['scorm_scoes_track']['scoremin'];
         }
 
-        if ($scoremax !=0 && $scoremin !=0) {
+        if ($scoremax != 0 && $scoremin != 0) {
             $scorescaled = $scoreraw >= 0 ? ($scoreraw / $scoremax) : ($scoreraw / $scoremin);
         }
 
