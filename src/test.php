@@ -27,4 +27,4 @@ $statement = \transformer\events\course_viewed([
     'timecreated' => time()
 ]);
 
-\loader\log\load([], [$statement]);
+\loader\log\load([], $statement);

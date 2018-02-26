@@ -11,7 +11,7 @@ function course_viewed(array $config, array $event) {
     $course = $repo->read_course($event['courseid']);
     $lang = utils\get_course_lang($course);
 
-    return [
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
@@ -36,5 +36,5 @@ function course_viewed(array $config, array $event) {
                 ]
             ],
         ]
-    ];
+    ]];
 }
