@@ -14,9 +14,9 @@ function user_enrolment_created(array $config, array $event) {
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/join',
+            'id' => 'http://adlnet.gov/expapi/verbs/registered',
             'display' => [
-                $lang => 'joined'
+                $lang => 'registered'
             ],
         ],
         'object' => utils\get_course_activity($course),
