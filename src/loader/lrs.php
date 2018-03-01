@@ -3,9 +3,9 @@
 namespace loader\lrs;
 
 function send_batch_to_lrs(array $config, array $statements) {
-    $endpoint = $config['endpoint'];
-    $username = $config['username'];
-    $password = $config['password'];
+    $endpoint = $config['lrs_endpoint'];
+    $username = $config['lrs_username'];
+    $password = $config['lrs_password'];
 
     $url = $endpoint.'/statements';
     $auth = base64_encode($username.':'.$password);
@@ -32,7 +32,7 @@ function send_batch_to_lrs(array $config, array $statements) {
 }
 
 function get_statement_batches(array $config, array $statements) {
-    $max_batch_size = $config['max_batch_size'];
+    $max_batch_size = $config['lrs_max_batch_size'];
     if (!empty($max_batch_size) && $max_batch_size < count($statements)) {
         return array_chunk($statements, $max_batch_size);
     }

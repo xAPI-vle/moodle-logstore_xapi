@@ -4,7 +4,7 @@ namespace transformer\events;
 
 use transformer\utils as utils;
 
-function user_loggedin(array $config, array $event) {
+function user_created(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
     $site = $repo->read_site();

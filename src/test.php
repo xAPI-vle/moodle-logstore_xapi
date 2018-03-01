@@ -12,7 +12,14 @@ $repo = new \transformer\FakeRepository(
     ]
 );
 
-$statement = \transformer\events\course_viewed([
+$events = [[
+    'userid' => 1,
+    'courseid' => 1,
+    'timecreated' => time(),
+    'eventname' => '\core\event\course_viewed',
+]];
+
+$transformer_config = [
     'source_url' => 'http://moodle.org',
     'source_name' => 'Moodle',
     'source_version' => '1.0.0',
@@ -21,10 +28,15 @@ $statement = \transformer\events\course_viewed([
     'plugin_url' => 'http://www.example.org/plugin',
     'plugin_version' => '1.0.0',
     'repo' => $repo,
-], [
-    'userid' => 1,
-    'courseid' => 1,
-    'timecreated' => time()
-]);
+];
 
-\loader\log\load([], $statement);
+$loader_config = [
+    'loader' => 'log',
+];
+
+$handler_config = [
+    'loader' => $loader_config,
+    'transformer' => $transformer_config,
+];
+
+handler($handler_config, $events);
