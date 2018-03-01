@@ -1,10 +1,10 @@
 <?php
 
-namespace transformer\events;
+namespace transformer\events\core;
 
 use transformer\utils as utils;
 
-function user_loggedin(array $config, array $event) {
+function user_loggedout(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
     $site = $repo->read_site();
@@ -13,9 +13,9 @@ function user_loggedin(array $config, array $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
+            'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedout/',
             'display' => [
-                $lang => 'logged in'
+                $lang => 'logged out'
             ],
         ],
         'object' => utils\get_site_activity($config, $site, $lang),

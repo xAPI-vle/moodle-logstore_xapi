@@ -1,10 +1,10 @@
 <?php
 
-namespace transformer\events;
+namespace transformer\events\core;
 
 use transformer\utils as utils;
 
-function course_completed(array $config, array $event) {
+function course_viewed(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
     $site = $repo->read_site();
@@ -14,9 +14,9 @@ function course_completed(array $config, array $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/completed',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'completed'
+                $lang => 'viewed'
             ],
         ],
         'object' => utils\get_course_activity($course),
