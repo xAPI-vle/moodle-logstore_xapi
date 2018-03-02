@@ -10,6 +10,10 @@ function handler(array $config, array $events) {
         '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
         '\core\event\user_loggedin' => 'core\user_loggedin',
         '\core\event\user_loggedout' => 'core\user_loggedout',
+        '\mod_scorm\event\course_module_viewed' => 'mod_scorm\course_module_viewed',
+        '\mod_scorm\event\sco_launched' => 'mod_scorm\sco_launched',
+        '\mod_scorm\event\scoreraw_submitted' => 'mod_scorm\scoreraw_submitted', //Todo
+        '\mod_scorm\event\status_submitted' => 'mod_scorm\status_submitted', //Todo
     ];
     return array_reduce($events, function ($statements, $event) use ($config, $event_function_map) {
         $event_name = $event['eventname'];
