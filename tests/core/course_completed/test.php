@@ -34,59 +34,59 @@ class course_completed_test extends xapi_testcase {
     protected function get_expected_statements() {
         return [
             [
-                "actor" => [
-                    "name" => "test_fullname",
-                    "account" => [
-                        "homePage" => "http:\/\/www.example.com",
-                        "name" => "1"
+                'actor' => [
+                    'name' => 'test_fullname',
+                    'account' => [
+                        'homePage' => 'http:\/\/www.example.com',
+                        'name' => '1'
                     ]
                 ],
-                "verb" => [
-                    "id" => "http:\/\/id.tincanapi.com\/verb\/viewed",
-                    "display" => [
-                        "en" => "viewed"
+                'verb' => [
+                    'id' => 'http:\/\/id.tincanapi.com\/verb\/viewed',
+                    'display' => [
+                        'en' => 'viewed'
                     ]
                 ],
-                "object" => [
-                    "id" => "http:\/\/www.example.com\/course\/view.php?id=1",
-                    "definition" => [
-                        "type" => "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/object",
-                        "name" => [
-                            "en" => "test_name"
+                'object' => [
+                    'id' => 'http:\/\/www.example.com\/course\/view.php?id=1',
+                    'definition' => [
+                        'type' => 'http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/object',
+                        'name' => [
+                            'en' => 'test_name'
                         ]
                     ]
                 ],
-                "timestamp" => "2018-03-02T17:28:29+00:00",
-                "context" => [
-                    "platform" => "Moodle",
-                    "language" => "en",
-                    "extensions" => [
-                        "http:\/\/lrs.learninglocker.net\/define\/extensions\/info" => [
-                            "http:\/\/moodle.org" => "1.0.0",
-                            "https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi" => "0.0.0-development",
-                            "event_name" => "\\core\\event\\course_viewed",
-                            "event_function" => "\\transformer\\events\\core\\course_viewed"
+                'timestamp' => '2018-03-02T17:28:29+00:00',
+                'context' => [
+                    'platform' => 'Moodle',
+                    'language' => 'en',
+                    'extensions' => [
+                        'http:\/\/lrs.learninglocker.net\/define\/extensions\/info' => [
+                            'http:\/\/moodle.org' => '1.0.0',
+                            'https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi' => '0.0.0-development',
+                            'event_name' => '\\core\\event\\course_viewed',
+                            'event_function' => '\\transformer\\events\\core\\course_viewed'
                         ]
                     ],
-                    "contextActivities" => [
-                        "grouping" => [
+                    'contextActivities' => [
+                        'grouping' => [
                             [
-                                "id" => "http:\/\/www.example.com",
-                                "definition" => [
-                                    "type" => "http:\/\/id.tincanapi.com\/activitytype\/site",
-                                    "name" => [
-                                        "en" => "test_name"
+                                'id' => 'http:\/\/www.example.com',
+                                'definition' => [
+                                    'type' => 'http:\/\/id.tincanapi.com\/activitytype\/site',
+                                    'name' => [
+                                        'en' => 'test_name'
                                     ]
                                 ]
                             ]
                         ],
-                        "category" => [
+                        'category' => [
                             [
-                                "id" => "http:\/\/moodle.org",
-                                "definition" => [
-                                    "type" => "http:\/\/id.tincanapi.com\/activitytype\/source",
-                                    "name" => [
-                                        "en" => "Moodle"
+                                'id' => 'http:\/\/moodle.org',
+                                'definition' => [
+                                    'type' => 'http:\/\/id.tincanapi.com\/activitytype\/source',
+                                    'name' => [
+                                        'en' => 'Moodle'
                                     ]
                                 ]
                             ]
