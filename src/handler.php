@@ -6,8 +6,8 @@ function handler($config, $events) {
     $transformer_config = $config['transformer'];
     $loader_config = $config['loader'];
 
-    $transformed_statements = \transformer\handler($transformer_config, $events);
-    $loaded_statements = \loader\handler($loader_config, $transformed_statements);
+    $statements = \transformer\handler($transformer_config, $events);
+    \loader\handler($loader_config, $statements);
 
-    return $loaded_statements;
+    return $statements;
 }
