@@ -73,8 +73,8 @@ abstract class xapi_testcase extends \advanced_testcase {
     }
 
     private function assert_expected_statements($statements) {
-        $expected_statements = json_encode($this->get_expected_statements());
-        $actual_statements = json_encode($statments);
+        $expected_statements = $this->get_expected_statements();
+        $actual_statements = json_encode($statements);
         $this->assertEqual($actual_statements, $expected_statements);
     }
 }
