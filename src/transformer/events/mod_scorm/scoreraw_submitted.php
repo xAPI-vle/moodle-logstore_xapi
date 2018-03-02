@@ -5,7 +5,6 @@ namespace transformer\events\mod_scorm;
 use transformer\utils as utils;
 
 function scoreraw_submitted(array $config, array $event) {
-
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
     $site = $repo->read_site();
@@ -30,7 +29,7 @@ return [[
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config),
+                utils\info_extension => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'grouping' => [

@@ -28,7 +28,7 @@ function status_submitted(array $config, array $event) {
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config),
+                utils\info_extension => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'grouping' => [
