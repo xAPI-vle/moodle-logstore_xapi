@@ -18,76 +18,63 @@ namespace Tests;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../src/autoload.php');
 
-use \XREmitter\Controller as xapi_controller;
-use \XREmitter\Tests\TestRepository as xapi_repository;
-use \XREmitter\Tests\TestRemoteLrs as xapi_remote_lrs;
-use \MXTranslator\Controller as translator_controller;
-use \LogExpander\Controller as moodle_controller;
-use \LogExpander\Tests\TestRepository as moodle_repository;
 use \Locker\XApi\Statement as LockerStatement;
-use \TinCan\Statement as TinCanStatement;
 
 abstract class xapi_testcase extends \advanced_testcase {
-    protected $xapicontroller, $moodlecontroller, $translatorcontroller, $cfg;
 
-    /**
-     * Sets up the tests.
-     * @override PhpUnitTestCase
-     */
-    public function setup() {
-        $this->cfg = (object) [
-            'wwwroot' => 'http://www.example.com',
-            'release' => '1.0.0'
-        ];
-        $this->xapicontroller = new xapi_controller(new xapi_repository(new xapi_remote_lrs('', '1.0.1', '', '')));
-        $this->moodlecontroller = new moodle_controller(new moodle_repository((object) [], $this->cfg));
-        $this->translatorcontroller = new translator_controller();
-    }
+    abstract protected function get_event();
+    abstract protected function get_expected_statements();
 
     public function test_create_event() {
-        $input = $this->construct_input();
-
-        $moodleevents = $this->moodlecontroller->create_events([$input]);
-        $this->assertNotNull($moodleevents, 'Check that the events exist in the expander controller.');
-
-        // Hack to add Moodle plugin config setting for sendmbox - need to make config function.
-        $moodleevents = [array_merge(
-            $moodleevents[0],
-            ['sendmbox' => false]
-        )];
-
-        $translatorevents = $this->translatorcontroller->create_events($moodleevents);
-        $this->assertNotNull($translatorevents, 'Check that the events exist in the translator controller.');
-
-        $xapievents = $this->xapicontroller->create_events($translatorevents);
-        $this->assertNotNull($xapievents, 'Check that the events exist in the emitter controller.');
-
-        $this->assert_output($input, $xapievents);
-    }
-
-    protected function assert_output($input, $output) {
-        foreach ($output as $outputpart) {
-            $this->assert_valid_xapi_statement((new TinCanStatement($outputpart))->asVersion('1.0.0'));
+        $event = $this->get_event();
+        $handler_config = [
+            'transformer' => $this->get_transformer_config(),
+            'loader' => [
+                'loader' => 'log',
+                'lrs_endpoint' => '',
+                'lrs_username' => '',
+                'lrs_password' => '',
+                'lrs_max_batch_size' => 1,
+            ],
+        ];
+        $statements = \src\handler($handler_config, [$event]);
+        $this->assert_expected_statements($statements);
+        foreach ($statements as $statement) {
+            $this->assert_valid_xapi_statement($statement);
         }
     }
 
-    protected function assert_valid_xapi_statement($output) {
-        $errors = LockerStatement::createFromJson(json_encode($output))->validate();
+    protected function get_transformer_config() {
+        $DB = (object) [];
+        $CFG = (object) [
+            'wwwroot' => 'http://www.example.com',
+            'release' => '1.0.0',
+        ];
+        return [
+            'source_url' => 'http://moodle.org',
+            'source_name' => 'Moodle',
+            'source_version' => '1.0.0',
+            'source_lang' => 'en',
+            'send_mbox' => false,
+            'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
+            'plugin_version' => '0.0.0-development',
+            'repo' => new \transformer\FakeRepository($DB, $CFG),
+        ];
+    }
+
+    private function assert_valid_xapi_statement($statement) {
+        $errors = LockerStatement::createFromJson(json_encode($statement))->validate();
         $errorsjson = json_encode(array_map(function ($error) {
             return (string) $error;
         }, $errors));
         $this->assertEmpty($errors, $errorsjson);
     }
 
-    protected function construct_input() {
-        return [
-            'userid' => '1',
-            'relateduserid' => '1',
-            'courseid' => '1',
-            'timecreated' => 1433946701,
-            'eventname' => '\core\event\course_viewed'
-        ];
+    private function assert_expected_statements($statements) {
+        $expected_statements = json_encode($this->get_expected_statements());
+        $actual_statements = json_encode($statments);
+        $this->assertEqual($actual_statements, $expected_statements);
     }
 }
