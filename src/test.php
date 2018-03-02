@@ -24,7 +24,7 @@ $handler_config = [
         'source_version' => '1.0.0',
         'source_lang' => 'en',
         'send_mbox' => false,
-        'plugin_url' => 'http://www.example.org/plugin',
+        'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
         'plugin_version' => '1.0.0',
         'repo' => new \transformer\FakeRepository($DB, $CFG),
     ],
