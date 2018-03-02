@@ -27,6 +27,7 @@ namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../src/autoload.php');
+require_once(__DIR__ . '/../../version.php');
 use \tool_log\log\writer as log_writer;
 use \tool_log\log\manager as log_manager;
 use \tool_log\helper\store as helper_store;
@@ -113,7 +114,7 @@ class store extends php_obj implements log_writer {
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
-                'plugin_version' => '1.0.0',
+                'plugin_version' => $plugin->release,
                 'repo' => new moodle_repository($DB, $CFG),
             ],
             'loader' => [

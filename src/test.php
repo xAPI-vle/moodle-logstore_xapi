@@ -2,7 +2,10 @@
 
 namespace src;
 
+define('MOODLE_INTERNAL', 1);
+
 require_once(__DIR__ . '/autoload.php');
+require_once(__DIR__ . '/../version.php');
 
 $DB = (object) [];
 $CFG = (object) [
@@ -25,7 +28,7 @@ $handler_config = [
         'source_lang' => 'en',
         'send_mbox' => false,
         'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
-        'plugin_version' => '1.0.0',
+        'plugin_version' => $plugin->release,
         'repo' => new \transformer\FakeRepository($DB, $CFG),
     ],
     'loader' => [
