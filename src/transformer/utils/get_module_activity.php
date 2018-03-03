@@ -2,7 +2,7 @@
 
 namespace transformer\utils;
 
-function get_module_activity($config, $event, $lang) {
+function get_module_activity(array $config, $event, $lang) {
     $module = $config['repo']->read_module($event['objectid'], $event['objecttable']);
     $module_name = $module->name;
     $module_type = xapi_type.$module->type;
