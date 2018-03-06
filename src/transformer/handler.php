@@ -10,6 +10,8 @@ function handler(array $config, array $events) {
         '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
         '\core\event\user_loggedin' => 'core\user_loggedin',
         '\core\event\user_loggedout' => 'core\user_loggedout',
+        '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
+        '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
         '\mod_book\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_chat\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed',
