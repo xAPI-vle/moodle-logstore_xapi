@@ -180,32 +180,6 @@ class Repository extends PhpObj {
     }
 
     /**
-     * Reads grade metadata from the store with the given type and id.
-     * @param string $id
-     * @param string $type
-     * @return PhpObj
-     */
-    public function read_grade_items($id, $type) {
-        return $this->read_store_record('grade_items', ['itemmodule' => $type, 'iteminstance' => $id]);
-    }
-
-    /**
-     * Reads assignemnt grade comment from the store for a given grade and assignment id
-     * @param string $id
-     * @return PhpObj
-     */
-    public function read_grade_comment($gradeid, $assignmentid) {
-        $model = $this->read_store_record(
-            'assignfeedback_comments',
-            [
-                'assignment' => $assignmentid,
-                'grade' => $gradeid
-            ]
-        );
-        return $model;
-    }
-
-    /**
      * Reads a feedback attempt from the store with the given id.
      * @param String $id
      * @return PhpObj
