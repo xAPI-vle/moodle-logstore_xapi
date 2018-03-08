@@ -279,17 +279,6 @@ class Repository extends PhpObj {
     }
 
     /**
-     * Reads a face to face session
-     * @return PhpObj
-     */
-    public function read_facetoface_session($id) {
-        $model = $this->read_object($id, 'facetoface_sessions');
-        $model->dates = $this->read_store_records('facetoface_sessions_dates', ['sessionid' => $id]);
-        $model->url = $this->cfg->wwwroot . '/mod/facetoface/signup.php?s=' . $id;
-        return $model;
-    }
-
-    /**
      * Reads face to face session signups
      * @return PhpObj
      */
