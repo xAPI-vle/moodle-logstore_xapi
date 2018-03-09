@@ -249,17 +249,6 @@ class Repository extends PhpObj {
     }
 
     /**
-     * Reads a discussion from the store with the given id.
-     * @param String $id
-     * @return PhpObj
-     */
-    public function read_discussion($id) {
-        $model = $this->read_object($id, 'forum_discussions');
-        $model->url = $this->cfg->wwwroot . '/mod/forum/discuss.php?d=' . $id;
-        return $model;
-    }
-
-    /**
      * Reads the Moodle release number.
      * @return String
      */
