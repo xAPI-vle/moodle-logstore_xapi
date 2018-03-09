@@ -277,19 +277,4 @@ class Repository extends PhpObj {
         $model->type = "site";
         return $model;
     }
-
-    /**
-     * Reads face to face session signups
-     * @return PhpObj
-     */
-    public function read_facetoface_session_signups($sessionid, $timecreated) {
-        $signups = $this->read_store_records('facetoface_signups', ['sessionid' => $sessionid]);
-
-        foreach ($signups as $index => $signup) {
-            $signups[$index]->statuses = $this->read_store_records('facetoface_signups_status', ['signupid' => $signup->id]);
-            $signups[$index]->attendee = $this->read_user($signup->userid);
-        }
-
-        return $signups;
-    }
 }
