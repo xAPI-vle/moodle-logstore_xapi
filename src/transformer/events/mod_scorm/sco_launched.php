@@ -7,7 +7,6 @@ use transformer\utils as utils;
 function sco_launched(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
     $course = $repo->read_course($event['courseid']);
     $lang = utils\get_course_lang($course);
 
@@ -19,7 +18,7 @@ function sco_launched(array $config, array $event) {
                 $lang => 'launched'
             ],
         ],
-        'object' => utils\get_course_activity($course),
+        'object' => utils\get_module_activity($config, $event, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -29,7 +28,7 @@ function sco_launched(array $config, array $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_site_activity($config, $site, $lang)
+                    utils\get_course_activity($course)
                 ],
                 'category' => [
                     utils\get_source_activity($config)

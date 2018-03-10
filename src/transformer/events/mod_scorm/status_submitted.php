@@ -7,7 +7,6 @@ use transformer\utils as utils;
 function status_submitted(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
     $course = $repo->read_course($event['courseid']);
     $lang = utils\get_course_lang($course);
 
@@ -22,7 +21,7 @@ function status_submitted(array $config, array $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_scorm_verb($scormscoestrack['status'], $lang),
-        'object' => utils\get_scorm_object($event),
+        'object' => utils\get_module_activity($config, $event, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -32,10 +31,10 @@ function status_submitted(array $config, array $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_site_activity($config, $site, $lang)
+                    utils\get_course_activity($course)
                 ],
                 'category' => [
-                    utils\get_course_activity($course)
+                    utils\get_source_activity($config)
                 ]
             ],
         ]

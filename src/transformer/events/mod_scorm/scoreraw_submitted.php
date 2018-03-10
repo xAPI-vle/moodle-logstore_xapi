@@ -7,7 +7,6 @@ use transformer\utils as utils;
 function scoreraw_submitted(array $config, array $event) {
     $repo = $config['repo'];
     $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
     $course = $repo->read_course($event['courseid']);
     $lang = utils\get_course_lang($course);
 
@@ -16,14 +15,14 @@ function scoreraw_submitted(array $config, array $event) {
     $scoid = $event['contextinstanceid'];
     $scormid = $event['objectid'];
     $attempt = $cmiunserialized['attemptid'];
-
     $scormscoestrack = utils\get_scorm_scoes_track($config, $event['userid'], $scormid, $scoid, $attempt);
+    $scormscoes = $repo->read_object($scoid, 'scorm_scoes');
 
 return [[
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_scorm_verb($scormscoestrack['status'], $lang),
-        'object' => utils\get_scorm_object($event),
-        'result' => utils\get_scorm_result($event),
+        'object' => utils\get_module_activity($config, $event, $lang),
+        'result' => utils\get_scorm_result($scormscoestrack, $cmiunserialized),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -33,10 +32,10 @@ return [[
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_site_activity($config, $site, $lang)
+                    utils\get_course_activity($course)
                 ],
                 'category' => [
-                    utils\get_course_activity($course)
+                    utils\get_source_activity($config)
                 ]
             ],
         ]
