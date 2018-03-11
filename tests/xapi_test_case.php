@@ -31,7 +31,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
         $handler_config = [
             'transformer' => $this->get_transformer_config(),
             'loader' => [
-                'loader' => 'log',
+                'loader' => 'none',
                 'lrs_endpoint' => '',
                 'lrs_username' => '',
                 'lrs_password' => '',
