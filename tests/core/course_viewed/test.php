@@ -14,20 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Tests;
+namespace tests\course_viewed;
 
-defined('MOODLE_INTERNAL') || die();
-
-class course_completed_test extends xapi_testcase {
+class test extends \tests\xapi_test_case {
     protected function get_event() {
         return [
             'userid' => '1',
             'relateduserid' => '1',
             'courseid' => '1',
             'timecreated' => 1433946701,
-            'objecttable' => 'course_completed',
+            'objecttable' => 'course',
             'objectid' => 1,
-            'eventname' => '\core\event\course_completed',
+            'eventname' => '\core\event\course_viewed',
         ];
     }
 

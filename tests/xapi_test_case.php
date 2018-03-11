@@ -14,15 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Tests;
+namespace tests;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/../src/autoload.php');
-
+use \PHPUnit_Framework_TestCase as PhpUnitTestCase;
 use \Locker\XApi\Statement as LockerStatement;
 
-abstract class xapi_testcase extends \advanced_testcase {
+abstract class xapi_test_case extends PhpUnitTestCase {
 
     abstract protected function get_event();
     abstract protected function get_expected_statements();
@@ -74,7 +73,7 @@ abstract class xapi_testcase extends \advanced_testcase {
 
     private function assert_expected_statements($statements) {
         $expected_statements = $this->get_expected_statements();
-        $actual_statements = json_encode($statements);
-        $this->assertEqual($actual_statements, $expected_statements);
+        $actual_statements = json_encode($statements, JSON_PRETTY_PRINT);
+        $this->assertEquals($actual_statements, $expected_statements);
     }
 }

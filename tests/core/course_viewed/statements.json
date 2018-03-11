@@ -16,13 +16,13 @@
         "object": {
             "id": "http:\/\/www.example.com\/course\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/object",
+                "type": "http:\/\/id.tincanapi.com\/activitytype\/lmsobject",
                 "name": {
                     "en": "test_name"
                 }
             }
         },
-        "timestamp": "2018-03-02T17:28:29+00:00",
+        "timestamp": "2015-06-10T15:31:41+01:00",
         "context": {
             "platform": "Moodle",
             "language": "en",

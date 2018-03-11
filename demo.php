@@ -2,10 +2,8 @@
 
 namespace src;
 
-define('MOODLE_INTERNAL', 1);
-
-require_once(__DIR__ . '/autoload.php');
-require_once(__DIR__ . '/../version.php');
+require_once(__DIR__ . '/src/autoload.php');
+require_once(__DIR__ . '/version.php');
 
 $DB = (object) [];
 $CFG = (object) [
