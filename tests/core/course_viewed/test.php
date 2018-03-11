@@ -30,6 +30,6 @@ class test extends \tests\xapi_test_case {
     }
 
     protected function get_expected_statements() {
-        return file_get_contents(__DIR__.'/testStatements.json');
+        return file_get_contents(__DIR__.'/test_statements.json');
     }
 }
