@@ -15,7 +15,8 @@ $events = [[
     'userid' => 1,
     'courseid' => 1,
     'timecreated' => time(),
-    'eventname' => '\core\event\course_viewed',
+    'eventname' => '\mod_feedback\event\response_submitted',
+    'objectid'=>1,
 ]];
 
 $handler_config = [
@@ -28,6 +29,7 @@ $handler_config = [
         'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
         'plugin_version' => $plugin->release,
         'repo' => new \transformer\FakeRepository($DB, $CFG),
+        'wwwroot' => $CFG->wwwroot,
     ],
     'loader' => [
         'loader' => 'log',

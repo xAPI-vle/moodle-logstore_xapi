@@ -40,6 +40,7 @@ function handler(array $config, array $events) {
         '\mod_url\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'ModuleEvent',
         '\mod_workshop\event\course_module_viewed' => 'ModuleEvent',
+        '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted'
     ];
     return array_reduce($events, function ($statements, $event) use ($config, $event_function_map) {
         $event_name = $event['eventname'];

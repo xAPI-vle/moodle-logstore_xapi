@@ -3,7 +3,7 @@
 namespace transformer\utils;
 
 function get_user(array $config, $user) {
-    if ($config['sendmbox'] == true) {
+    if ($config['send_mbox'] == true) {
         return [
             'name' => $user->fullname,
             'mbox' => $user->email,
