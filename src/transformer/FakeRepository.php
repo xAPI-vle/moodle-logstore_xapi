@@ -37,7 +37,7 @@ class FakeRepository extends Repository {
      * @return php_obj
      * @override MoodleRepository
      */
-    protected function read_store_record($type, array $query, $index = 0) {
+    public function read_store_record($type, array $query, $index = 0) {
         $records = $this->read_store_records($type, $query);
         if (is_array($records)) {
             return reset($records);
@@ -52,7 +52,7 @@ class FakeRepository extends Repository {
      * @return PhpArr
      * @override MoodleRepository
      */
-    protected function read_store_records($type, array $query) {
+    public function read_store_records($type, array $query) {
         $records = $this->fakemoodledatabase[$type];
         $matchingrecords = [];
 

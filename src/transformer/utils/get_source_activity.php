@@ -8,7 +8,7 @@ function get_source_activity(array $config) {
         'definition' => [
             'type' => source_type,
             'name' => [
-                $config['source_lang'] => $config[$key.'source_name'],
+                $config['source_lang'] => $config['source_name'],
             ],
         ],
     ];

@@ -364,7 +364,8 @@
             "id": "1",
             "course_id": "1",
             "item": "1",
-            "completed": "1"
+            "completed": "1",
+            "value": "test"
         }
     ],
     "feedback_item": [

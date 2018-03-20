@@ -40,7 +40,7 @@ class Repository extends PhpObj {
      * @throws Exception if the record was not found
      * @return PhpObj
      */
-    protected function read_store_record($type, array $query) {
+    public function read_store_record($type, array $query) {
         $model = $this->store->get_record($type, $query);
         if ($model === false) {
             throw new Exception('Record not found.');
@@ -54,7 +54,7 @@ class Repository extends PhpObj {
      * @param [String => Mixed] $query
      * @return PhpArr
      */
-    protected function read_store_records($type, array $query) {
+    public function read_store_records($type, array $query) {
         $model = $this->store->get_records($type, $query);
         return $model;
     }
