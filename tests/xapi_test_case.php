@@ -23,8 +23,19 @@ use \Locker\XApi\Statement as LockerStatement;
 
 abstract class xapi_test_case extends PhpUnitTestCase {
 
-    abstract protected function get_event();
-    abstract protected function get_expected_statements();
+    abstract protected function get_test_dir();
+
+    protected function get_test_data() {
+        return json_decode(file_get_contents($this->get_test_dir().'/data.json'));
+    }
+
+    protected function get_event() {
+        return json_decode(file_get_contents($this->get_test_dir().'/event.json'));
+    }
+
+    protected function get_expected_statements() {
+        return file_get_contents($this->get_test_dir().'/statements.json');
+    }
 
     public function test_create_event() {
         $event = $this->get_event();
@@ -46,11 +57,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     }
 
     protected function get_transformer_config() {
-        $DB = (object) [];
-        $CFG = (object) [
-            'wwwroot' => 'http://www.example.com',
-            'release' => '1.0.0',
-        ];
+        $test_data = $this->get_test_data();
         return [
             'source_url' => 'http://moodle.org',
             'source_name' => 'Moodle',
@@ -59,7 +66,8 @@ abstract class xapi_test_case extends PhpUnitTestCase {
             'send_mbox' => false,
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
-            'repo' => new \transformer\FakeRepository($DB, $CFG),
+            'repo' => new \transformer\repos\TestRepository($test_data),
+            'app_url' => 'http://www.example.org'
         ];
     }
 
@@ -74,6 +82,6 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     private function assert_expected_statements($statements) {
         $expected_statements = $this->get_expected_statements();
         $actual_statements = json_encode($statements, JSON_PRETTY_PRINT);
-        $this->assertEquals($actual_statements, $expected_statements);
+        $this->assertEquals($expected_statements, $actual_statements);
     }
 }

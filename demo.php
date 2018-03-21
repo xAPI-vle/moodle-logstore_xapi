@@ -5,18 +5,8 @@ namespace src;
 require_once(__DIR__ . '/src/autoload.php');
 require_once(__DIR__ . '/version.php');
 
-$DB = (object) [];
-$CFG = (object) [
-    'wwwroot' => 'http://www.example.com',
-    'release' => '1.0.0',
-];
-
-$events = [[
-    'userid' => 1,
-    'courseid' => 1,
-    'timecreated' => time(),
-    'eventname' => '\core\event\course_viewed',
-]];
+$data = json_decode(file_get_contents(__DIR__.'/tests/core/course_viewed/data.json'));
+$event = json_decode(file_get_contents(__DIR__.'/tests/core/course_viewed/event.json'));
 
 $handler_config = [
     'transformer' => [
@@ -27,7 +17,8 @@ $handler_config = [
         'send_mbox' => false,
         'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
         'plugin_version' => $plugin->release,
-        'repo' => new \transformer\FakeRepository($DB, $CFG),
+        'repo' => new \transformer\repos\TestRepository($data),
+        'app_url' => 'http://www.example.org',
     ],
     'loader' => [
         'loader' => 'log',
@@ -38,4 +29,4 @@ $handler_config = [
     ],
 ];
 
-handler($handler_config, $events);
+handler($handler_config, [$event]);

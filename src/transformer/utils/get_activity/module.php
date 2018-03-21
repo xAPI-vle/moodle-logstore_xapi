@@ -1,16 +1,15 @@
 <?php
 
-namespace transformer\utils;
+namespace transformer\utils\get_activity;
 
-function get_module_activity(array $config, $event, $lang) {
+function module(array $config, $event, $lang) {
     $module = $config['repo']->read_module($event['objectid'], $event['objecttable']);
     $module_name = $module->name;
-    $module_type = xapi_type.$module->type;
 
     return [
-        'id' => $module->url,
+        'id' => $module->id,
         'definition' => [
-            'type' => $module_type,
+            'type' => 'http://id.tincanapi.com/activitytype/lms/module',
             'name' => [
                 $lang => $module_name,
             ],

@@ -14,10 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\course_viewed;
+namespace transformer\repos;
 
-class test extends \tests\xapi_test_case {
-    protected function get_test_dir() {
-        return __DIR__;
+require_once(__DIR__.'/Repository.php');
+
+class MoodleRepository extends Repository {
+    private $store;
+
+    /**
+     * Constructs a new Repository.
+     * @param $store
+     */
+    public function __construct($store) {
+        $this->store = $store;
+    }
+
+    /**
+     * Reads an array of objects from the store with the given type and query.
+     * @param String $type
+     * @param [String => Mixed] $query
+     * @return PhpArr
+     */
+    public function read_records($type, array $query) {
+        return $this->store->get_records($type, $query);
     }
 }

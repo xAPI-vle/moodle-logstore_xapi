@@ -3,7 +3,7 @@
         "actor": {
             "name": "test_fullname",
             "account": {
-                "homePage": "http:\/\/www.example.com",
+                "homePage": "http:\/\/www.example.org",
                 "name": "1"
             }
         },
@@ -14,9 +14,9 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.com\/course\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/course\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lmsobject",
+                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/course",
                 "name": {
                     "en": "test_name"
                 }
@@ -37,7 +37,7 @@
             "contextActivities": {
                 "grouping": [
                     {
-                        "id": "http:\/\/www.example.com",
+                        "id": "http:\/\/www.example.org",
                         "definition": {
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/site",
                             "name": {

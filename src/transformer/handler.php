@@ -42,7 +42,7 @@ function handler(array $config, array $events) {
         '\mod_workshop\event\course_module_viewed' => 'ModuleEvent',
     ];
     return array_reduce($events, function ($statements, $event) use ($config, $event_function_map) {
-        $event_name = $event['eventname'];
+        $event_name = $event->eventname;
         $event_function_name = $event_function_map[$event_name];
         $event_function = '\transformer\events\\' . $event_function_name;
         $event_config = array_merge($config, [
