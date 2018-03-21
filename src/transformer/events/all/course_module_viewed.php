@@ -29,10 +29,10 @@ function course_module_viewed(array $config, \stdClass $event) {
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course)
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]
