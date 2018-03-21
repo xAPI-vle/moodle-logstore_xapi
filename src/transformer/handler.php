@@ -38,8 +38,8 @@ function handler(array $config, array $events) {
         '\mod_scorm\event\status_submitted' => 'mod_scorm\status_submitted',
         '\mod_survey\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_url\event\course_module_viewed' => 'all\course_module_viewed',
-        '\mod_wiki\event\course_module_viewed' => 'ModuleEvent',
-        '\mod_workshop\event\course_module_viewed' => 'ModuleEvent',
+        '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
     ];
     return array_reduce($events, function ($statements, $event) use ($config, $event_function_map) {
         $event_name = $event->eventname;
