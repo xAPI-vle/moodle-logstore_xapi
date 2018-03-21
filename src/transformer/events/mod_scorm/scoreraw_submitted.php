@@ -18,7 +18,7 @@ function scoreraw_submitted(array $config, array $event) {
     $scormscoestrack = utils\get_scorm_scoes_track($config, $event['userid'], $scormid, $scoid, $attempt);
     $scormscoes = $repo->read_object($scoid, 'scorm_scoes');
 
-return [[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_scorm_verb($scormscoestrack['status'], $lang),
         'object' => utils\get_module_activity($config, $event, $lang),
