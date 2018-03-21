@@ -4,10 +4,9 @@ namespace transformer\events\core;
 
 use transformer\utils as utils;
 
-function user_loggedout(array $config, array $event) {
+function user_loggedout(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
+    $user = $repo->read_record_by_id('user', $event['userid']);
     $lang = $config['source_lang'];
 
     return [[
@@ -18,13 +17,18 @@ function user_loggedout(array $config, array $event) {
                 $lang => 'logged out'
             ],
         ],
-        'object' => utils\get_site_activity($config, $site, $lang),
+        'object' => utils\get_activity\site($config),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
                 utils\info_extension => utils\get_info($config, $event),
+            ],
+            'contextActivities' => [
+                'category' => [
+                    utils\get_activity\source($config)
+                ]
             ],
         ]
     ]];
