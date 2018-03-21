@@ -2,7 +2,7 @@
     "userid": 1,
     "courseid": 1,
     "timecreated": 1433946701,
-    "objecttable": "user",
+    "objecttable": "course",
     "objectid": 1,
-    "eventname": "\\core\\event\\user_created"
+    "eventname": "\\core\\event\\user_loggedin"
 }
