@@ -4,11 +4,10 @@ namespace transformer\events\core;
 
 use transformer\utils as utils;
 
-function course_completed(array $config, array $event) {
+function course_completed(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
-    $course = $repo->read_course($event['courseid']);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -19,7 +18,7 @@ function course_completed(array $config, array $event) {
                 $lang => 'completed'
             ],
         ],
-        'object' => utils\get_course_activity($course),
+        'object' => utils\get_activity\course($config, $course),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -29,10 +28,10 @@ function course_completed(array $config, array $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_site_activity($config, $site, $lang)
+                    utils\get_activity\site($config)
                 ],
                 'category' => [
-                    utils\get_source_activity($config)
+                    utils\get_activity\source($config)
                 ]
             ],
         ]
