@@ -4,16 +4,22 @@ namespace transformer\events\mod_assign;
 
 use transformer\utils as utils;
 
-function assignment_graded(array $config, array $event) {
+function assignment_graded(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $grade = $repo->read_object($event['objectid'], $event['objecttable']);
-    $user = $repo->read_user($grade->userid);
-    $course = $repo->read_course($event['courseid']);
-    $instructor = $repo->read_user($event['userid']);
+    $grade = $repo->read_record_by_id($event->objecttable, $event->objectid);
+    $user = $repo->read_record_by_id('user', $grade->userid);
+    $course = $repo->read_record_by_id('course', $event->courseid);
+    $instructor = $repo->read_record_by_id('user', $event->userid);
     $lang = utils\get_course_lang($course);
 
-    $gradecomment = $repo->read_store_record('assignfeedback_comments', ['assignment' => $grade->assignment, 'grade' => $grade->id])->commenttext;
-    $gradeitems = $repo->read_store_record('grade_items', ['itemmodule' => 'assign', 'iteminstance' => $grade->assignment]);
+    $gradecomment = $repo->read_record('assignfeedback_comments', [
+        'assignment' => $grade->assignment,
+        'grade' => $grade->id
+    ])->commenttext;
+    $gradeitems = $repo->read_record('grade_items', [
+        'itemmodule' => 'assign',
+        'iteminstance' => $grade->assignment
+    ]);
 
     $scoreraw = (float) ($grade->grade ?: 0);
     $scoremin = (float) ($gradeitems->grademin ?: 0);
@@ -41,7 +47,7 @@ function assignment_graded(array $config, array $event) {
                 $lang => 'scored'
             ],
         ],
-        'object' => utils\get_module_activity($config, $event, $lang),
+        'object' => utils\get_activity\module($config, $event, $lang),
         'result' => [
             'score' => [
                 'raw' => $scoreraw,
@@ -54,6 +60,7 @@ function assignment_graded(array $config, array $event) {
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
+            'instructor' => utils\get_user($config, $instructor),
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
@@ -61,13 +68,13 @@ function assignment_graded(array $config, array $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_course_activity($course)
+                    utils\get_activity\site($config),
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_source_activity($config)
-                ]
+                    utils\get_activity\source($config),
+                ],
             ],
-            'instructor' => utils\get_user($config, $instructor)
         ]
     ]];
 }
