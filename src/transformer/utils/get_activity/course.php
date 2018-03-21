@@ -4,7 +4,7 @@ namespace transformer\utils\get_activity;
 
 use transformer\utils as utils;
 
-function course(array $config, $course) {
+function course(array $config, \stdClass $course) {
     $course_name = $course->fullname ?: 'A Moodle course';
     $course_lang = utils\get_course_lang($course);
 
