@@ -29,7 +29,7 @@ function discussion_viewed(array $config, \stdClass $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_activity\site($config, $course),
+                    utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
                 ],
                 'category' => [
