@@ -1,0 +1,22 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "fullname": "test_fullname",
+            "email": "test@test.com"
+        }
+    ],
+    "course": [
+        {
+            "id": 1,
+            "fullname": "test_name",
+            "lang": "en"
+        }
+    ],
+    "facetoface": [
+        {
+            "id": 1,
+            "name": "test_facetoface_name"
+        }
+    ]
+}

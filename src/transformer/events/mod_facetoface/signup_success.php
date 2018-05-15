@@ -4,11 +4,10 @@ namespace transformer\events\mod_facetoface;
 
 use transformer\utils as utils;
 
-function signup_success(array $config, array $event) {
+function signup_success(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_user($event['userid']);
-    $site = $repo->read_site();
-    $course = $repo->read_course($event['courseid']);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -19,7 +18,7 @@ function signup_success(array $config, array $event) {
                 $lang => 'registered'
             ],
         ],
-        'object' => utils\get_module_activity($config, $event, $lang),
+        'object' => utils\get_activity\module($config, $event, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -29,10 +28,11 @@ function signup_success(array $config, array $event) {
             ],
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_course_activity($course),
+                    utils\get_activity\site($config),
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_source_activity($config)
+                    utils\get_activity\source($config)
                 ]
             ],
         ]
