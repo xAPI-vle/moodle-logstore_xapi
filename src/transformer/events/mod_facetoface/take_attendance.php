@@ -20,7 +20,7 @@ function take_attendance(array $config, \stdClass $event) {
                 'signupid' => $signup->id,
                 'timecreated' => $event->timecreated,
             ]);
-            if ($currentstatus->statuscode >= 90) {
+            if ($current_status->statuscode >= 90) {
                 $attendee = $repo->read_record_by_id('user', $signup->userid);
                 $statement = [
                     'actor' => utils\get_user($config, $attendee),
@@ -34,7 +34,7 @@ function take_attendance(array $config, \stdClass $event) {
                     'timestamp' => utils\get_event_timestamp($event),
                     'result' => [
                         'duration' => "PT".(string) $session_duration."S",
-                        'completion' => $currentstatus->statuscode === 100,
+                        'completion' => $current_status->statuscode === 100,
                     ],
                     'context' => [
                         'platform' => $config['source_name'],
