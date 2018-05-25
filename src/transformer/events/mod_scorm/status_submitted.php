@@ -12,7 +12,7 @@ function status_submitted(array $config, \stdClass $event) {
 
     $unserialized_cmi = unserialize($event->other);
     $attempt = $unserialized_cmi['attemptid'];
-    $scorm_scoes_tracks = $config['repo']->read_store_records('scorm_scoes_track', [
+    $scorm_scoes_tracks = $repo->read_records('scorm_scoes_track', [
         'userid' => $userid,
         'scormid' => $event->objectid,
         'scoid' => $event->contextinstanceid,
