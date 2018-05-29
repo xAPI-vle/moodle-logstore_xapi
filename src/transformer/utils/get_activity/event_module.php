@@ -4,7 +4,7 @@ namespace transformer\utils\get_activity;
 
 use transformer\utils as utils;
 
-function module(array $config, \stdClass $event, $lang) {
+function event_module(array $config, \stdClass $event, $lang) {
     $repo = $config['repo'];
     $module_type = $event->objecttable;
     $module_id = $event->objectid;
