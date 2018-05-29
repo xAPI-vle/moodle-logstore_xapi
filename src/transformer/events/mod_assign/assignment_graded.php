@@ -47,7 +47,7 @@ function assignment_graded(array $config, \stdClass $event) {
                 $lang => 'scored'
             ],
         ],
-        'object' => utils\get_activity\module($config, $event, $lang),
+        'object' => utils\get_activity\event_module($config, $event, $lang),
         'result' => [
             'score' => [
                 'raw' => $scoreraw,

@@ -22,7 +22,7 @@ function status_submitted(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_scorm_verb($scorm_scoes_tracks, $lang),
-        'object' => utils\get_activity\module($config, $event, $lang),
+        'object' => utils\get_activity\event_module($config, $event, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

@@ -10,7 +10,7 @@ function course_module_viewed(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
@@ -18,7 +18,7 @@ function course_module_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\module($config, $event, $lang),
+        'object' => utils\get_activity\event_module($config, $event, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

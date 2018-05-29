@@ -30,7 +30,7 @@ function take_attendance(array $config, \stdClass $event) {
                             $lang => 'attended'
                         ],
                     ],
-                    'object' => utils\get_activity\module($config, $event, $lang),
+                    'object' => utils\get_activity\event_module($config, $event, $lang),
                     'timestamp' => utils\get_event_timestamp($event),
                     'result' => [
                         'duration' => "PT".(string) $session_duration."S",
