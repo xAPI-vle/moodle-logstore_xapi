@@ -11,5 +11,4 @@ Once you've tracked down the transformer, make the changes you require and then 
 
 When you've got those pesky tests passing again ✅, it's time to commit your changes and make a pull request. To commit all of your changes you can run `git add -A && git commit -am "A_DESCRIPTION_OF_YOUR_CHANGES && git push"`. To make a pull request you can follow [Github's guide for creating a pull request from a fork](https://help.github.com/articles/creating-a-pull-request-from-a-fork/). Once your pull request is made, your changes will be reviewed and merged by a maintainer.
 
-### Notes
-If you're having some issues with this guide, please create a new issue on [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues). 
+If you're having some issues with this guide, we're really sorry 😞 and we'd like to improve it for you, so please create a new issue on [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
