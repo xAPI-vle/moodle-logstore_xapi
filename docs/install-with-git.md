@@ -5,6 +5,6 @@ Once you've forked the repository, open your terminal and navigate to the root d
 
 Once it's deleted, make sure you have [Git installed](https://git-scm.com/) and then clone your fork of this repository using `git clone git@github.com:YOUR_GITHUB_USERNAME/moodle-logstore_xapi.git xapi`, then move into the `xapi` directory that's created for you by the clone.
 
-With the repository cloned, you can now install the plugin's dependencies by running `php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source`. Finally you'll need to navigate to "http://your.moodle/admin/index.php" and then [configure and enable the plugin](enable-the-plugin.md).
+With the repository cloned, you can now install the plugin's dependencies by running `php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source`. Finally you'll need to [configure and enable the plugin](enable-the-plugin.md).
 
 Hopefully this all made sense, but if you do have any issues ❗️ or questions ❓, please create a new issue on [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues). You may also find [Github's guide on forking repositories](https://guides.github.com/activities/forking/) useful.

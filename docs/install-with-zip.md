@@ -3,7 +3,7 @@ Before we begin installing the plugin, you of course need to have [Moodle](https
 
 1. Download the "xapi.zip" file from [the latest release](https://github.com/xAPI-vle/moodle-logstore_xapi/releases/latest).
 1. Go to "http://your.moodle/admin/tool/installaddon/index.php".
-1. Drag and drop the zip file.
+1. Drag and drop the ZIP file.
 1. Click "Install plugin from the ZIP file".
 1. Click “Install plugin!”.
 1. Finally you can [configure and enable the plugin](enable-the-plugin.md).
