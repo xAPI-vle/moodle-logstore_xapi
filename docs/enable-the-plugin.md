@@ -1,4 +1,5 @@
-### Enable the plugin
+# Enable the plugin
+
 1. Navigate to "http://your.moodle/admin/index.php" as an admin.
 1. Click “Upgrade Moodle database now”.
 1. Click “Continue”.
