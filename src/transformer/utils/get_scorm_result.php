@@ -14,7 +14,7 @@ function get_scorm_result($scorm_scoes_tracks, $raw_score) {
         }
     }
     
-    $scaled_score = $raw_score >= 0 ? ($raw_score / $max_score) : ($raw_score / $min_score);
+    $scaled_score = get_scaled_score($raw_score, $min_score, $max_score);
 
     return [
         'score' => [

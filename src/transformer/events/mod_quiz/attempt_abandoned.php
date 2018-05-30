@@ -10,6 +10,10 @@ function attempt_abandoned(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('attempt', $event->objectid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
+    $grade_item = $repo->read_record('grade_items', [
+        'itemmodule' => 'quiz',
+        'iteminstance' => $quiz->id,
+    ]);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -22,17 +26,7 @@ function attempt_abandoned(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => [
-            'score' => [
-                'raw' => 0,
-                'min' => 0,
-                'max' => 0,
-                'scaled' => 0
-            ],
-            'completion' => false,
-            'success' => false,
-            'duration' => ''
-        ],
+        'result' => utils\get_attempt_result($config, $attempt, $grade_item),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
