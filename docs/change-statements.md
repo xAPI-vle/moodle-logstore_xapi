@@ -1,5 +1,5 @@
 # Guide to Changing Statements
-So you've found a statement that you'd like to change. If you're not comfortable with PHP or can't get to grips with Moodle's logstore then you should probably ask for the change in a new issue via [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues) and hopefully someone will have some time to make the changes you require.
+So you've found a statement that you'd like to change. If you're not comfortable with PHP or can't get to grips with Moodle's logstore, then you should probably ask for the change in a new issue via [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues) and hopefully someone will have some time to make the changes you require.
 
 If PHP and the logstore aren't scaring you away 🤘, then the first thing you need to do is [install the plugin using Git](install-with-git.md). Once you've installed the plugin using Git, all of the code in this Git repository will be in the "admin/tool/log/store/xapi" directory path from the root directory of your Moodle installation.
 
