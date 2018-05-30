@@ -40,7 +40,7 @@ abstract class Repository extends PhpObj {
         $records = $this->read_records($type, $query);
         $record = $records[0];
         if (!$record) {
-            throw new Exception('Record not found.');
+            throw new Exception("$type not found.");
         }
         return $record;
     }
