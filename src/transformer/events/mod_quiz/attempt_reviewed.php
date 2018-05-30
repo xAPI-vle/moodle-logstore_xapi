@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\events\mod_feedback;
+namespace transformer\events\mod_quiz;
 
 use transformer\utils as utils;
 

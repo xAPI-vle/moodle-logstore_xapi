@@ -1,0 +1,41 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "fullname": "test_fullname",
+            "email": "test@test.com"
+        }
+    ],
+    "course": [
+        {
+            "id": 1,
+            "fullname": "test_name",
+            "lang": "en"
+        }
+    ],
+    "attempt": [
+        {
+            "id": 1,
+            "quiz": 1,
+            "sumgrades": 50,
+            "state": "finished",
+            "timefinish": 1,
+            "timestart": 0
+        }
+    ],
+    "quiz": [
+        {
+            "id": 1,
+            "name": "test_quiz_name"
+        }
+    ],
+    "grade_items": [
+        {
+            "id": 1,
+            "quiz": 1,
+            "grademin": 1,
+            "grademax": 100,
+            "gradepass": 50
+        }
+    ]
+}
