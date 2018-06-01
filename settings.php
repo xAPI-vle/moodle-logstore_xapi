@@ -25,8 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/vendor/autoload.php');
-use \MXTranslator\Controller as translator_controller;
+require_once(__DIR__ . '/../../src/autoload.php');
 
 if ($hassiteconfig) {
     // Endpoint.
@@ -61,10 +60,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/logguests',
         get_string('logguests', 'logstore_xapi'), '', '0'));
 
-    $menuroutes = array();
-    $routes = translator_controller::$routes;
-    foreach (array_keys($routes) as $routekey) {
-        $menuroutes[$routekey] = $routekey;
+    $menuroutes = [];
+    $event_function_map = \transformer\get_event_function_map();
+    foreach (array_keys($event_function_map) as $event_name) {
+        $menuroutes[$event_name] = $event_name;
     }
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',

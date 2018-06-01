@@ -110,12 +110,12 @@ class store extends php_obj implements log_writer {
             'transformer' => [
                 'source_url' => 'http://moodle.org',
                 'source_name' => 'Moodle',
-                'source_version' => '1.0.0',
+                'source_version' => $CFG->release,
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
                 'plugin_version' => $plugin->release,
-                'repo' => new \src\transformer\repos\MoodleRepository($DB),
+                'repo' => new \transformer\repos\MoodleRepository($DB),
                 'app_url' => $CFG->wwwroot,
             ],
             'loader' => [
