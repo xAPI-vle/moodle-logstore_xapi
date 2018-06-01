@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\all\course_module_viewed;
+namespace tests\mod_facetoface\take_attendance\existing_attendance_taken;
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_facetoface\cancel_booking;
+namespace tests\core\course_completed\completing_existing_course;
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

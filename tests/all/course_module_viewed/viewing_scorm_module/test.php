@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\core\user_enrolment_created;
+namespace tests\all\course_module_viewed\viewing_scorm_module;
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {
