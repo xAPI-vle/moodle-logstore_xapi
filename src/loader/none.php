@@ -1,5 +1,5 @@
 <?php
 
-namespace loader\none;
+namespace src\loader\none;
 
 function load(array $config, array $statements) {}

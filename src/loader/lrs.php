@@ -1,6 +1,6 @@
 <?php
 
-namespace loader\lrs;
+namespace src\loader\lrs;
 
 function send_batch_to_lrs(array $config, array $statements) {
     $endpoint = $config['lrs_endpoint'];

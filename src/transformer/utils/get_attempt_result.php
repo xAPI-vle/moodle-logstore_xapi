@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_attempt_result(array $config, $attempt, $grade_item) {
     $grade_sum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;

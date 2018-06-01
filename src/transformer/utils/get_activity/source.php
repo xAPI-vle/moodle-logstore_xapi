@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils\get_activity;
+namespace src\transformer\utils\get_activity;
 
 function source(array $config) {
     return [

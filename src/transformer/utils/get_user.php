@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_user(array $config, $user) {
     if ($config['sendmbox'] == true) {

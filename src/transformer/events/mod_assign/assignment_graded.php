@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\mod_assign;
+namespace src\transformer\events\mod_assign;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function assignment_graded(array $config, \stdClass $event) {
     $repo = $config['repo'];

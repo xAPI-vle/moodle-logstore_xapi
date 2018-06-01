@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_attempt_duration($attempt) {
     if (isset($attempt->timefinish)) {

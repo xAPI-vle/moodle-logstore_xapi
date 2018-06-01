@@ -45,27 +45,12 @@ class store extends php_obj implements log_writer {
     use helper_reader;
     use helper_writer;
 
-    protected $loggingenabled = false;
-
-    /** @var bool $logguests true if logging guest access */
-    protected $logguests;
-
-    /** @var array $routes An array of routes to include */
-    protected $routes = [];
-
     /**
      * Constructs a new store.
      * @param log_manager $manager
      */
     public function __construct(log_manager $manager) {
-        global $CFG;
         $this->helper_setup($manager);
-        $this->logguests = $this->get_config('logguests', 1);
-        $routes = $this->get_config('routes', '');
-        $this->routes = $routes === '' ? [] : explode(',', $routes);
-        if (!empty($CFG->debug) and $CFG->debug >= DEBUG_DEVELOPER) {
-            $this->loggingenabled = true;
-        }
     }
 
     /**
@@ -75,22 +60,20 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function is_event_ignored(event_base $event) {
-        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$this->logguests && isguestuser()) {
+        $is_logging_guests = $this->get_config('logguests', 1);
+        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$is_logging_guests && isguestuser()) {
             // Always log inside CLI scripts because we do not login there.
             return true;
         }
 
-        if (!in_array($event->eventname, $this->routes)) {
-            // Ignore event if the store settings do not want to store it.
-            return true;
-        }
-        return false;
+        $enabled_events = explode(',', $this->get_config('routes', ''));
+        $is_disabled_event = !in_array($event->eventname, $enabled_events);
+        return $is_disabled_event;
     }
 
     /**
      * Insert events in bulk to the database. Overrides helper_writer.
      * @param array $events raw event data
-     *
      */
     protected function insert_event_entries(array $events) {
         global $DB;
@@ -115,7 +98,7 @@ class store extends php_obj implements log_writer {
                 'send_mbox' => $this->get_config('mbox', false),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
                 'plugin_version' => $plugin->release,
-                'repo' => new \transformer\repos\MoodleRepository($DB),
+                'repo' => new \src\transformer\repos\MoodleRepository($DB),
                 'app_url' => $CFG->wwwroot,
             ],
             'loader' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_scorm_result($scorm_scoes_tracks, $raw_score) {
     $max_score = null;

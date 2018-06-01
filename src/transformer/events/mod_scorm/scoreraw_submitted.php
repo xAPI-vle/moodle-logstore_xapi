@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\mod_scorm;
+namespace src\transformer\events\mod_scorm;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function scoreraw_submitted(array $config, \stdClass $event) {
     $repo = $config['repo'];

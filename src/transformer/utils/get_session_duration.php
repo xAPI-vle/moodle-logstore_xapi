@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_session_duration($config, $session_id) {
     $repo = $config['repo'];

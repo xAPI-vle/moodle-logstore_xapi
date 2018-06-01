@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_scaled_score($raw_score, $min_score, $max_score) {
     $score_range = $max_score - $min_score;

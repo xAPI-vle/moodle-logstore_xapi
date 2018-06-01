@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\all;
+namespace src\transformer\events\all;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function course_module_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];

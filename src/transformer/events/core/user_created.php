@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\core;
+namespace src\transformer\events\core;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function user_created(array $config, \stdClass $event) {
     $repo = $config['repo'];

@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\mod_facetoface;
+namespace src\transformer\events\mod_facetoface;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function take_attendance(array $config, \stdClass $event) {
     $repo = $config['repo'];

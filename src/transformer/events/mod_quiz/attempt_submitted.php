@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\mod_quiz;
+namespace src\transformer\events\mod_quiz;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function attempt_submitted(array $config, \stdClass $event) {
     $repo = $config['repo'];

@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\events\mod_forum;
+namespace src\transformer\events\mod_forum;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function discussion_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];

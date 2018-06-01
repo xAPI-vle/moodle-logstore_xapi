@@ -66,7 +66,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
             'send_mbox' => false,
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
-            'repo' => new \transformer\repos\TestRepository($test_data),
+            'repo' => new \src\transformer\repos\TestRepository($test_data),
             'app_url' => 'http://www.example.org'
         ];
     }

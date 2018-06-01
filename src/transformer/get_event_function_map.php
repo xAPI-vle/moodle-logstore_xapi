@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer;
+namespace src\transformer;
 
 function get_event_function_map() {
     return [

@@ -17,7 +17,7 @@ $handler_config = [
         'send_mbox' => false,
         'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
         'plugin_version' => $plugin->release,
-        'repo' => new \transformer\repos\TestRepository($data),
+        'repo' => new \src\transformer\repos\TestRepository($data),
         'app_url' => 'http://www.example.org',
     ],
     'loader' => [

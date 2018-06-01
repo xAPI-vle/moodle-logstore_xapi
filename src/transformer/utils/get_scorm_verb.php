@@ -1,6 +1,6 @@
 <?php
 
-namespace transformer\utils;
+namespace src\transformer\utils;
 
 function get_scorm_verb($scorm_scoes_tracks, $lang) {
     $scormstatus = null;

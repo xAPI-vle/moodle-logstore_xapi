@@ -61,7 +61,7 @@ if ($hassiteconfig) {
         get_string('logguests', 'logstore_xapi'), '', '0'));
 
     $menuroutes = [];
-    $event_function_map = \transformer\get_event_function_map();
+    $event_function_map = \src\transformer\get_event_function_map();
     foreach (array_keys($event_function_map) as $event_name) {
         $menuroutes[$event_name] = $event_name;
     }

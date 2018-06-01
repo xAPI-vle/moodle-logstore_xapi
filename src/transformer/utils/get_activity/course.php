@@ -1,8 +1,8 @@
 <?php
 
-namespace transformer\utils\get_activity;
+namespace src\transformer\utils\get_activity;
 
-use transformer\utils as utils;
+use src\transformer\utils as utils;
 
 function course(array $config, \stdClass $course) {
     $course_name = $course->fullname ?: 'A Moodle course';
