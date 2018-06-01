@@ -89,7 +89,15 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
         global $DB;
         global $CFG;
+        $log_error = function ($message = '') {
+            debugging($message, DEBUG_NORMAL);
+        };
+        $log_info = function ($message = '') {
+            debugging($message, DEBUG_DEVELOPER);
+        };
         $handler_config = [
+            'log_error' => $log_error,
+            'log_info' => $log_info,
             'transformer' => [
                 'source_url' => 'http://moodle.org',
                 'source_name' => 'Moodle',

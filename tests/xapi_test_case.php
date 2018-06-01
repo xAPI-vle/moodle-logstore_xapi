@@ -39,7 +39,15 @@ abstract class xapi_test_case extends PhpUnitTestCase {
 
     public function test_create_event() {
         $event = $this->get_event();
+        $log_error = function ($message = '') {
+            echo("ERROR: $message\n");
+        };
+        $log_info = function ($message = '') {
+            echo("INFO: $message\n");
+        };
         $handler_config = [
+            'log_error' => $log_error,
+            'log_info' => $log_info,
             'transformer' => $this->get_transformer_config(),
             'loader' => [
                 'loader' => 'none',
