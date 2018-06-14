@@ -47,7 +47,7 @@ class MoodleRepository extends Repository {
      * @return PhpObj
      */
     public function read_record($type, array $query) {
-        $records = $this->store->read_record($type, $query);
+        $record = $this->store->get_record($type, $query);
         if ($record === false) {
             throw new Exception("$type not found.");
         }
