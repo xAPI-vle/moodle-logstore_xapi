@@ -25,6 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once(__DIR__ . '/vendor/autoload.php');
+use \MXTranslator\Controller as translator_controller;
+
 if ($hassiteconfig) {
     // Endpoint.
     $settings->add(new admin_setting_configtext('logstore_xapi/endpoint',
@@ -37,7 +40,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('logstore_xapi/password',
         get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
 
-    // Switch background batch mode on
+    // Switch background batch mode on.
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
         get_string('backgroundmode', 'logstore_xapi'),
         get_string('backgroundmode_desc', 'logstore_xapi'), 0));
@@ -45,4 +48,26 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsize',
         get_string('maxbatchsize', 'logstore_xapi'),
         get_string('maxbatchsize_desc', 'logstore_xapi'), 30, PARAM_INT));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
+        get_string('mbox', 'logstore_xapi'),
+        get_string('mbox_desc', 'logstore_xapi'), 0));
+
+    // Filters.
+    $settings->add(new admin_setting_heading('filters',
+        get_string('filters', 'logstore_xapi'),
+        get_string('filters_help', 'logstore_xapi')));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/logguests',
+        get_string('logguests', 'logstore_xapi'), '', '0'));
+
+    $menuroutes = array();
+    $routes = translator_controller::$routes;
+    foreach (array_keys($routes) as $routekey) {
+        $menuroutes[$routekey] = $routekey;
+    }
+
+    $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
+        get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
+
 }

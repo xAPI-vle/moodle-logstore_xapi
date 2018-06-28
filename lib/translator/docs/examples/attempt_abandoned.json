@@ -1,0 +1,78 @@
+{
+    "user_id": 1,
+    "user_email": "test@test.com",
+    "user_url": "http:\/\/www.example.com\/user_url",
+    "user_name": "Test user_name",
+    "context_lang": "en",
+    "context_platform": "Moodle",
+    "context_ext": {
+        "eventname": "\\core\\event\\course_viewed",
+        "timecreated": 1433946701
+    },
+    "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
+    "context_info": {
+        "https:\/\/moodle.org\/": "1.0.0"
+    },
+    "time": "2015-06-10T22:31:41+08:00",
+    "app_url": "http:\/\/www.example.com",
+    "app_name": "Test site_fullname",
+    "app_description": "Test site_summary",
+    "app_type": "http:\/\/id.tincanapi.com\/activitytype\/site",
+    "app_ext": {
+        "url": "http:\/\/www.example.com",
+        "fullname": "Test site_fullname",
+        "summary": "<p>Test site_summary<\/p>",
+        "lang": "en",
+        "type": "moodle_site"
+    },
+    "sendmbox": true,
+    "app_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course",
+    "source_url": "http:\/\/moodle.org",
+    "source_name": "Moodle",
+    "source_description": "Moodle is a open source learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments.",
+    "source_type": "http:\/\/id.tincanapi.com\/activitytype\/source",
+    "recipe": "attempt_abandoned",
+    "course_url": "http:\/\/www.example.com\/course_url",
+    "course_name": "Test course_fullname",
+    "course_description": "Test course_summary",
+    "course_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_course",
+    "course_ext": {
+        "url": "http:\/\/www.example.com\/course_url",
+        "fullname": "Test course_fullname",
+        "summary": "<p>Test course_summary<\/p>",
+        "lang": "en",
+        "type": "moodle_course"
+    },
+    "course_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_course",
+    "module_url": "http:\/\/www.example.com\/module_url",
+    "module_name": "Test module_name",
+    "module_description": "Test module_intro",
+    "module_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_module",
+    "module_ext": {
+        "url": "http:\/\/www.example.com\/module_url",
+        "name": "Test module_name",
+        "intro": "Test module_intro",
+        "type": "moodle_module"
+    },
+    "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
+    "attempt_url": "http:\/\/www.example.com\/attempt_url",
+    "attempt_type": "http:\/\/lrs.learninglocker.net\/define\/type\/moodle\/moodle_attempt",
+    "attempt_ext": {
+        "url": "http:\/\/www.example.com\/attempt_url",
+        "name": "Test attempt_name",
+        "type": "moodle_attempt",
+        "timestart": 1433946701,
+        "timefinish": 1433946701,
+        "sumgrades": 1,
+        "state": "finished"
+    },
+    "attempt_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_attempt",
+    "attempt_name": "Test attempt_name",
+    "attempt_score_raw": 1,
+    "attempt_score_min": 0,
+    "attempt_score_max": 5,
+    "attempt_score_scaled": 0.2,
+    "attempt_success": false,
+    "attempt_completed": true,
+    "attempt_duration": "PT0S"
+}

@@ -36,6 +36,7 @@ use \core\event\base as event_base;
 use \XREmitter\Controller as xapi_controller;
 use \XREmitter\Repository as xapi_repository;
 use \MXTranslator\Controller as translator_controller;
+use \MXTranslator\Events\Event as Event;
 use \LogExpander\Controller as moodle_controller;
 use \LogExpander\Repository as moodle_repository;
 use \TinCan\RemoteLRS as tincan_remote_lrs;
@@ -53,12 +54,25 @@ class store extends php_obj implements log_writer {
 
     protected $loggingenabled = false;
 
+    /** @var bool $logguests true if logging guest access */
+    protected $logguests;
+
+    /** @var array $routes An array of routes to include */
+    protected $routes = [];
+
     /**
      * Constructs a new store.
      * @param log_manager $manager
      */
     public function __construct(log_manager $manager) {
+        global $CFG;
         $this->helper_setup($manager);
+        $this->logguests = $this->get_config('logguests', 1);
+        $routes = $this->get_config('routes', '');
+        $this->routes = $routes === '' ? [] : explode(',', $routes);
+        if (!empty($CFG->debug) and $CFG->debug >= DEBUG_DEVELOPER) {
+            $this->loggingenabled = true;
+        }
     }
 
     /**
@@ -68,6 +82,15 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function is_event_ignored(event_base $event) {
+        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$this->logguests && isguestuser()) {
+            // Always log inside CLI scripts because we do not login there.
+            return true;
+        }
+
+        if (!in_array($event->eventname, $this->routes)) {
+            // Ignore event if the store settings do not want to store it.
+            return true;
+        }
         return false;
     }
 
@@ -79,7 +102,7 @@ class store extends php_obj implements log_writer {
     protected function insert_event_entries(array $events) {
         global $DB;
 
-        // If in background mode, just save them in the database
+        // If in background mode, just save them in the database.
         if (get_config('logstore_xapi', 'backgroundmode')) {
             $DB->insert_records('logstore_xapi_log', $events);
         } else {
@@ -101,13 +124,20 @@ class store extends php_obj implements log_writer {
 
         $this->error_log('');
         $this->error_log_value('events', $events);
-        $moodleevents = $moodlecontroller->createEvents($events);
+        $moodleevents = $moodlecontroller->create_events($events);
+
+        // Clear the user email if mbox setting is not set to mbox.
+        $mbox = get_config('logstore_xapi', 'mbox');
+        foreach (array_keys($moodleevents) as $eventkey) {
+            $moodleevents[$eventkey]['sendmbox'] = $mbox;
+        }
+
         $this->error_log_value('moodleevent', $moodleevents);
-        $translatorevents = $translatorcontroller->createEvents($moodleevents);
+        $translatorevents = $translatorcontroller->create_events($moodleevents);
         $this->error_log_value('translatorevents', $translatorevents);
 
         if (empty($translatorevents)) {
-            return;
+            return [];
         }
 
         // Split statements into batches.
@@ -118,11 +148,34 @@ class store extends php_obj implements log_writer {
             $eventbatches = array_chunk($translatorevents, $maxbatchsize);
         }
 
+        $sentevents = [];
         foreach ($eventbatches as $translatoreventsbatch) {
-            $xapievents = $xapicontroller->createEvents($translatoreventsbatch);
+            $xapievents = $xapicontroller->create_events($translatoreventsbatch);
+            $statements = $xapievents['statements'];
+            $response = $xapievents['response'];
+            foreach (array_keys($statements) as $key) {
+                if (is_numeric($key)) {
+                    $k = $xapievents[$key]['context']['extensions'][Event::CONTEXT_EXT_KEY]['id'];
+                    $sentevents[$k] = $this->getlast_action_result($response);
+                }
+            }
             $this->error_log_value('xapievents', $xapievents);
         }
 
+        return $sentevents;
+    }
+
+    /**
+     * Get last action result from Learning Locker.
+     * @param Object TinCan\LRSResponse
+     *
+     */
+    private function getlast_action_result($response) {
+        if ($response->success == 1) {
+            return "success";
+        } else {
+            return "failure";
+        }
     }
 
     private function error_log_value($key, $value) {
@@ -131,6 +184,7 @@ class store extends php_obj implements log_writer {
 
     private function error_log($message) {
         if ($this->loggingenabled) {
+            // @codingStandardsIgnoreLine
             error_log($message."\r\n", 3, __DIR__.'/error_log.txt');
         }
     }
@@ -154,12 +208,17 @@ class store extends php_obj implements log_writer {
      * @return xapi_repository
      */
     private function connect_xapi_repository() {
-        return new xapi_repository(new tincan_remote_lrs(
+        global $CFG;
+        $remotelrs = new tincan_remote_lrs(
             $this->get_config('endpoint', ''),
             '1.0.1',
             $this->get_config('username', ''),
             $this->get_config('password', '')
-        ));
+        );
+        if (!empty($CFG->proxyhost)) {
+            $remotelrs->setProxy($CFG->proxyhost.':'.$CFG->proxyport);
+        }
+        return new xapi_repository($remotelrs);
     }
 
     /**

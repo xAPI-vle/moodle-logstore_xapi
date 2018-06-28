@@ -1,0 +1,59 @@
+{
+    "user": {
+        "id": 1,
+        "username": "test_username",
+        "lang": "en",
+        "fullname": "test_fullname",
+        "email": "test@test.com",
+        "type": "object",
+        "url": "http:\/\/www.example.com"
+    },
+    "relateduser": {
+        "id": 1,
+        "username": "test_username",
+        "lang": "en",
+        "fullname": "test_fullname",
+        "email": "test@test.com",
+        "type": "object",
+        "url": "http:\/\/www.example.com"
+    },
+    "course": {
+        "id": 1,
+        "category": "1",
+        "fullname": "test_name",
+        "shortname": "test_name",
+        "summary": "test_summary",
+        "lang": "en",
+        "timecreated": 1433946702,
+        "timemodified": 1433946702,
+        "type": "object",
+        "url": "http:\/\/www.example.com\/course\/view.php?id=1"
+    },
+    "app": {
+        "id": 1,
+        "category": "1",
+        "fullname": "test_name",
+        "shortname": "test_name",
+        "summary": "test_summary",
+        "lang": "en",
+        "timecreated": 1433946702,
+        "timemodified": 1433946702,
+        "type": "site",
+        "url": "http:\/\/www.example.com"
+    },
+    "info": {
+        "https:\/\/moodle.org\/": "1.0.0"
+    },
+    "event": {
+        "userid": 1,
+        "relateduserid": 1,
+        "courseid": 1,
+        "timecreated": 1433946701,
+        "eventname": "\\core\\event\\course_completed",
+        "objecttable": null,
+        "objectid": null,
+        "action": "completed",
+        "target": "course",
+        "component": "core"
+    }
+}

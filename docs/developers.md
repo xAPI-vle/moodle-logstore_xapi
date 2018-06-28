@@ -8,7 +8,7 @@ This page contains documentation for developers (people who would like to contri
 ## Setup
 From the root directory of your Moodle installation run the script below.
 ```sh
-cd admin/tool/log/store; rm -rf xapi; git clone git@github.com:jlowe64/moodle-logstore_xapi.git xapi; php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source;
+cd admin/tool/log/store; rm -rf xapi; git clone git@github.com:xAPI-vle/moodle-logstore_xapi.git xapi; cd xapi; php -r "readfile('https://getcomposer.org/installer');" | php; rm -rf vendor; php composer.phar install --prefer-source;
 ```
 
 If you hadn't already installed the plugin, you'll need to login as an admin and navigate to "http://www.example.com/admin/index.php" (replacing “www.example.com” with your own domain). Once there you can follow on from step 6 of the [user installation guide](installation.md).
@@ -16,15 +16,34 @@ If you hadn't already installed the plugin, you'll need to login as an admin and
 ## Adding Events
 Assuming you've followed the [instructions above](#setup), you can modify and test events by updating the code inside the directories below.
 
-- vendor/learninglocker/moodle-log-expander
-- vendor/learninglocker/moodle-xapi-translator
-- vendor/learninglocker/xapi-recipe-emitter
+- lib/expander
+- lib/translator
+- lib/emitter
 
 If you've read the [plugin design](design.md) you should understand what each of these directories are responsible for. Each of the parts have their own documentation on their respective Github repositories (linked below).
 
-- [Moodle Log Expander](https://github.com/LearningLocker/Moodle-Log-Expander/blob/master/docs/readme.md#adding-events)
-- [Moodle to xAPI Translator](https://github.com/LearningLocker/Moodle-xAPI-Translator/blob/master/docs/readme.md#adding-events)
-- [xAPI Recipe Emitter](https://github.com/LearningLocker/xAPI-Recipe-Emitter/blob/master/docs/readme.md#adding-events)
+- [Moodle Log Expander](../lib/expander/docs/readme.md#adding-events)
+- [Moodle to xAPI Translator](../lib/translator/docs/readme.md#adding-events)
+- [xAPI Recipe Emitter](../lib/emitter/docs/readme.md#adding-events)
+
+## PHPUnit
+Run these with the [Moodle PHPUnit test framework](https://docs.moodle.org/dev/PHPUnit):
+
+```
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite
+```
+
+### Test Filter
+All PHPUnit tests should pass, but if you'd like to only run the tests for specific events, add the `--filter` option:
+
+```
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite --filter <Test_Name>
+```
+
+e.g.:
+```
+vendor/bin/phpunit --testsuite logstore_xapi_testsuite --filter course_completed_test
+```
 
 ## Release Process
 This process has been documented for collaborators (users that have write access to the repository) who are releasing new versions of this plugin.

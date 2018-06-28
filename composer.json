@@ -1,21 +1,24 @@
 {
-    "name": "jlowe64/moodle-logstore-xapi",
+    "name": "xAPI-vle/moodle-logstore-xapi",
     "license": "GPL v3",
     "autoload": {
         "psr-4": {
           "logstore_xapi\\": "classes/",
-          "Tests\\": "tests/"
+          "Tests\\": "tests/",
+          "XREmitter\\": "lib/emitter/src/",
+          "XREmitter\\Tests\\": "tests/lib/emitter/",
+          "LogExpander\\": "lib/expander/src/",
+          "LogExpander\\Tests\\": "tests/lib/expander/",
+          "MXTranslator\\": "lib/translator/src/",
+          "MXTranslator\\Tests\\": "tests/lib/translator/"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.6",
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
-        "rusticisoftware/tincan": "0.40.0",
-        "learninglocker/moodle-log-expander": "~1.1",
-        "learninglocker/moodle-xapi-translator": "~1.1",
-        "learninglocker/xapi-recipe-emitter": "~1.1"
+        "php": "~5.5 || ^7.0.3",
+        "rusticisoftware/tincan": "1.0.0"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"
