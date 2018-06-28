@@ -8,7 +8,9 @@ function attempt_started(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('attempt', $event->objectid);
+    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
+    // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
+    $attempt->name = 'attempt started';
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $lang = utils\get_course_lang($course);
 

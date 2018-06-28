@@ -12,7 +12,7 @@ function get_full_name(\stdClass $user) {
     if ($has_first_name) {
         return $user->firstname;
     }
-    if ($has_lastname_name) {
+    if ($has_last_name) {
         return $user->lastname;
     }
     return '';
