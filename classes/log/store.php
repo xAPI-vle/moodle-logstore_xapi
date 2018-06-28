@@ -27,7 +27,7 @@ namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../src/autoload.php');
-require_once(__DIR__ . '/../../version.php');
+
 use \tool_log\log\writer as log_writer;
 use \tool_log\log\manager as log_manager;
 use \tool_log\helper\store as helper_store;
@@ -89,6 +89,7 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
         global $DB;
         global $CFG;
+        require_once(__DIR__ . '/../../version.php');
         $log_error = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };

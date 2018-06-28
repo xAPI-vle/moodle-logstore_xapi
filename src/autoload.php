@@ -2,7 +2,9 @@
 
 namespace src;
 
-define('MOODLE_INTERNAL', 1);
+if (!defined('MOODLE_INTERNAL')) {
+    define('MOODLE_INTERNAL', 1);
+}
 
 function autoload_src() {
     $directory = new \RecursiveDirectoryIterator(__DIR__);
