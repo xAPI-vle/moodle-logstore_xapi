@@ -26,7 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin = is_object($plugin) ? $plugin : new StdClass();
+$plugin = isset($plugin) && is_object($plugin) ? $plugin : new StdClass();
 $plugin->component = 'logstore_xapi';
 $plugin->version = 2018061100;
 $plugin->release = '0.0.0-development';
