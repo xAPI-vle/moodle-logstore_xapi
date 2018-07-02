@@ -25,7 +25,7 @@ function send_batch_to_lrs(array $config, array $statements) {
     $response_text = curl_exec($request);
     $response_code = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
     curl_close($request);
-    
+
     if ($response_code !== 200) {
         throw new \Exception($response_text);
     }

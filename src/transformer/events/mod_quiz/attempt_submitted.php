@@ -9,8 +9,6 @@ function attempt_submitted(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
-    $attempt->name = 'attempt submitted';
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $grade_item = $repo->read_record('grade_items', [
         'itemmodule' => 'quiz',
