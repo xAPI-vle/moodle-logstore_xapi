@@ -6,7 +6,7 @@ use src\transformer\utils as utils;
 
 function attempt_started(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
     // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
