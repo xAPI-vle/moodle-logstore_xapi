@@ -2,7 +2,10 @@
 
 namespace src;
 
-define('MOODLE_INTERNAL', 1);
+// In Moodle this is set, however in testing this is not. So need to set it if not set or leave it be.
+if (!defined('MOODLE_INTERNAL')) {
+    define('MOODLE_INTERNAL', 1);
+}
 
 function autoload_src() {
     $directory = new \RecursiveDirectoryIterator(__DIR__);

@@ -2,9 +2,9 @@
 
 namespace src\transformer\utils;
 
-function get_user(array $config,  \stdClass $user) {
+function get_user(array $config, \stdClass $user) {
     $full_name = get_full_name($user);
-    if ($config['sendmbox'] == true) {
+    if (array_key_exists('sendmbox', $config) && $config['sendmbox'] == true) {
         return [
             'name' => $full_name,
             'mbox' => $user->email,

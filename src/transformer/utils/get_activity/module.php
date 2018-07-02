@@ -10,7 +10,7 @@ function module(array $config, $module_type, $module, $lang) {
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/module',
             'name' => [
-                $lang => $module->name,
+                $lang => property_exists($module_type, 'name') ? $module->name : $module_type,
             ],
         ],
     ];
