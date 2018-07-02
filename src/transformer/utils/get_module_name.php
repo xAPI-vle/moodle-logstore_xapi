@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lkirkland
- * Date: 7/2/2018
- * Time: 10:22
- */
 
 namespace src\transformer\utils;
 
@@ -17,7 +11,8 @@ function get_module_name(array $config, $module_type, $module) {
     }
     // If name has still not been set, then use event functions, and set that as name to avoid error.
     if ($name == '' && array_key_exists('event_function', $config)) {
-        $name = end(explode('\\', $config['event_function']));
+        $event_function = explode('\\', $config['event_function']);
+        $name = end( $event_function);
         $name = str_replace('_', ' ', $name);
     }
 
