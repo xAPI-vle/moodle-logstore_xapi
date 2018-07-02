@@ -15,7 +15,6 @@ function handler($config, $events) {
             'log_error' => $log_error,
             'log_info' => $log_info,
         ], $config['loader']);
-        $log_info('yo');
 
         $statements = \src\transformer\handler($transformer_config, $events);
         \src\loader\handler($loader_config, $statements);
