@@ -6,7 +6,7 @@ use src\transformer\utils as utils;
 
 function user_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
     $lang = $config['source_lang'];
 
     return [[
@@ -14,7 +14,7 @@ function user_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/registered',
             'display' => [
-                $lang => 'registered'
+                $lang => 'registered to'
             ],
         ],
         'object' => utils\get_activity\site($config),
