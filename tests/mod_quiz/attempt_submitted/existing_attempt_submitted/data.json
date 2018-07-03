@@ -2,7 +2,7 @@
     "user": [
         {
             "id": 1,
-            "fullname": "test_fullname",
+            "firstname": "test_fullname",
             "email": "test@test.com"
         }
     ],
@@ -13,7 +13,7 @@
             "lang": "en"
         }
     ],
-    "attempt": [
+    "quiz_attempts": [
         {
             "id": 1,
             "quiz": 1,

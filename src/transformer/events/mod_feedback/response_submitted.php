@@ -1,34 +1,27 @@
 <?php
 
-namespace src\transformer\events\mod_quiz;
+namespace src\transformer\events\mod_feedback;
 
 use src\transformer\utils as utils;
 
-function attempt_submitted(array $config, \stdClass $event) {
+function response_submitted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
-    $attempt->name = 'attempt';
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $grade_item = $repo->read_record('grade_items', [
-        'itemmodule' => 'quiz',
-        'iteminstance' => $quiz->id,
-    ]);
     $lang = utils\get_course_lang($course);
+    $feedback_completed = $repo->read_record_by_id('feedback_completed', $event->objectid);
+    $feedback = $repo->read_record_by_id('feedback', $feedback_completed->feedback);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
+            'id' => 'http://id.tincanapi.com/verb/submitted',
             'display' => [
-                $lang => 'completed'
+                $lang => 'submitted'
             ],
         ],
-        'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
+        'object' => utils\get_activity\feedback($config, $feedback, $lang),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_attempt_result($config, $attempt, $grade_item),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -36,9 +29,6 @@ function attempt_submitted(array $config, \stdClass $event) {
                 utils\info_extension => utils\get_info($config, $event),
             ],
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\module($config, 'attempt', $attempt, $lang),
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
@@ -47,6 +37,6 @@ function attempt_submitted(array $config, \stdClass $event) {
                     utils\get_activity\source($config),
                 ]
             ],
-        ]
+        ],
     ]];
 }

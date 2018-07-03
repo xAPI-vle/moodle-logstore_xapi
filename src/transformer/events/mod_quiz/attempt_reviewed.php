@@ -11,7 +11,7 @@ function attempt_reviewed(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
     // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
-    $attempt->name = 'attempt reviewed';
+    $attempt->name = 'attempt';
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $lang = utils\get_course_lang($course);
 

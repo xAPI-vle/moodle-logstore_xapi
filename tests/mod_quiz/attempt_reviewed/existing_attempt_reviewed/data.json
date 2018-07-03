@@ -2,12 +2,12 @@
     "user": [
         {
             "id": 1,
-            "fullname": "test_instructor_fullname",
+            "firstname": "test_instructor_fullname",
             "email": "instructor@test.com"
         },
         {
             "id": 2,
-            "fullname": "test_learner_fullname",
+            "firstname": "test_learner_fullname",
             "email": "learner@test.com"
         }
     ],
@@ -18,7 +18,7 @@
             "lang": "en"
         }
     ],
-    "attempt": [
+    "quiz_attempts": [
         {
             "id": 1,
             "quiz": 1,

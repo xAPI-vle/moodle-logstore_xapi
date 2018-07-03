@@ -12,5 +12,17 @@
             "fullname": "test_name",
             "lang": "en"
         }
+    ],
+    "feedback_completed": [
+        {
+            "id": 1,
+            "feedback": 1
+        }
+    ],
+    "feedback": [
+        {
+            "id": 1,
+            "name": "test_feedback_name"
+        }
     ]
 }
