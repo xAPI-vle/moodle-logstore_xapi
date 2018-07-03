@@ -9,7 +9,7 @@ function course(array $config, \stdClass $course) {
     $course_lang = utils\get_course_lang($course);
 
     return [
-        'id' => utils\get_activity_url($config, 'course', $course->id),
+        'id' => $config['app_url'].'/course/view.php?id='.$course->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/course',
             'name' => [

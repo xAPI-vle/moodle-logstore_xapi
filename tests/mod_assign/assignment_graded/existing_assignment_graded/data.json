@@ -2,12 +2,12 @@
     "user": [
         {
             "id": 1,
-            "fullname": "test_fullname",
+            "firstname": "test_fullname",
             "email": "test@test.com"
         },
         {
             "id": 2,
-            "fullname": "test2_fullname",
+            "firstname": "test2_fullname",
             "email": "test2@test.com"
         }
     ],

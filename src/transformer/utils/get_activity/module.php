@@ -6,11 +6,11 @@ use src\transformer\utils as utils;
 
 function module(array $config, $module_type, $module, $lang) {
     return [
-        'id' => utils\get_activity_url($config, $module_type, $module->id),
+        'id' => $config['app_url'].'/mod/'.$module_type.'/view.php?id='.$module->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/module',
             'name' => [
-                $lang => property_exists($module_type, 'name') ? $module->name : $module_type,
+                $lang => property_exists($module, 'name') ? $module->name : $module_type,
             ],
         ],
     ];

@@ -14,7 +14,7 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/quiz\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
                 "name": {
@@ -37,11 +37,11 @@
             "contextActivities": {
                 "other": [
                     {
-                        "id": "http:\/\/www.example.org\/attempt\/view.php?id=1",
+                        "id": "http:\/\/www.example.org\/mod\/attempt\/view.php?id=1",
                         "definition": {
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
                             "name": {
-                                "en": null
+                                "en": "attempt"
                             }
                         }
                     }
