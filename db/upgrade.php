@@ -1,5 +1,4 @@
 <?php
-
 defined('MOODLE_INTERNAL') || die();
 
 function xmldb_logstore_xapi_upgrade($oldversion) {
