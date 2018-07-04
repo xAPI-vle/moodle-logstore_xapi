@@ -10,7 +10,7 @@ function handler($config, $events) {
             'log_error' => $log_error,
             'log_info' => $log_info,
         ], $config['transformer']);
-
+        
         $loader_config = array_merge([
             'log_error' => $log_error,
             'log_info' => $log_info,
@@ -20,7 +20,7 @@ function handler($config, $events) {
         \src\loader\handler($loader_config, $statements);
 
         return $statements;
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         $log_error($e);
         return [];
     }

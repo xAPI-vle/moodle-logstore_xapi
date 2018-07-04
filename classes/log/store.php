@@ -92,9 +92,11 @@ class store extends php_obj implements log_writer {
         require_once(__DIR__ . '/../../version.php');
         $log_error = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
+            // error_log($message."\r\n", 3, __DIR__.'/error_log.txt');
         };
         $log_info = function ($message = '') {
             debugging($message, DEBUG_DEVELOPER);
+            // error_log($message."\r\n", 3, __DIR__.'/info_log.txt');
         };
         $handler_config = [
             'log_error' => $log_error,
