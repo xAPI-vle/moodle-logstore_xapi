@@ -1,5 +1,4 @@
 <?php
-
 namespace src\transformer\events\mod_feedback;
 
 defined('MOODLE_INTERNAL') || die();

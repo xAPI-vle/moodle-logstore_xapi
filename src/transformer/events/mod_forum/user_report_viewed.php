@@ -1,5 +1,4 @@
 <?php
-
 namespace src\transformer\events\mod_forum;
 
 defined('MOODLE_INTERNAL') || die();

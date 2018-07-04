@@ -1,5 +1,4 @@
 <?php
-
 namespace src\transformer;
 
 function get_event_function_map() {

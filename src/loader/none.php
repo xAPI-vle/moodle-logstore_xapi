@@ -1,5 +1,4 @@
 <?php
-
 namespace src\loader\none;
 
 defined('MOODLE_INTERNAL') || die();

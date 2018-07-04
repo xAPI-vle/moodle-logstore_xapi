@@ -1,5 +1,4 @@
 <?php
-
 namespace src\transformer;
 defined('MOODLE_INTERNAL') || die();
 
