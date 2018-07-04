@@ -8,7 +8,7 @@ function discussion_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $discussion = $repo->read_record_by_id('forum_discussion', $event->objectid);
+    $discussion = $repo->read_record_by_id('forum_discussions', $event->objectid);
     $lang = utils\get_course_lang($course);
 
     return[[
