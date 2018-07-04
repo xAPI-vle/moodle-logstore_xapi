@@ -44,7 +44,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
         $loginfo = function ($message = '') {
             echo("INFO: $message\n");
         };
-        $handler_config = [
+        $handlerconfig = [
             'log_error' => $logerror,
             'log_info' => $loginfo,
             'transformer' => $this->get_transformer_config(),
@@ -56,7 +56,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
                 'lrs_max_batch_size' => 1,
             ],
         ];
-        $statements = \src\handler($handler_config, [$event]);
+        $statements = \src\handler($handlerconfig, [$event]);
         $this->assert_expected_statements($statements);
         foreach ($statements as $statement) {
             $this->assert_valid_xapi_statement($statement);

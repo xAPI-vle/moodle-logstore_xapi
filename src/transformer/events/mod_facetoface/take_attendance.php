@@ -29,7 +29,7 @@ function take_attendance(array $config, \stdClass $event) {
     $signups = $repo->read_records('facetoface_signups', ['sessionid' => $sessionid]);
     $statements = [];
     $sessionduration = utils\get_session_duration($config, $sessionid);
-    
+
     foreach ($signups as $signup) {
         try {
             $currentstatus = $repo->read_record('facetoface_signups_status', [
@@ -73,8 +73,8 @@ function take_attendance(array $config, \stdClass $event) {
                 array_push($statements, $statement);
             }
         } catch (\Exception $ex) {
-            // @codingStandardsIgnoreLine
             // No current status.
+            continue;
         }
     }
 

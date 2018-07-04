@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer;
+defined('MOODLE_INTERNAL') || die();
 
 function get_event_function_map() {
     return [

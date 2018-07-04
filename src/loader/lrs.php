@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\loader\lrs;
-
 defined('MOODLE_INTERNAL') || die();
 
 function send_batch_to_lrs(array $config, array $statements) {
@@ -41,7 +40,7 @@ function send_batch_to_lrs(array $config, array $statements) {
     $responsetext = curl_exec($request);
     $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
     curl_close($request);
-    
+
     if ($responsecode !== 200) {
         throw new \Exception($responsetext);
     }

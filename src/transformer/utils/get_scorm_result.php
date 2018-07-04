@@ -30,13 +30,13 @@ function get_scorm_result($scormscoestracks, $rawscore) {
     }
 
     if ($maxscore !== null && $minscore !== null) {
-        $scaled_score = get_scaled_score($rawscore, $minscore, $maxscore);
+        $scaledscore = get_scaled_score($rawscore, $minscore, $maxscore);
         return [
             'score' => [
                 'raw' => $rawscore,
                 'min' => $minscore,
                 'max' => $maxscore,
-                'scaled' => $scaled_score,
+                'scaled' => $scaledscore,
             ],
         ];
     }
