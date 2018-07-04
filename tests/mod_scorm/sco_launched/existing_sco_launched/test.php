@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_scorm\sco_launched\existing_sco_launched;
 defined('MOODLE_INTERNAL') || die();
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\core\user_loggedout\existing_user_loggedout;
 defined('MOODLE_INTERNAL') || die();
 

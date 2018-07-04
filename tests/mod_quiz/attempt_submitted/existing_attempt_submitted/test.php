@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_quiz\attempt_submitted\existing_attempt_submitted;
 defined('MOODLE_INTERNAL') || die();
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_facetoface\signup_success\existing_signup_success;
 defined('MOODLE_INTERNAL') || die();
 

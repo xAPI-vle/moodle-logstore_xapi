@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_facetoface\cancel_booking\existing_booking_cancelled;
 defined('MOODLE_INTERNAL') || die();
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_scorm\status_submitted\existing_status_submitted;
 defined('MOODLE_INTERNAL') || die();
 

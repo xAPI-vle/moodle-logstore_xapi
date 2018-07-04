@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\core\user_enrolment_created\existing_user_enrolled;
 defined('MOODLE_INTERNAL') || die();
 

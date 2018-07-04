@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_quiz\attempt_reviewed\existing_attempt_reviewed;
 defined('MOODLE_INTERNAL') || die();
 

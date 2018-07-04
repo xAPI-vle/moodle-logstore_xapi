@@ -1,5 +1,4 @@
 <?php
-
 define('MOODLE_INTERNAL', 1);
 defined('MOODLE_INTERNAL') || die();
 

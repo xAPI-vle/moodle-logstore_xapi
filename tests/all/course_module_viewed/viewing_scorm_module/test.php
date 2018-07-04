@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\all\course_module_viewed\viewing_scorm_module;
 defined('MOODLE_INTERNAL') || die();
 

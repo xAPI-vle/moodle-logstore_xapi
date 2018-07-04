@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\core\user_loggedin\existing_user_loggedin;
 defined('MOODLE_INTERNAL') || die();
 

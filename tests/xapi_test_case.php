@@ -1,5 +1,4 @@
 <?php
-
 namespace tests;
 defined('MOODLE_INTERNAL') || die();
 

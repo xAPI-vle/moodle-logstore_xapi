@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\core\course_viewed\viewing_existing_course;
 defined('MOODLE_INTERNAL') || die();
 

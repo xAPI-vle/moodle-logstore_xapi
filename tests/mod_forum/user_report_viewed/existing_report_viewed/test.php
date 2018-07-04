@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_forum\user_report_viewed\existing_report_viewed;
 defined('MOODLE_INTERNAL') || die();
 

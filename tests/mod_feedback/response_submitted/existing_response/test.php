@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_feedback\response_submitted\existing_response;
 defined('MOODLE_INTERNAL') || die();
 

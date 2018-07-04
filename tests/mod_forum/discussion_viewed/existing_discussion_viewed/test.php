@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_forum\discussion_viewed\existing_discussion_viewed;
 defined('MOODLE_INTERNAL') || die();
 

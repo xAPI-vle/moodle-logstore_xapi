@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_facetoface\take_attendance\existing_attendance_taken;
 defined('MOODLE_INTERNAL') || die();
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace tests\mod_scorm\scoreraw_submitted\existing_scoreraw_submitted;
 defined('MOODLE_INTERNAL') || die();
 
