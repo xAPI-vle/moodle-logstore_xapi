@@ -1,5 +1,4 @@
 <?php
-
 defined('MOODLE_INTERNAL') || die();
 
 $plugin = isset($plugin) && is_object($plugin) ? $plugin : new StdClass();
