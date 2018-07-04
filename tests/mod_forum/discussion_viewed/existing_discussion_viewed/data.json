@@ -13,7 +13,7 @@
             "lang": "en"
         }
     ],
-    "forum_discussion": [
+    "forum_discussions": [
         {
             "id": 1,
             "name": "test_forum_name"

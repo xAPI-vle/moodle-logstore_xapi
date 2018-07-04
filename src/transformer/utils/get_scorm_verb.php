@@ -1,10 +1,11 @@
 <?php
 
 namespace src\transformer\utils;
+defined('MOODLE_INTERNAL') || die();
 
-function get_scorm_verb($scorm_scoes_tracks, $lang) {
+function get_scorm_verb($scormscoestracks, $lang) {
     $scormstatus = null;
-    foreach ($scorm_scoes_tracks as $st) {
+    foreach ($scormscoestracks as $st) {
         if ($st->element == 'cmi.core.lesson_status') {
             $scormstatus = $st->value;
         }

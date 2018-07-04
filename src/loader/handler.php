@@ -2,8 +2,10 @@
 
 namespace src\loader;
 
+defined('MOODLE_INTERNAL') || die();
+
 function handler(array $config, array $statements) {
-    $loader_name = $config['loader'];
-    $load = "\src\loader\\$loader_name\load";
+    $loadername = $config['loader'];
+    $load = "\src\loader\\$loadername\load";
     return $load($config, $statements);
 }

@@ -1,27 +1,28 @@
 <?php
 
 namespace src\transformer\utils;
+defined('MOODLE_INTERNAL') || die();
 
-function get_attempt_result(array $config, $attempt, $grade_item) {
-    $grade_sum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
+function get_attempt_result(array $config, $attempt, $gradeitem) {
+    $gradesum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
 
-    $min_score = (float) ($grade_item->grademin ?: 0);
-    $max_score = (float) ($grade_item->grademax ?: 0);
-    $pass_score = (float) ($grade_item->gradepass ?: null);
+    $minscore = floatval($gradeitem->grademin ?: 0);
+    $maxscore = floatval($gradeitem->grademax ?: 0);
+    $passscore = floatval($gradeitem->gradepass ?: 0);
 
-    $raw_score = cap_raw_score($grade_sum, $min_score, $max_score);
-    $scaled_score = get_scaled_score($raw_score, $min_score, $max_score);
+    $rawscore = cap_raw_score($gradesum, $minscore, $maxscore);
+    $scaledscore = get_scaled_score($rawscore, $minscore, $maxscore);
 
     $completed = isset($attempt->state) ? $attempt->state === 'finished' : false;
-    $success = $grade_sum >= $pass_score;
+    $success = $gradesum >= $passscore;
     $duration = get_attempt_duration($attempt);
 
     return [
         'score' => [
-            'raw' => $raw_score,
-            'min' => $min_score,
-            'max' => $max_score,
-            'scaled' => $scaled_score,
+            'raw' => $rawscore,
+            'min' => $minscore,
+            'max' => $maxscore,
+            'scaled' => $scaledscore,
         ],
         'completion' => $completed,
         'success' => $success,

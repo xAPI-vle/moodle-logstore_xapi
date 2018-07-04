@@ -2,6 +2,8 @@
 
 namespace src\transformer\events\mod_feedback;
 
+defined('MOODLE_INTERNAL') || die();
+
 use src\transformer\utils as utils;
 
 function response_submitted(array $config, \stdClass $event) {
@@ -9,8 +11,8 @@ function response_submitted(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
-    $feedback_completed = $repo->read_record_by_id('feedback_completed', $event->objectid);
-    $feedback = $repo->read_record_by_id('feedback', $feedback_completed->feedback);
+    $feedbackcompleted = $repo->read_record_by_id('feedback_completed', $event->objectid);
+    $feedback = $repo->read_record_by_id('feedback', $feedbackcompleted->feedback);
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -26,7 +28,7 @@ function response_submitted(array $config, \stdClass $event) {
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config, $event),
+                utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'grouping' => [

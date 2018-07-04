@@ -1,18 +1,19 @@
 <?php
 
 namespace src\transformer;
+defined('MOODLE_INTERNAL') || die();
 
 function handler(array $config, array $events) {
-    $event_function_map = get_event_function_map();
-    return array_reduce($events, function ($statements, $event) use ($config, $event_function_map) {
-        $event_obj = (object) $event;
-        $event_name = $event_obj->eventname;
-        $event_function_name = $event_function_map[$event_name];
-        $event_function = '\src\transformer\events\\' . $event_function_name;
-        $event_config = array_merge([
-            'event_function' => $event_function,
+    $eventfunctionmap = get_event_function_map();
+    return array_reduce($events, function ($statements, $event) use ($config, $eventfunctionmap) {
+        $eventobj = (object) $event;
+        $eventname = $eventobj->eventname;
+        $eventfunctionname = $eventfunctionmap[$eventname];
+        $eventfunction = '\src\transformer\events\\' . $eventfunctionname;
+        $eventconfig = array_merge([
+            'event_function' => $eventfunction,
         ], $config);
-        $event_statements = $event_function($event_config, $event_obj);
-        return array_merge($statements, $event_statements);
+        $eventstatements = $eventfunction($eventconfig, $eventobj);
+        return array_merge($statements, $eventstatements);
     }, []);
 }

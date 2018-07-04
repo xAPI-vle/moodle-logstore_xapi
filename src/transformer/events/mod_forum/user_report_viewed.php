@@ -2,6 +2,8 @@
 
 namespace src\transformer\events\mod_forum;
 
+defined('MOODLE_INTERNAL') || die();
+
 use src\transformer\utils as utils;
 
 function user_report_viewed(array $config, \stdClass $event) {
@@ -25,7 +27,7 @@ function user_report_viewed(array $config, \stdClass $event) {
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config, $event),
+                utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'grouping' => [

@@ -1,6 +1,7 @@
 <?php
 
 namespace src\transformer\utils\get_activity;
+defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 

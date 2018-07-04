@@ -17,7 +17,7 @@
         {
             "id": 1,
             "quiz": 1,
-            "sumgrades": 51,
+            "sumgrades": 50,
             "state": "finished",
             "timefinish": 1,
             "timestart": 0
@@ -34,8 +34,8 @@
             "id": 1,
             "iteminstance": 1,
             "itemmodule": "quiz",
-            "grademin": 1,
-            "grademax": 101,
+            "grademin": 0,
+            "grademax": 100,
             "gradepass": 50
         }
     ]

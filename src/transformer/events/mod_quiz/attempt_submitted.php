@@ -2,6 +2,8 @@
 
 namespace src\transformer\events\mod_quiz;
 
+defined('MOODLE_INTERNAL') || die();
+
 use src\transformer\utils as utils;
 
 function attempt_submitted(array $config, \stdClass $event) {
@@ -12,7 +14,7 @@ function attempt_submitted(array $config, \stdClass $event) {
     // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
     $attempt->name = 'attempt';
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $grade_item = $repo->read_record('grade_items', [
+    $gradeitem = $repo->read_record('grade_items', [
         'itemmodule' => 'quiz',
         'iteminstance' => $quiz->id,
     ]);
@@ -28,12 +30,12 @@ function attempt_submitted(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_attempt_result($config, $attempt, $grade_item),
+        'result' => utils\get_attempt_result($config, $attempt, $gradeitem),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config, $event),
+                utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'other' => [

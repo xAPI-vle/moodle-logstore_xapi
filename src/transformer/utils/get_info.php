@@ -1,6 +1,7 @@
 <?php
 
 namespace src\transformer\utils;
+defined('MOODLE_INTERNAL') || die();
 
 function get_info(array $config, \stdClass $event) {
     return [

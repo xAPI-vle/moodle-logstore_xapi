@@ -2,6 +2,8 @@
 
 namespace src\transformer\events\core;
 
+defined('MOODLE_INTERNAL') || die();
+
 use src\transformer\utils as utils;
 
 function course_completed(array $config, \stdClass $event) {
@@ -24,7 +26,7 @@ function course_completed(array $config, \stdClass $event) {
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => [
-                utils\info_extension => utils\get_info($config, $event),
+                utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
                 'grouping' => [

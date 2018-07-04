@@ -25,9 +25,9 @@
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
             "score": {
-                "raw": 51,
-                "min": 1,
-                "max": 101,
+                "raw": 50,
+                "min": 0,
+                "max": 100,
                 "scaled": 0.5
             },
             "completion": true,

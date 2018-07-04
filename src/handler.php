@@ -2,26 +2,28 @@
 
 namespace src;
 
+defined('MOODLE_INTERNAL') || die();
+
 function handler($config, $events) {
-    $log_error = $config['log_error'];
-    $log_info = $config['log_info'];
+    $logerror = $config['log_error'];
+    $loginfo = $config['log_info'];
     try {
-        $transformer_config = array_merge([
-            'log_error' => $log_error,
-            'log_info' => $log_info,
+        $transformerconfig = array_merge([
+            'log_error' => $logerror,
+            'log_info' => $loginfo,
         ], $config['transformer']);
-        
-        $loader_config = array_merge([
-            'log_error' => $log_error,
-            'log_info' => $log_info,
+
+        $loaderconfig = array_merge([
+            'log_error' => $logerror,
+            'log_info' => $loginfo,
         ], $config['loader']);
 
-        $statements = \src\transformer\handler($transformer_config, $events);
-        \src\loader\handler($loader_config, $statements);
+        $statements = \src\transformer\handler($transformerconfig, $events);
+        \src\loader\handler($loaderconfig, $statements);
 
         return $statements;
     } catch (\Exception $e) {
-        $log_error($e);
+        $logerror($e);
         return [];
     }
 }

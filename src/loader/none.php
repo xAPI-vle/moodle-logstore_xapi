@@ -2,4 +2,7 @@
 
 namespace src\loader\none;
 
-function load(array $config, array $statements) {}
+defined('MOODLE_INTERNAL') || die();
+
+function load(array $config, array $statements) {
+}

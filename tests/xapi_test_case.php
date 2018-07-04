@@ -1,21 +1,6 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests;
-
 defined('MOODLE_INTERNAL') || die();
 
 use \PHPUnit_Framework_TestCase as PhpUnitTestCase;
@@ -39,15 +24,15 @@ abstract class xapi_test_case extends PhpUnitTestCase {
 
     public function test_create_event() {
         $event = $this->get_event();
-        $log_error = function ($message = '') {
+        $logerror = function ($message = '') {
             echo("ERROR: $message\n");
         };
-        $log_info = function ($message = '') {
+        $loginfo = function ($message = '') {
             echo("INFO: $message\n");
         };
         $handler_config = [
-            'log_error' => $log_error,
-            'log_info' => $log_info,
+            'log_error' => $logerror,
+            'log_info' => $loginfo,
             'transformer' => $this->get_transformer_config(),
             'loader' => [
                 'loader' => 'none',
@@ -65,7 +50,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     }
 
     protected function get_transformer_config() {
-        $test_data = $this->get_test_data();
+        $testdata = $this->get_test_data();
         return [
             'source_url' => 'http://moodle.org',
             'source_name' => 'Moodle',
@@ -74,7 +59,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
             'send_mbox' => false,
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
-            'repo' => new \src\transformer\repos\TestRepository($test_data),
+            'repo' => new \src\transformer\repos\TestRepository($testdata),
             'app_url' => 'http://www.example.org'
         ];
     }
@@ -88,8 +73,8 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     }
 
     private function assert_expected_statements($statements) {
-        $expected_statements = $this->get_expected_statements();
-        $actual_statements = json_encode($statements, JSON_PRETTY_PRINT);
-        $this->assertEquals($expected_statements, $actual_statements);
+        $expectedstatements = $this->get_expected_statements();
+        $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);
+        $this->assertEquals($expectedstatements, $actualstatements);
     }
 }
