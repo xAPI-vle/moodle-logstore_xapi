@@ -80,7 +80,7 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
         global $DB;
         global $CFG;
-        require_once(__DIR__ . '/../../version.php');
+        require(__DIR__ . '/../../version.php');
         $logerror = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };
