@@ -109,7 +109,8 @@ class store extends php_obj implements log_writer {
                 'lrs_max_batch_size' => $this->get_config('maxbatchsize', 100),
             ],
         ];
-        \src\handler($handlerconfig, $events);
+        $loadedevents = \src\handler($handlerconfig, $events);
+        return $loadedevents;
     }
 
     /**

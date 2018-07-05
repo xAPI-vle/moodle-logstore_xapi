@@ -26,6 +26,7 @@ function assignment_graded(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $grade->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $instructor = $repo->read_record_by_id('user', $event->userid);
+    $assignment = $repo->read_record_by_id('assign', $grade->assignment);
     $lang = utils\get_course_lang($course);
 
     $gradecomment = $repo->read_record('assignfeedback_comments', [
@@ -60,10 +61,10 @@ function assignment_graded(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/scored',
             'display' => [
-                $lang => 'scored'
+                $lang => 'attained grade for'
             ],
         ],
-        'object' => utils\get_activity\event_module($config, $event, $lang),
+        'object' => utils\get_activity\module($config, 'assign', $assignment, $lang),
         'result' => [
             'score' => [
                 'raw' => $scoreraw,
@@ -83,9 +84,12 @@ function assignment_graded(array $config, \stdClass $event) {
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
+                'other' => [
+                    utils\get_activity\event_module($config, $event, $lang)
+                ],
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
+                    utils\get_activity\course($config, $course)
                 ],
                 'category' => [
                     utils\get_activity\source($config),

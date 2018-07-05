@@ -30,7 +30,7 @@ function user_loggedin(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
             'display' => [
-                $lang => 'logged in'
+                $lang => 'logged into'
             ],
         ],
         'object' => utils\get_activity\site($config),

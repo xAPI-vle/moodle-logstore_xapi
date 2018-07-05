@@ -30,7 +30,7 @@ function user_loggedout(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedout/',
             'display' => [
-                $lang => 'logged out'
+                $lang => 'logged out of'
             ],
         ],
         'object' => utils\get_activity\site($config),

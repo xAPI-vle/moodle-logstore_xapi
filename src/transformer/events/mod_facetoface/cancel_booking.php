@@ -31,7 +31,7 @@ function cancel_booking(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/unregistered',
             'display' => [
-                $lang => 'unregistered'
+                $lang => 'unregistered from'
             ],
         ],
         'object' => utils\get_activity\event_module($config, $event, $lang),

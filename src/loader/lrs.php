@@ -17,13 +17,23 @@
 namespace src\loader\lrs;
 defined('MOODLE_INTERNAL') || die();
 
-function send_batch_to_lrs(array $config, array $statements) {
+function correct_endpoint($endpoint) {
+    $nostatements = trim($endpoint, 'statements');
+    $noslash = trim($nostatements, '/');
+    return $noslash;
+}
+
+function load_transormed_events_to_lrs(array $config, array $transformedevents) {
     $endpoint = $config['lrs_endpoint'];
     $username = $config['lrs_username'];
     $password = $config['lrs_password'];
 
-    $url = $endpoint.'/statements';
+    $url = correct_endpoint($endpoint).'/statements';
     $auth = base64_encode($username.':'.$password);
+    $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
+        $eventstatements = $transformedevent['statements'];
+        return array_merge($result, $eventstatements);
+    }, []);
     $postdata = json_encode($statements);
 
     $request = curl_init();
@@ -43,20 +53,25 @@ function send_batch_to_lrs(array $config, array $statements) {
 
     if ($responsecode !== 200) {
         throw new \Exception($responsetext);
+        return [];
     }
+    
+    return $transformedevents;
 }
 
-function get_statement_batches(array $config, array $statements) {
+function get_event_batches(array $config, array $transformedevents) {
     $maxbatchsize = $config['lrs_max_batch_size'];
-    if (!empty($maxbatchsize) && $maxbatchsize < count($statements)) {
-        return array_chunk($statements, $maxbatchsize);
+    if (!empty($maxbatchsize) && $maxbatchsize < count($transformedevents)) {
+        return array_chunk($transformedevents, $maxbatchsize);
     }
-    return [$statements];
+    return [$transformedevents];
 }
 
-function load(array $config, array $statements) {
-    $batches = get_statement_batches($config, $statements);
-    foreach ($batches as $batch) {
-        send_batch_to_lrs($config, $batch);
-    }
+function load(array $config, array $transformedevents) {
+    $batches = get_event_batches($config, $transformedevents);
+    $loadedevents = array_reduce($batches, function ($result, $batch) use ($config) {
+        $loadedbatchevents = load_transormed_events_to_lrs($config, $batch);
+        return array_merge($result, $loadedbatchevents);
+    }, []);
+    return $loadedevents;
 }

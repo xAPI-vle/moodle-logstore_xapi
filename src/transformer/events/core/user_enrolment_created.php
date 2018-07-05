@@ -31,7 +31,7 @@ function user_enrolment_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/registered',
             'display' => [
-                $lang => 'registered'
+                $lang => 'enrolled to'
             ],
         ],
         'object' => utils\get_activity\course($config, $course),

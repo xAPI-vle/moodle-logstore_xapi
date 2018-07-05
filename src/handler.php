@@ -32,10 +32,10 @@ function handler($config, $events) {
             'log_info' => $loginfo,
         ], $config['loader']);
 
-        $statements = \src\transformer\handler($transformerconfig, $events);
-        \src\loader\handler($loaderconfig, $statements);
+        $transformedevents = \src\transformer\handler($transformerconfig, $events);
+        $loadedevents = \src\loader\handler($loaderconfig, $transformedevents);
 
-        return $statements;
+        return $loadedevents;
     } catch (\Exception $e) {
         $logerror($e);
         return [];

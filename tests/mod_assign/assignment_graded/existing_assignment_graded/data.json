@@ -18,13 +18,18 @@
             "lang": "en"
         }
     ],
+    "assign": [
+        {
+            "id": 1,
+            "name": "test_name"
+        }
+    ],
     "grade": [
         {
             "id": 1,
             "userid": 2,
             "assignment": 1,
-            "grade": 1,
-            "name": "test_name"
+            "grade": 1
         }
     ],
     "assignfeedback_comments": [

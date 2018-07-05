@@ -18,5 +18,6 @@ namespace src\loader\none;
 
 defined('MOODLE_INTERNAL') || die();
 
-function load(array $config, array $statements) {
+function load(array $config, array $transformedevents) {
+    return $transformedevents;
 }

@@ -56,7 +56,11 @@ abstract class xapi_test_case extends PhpUnitTestCase {
                 'lrs_max_batch_size' => 1,
             ],
         ];
-        $statements = \src\handler($handlerconfig, [$event]);
+        $loadedevents = \src\handler($handlerconfig, [$event]);
+        $statements = array_reduce($loadedevents, function ($result, $loadedevent) {
+            $eventstatements = $loadedevent['statements'];
+            return array_merge($result, $eventstatements);
+        }, []);
         $this->assert_expected_statements($statements);
         foreach ($statements as $statement) {
             $this->assert_valid_xapi_statement($statement);

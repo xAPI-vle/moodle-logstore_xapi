@@ -18,6 +18,11 @@ namespace src\loader\log;
 
 defined('MOODLE_INTERNAL') || die();
 
-function load(array $config, array $statements) {
+function load(array $config, array $transformedevents) {
+    $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
+        $eventstatements = $transformedevent['statements'];
+        return array_merge($result, $eventstatements);
+    }, []);
     echo(json_encode($statements, JSON_PRETTY_PRINT)."\n");
+    return $transformedevents;
 }
