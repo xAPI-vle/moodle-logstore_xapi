@@ -36,7 +36,8 @@
         {
             "id": 1,
             "assignment": 1,
-            "grade": 1
+            "grade": 1,
+            "commenttext": "test_comment_text"
         }
     ],
     "grade_items": [
