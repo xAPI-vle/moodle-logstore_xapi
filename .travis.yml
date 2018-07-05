@@ -41,7 +41,8 @@ script:
   - moodle-plugin-ci savepoints
 # - moodle-plugin-ci mustache
 # - moodle-plugin-ci grunt
-  - moodle-plugin-ci phpunit
+  - pwd
+  - cd $TRAVIS_BUILD_DIR && ./vendor/bin/phpunit && cd ../..
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory

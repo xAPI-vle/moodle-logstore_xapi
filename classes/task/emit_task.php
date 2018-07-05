@@ -14,19 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Process events in queue.
- *
- * @package    logstore_xapi
- * @copyright  2015 Michael Aherne
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 namespace logstore_xapi\task;
+defined('MOODLE_INTERNAL') || die();
 
 use tool_log\log\manager;
 use logstore_xapi\log\store;
-defined('MOODLE_INTERNAL') || die();
 
 class emit_task extends \core\task\scheduled_task {
 
@@ -45,18 +37,14 @@ class emit_task extends \core\task\scheduled_task {
      */
     public function execute() {
         global $DB;
-
         $manager = get_log_manager();
         $store = new store($manager);
-        $events = $DB->get_records('logstore_xapi_log');
-        $storereturn = $store->process_events($events);
-        foreach (array_keys($storereturn) as $eventid) {
-            if ($storereturn[$eventid] == 'success') {
-                $DB->delete_records_list('logstore_xapi_log', 'id', array($eventid));
-                mtrace("Event id ".$eventid." has been successfully sent to LRS.");
-            }
-        }
-
-        mtrace("Sent learning records to LRS.");
+        $extractedevents = $DB->get_records('logstore_xapi_log');
+        $loadedevents = $store->process_events($extractedevents);
+        $loadedeventids = array_map(function ($transformedevent) {
+            return $transformedevent['eventid'];
+        }, $loadedevents);
+        $DB->delete_records_list('logstore_xapi_log', 'id', $loadedeventids);
+        mtrace("Events (".$loadedeventids.") have been successfully sent to LRS.");
     }
 }
