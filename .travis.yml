@@ -23,7 +23,7 @@ before_install:
   - echo "Travis branch $TRAVIS_BRANCH"
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
-  - nvm install 8
+  - nvm install 8.9
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
