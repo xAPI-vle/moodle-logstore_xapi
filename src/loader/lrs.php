@@ -55,7 +55,7 @@ function load_transormed_events_to_lrs(array $config, array $transformedevents) 
         throw new \Exception($responsetext);
         return [];
     }
-    
+
     return $transformedevents;
 }
 
