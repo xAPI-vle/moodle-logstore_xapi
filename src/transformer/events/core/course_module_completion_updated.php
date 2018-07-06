@@ -20,13 +20,13 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function course_module_completion_update(array $config, \stdClass $event) {
+function course_module_completion_updated(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $coursemodule = $repo->read_record_by_id('course_module', $event->contextinstanceid);
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $moduletype = $repo->read_record_by_id('modules', $coursemodule->module);
-    $module = $repo->read_record_by_id($moduletype, $coursemodule->instance);
+    $module = $repo->read_record_by_id($moduletype->name, $coursemodule->instance);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -37,7 +37,7 @@ function course_module_completion_update(array $config, \stdClass $event) {
                 $lang => 'completed'
             ],
         ],
-        'object' => utils\get_activity\module($config, $moduletype, $module, $lang),
+        'object' => utils\get_activity\module($config, $moduletype->name, $module, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
