@@ -43,6 +43,10 @@ if ($hassiteconfig) {
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
+        get_string('shortcourseid', 'logstore_xapi'),
+        get_string('shortcourseid_desc', 'logstore_xapi'), 0));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),

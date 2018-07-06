@@ -41,3 +41,5 @@ $string['logguests'] = 'Log guest actions';
 $string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
 $string['mbox'] = 'Send user email';
 $string['mbox_desc'] = 'Statements identify the user with its email (mbox) or with its userid on the moodle platform (account). Checking this will send the email (mbox).';
+$string['shortcourseid'] = 'Send short course name';
+$string['shortcourseid_desc'] = 'Statements will contain the shortname for a course as a short course id extension';
