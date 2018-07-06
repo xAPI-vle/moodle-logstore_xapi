@@ -28,7 +28,7 @@ $string['username'] = 'Username';
 $string['xapisettingstitle'] = 'Logstore xAPI Settings';
 $string['backgroundmode'] = 'Send statements by scheduled task?';
 $string['backgroundmode_desc'] = 'This will force Moodle to send the statements to the LRS in the background,
-        via a cron task. This will make the process less close to real time, but will help to prevent unpredictable
+        via a cron task to avoid blocking page responses. This will make the process less close to real time, but will help to prevent unpredictable
         Moodle performance linked to the performance of the LRS.';
 $string['maxbatchsize'] = 'Maximum batch size';
 $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
