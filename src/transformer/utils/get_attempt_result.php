@@ -25,7 +25,7 @@ function get_attempt_result(array $config, $attempt, $grade_item) {
             'max' => $max_score,
             'scaled' => $scaled_score,
         ],
-        'response' => utils\get_attempt_responses($config, $attempt, $grade_item),
+        'responses' => utils\get_attempt_responses($config, $attempt, $grade_item),
         'completion' => $completed,
         'success' => $success,
         'duration' => $duration,
