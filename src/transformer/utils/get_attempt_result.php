@@ -2,6 +2,8 @@
 
 namespace src\transformer\utils;
 
+use src\transformer\utils as utils;
+
 function get_attempt_result(array $config, $attempt, $grade_item) {
     $grade_sum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
 
@@ -23,6 +25,7 @@ function get_attempt_result(array $config, $attempt, $grade_item) {
             'max' => $max_score,
             'scaled' => $scaled_score,
         ],
+        'response' => utils\get_attempt_responses($config, $attempt, $grade_item),
         'completion' => $completed,
         'success' => $success,
         'duration' => $duration,
