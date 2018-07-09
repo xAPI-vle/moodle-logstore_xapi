@@ -24,7 +24,7 @@ function get_attempt_result(array $config, $attempt, $grade_item) {
 
     $min_score = (float)($grade_item->grademin ? $grade_item->grademin : 0);
     $max_score = (float)($grade_item->grademax ? $grade_item->grademax : 0);
-    $pass_score = (float)($grade_item->gradepass ? $grade_item->gradepass : null);
+    $pass_score = (float)($grade_item->gradepass ? $grade_item->gradepass : 0);
 
     $raw_score = floatval((cap_raw_score($grade_sum, $min_score, $max_score)));
     $scaled_score = floatval((get_scaled_score($raw_score, $min_score, $max_score)));
