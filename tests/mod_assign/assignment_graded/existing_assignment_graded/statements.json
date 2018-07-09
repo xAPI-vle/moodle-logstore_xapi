@@ -10,11 +10,11 @@
         "verb": {
             "id": "http:\/\/adlnet.gov\/expapi\/verbs\/scored",
             "display": {
-                "en": "scored"
+                "en": "attained grade for"
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/grade\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/assign\/view.php?id=1",
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
                 "name": {
@@ -30,7 +30,7 @@
                 "scaled": 0.5
             },
             "completion": true,
-            "response": null
+            "response": "test_comment_text"
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "context": {
@@ -52,6 +52,17 @@
                 }
             },
             "contextActivities": {
+                "other": [
+                    {
+                        "id": "http:\/\/www.example.org\/mod\/grade\/view.php?id=1",
+                        "definition": {
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                            "name": {
+                                "en": "grade"
+                            }
+                        }
+                    }
+                ],
                 "grouping": [
                     {
                         "id": "http:\/\/www.example.org",

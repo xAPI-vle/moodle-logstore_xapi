@@ -10,7 +10,7 @@
         "verb": {
             "id": "http:\/\/adlnet.gov\/expapi\/verbs\/registered",
             "display": {
-                "en": "registered"
+                "en": "enrolled to"
             }
         },
         "object": {

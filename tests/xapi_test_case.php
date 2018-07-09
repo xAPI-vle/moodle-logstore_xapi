@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests;
-
 defined('MOODLE_INTERNAL') || die();
 
 use \PHPUnit_Framework_TestCase as PhpUnitTestCase;
@@ -39,15 +38,15 @@ abstract class xapi_test_case extends PhpUnitTestCase {
 
     public function test_create_event() {
         $event = $this->get_event();
-        $log_error = function ($message = '') {
+        $logerror = function ($message = '') {
             echo("ERROR: $message\n");
         };
-        $log_info = function ($message = '') {
+        $loginfo = function ($message = '') {
             echo("INFO: $message\n");
         };
-        $handler_config = [
-            'log_error' => $log_error,
-            'log_info' => $log_info,
+        $handlerconfig = [
+            'log_error' => $logerror,
+            'log_info' => $loginfo,
             'transformer' => $this->get_transformer_config(),
             'loader' => [
                 'loader' => 'none',
@@ -57,7 +56,11 @@ abstract class xapi_test_case extends PhpUnitTestCase {
                 'lrs_max_batch_size' => 1,
             ],
         ];
-        $statements = \src\handler($handler_config, [$event]);
+        $loadedevents = \src\handler($handlerconfig, [$event]);
+        $statements = array_reduce($loadedevents, function ($result, $loadedevent) {
+            $eventstatements = $loadedevent['statements'];
+            return array_merge($result, $eventstatements);
+        }, []);
         $this->assert_expected_statements($statements);
         foreach ($statements as $statement) {
             $this->assert_valid_xapi_statement($statement);
@@ -65,7 +68,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     }
 
     protected function get_transformer_config() {
-        $test_data = $this->get_test_data();
+        $testdata = $this->get_test_data();
         return [
             'source_url' => 'http://moodle.org',
             'source_name' => 'Moodle',
@@ -74,7 +77,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
             'send_mbox' => false,
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
-            'repo' => new \src\transformer\repos\TestRepository($test_data),
+            'repo' => new \src\transformer\repos\TestRepository($testdata),
             'app_url' => 'http://www.example.org'
         ];
     }
@@ -88,8 +91,8 @@ abstract class xapi_test_case extends PhpUnitTestCase {
     }
 
     private function assert_expected_statements($statements) {
-        $expected_statements = $this->get_expected_statements();
-        $actual_statements = json_encode($statements, JSON_PRETTY_PRINT);
-        $this->assertEquals($expected_statements, $actual_statements);
+        $expectedstatements = $this->get_expected_statements();
+        $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);
+        $this->assertEquals($expectedstatements, $actualstatements);
     }
 }
