@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\repos;
+defined('MOODLE_INTERNAL') || die();
 
 use \stdClass as PhpObj;
-use Exception;
 
 abstract class Repository extends PhpObj {
 
@@ -33,14 +33,14 @@ abstract class Repository extends PhpObj {
      * Reads an object from the store with the given type and query.
      * @param String $type
      * @param [String => Mixed] $query
-     * @throws Exception if the record was not found
+     * @throws \Exception if the record was not found
      * @return PhpObj
      */
     public function read_record($type, array $query) {
         $records = $this->read_records($type, $query);
         $record = $records[0];
         if (!$record) {
-            throw new Exception("$type not found.");
+            throw new \Exception("$type not found.");
         }
         return $record;
     }

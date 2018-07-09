@@ -1,27 +1,67 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
+defined('MOODLE_INTERNAL') || die();
 
-function get_scorm_result($scorm_scoes_tracks, $raw_score) {
-    $max_score = null;
-    $min_score = null;
+function get_scorm_result($scormscoestracks, $rawscore) {
+    $maxscore = null;
+    $minscore = null;
 
-    foreach ($scorm_scoes_tracks as $st) {
+    foreach ($scormscoestracks as $st) {
         if ($st->element == 'cmi.core.score.min') {
-            $min_score = $st->value;
+            $minscore = floatval($st->value);
         } else if ($st->element == 'cmi.core.score.max') {
-            $max_score = $st->value;
+            $maxscore = floatval($st->value);
         }
     }
-    
-    $scaled_score = get_scaled_score($raw_score, $min_score, $max_score);
+
+    if ($maxscore !== null && $minscore !== null) {
+        $scaledscore = get_scaled_score($rawscore, $minscore, $maxscore);
+        return [
+            'score' => [
+                'raw' => $rawscore,
+                'min' => $minscore,
+                'max' => $maxscore,
+                'scaled' => $scaledscore,
+            ],
+        ];
+    }
+
+    if ($maxscore !== null && $minscore === null) {
+        return [
+            'score' => [
+                'raw' => $rawscore,
+                'max' => $maxscore,
+            ],
+        ];
+    }
+
+    if ($maxscore === null && $minscore !== null) {
+        return [
+            'score' => [
+                'raw' => $rawscore,
+                'min' => $minscore,
+            ],
+        ];
+    }
 
     return [
         'score' => [
-            'raw' => $raw_score,
-            'min' => $min_score,
-            'max' => $max_score,
-            'scaled' => $scaled_score
+            'raw' => $rawscore,
         ],
     ];
 }

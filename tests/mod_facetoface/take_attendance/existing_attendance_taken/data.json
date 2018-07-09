@@ -2,12 +2,12 @@
     "user": [
         {
             "id": 1,
-            "fullname": "test_instructor_name",
+            "firstname": "test_instructor_name",
             "email": "instructor@test.com"
         },
         {
             "id": 2,
-            "fullname": "test_attendee_name",
+            "firstname": "test_attendee_name",
             "email": "attendee@test.com"
         }
     ],

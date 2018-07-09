@@ -14,15 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * External xapi log store plugin
- *
- * @package    logstore_xapi
- * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
- *                  Ryan Smith <ryan.smith@ht2.co.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/src/autoload.php');
@@ -61,9 +52,9 @@ if ($hassiteconfig) {
         get_string('logguests', 'logstore_xapi'), '', '0'));
 
     $menuroutes = [];
-    $event_function_map = \src\transformer\get_event_function_map();
-    foreach (array_keys($event_function_map) as $event_name) {
-        $menuroutes[$event_name] = $event_name;
+    $eventfunctionmap = \src\transformer\get_event_function_map();
+    foreach (array_keys($eventfunctionmap) as $eventname) {
+        $menuroutes[$eventname] = $eventname;
     }
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',

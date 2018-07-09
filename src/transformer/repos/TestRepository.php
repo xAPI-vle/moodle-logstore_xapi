@@ -15,16 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\repos;
+defined('MOODLE_INTERNAL') || die();
 
 use \stdClass as PhpObj;
 
 require_once(__DIR__.'/Repository.php');
 
 class TestRepository extends Repository {
-    private $test_data;
+    private $testdata;
 
-    public function __construct($test_data) {
-        $this->test_data = $test_data;
+    public function __construct($testdata) {
+        $this->testdata = $testdata;
     }
 
     /**
@@ -34,7 +35,7 @@ class TestRepository extends Repository {
      * @return PhpArr
      */
     public function read_records($type, array $query) {
-        $records = $this->test_data->$type;
+        $records = $this->testdata->$type;
         $matchingrecords = [];
 
         foreach ($records as $record) {

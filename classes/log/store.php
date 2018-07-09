@@ -14,15 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * External xapi log store plugin
- *
- * @package    logstore_xapi
- * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
- *                  Ryan Smith <ryan.smith@ht2.co.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
@@ -60,15 +51,15 @@ class store extends php_obj implements log_writer {
      *
      */
     protected function is_event_ignored(event_base $event) {
-        $is_logging_guests = $this->get_config('logguests', 1);
-        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$is_logging_guests && isguestuser()) {
+        $allowguestlogging = $this->get_config('logguests', 1);
+        if ((!CLI_SCRIPT || PHPUNIT_TEST) && !$allowguestlogging && isguestuser()) {
             // Always log inside CLI scripts because we do not login there.
             return true;
         }
 
-        $enabled_events = explode(',', $this->get_config('routes', ''));
-        $is_disabled_event = !in_array($event->eventname, $enabled_events);
-        return $is_disabled_event;
+        $enabledevents = explode(',', $this->get_config('routes', ''));
+        $isdisabledevent = !in_array($event->eventname, $enabledevents);
+        return $isdisabledevent;
     }
 
     /**
@@ -89,16 +80,16 @@ class store extends php_obj implements log_writer {
     public function process_events(array $events) {
         global $DB;
         global $CFG;
-        require_once(__DIR__ . '/../../version.php');
-        $log_error = function ($message = '') {
+        require(__DIR__ . '/../../version.php');
+        $logerror = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };
-        $log_info = function ($message = '') {
+        $loginfo = function ($message = '') {
             debugging($message, DEBUG_DEVELOPER);
         };
-        $handler_config = [
-            'log_error' => $log_error,
-            'log_info' => $log_info,
+        $handlerconfig = [
+            'log_error' => $logerror,
+            'log_info' => $loginfo,
             'transformer' => [
                 'source_url' => 'http://moodle.org',
                 'source_name' => 'Moodle',
@@ -118,7 +109,8 @@ class store extends php_obj implements log_writer {
                 'lrs_max_batch_size' => $this->get_config('maxbatchsize', 100),
             ],
         ];
-        \src\handler($handler_config, $events);
+        $loadedevents = \src\handler($handlerconfig, $events);
+        return $loadedevents;
     }
 
     /**
