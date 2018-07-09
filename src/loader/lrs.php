@@ -51,7 +51,6 @@ function load_transormed_events_to_lrs(array $config, array $transformedevents) 
     $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
     curl_close($request);
 
-
     if ($responsecode !== 200) {
         throw new \Exception($responsetext);
         return [];
