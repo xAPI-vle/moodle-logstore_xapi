@@ -33,7 +33,7 @@ if ($hassiteconfig) {
     // Switch background batch mode on.
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
         get_string('backgroundmode', 'logstore_xapi'),
-        get_string('backgroundmode_desc', 'logstore_xapi'), 0));
+        get_string('backgroundmode_desc', 'logstore_xapi'), 1));
 
     $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsize',
         get_string('maxbatchsize', 'logstore_xapi'),
@@ -46,6 +46,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
         get_string('shortcourseid', 'logstore_xapi'),
         get_string('shortcourseid_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/username',
+        get_string('username', 'logstore_xapi'),
+        get_string('username_desc', 'logstore_xapi'), 0));
 
     // Filters.
     $settings->add(new admin_setting_heading('filters',

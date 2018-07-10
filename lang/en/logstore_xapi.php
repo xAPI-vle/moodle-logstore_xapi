@@ -28,7 +28,7 @@ $string['username'] = 'Username';
 $string['xapisettingstitle'] = 'Logstore xAPI Settings';
 $string['backgroundmode'] = 'Send statements by scheduled task?';
 $string['backgroundmode_desc'] = 'This will force Moodle to send the statements to the LRS in the background,
-        via a cron task. This will make the process less close to real time, but will help to prevent unpredictable
+        via a cron task to avoid blocking page responses. This will make the process less close to real time, but will help to prevent unpredictable
         Moodle performance linked to the performance of the LRS.';
 $string['maxbatchsize'] = 'Maximum batch size';
 $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
@@ -39,7 +39,9 @@ $string['routes'] = 'Include actions with these routes';
 $string['filters'] = 'Filter logs';
 $string['logguests'] = 'Log guest actions';
 $string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
-$string['mbox'] = 'Send user email';
-$string['mbox_desc'] = 'Statements identify the user with its email (mbox) or with its userid on the moodle platform (account). Checking this will send the email (mbox).';
+$string['mbox'] = 'Identify users by email';
+$string['mbox_desc'] = 'Statements will identify users with their email (mbox) when this box is ticked.';
+$string['username'] = 'Identify users by id';
+$string['username_desc'] = 'Statements will identify users with their username when this box is ticked, but only if identifying users by email is disabled.';
 $string['shortcourseid'] = 'Send short course name';
 $string['shortcourseid_desc'] = 'Statements will contain the shortname for a course as a short course id extension';
