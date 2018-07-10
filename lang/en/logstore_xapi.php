@@ -43,3 +43,5 @@ $string['mbox'] = 'Identify users by email';
 $string['mbox_desc'] = 'Statements will identify users with their email (mbox) when this box is ticked.';
 $string['username'] = 'Identify users by id';
 $string['username_desc'] = 'Statements will identify users with their username when this box is ticked, but only if identifying users by email is disabled.';
+$string['shortcourseid'] = 'Send short course name';
+$string['shortcourseid_desc'] = 'Statements will contain the shortname for a course as a short course id extension';
