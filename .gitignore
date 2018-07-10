@@ -1,5 +1,6 @@
 .DS_STORE
 /.idea
+/.vscode
 /*.sublime-project
 /*.sublime-workspace
 /classes/log/error_log.txt

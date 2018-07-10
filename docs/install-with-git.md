@@ -1,4 +1,4 @@
-# Installating with the Git repository
+# Installing with the Git repository
 If you're here, it's probably because you want to improve the plugin ❤️. Firstly you'll need to fork the Github repository so that you have your own copy of it. You can fork the repository by clicking the "Fork" button to the right of the repository's name.
 
 Once you've forked the repository, open your terminal and navigate to the root directory of your Moodle installation. In that directory you need to change to the directory where the plugin needs to be installed which is the `admin/tool/log/store` directory. If you've already installed the plugin before with the zip file, there will be an `xapi` folder in this directory and you need to delete it before we move on.

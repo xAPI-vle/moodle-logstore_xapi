@@ -16,14 +16,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/**
- * xAPI log store upgrade.
- *
- * @package    logstore_xapi
- * @copyright  2015 Michael Aherne
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 function xmldb_logstore_xapi_upgrade($oldversion) {
     global $CFG, $DB;
 

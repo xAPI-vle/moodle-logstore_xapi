@@ -2,12 +2,12 @@
     "user": [
         {
             "id": 1,
-            "fullname": "test_fullname",
+            "firstname": "test_fullname",
             "email": "test@test.com"
         },
         {
             "id": 2,
-            "fullname": "test2_fullname",
+            "firstname": "test2_fullname",
             "email": "test2@test.com"
         }
     ],
@@ -18,20 +18,26 @@
             "lang": "en"
         }
     ],
+    "assign": [
+        {
+            "id": 1,
+            "name": "test_name"
+        }
+    ],
     "grade": [
         {
             "id": 1,
             "userid": 2,
             "assignment": 1,
-            "grade": 1,
-            "name": "test_name"
+            "grade": 1
         }
     ],
     "assignfeedback_comments": [
         {
             "id": 1,
             "assignment": 1,
-            "grade": 1
+            "grade": 1,
+            "commenttext": "test_comment_text"
         }
     ],
     "grade_items": [
