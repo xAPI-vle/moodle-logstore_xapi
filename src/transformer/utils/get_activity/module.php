@@ -25,7 +25,7 @@ function module(array $config, $moduletype, $module, $lang) {
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/module',
             'name' => [
-                $lang => utils\get_module_name($config, $module_type, $module),
+                $lang => utils\get_module_name($config, $moduletype, $module),
             ],
         ],
     ];
