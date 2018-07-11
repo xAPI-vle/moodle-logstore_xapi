@@ -20,14 +20,14 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function get_attempt_result(array $config, $attempt, $grade_item) {
-    $grade_sum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
+    $gradesum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
 
-    $min_score = (float)($grade_item->grademin ? $grade_item->grademin : 0);
-    $max_score = (float)($grade_item->grademax ? $grade_item->grademax : 0);
-    $pass_score = (float)($grade_item->gradepass ? $grade_item->gradepass : 0);
+    $minscore = (float)($grade_item->grademin ? $grade_item->grademin : 0);
+    $maxscore = (float)($grade_item->grademax ? $grade_item->grademax : 0);
+    $passscore = (float)($grade_item->gradepass ? $grade_item->gradepass : 0);
 
-    $raw_score = floatval((cap_raw_score($grade_sum, $min_score, $max_score)));
-    $scaled_score = floatval((get_scaled_score($raw_score, $min_score, $max_score)));
+    $rawscore = floatval((cap_raw_score($gradesum, $minscore, $maxscore)));
+    $scaledscore = floatval((get_scaled_score($rawscore, $minscore, $maxscore)));
 
     $completed = isset($attempt->state) ? $attempt->state === 'finished' : false;
     $success = $gradesum >= $passscore;
