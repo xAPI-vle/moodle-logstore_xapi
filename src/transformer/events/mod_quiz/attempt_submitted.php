@@ -52,7 +52,6 @@ function attempt_submitted(array $config, \stdClass $event) {
             'contextActivities' => [
                 'other' => [
                     utils\get_activity\module($config, 'attempt', $attempt, $lang),
-                   // 'response' => utils\get_attempt_responses($config, $attempt, $grade_item),
                 ],
                 'grouping' => [
                     utils\get_activity\site($config),
