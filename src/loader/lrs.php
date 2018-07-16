@@ -18,9 +18,11 @@ namespace src\loader\lrs;
 defined('MOODLE_INTERNAL') || die();
 
 function correct_endpoint($endpoint) {
-    $nostatements = trim($endpoint, 'statements');
-    $noslash = trim($nostatements, '/');
-    return $noslash;
+    $endswithstatements = substr($endpoint, -11) === "/statements";
+    if ($endswithstatements) {
+        return substr($endpoint, 0, -11);
+    }
+    return rtrim($endpoint, '/');
 }
 
 function load_transormed_events_to_lrs(array $config, array $transformedevents) {
