@@ -17,8 +17,6 @@
 namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
 function get_attempt_result(array $config, $attempt, $grade_item) {
     $gradesum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
 

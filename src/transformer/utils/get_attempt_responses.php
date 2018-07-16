@@ -9,7 +9,7 @@
 namespace src\transformer\utils;
 
 
-function get_attempt_responses(array $config, $attempt, $grade_item) {
+function get_attempt_responses(array $config, $attempt) {
     $repo = $config['repo'];
     $retval = array();
     $question_attempts = $repo->read_records('question_attempts', ['questionusageid' => $attempt->id]);
