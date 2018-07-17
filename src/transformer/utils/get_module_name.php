@@ -6,8 +6,6 @@ function get_module_name(array $config, $moduletype, $module) {
     $name = '';
     if (property_exists($module, 'name')) {
         $name = $module->name;
-    } else if (property_exists($moduletype, 'name')) {
-        $name = $moduletype->name;
     }
     // If name has still not been set, then use event functions, and set that as name to avoid error.
     if ($name == '' && array_key_exists('event_function', $config)) {
