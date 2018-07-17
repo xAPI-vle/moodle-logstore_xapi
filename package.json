@@ -9,7 +9,7 @@
         "semantic-release": "ht2-release-private-travisci"
     },
     "devDependencies": {
-        "@ht2-labs/semantic-release": "1.0.21"
+        "@ht2-labs/semantic-release": "1.1.1"
     },
     "publishConfig": {
         "access": "restricted"
