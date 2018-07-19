@@ -7,11 +7,11 @@
   },
   "scripts": {
     "semantic-release": "ht2-release-private-travisci",
-    "moodle-plugin-release": "moodle-plugin-release"
+    "moodle-plugin-release": "moodle-plugin-release release -i 1461 -z './xapi.zip'"
   },
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.1.1",
-    "@ryansmith94/moodle-plugin-release": "1.0.0"
+    "@ryansmith94/moodle-plugin-release": "1.0.1"
   },
   "publishConfig": {
     "access": "restricted"
