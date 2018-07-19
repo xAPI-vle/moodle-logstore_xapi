@@ -62,17 +62,15 @@ before_deploy:
   - sh ./scripts/generateZipFile.sh
 
 deploy:
-  provider: releases
-  api_key: $GH_TOKEN
-  file: xapi.zip
-  skip_cleanup: true
-  on:
-    tags: true
-    php: 7.1
-
-deploy:
-  provider: script
-  script: npm install && npm run moodle-plugin-release
-  on:
-    tags: true
-    php: 7.1
+  - provider: releases
+    api_key: $GH_TOKEN
+    file: xapi.zip
+    skip_cleanup: true
+    on:
+      tags: true
+      php: 7.1
+  - provider: script
+    script: npm install && npm run moodle-plugin-release
+    on:
+      tags: true
+      php: 7.1
