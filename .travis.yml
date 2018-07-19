@@ -69,3 +69,10 @@ deploy:
   on:
     tags: true
     php: 7.1
+
+deploy:
+  provider: script
+  script: npm install && npm run moodle-plugin-release
+  on:
+    tags: true
+    php: 7.1
