@@ -71,6 +71,7 @@ deploy:
       php: 7.1
   - provider: script
     script: npm install && npm run moodle-plugin-release
+    skip_cleanup: true
     on:
       tags: true
       php: 7.1
