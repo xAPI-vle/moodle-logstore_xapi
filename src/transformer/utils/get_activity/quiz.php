@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function module(array $config, $moduletype, $module, $lang) {
+function quiz(array $config, $moduletype, $module, $lang, $attempt) {
     return [
         'id' => $config['app_url'].'/mod/'.$moduletype.'/view.php?id='.$module->id,
         'definition' => [
@@ -27,6 +27,7 @@ function module(array $config, $moduletype, $module, $lang) {
             'name' => [
                 $lang => utils\get_module_name($config, $moduletype, $module),
             ],
+            utils\get_attempt_responses($config, $attempt, $lang),
         ],
     ];
 }
