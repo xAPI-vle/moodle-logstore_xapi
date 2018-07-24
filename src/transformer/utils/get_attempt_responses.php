@@ -14,9 +14,8 @@ function get_attempt_responses(array $config, $question_attempt, $lang) {
     $retval = array();
 
     $question = $repo->read_records('question', ['id' => $question_attempt->questionid]);
-
-
     $answers = $repo->read_records('question_answers', ['question' => $question_attempt->questionid]);
+
     $retval['choices'] = array();
     foreach ($answers as $answer) {
         $retval['choices'][] = [
