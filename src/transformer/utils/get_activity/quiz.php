@@ -27,7 +27,7 @@ function quiz(array $config, $moduletype, $module, $lang, $attempt) {
             'name' => [
                 $lang => utils\get_module_name($config, $moduletype, $module),
             ],
-            utils\get_attempt_responses($config, $attempt),
+            utils\get_attempt_responses($config, $attempt, $lang),
         ],
     ];
 }

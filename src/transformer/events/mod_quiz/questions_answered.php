@@ -31,36 +31,40 @@ function questions_answered(array $config, \stdClass $event) {
         'iteminstance' => $quiz->id,
     ]);
     $lang = utils\get_course_lang($course);
-
-    return [[
-        'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/answered',
-            'display' => [
-                $lang => 'answered'
-            ],
-        ],
-        'object' => utils\get_activity\quiz($config, 'quiz', $quiz, $lang, $attempt),
-        'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_attempt_result($config, $attempt, $gradeitem),
-        'context' => [
-            'platform' => $config['source_name'],
-            'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
-            'contextActivities' => [
-                'other' => [
-                    utils\get_activity\module($config, 'attempt', $attempt, $lang),
+    $question_attempts = $repo->read_records('question_attempts', ['questionusageid' => $attempt->id]);
+    $questions_submitted = array_map(function ($question_attempt)
+    use ($config, $event, $user, $course, $attempt, $quiz, $gradeitem, $lang) {
+        return ['actor' => utils\get_user($config, $user),
+            'verb' => [
+                'id' => 'http://adlnet.gov/expapi/verbs/answered',
+                'display' => [
+                    $lang => 'answered'
                 ],
-                'grouping' => [
-                    utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
-                ],
-                'category' => [
-                    utils\get_activity\source($config),
-                ]
             ],
-        ]
-    ]];
+            'object' => utils\get_activity\quiz($config, 'quiz', $quiz, $lang, $attempt),
+            'timestamp' => utils\get_event_timestamp($event),
+            'result' => utils\get_question_result($config, $question_attempt),
+            'context' => [
+                'platform' => $config['source_name'],
+                'language' => $lang,
+                'extensions' => [
+                    utils\INFO_EXTENSION => utils\get_info($config, $event),
+                ],
+                'contextActivities' => [
+                    'other' => [
+                        utils\get_activity\module($config, 'attempt', $attempt, $lang),
+                    ],
+                    'grouping' => [
+                        utils\get_activity\site($config),
+                        utils\get_activity\course($config, $course),
+                    ],
+                    'category' => [
+                        utils\get_activity\source($config),
+                    ]
+                ],
+            ]
+        ];
+    }, $question_attempts);
+    // We want questions submitted in an indexed array.
+    return $questions_submitted;
 }
