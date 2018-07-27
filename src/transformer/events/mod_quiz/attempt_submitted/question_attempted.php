@@ -27,6 +27,7 @@ function question_attempt(array $config, \stdClass $event, \stdClass $questionat
     $question = $repo->read_record_by_id('question', $questionattempt->questionid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -38,7 +39,7 @@ function question_attempt(array $config, \stdClass $event, \stdClass $questionat
             ],
         ],
         'object' => [
-            'id' => '',
+            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/question',
                 'name' => [

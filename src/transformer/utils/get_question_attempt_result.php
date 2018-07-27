@@ -21,7 +21,7 @@ function get_question_attempt_result(\stdClass $question, \stdClass $questionatt
     if ($question->qtype === 'essay') {
         return [
             'response' => $questionattempt->responsesummary,
-            'completed' => $questionattempt->responsesummary !== '',
+            'completion' => $questionattempt->responsesummary !== '',
         ];
     }
     return [
