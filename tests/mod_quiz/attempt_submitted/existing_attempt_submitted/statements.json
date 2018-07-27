@@ -100,9 +100,9 @@
             }
         },
         "verb": {
-            "id": "http:\/\/adlnet.gov\/expapi\/verbs\/attempted",
+            "id": "http:\/\/adlnet.gov\/expapi\/verbs\/answered",
             "display": {
-                "en": "attempted"
+                "en": "answered"
             }
         },
         "object": {

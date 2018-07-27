@@ -33,9 +33,9 @@ function question_attempt(array $config, \stdClass $event, \stdClass $questionat
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/attempted',
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'attempted'
+                $lang => 'answered'
             ],
         ],
         'object' => [
