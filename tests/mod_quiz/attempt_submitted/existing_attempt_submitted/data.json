@@ -38,5 +38,6 @@
             "grademax": 100,
             "gradepass": 50
         }
-    ]
+    ],
+    "question_attempts": []
 }
