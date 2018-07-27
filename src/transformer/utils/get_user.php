@@ -23,7 +23,7 @@ function get_user(array $config, \stdClass $user) {
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true) {
         return [
             'name' => $fullname,
-            'mbox' => $user->email,
+            'mbox' => 'mailto:' . $user->email,
         ];
     }
 
