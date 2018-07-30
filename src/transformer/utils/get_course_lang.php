@@ -19,5 +19,10 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_course_lang($course) {
     $haslang = is_null($course->lang) || $course->lang == '';
-    return $haslang ? 'en' : $course->lang;
+
+    // Ensure en_US and the like get corrected to the standard en-US.
+    $preppedlang = mb_ereg_replace('_', '-', $haslang ? 'en' : $course->lang);
+
+    // Ensure valid language format.
+    return mb_ereg_match('^[a-zA-Z]{2}(-[a-zA-Z]{2})?$', $preppedlang) ? $preppedlang : 'en';
 }
