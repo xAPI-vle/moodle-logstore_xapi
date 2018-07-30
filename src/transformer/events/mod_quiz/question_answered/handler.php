@@ -14,23 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\attempt_submitted;
+namespace src\transformer\events\mod_quiz\question_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
-use src\transformer\events\mod_quiz\question_answered as question_answered;
 
-function handler(array $config, \stdClass $event) {
+function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
     $repo = $config['repo'];
-    $questionattempts = $repo->read_records('question_attempts', [
-        'questionusageid' => $event->objectid
-    ]);
+    $question = $repo->read_record_by_id('question', $questionattempt->questionid);
 
-    return array_merge(
-        attempt_submitted($config, $event),
-        array_reduce($questionattempts, function ($result, $questionattempt) use ($config, $event) {
-            return array_merge($result, question_answered\handler($config, $event, $questionattempt));
-        }, [])
-    );
+    switch ($question->qtype) {
+        case 'essay':
+            return essay($config, $event, $questionattempt, $question);
+        default:
+            return [];
+    }
 }

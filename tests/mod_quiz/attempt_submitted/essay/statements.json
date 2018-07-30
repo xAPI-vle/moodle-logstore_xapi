@@ -111,7 +111,8 @@
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/question",
                 "name": {
                     "en": "test_question"
-                }
+                },
+                "interactionType": "long-fill-in"
             }
         },
         "timestamp": "2015-06-10T15:31:41+01:00",

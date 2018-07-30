@@ -14,17 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\attempt_submitted;
+namespace src\transformer\events\mod_quiz\question_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function question_attempt(array $config, \stdClass $event, \stdClass $questionattempt) {
+function essay(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $question = $repo->read_record_by_id('question', $questionattempt->questionid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
@@ -44,7 +43,8 @@ function question_attempt(array $config, \stdClass $event, \stdClass $questionat
                 'type' => 'http://adlnet.gov/expapi/activities/question',
                 'name' => [
                     $lang => $questionattempt->questionsummary,
-                ]
+                ],
+                'interactionType' => 'long-fill-in',
             ]
         ],
         'timestamp' => utils\get_event_timestamp($event),
