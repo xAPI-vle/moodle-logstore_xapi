@@ -29,6 +29,8 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
             return essay($config, $event, $questionattempt, $question);
         case 'truefalse':
             return truefalse($config, $event, $questionattempt, $question);
+        case 'shortanswer':
+            return shortanswer($config, $event, $questionattempt, $question);
         case 'multichoice':
             return multichoice($config, $event, $questionattempt, $question);
         case 'numerical':
