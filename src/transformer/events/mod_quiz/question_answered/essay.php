@@ -48,7 +48,10 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
             ]
         ],
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_question_attempt_result($question, $questionattempt),
+        'result' => [
+            'response' => $questionattempt->responsesummary,
+            'completion' => $questionattempt->responsesummary !== '',
+        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
