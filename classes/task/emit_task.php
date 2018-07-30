@@ -39,7 +39,7 @@ class emit_task extends \core\task\scheduled_task {
         global $DB;
         $manager = get_log_manager();
         $store = new store($manager);
-        $extractedevents = $DB->get_records('logstore_xapi_log');
+        $extractedevents = $DB->get_records('logstore_xapi_log', null, '', '*', 0, $store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
         $loadedeventids = array_map(function ($transformedevent) {
             return $transformedevent['eventid'];
