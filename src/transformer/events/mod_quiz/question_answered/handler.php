@@ -31,6 +31,8 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
             return truefalse($config, $event, $questionattempt, $question);
         case 'multichoice':
             return multichoice($config, $event, $questionattempt, $question);
+        case 'numerical':
+            return numerical($config, $event, $questionattempt, $question);
         default:
             return [];
     }
