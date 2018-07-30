@@ -77,6 +77,10 @@ class store extends php_obj implements log_writer {
         }
     }
 
+    public function get_max_batch_size() {
+        return $this->get_config('maxbatchsize', 100);
+    }
+
     public function process_events(array $events) {
         global $DB;
         global $CFG;
@@ -108,7 +112,7 @@ class store extends php_obj implements log_writer {
                 'lrs_endpoint' => $this->get_config('endpoint', ''),
                 'lrs_username' => $this->get_config('username', ''),
                 'lrs_password' => $this->get_config('password', ''),
-                'lrs_max_batch_size' => $this->get_config('maxbatchsize', 100),
+                'lrs_max_batch_size' => get_max_batch_size(),
             ],
         ];
         $loadedevents = \src\handler($handlerconfig, $events);
