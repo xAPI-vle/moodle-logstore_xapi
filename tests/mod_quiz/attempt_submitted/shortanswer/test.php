@@ -14,24 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\question_answered;
-
+namespace tests\mod_quiz\attempt_submitted\shortanswer;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
-function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
-    $repo = $config['repo'];
-    $question = $repo->read_record_by_id('question', $questionattempt->questionid);
-
-    switch ($question->qtype) {
-        case 'essay':
-            return essay($config, $event, $questionattempt, $question);
-        case 'truefalse':
-            return truefalse($config, $event, $questionattempt, $question);
-        case 'shortanswer':
-            return shortanswer($config, $event, $questionattempt, $question);
-        default:
-            return [];
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
     }
 }
