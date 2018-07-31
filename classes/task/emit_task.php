@@ -42,7 +42,7 @@ class emit_task extends \core\task\scheduled_task {
         $conditions = null;
         $sort = '';
         $fields = '*';
-        $limitfrom = 0; 
+        $limitfrom = 0;
         $limitnum = $store->get_max_batch_size();
         $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
         $loadedevents = $store->process_events($extractedevents);
