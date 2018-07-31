@@ -19,20 +19,26 @@ defined('MOODLE_INTERNAL') || die();
 
 function handler(array $config, array $events) {
     $eventfunctionmap = get_event_function_map();
-    $transformedevents = array_map(function ($event) use ($config, $eventfunctionmap) {
+    $transformedevents = array_filter(array_map(function ($event) use ($config, $eventfunctionmap) {
         $eventobj = (object) $event;
-        $eventname = $eventobj->eventname;
-        $eventfunctionname = $eventfunctionmap[$eventname];
-        $eventfunction = '\src\transformer\events\\' . $eventfunctionname;
-        $eventconfig = array_merge([
-            'event_function' => $eventfunction,
-        ], $config);
-        $eventstatements = $eventfunction($eventconfig, $eventobj);
-        $transformedevent = [
-            'eventid' => $eventobj->id,
-            'statements' => $eventstatements,
-        ];
-        return $transformedevent;
-    }, $events);
+        try {
+            $eventname = $eventobj->eventname;
+            $eventfunctionname = $eventfunctionmap[$eventname];
+            $eventfunction = '\src\transformer\events\\' . $eventfunctionname;
+            $eventconfig = array_merge([
+                'event_function' => $eventfunction,
+            ], $config);
+            $eventstatements = $eventfunction($eventconfig, $eventobj);
+            $transformedevent = [
+                'eventid' => $eventobj->id,
+                'statements' => $eventstatements,
+            ];
+            return $transformedevent;
+        } catch (\Exception $e) {
+            $logerror = $config['log_error'];
+            $logerror("Caught exception for event id #" . $eventobj->id . ": " .  $e->getMessage(), "\n");
+            return null;
+        }
+    }, $events));
     return $transformedevents;
 }
