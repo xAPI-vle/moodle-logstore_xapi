@@ -13,7 +13,21 @@
             "lang": "en"
         }
     ],
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
     "assignment_submissions": [
+        {
+            "id": 1,
+            "assignment": 1
+        }
+    ],
+    "assign": [
         {
             "id": 1,
             "name": "test_name"

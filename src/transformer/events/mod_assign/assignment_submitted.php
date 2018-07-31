@@ -24,6 +24,8 @@ function assignment_submitted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $assignmentsubmission = $repo->read_record_by_id('assignment_submissions', $event->objectid);
+    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
     $lang = utils\get_course_lang($course);
 
     return [[

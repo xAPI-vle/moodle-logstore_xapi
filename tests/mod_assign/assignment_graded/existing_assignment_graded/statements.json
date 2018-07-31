@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/assign\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                 "name": {
                     "en": "test_name"
                 }
@@ -52,17 +52,6 @@
                 }
             },
             "contextActivities": {
-                "other": [
-                    {
-                        "id": "http:\/\/www.example.org\/mod\/grade\/view.php?id=1",
-                        "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
-                            "name": {
-                                "en": "grade"
-                            }
-                        }
-                    }
-                ],
                 "grouping": [
                     {
                         "id": "http:\/\/www.example.org",
