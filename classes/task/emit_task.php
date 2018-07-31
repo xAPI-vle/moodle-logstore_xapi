@@ -45,6 +45,6 @@ class emit_task extends \core\task\scheduled_task {
             return $transformedevent['eventid'];
         }, $loadedevents);
         $DB->delete_records_list('logstore_xapi_log', 'id', $loadedeventids);
-        mtrace("Events (".$loadedeventids.") have been successfully sent to LRS.");
+        mtrace("Events (".implode(', ', $loadedeventids).") have been successfully sent to LRS.");
     }
 }

@@ -13,6 +13,14 @@
             "lang": "en"
         }
     ],
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
     "quiz_attempts": [
         {
             "id": 1,
@@ -37,6 +45,21 @@
             "grademin": 0,
             "grademax": 100,
             "gradepass": 50
+        }
+    ],
+    "question_attempts": [
+        {
+            "id": 1,
+            "questionusageid": 1,
+            "questionid": 1,
+            "questionsummary": "test_question",
+            "responsesummary": "True"
+        }
+    ],
+    "question": [
+        {
+            "id": 1,
+            "qtype": "truefalse"
         }
     ]
 }

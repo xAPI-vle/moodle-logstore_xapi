@@ -18,7 +18,7 @@ namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
 function get_attempt_result(array $config, $attempt, $gradeitem) {
-    $gradesum = isset($attempt->sumgrades) ? $attempt->sumgrades : 0;
+    $gradesum = floatval(isset($attempt->sumgrades) ? $attempt->sumgrades : 0);
 
     $minscore = floatval($gradeitem->grademin ?: 0);
     $maxscore = floatval($gradeitem->grademax ?: 0);

@@ -19,18 +19,29 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
-    if (array_key_exists('sendmbox', $config) && $config['sendmbox'] == true) {
+
+    if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true) {
         return [
             'name' => $fullname,
-            'mbox' => $user->email,
+            'mbox' => 'mailto:' . $user->email,
         ];
-    } else {
+    }
+
+    if (array_key_exists('send_username', $config) && $config['send_username'] === true) {
         return [
             'name' => $fullname,
             'account' => [
                 'homePage' => $config['app_url'],
-                'name' => strval($user->id),
+                'name' => $user->username,
             ],
         ];
     }
+
+    return [
+        'name' => $fullname,
+        'account' => [
+            'homePage' => $config['app_url'],
+            'name' => strval($user->id),
+        ],
+    ];
 }

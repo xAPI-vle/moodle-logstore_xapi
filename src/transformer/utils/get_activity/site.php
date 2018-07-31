@@ -28,7 +28,7 @@ function site(array $config) {
     return [
         'id' => $config['app_url'],
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/site',
+            'type' => 'http://id.tincanapi.com/activitytype/lms',
             'name' => [
                 $sitelang => $sitename,
             ],

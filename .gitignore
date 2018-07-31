@@ -7,7 +7,7 @@
 /composer.phar
 /node_modules
 /notes.md
-/package-lock.json
 /vendor
+/version.php
 /xapi
 /xapi.zip

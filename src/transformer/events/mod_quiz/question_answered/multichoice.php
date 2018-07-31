@@ -14,37 +14,44 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz;
+namespace src\transformer\events\mod_quiz\question_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function attempt_submitted(array $config, \stdClass $event) {
+function multichoice(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
-    $attempt->name = 'attempt';
+    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $gradeitem = $repo->read_record('grade_items', [
-        'itemmodule' => 'quiz',
-        'iteminstance' => $quiz->id,
-    ]);
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'completed'
+                $lang => 'answered'
             ],
         ],
-        'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
+        'object' => [
+            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'definition' => [
+                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'name' => [
+                    $lang => $questionattempt->questionsummary,
+                ],
+                'interactionType' => 'choice',
+            ]
+        ],
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_attempt_result($config, $attempt, $gradeitem),
+        'result' => [
+            'response' => $questionattempt->responsesummary,
+            'completion' => $questionattempt->responsesummary !== '',
+        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -52,12 +59,11 @@ function attempt_submitted(array $config, \stdClass $event) {
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\module($config, 'attempt', $attempt, $lang)
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
+                    utils\get_activity\module($config, 'attempt', $attempt, $lang),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
