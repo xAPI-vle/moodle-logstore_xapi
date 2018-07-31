@@ -34,7 +34,7 @@ function assignment_submitted(array $config, \stdClass $event) {
                 $lang => 'submitted'
             ],
         ],
-        'object' => utils\get_activity\event_module($config, $event, $lang),
+        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
