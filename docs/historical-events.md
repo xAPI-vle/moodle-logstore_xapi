@@ -196,4 +196,4 @@ if($DEBUGGING){
 exit;
 ```
 
-If you have a quick question about this script, please ask in [our Gitter chat room 💬](https://gitter.im/LearningLocker/learninglocker), if you think there's a problem with this guide, please create a new issue in [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
+If you have a quick question about this script, please ask in [our Gitter chat room](https://gitter.im/LearningLocker/learninglocker) 💬, if you think there's a problem with this guide, please create a new issue in [our Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
