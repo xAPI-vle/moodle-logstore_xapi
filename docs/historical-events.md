@@ -1,5 +1,5 @@
 # Guide to Historical Events
-Hey there 👋 so you want to process some events from the past 🕓, probably a time when this plugin wasn't installed on your Moodle. That's awesome and we really want to help with that. Unfortunately, we've [not built this into the plugin natively yet](https://github.com/xAPI-vle/moodle-logstore_xapi/issues/42), but luckily @davidfkane kindly posted the script below. 🎉  Before you run the script, you need to copy the events that you'd like to process from the `mdl_logstore_standard_log` into a new table called `mdl_logstore_subset_log`, the script will then process each event in that new table.
+Hey there 👋 so you want to process some events from the past 🕓, probably a time when this plugin wasn't installed on your Moodle. That's awesome and we really want to help with that. Unfortunately, we've [not built this into the plugin natively yet](https://github.com/xAPI-vle/moodle-logstore_xapi/issues/42), but luckily [@davidfkane](https://github.com/davidfkane) kindly posted the script below. 🎉  Before you run the script, you need to copy the events that you'd like to process from the `mdl_logstore_standard_log` into a new table called `mdl_logstore_subset_log`, the script will then process each event in that new table.
 
 ```php
 <?php
