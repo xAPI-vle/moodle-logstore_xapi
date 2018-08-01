@@ -27,6 +27,8 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
     switch ($question->qtype) {
         case 'essay':
             return essay($config, $event, $questionattempt, $question);
+        case 'gapselect':
+            return gapselect($config, $event, $questionattempt, $question);
         case 'truefalse':
             return truefalse($config, $event, $questionattempt, $question);
         case 'shortanswer':
