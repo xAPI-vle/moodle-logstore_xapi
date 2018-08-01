@@ -18,10 +18,11 @@ namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
 function get_attempt_duration($attempt) {
-    if (isset($attempt->timefinish)) {
+    if (isset($attempt->timefinish) && isset($attempt->timestart)) {
         $seconds = $attempt->timefinish - $attempt->timestart;
-        return "PT".(string) $seconds."S";
-    } else {
-        return null;
+        if ($seconds > 0) {
+            return "PT".(string) $seconds."S";
+        }
     }
+    return null;
 }
