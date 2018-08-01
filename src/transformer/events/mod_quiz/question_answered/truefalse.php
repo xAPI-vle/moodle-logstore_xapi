@@ -51,6 +51,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
         'result' => [
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== null,
+            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
         ],
         'context' => [
             'platform' => $config['source_name'],
@@ -63,7 +64,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
                     utils\get_activity\module($config, 'quiz', $quiz, $lang),
-                    utils\get_activity\module($config, 'attempt', $attempt, $lang),
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

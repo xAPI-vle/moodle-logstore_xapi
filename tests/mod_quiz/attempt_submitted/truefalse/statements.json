@@ -48,11 +48,11 @@
             "contextActivities": {
                 "other": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/attempt\/view.php?id=1",
+                        "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
                         "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
                             "name": {
-                                "en": "attempt"
+                                "en": "Attempt"
                             }
                         }
                     }
@@ -118,7 +118,8 @@
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
             "response": "True",
-            "completion": true
+            "completion": true,
+            "success": true
         },
         "context": {
             "platform": "Moodle",
@@ -161,11 +162,11 @@
                         }
                     },
                     {
-                        "id": "http:\/\/www.example.org\/mod\/attempt\/view.php?id=1",
+                        "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
                         "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
                             "name": {
-                                "en": "attempt"
+                                "en": "Attempt"
                             }
                         }
                     }

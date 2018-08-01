@@ -25,8 +25,7 @@ function attempt_submitted(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    // Quiz attempts don't have names, so this will resolve an issue with the batch send to the LRS later.
-    $attempt->name = 'attempt';
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $gradeitem = $repo->read_record('grade_items', [
         'itemmodule' => 'quiz',
@@ -53,7 +52,7 @@ function attempt_submitted(array $config, \stdClass $event) {
             ],
             'contextActivities' => [
                 'other' => [
-                    utils\get_activity\module($config, 'attempt', $attempt, $lang)
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'grouping' => [
                     utils\get_activity\site($config),

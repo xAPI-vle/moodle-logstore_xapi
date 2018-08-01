@@ -21,20 +21,16 @@
             "instance": 1
         }
     ],
-    "quiz_attempts": [
+    "modules": [
         {
             "id": 1,
-            "quiz": 1,
-            "sumgrades": 50,
-            "state": "finished",
-            "timefinish": 1,
-            "timestart": 0
+            "name": "book"
         }
     ],
-    "quiz": [
+    "book": [
         {
             "id": 1,
-            "name": "test_quiz_name"
+            "name": "test_book_name"
         }
     ]
 }

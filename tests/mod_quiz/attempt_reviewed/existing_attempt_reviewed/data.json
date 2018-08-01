@@ -18,6 +18,14 @@
             "lang": "en"
         }
     ],
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
     "quiz_attempts": [
         {
             "id": 1,

@@ -14,44 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\question_answered;
+namespace src\transformer\events\core;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function shortanswer(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
+function course_module_completion_updated(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
+    $moduletype = $repo->read_record_by_id('modules', $coursemodule->module);
+    $module = $repo->read_record_by_id($moduletype->name, $coursemodule->instance);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/answered',
+            'id' => 'http://id.tincanapi.com/verb/completed',
             'display' => [
-                $lang => 'answered'
+                $lang => 'completed'
             ],
         ],
-        'object' => [
-            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/question',
-                'name' => [
-                    $lang => $questionattempt->questionsummary,
-                ],
-                'interactionType' => 'fill-in',
-            ]
-        ],
+        'object' => utils\get_activity\module($config, $moduletype->name, $module, $lang),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => [
-            'response' => $questionattempt->responsesummary,
-            'completion' => $questionattempt->responsesummary !== '',
-        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -62,8 +49,6 @@ function shortanswer(array $config, \stdClass $event, \stdClass $questionattempt
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

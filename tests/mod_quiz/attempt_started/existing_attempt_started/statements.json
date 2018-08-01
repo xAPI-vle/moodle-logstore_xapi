@@ -37,11 +37,11 @@
             "contextActivities": {
                 "other": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/attempt\/view.php?id=1",
+                        "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
                         "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
                             "name": {
-                                "en": "attempt"
+                                "en": "Attempt"
                             }
                         }
                     }
