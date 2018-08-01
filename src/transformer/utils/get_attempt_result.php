@@ -31,7 +31,7 @@ function get_attempt_result(array $config, $attempt, $gradeitem) {
     $success = $gradesum >= $passscore;
     $duration = get_attempt_duration($attempt);
 
-    return [
+    $result = [
         'score' => [
             'raw' => $rawscore,
             'min' => $minscore,
@@ -40,6 +40,11 @@ function get_attempt_result(array $config, $attempt, $gradeitem) {
         ],
         'completion' => $completed,
         'success' => $success,
-        'duration' => $duration,
     ];
+
+    if ($duration != null) {
+        $result['duration'] = $duration;
+    }
+
+    return $result;
 }
