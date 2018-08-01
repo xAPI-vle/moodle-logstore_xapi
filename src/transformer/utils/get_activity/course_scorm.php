@@ -14,15 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils;
+namespace src\transformer\utils\get_activity;
 defined('MOODLE_INTERNAL') || die();
 
-function get_attempt_duration($attempt) {
-    if (isset($attempt->timefinish) && isset($attempt->timestart)) {
-        $seconds = $attempt->timefinish - $attempt->timestart;
-        if ($seconds > 0) {
-            return "PT".(string) $seconds."S";
-        }
-    }
-    return null;
+use src\transformer\utils as utils;
+
+function course_scorm(array $config, $cmid, $scorm, $lang) {
+    $scormname = property_exists($scorm, 'name') ? $scorm->name : 'Scorm';
+
+    return [
+        'id' => $config['app_url'].'/mod/scorm/view.php?id='.$cmid,
+        'definition' => [
+            'type' => 'http://id.tincanapi.com/activitytype/legacy-learning-standard',
+            'name' => [
+                $lang => $scormname,
+            ],
+        ],
+    ];
 }
