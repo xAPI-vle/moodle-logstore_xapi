@@ -37,7 +37,7 @@ function get_event_function_map() {
         '\mod_facetoface\event\signup_success' => 'mod_facetoface\signup_success',
         '\mod_facetoface\event\take_attendance' => 'mod_facetoface\take_attendance',
         '\mod_feedback\event\course_module_viewed' => 'mod_feedback\course_module_viewed',
-        '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted',
+        '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted\handler',
         '\mod_folder\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_forum\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_forum\event\discussion_viewed' => 'mod_forum\discussion_viewed',
