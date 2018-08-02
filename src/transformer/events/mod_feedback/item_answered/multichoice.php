@@ -27,6 +27,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $feedbackvalue, 
     $feedback = $repo->read_record_by_id('feedback', $feedbackitem->feedback);
     $lang = utils\get_course_lang($course);
     $choices = explode("\n|", substr($feedbackitem->presentation, 6));
+    $selectedchoice = $choices[intval($feedbackvalue->value) - 1];
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -48,7 +49,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $feedbackvalue, 
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $choices[$feedbackvalue->value],
+            'response' => $selectedchoice,
             'completion' => $feedbackvalue->value !== '',
         ],
         'context' => [
