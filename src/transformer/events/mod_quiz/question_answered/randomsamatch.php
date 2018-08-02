@@ -28,6 +28,17 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
+    $selections = array_reduce(
+        explode('; ', $questionattempt->responsesummary),
+        function ($reduction, $selection) {
+            $split = explode("\n -> ", $selection);
+            $selectionkey = $split[0];
+            $selectionvalue = $split[1];
+            $reduction[$selectionkey] = $selectionvalue;
+            return $reduction;
+        },
+        []
+    );
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -38,9 +49,9 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             ],
         ],
         'object' => [
-            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
                     $lang => $question->questiontext,
                 ],
@@ -52,6 +63,9 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/matching/response' => $selections,
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

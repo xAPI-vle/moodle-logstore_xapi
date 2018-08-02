@@ -14,21 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\question_answered;
+namespace src\transformer\events\mod_feedback\item_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
+function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \stdClass $feedbackitem) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
+    $feedback = $repo->read_record_by_id('feedback', $feedbackitem->feedback);
     $lang = utils\get_course_lang($course);
-    $selections = explode('} {', rtrim(ltrim($questionattempt->responsesummary, '{'), '}'));
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -39,23 +36,19 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
             ],
         ],
         'object' => [
-            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
+            'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $question->questiontext,
+                    $lang => $feedbackitem->name,
                 ],
-                'interactionType' => 'sequencing',
+                'interactionType' => 'long-fill-in',
             ]
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
-            'completion' => $questionattempt->responsesummary !== null,
-            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
-            'extensions' => [
-                'http://learninglocker.net/xapi/cmi/sequencing/response' => $selections,
-            ],
+            'response' => $feedbackvalue->value,
+            'completion' => $feedbackvalue->value !== '',
         ],
         'context' => [
             'platform' => $config['source_name'],
@@ -67,8 +60,7 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
+                    utils\get_activity\course_feedback($config, $event->contextinstanceid, $feedback, $lang),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

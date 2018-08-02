@@ -52,8 +52,8 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "rightanswer": "Example short answer question\n-> orange; Testing testing\n-> Purple",
-            "responsesummary": "Example short answer question\n-> orange; Testing testing\n-> Purple"
+            "rightanswer": "Example short answer question\n -> orange; Testing testing\n -> Purple",
+            "responsesummary": "Example short answer question\n -> orange; Testing testing\n -> Purple"
         }
     ],
     "question": [
