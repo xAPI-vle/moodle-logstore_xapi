@@ -117,9 +117,15 @@
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
-            "response": "Example short answer question\n-> orange; Testing testing\n-> Purple",
+            "response": "Example short answer question\n -> orange; Testing testing\n -> Purple",
             "completion": true,
-            "success": true
+            "success": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/cmi\/matching\/response": {
+                    "Example short answer question": "orange",
+                    "Testing testing": "Purple"
+                }
+            }
         },
         "context": {
             "platform": "Moodle",

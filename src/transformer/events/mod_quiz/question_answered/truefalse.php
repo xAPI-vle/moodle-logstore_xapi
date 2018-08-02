@@ -52,6 +52,9 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/true-false/response' => $questionattempt->responsesummary === 'True',
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

@@ -119,7 +119,10 @@
         "result": {
             "response": "True",
             "completion": true,
-            "success": true
+            "success": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/cmi\/true-false\/response": true
+            }
         },
         "context": {
             "platform": "Moodle",

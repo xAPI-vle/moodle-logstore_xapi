@@ -55,8 +55,8 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [
-                'http://learninglocker.net/xapi/moodle/quiz_question_response' => $selections
-            ]
+                'http://learninglocker.net/xapi/cmi/sequencing/response' => $selections,
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

@@ -52,6 +52,9 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/numeric/response' => floatval($questionattempt->responsesummary),
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

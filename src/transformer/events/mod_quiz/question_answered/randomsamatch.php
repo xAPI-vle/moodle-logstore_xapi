@@ -28,6 +28,17 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
+    $selections = array_reduce(
+        explode('; ', $questionattempt->responsesummary),
+        function ($reduction, $selection) {
+            $split = explode("\n -> ", $selection);
+            $selectionKey = $split[0];
+            $selectionValue = $split[1];
+            $reduction[$selectionKey] = $selectionValue;
+            return $reduction;
+        },
+        []
+    );
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -52,6 +63,9 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/matching/response' => $selections,
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

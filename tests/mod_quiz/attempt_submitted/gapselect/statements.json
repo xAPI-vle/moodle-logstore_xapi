@@ -121,7 +121,7 @@
             "completion": true,
             "success": true,
             "extensions": {
-                "http:\/\/learninglocker.net\/xapi\/moodle\/quiz_question_response": [
+                "http:\/\/learninglocker.net\/xapi\/cmi\/sequencing\/response": [
                     "spicy",
                     "mango",
                     "milkshake"
