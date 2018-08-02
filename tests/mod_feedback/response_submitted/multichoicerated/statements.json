@@ -98,7 +98,8 @@
             "response": "test_choice_3",
             "completion": true,
             "extensions": {
-                "http:\/\/learninglocker.net\/xapi\/moodle\/feedback_item_rating": 1
+                "http:\/\/learninglocker.net\/xapi\/moodle\/feedback_item_rating": 1,
+                "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "test_choice_3"
             }
         },
         "context": {

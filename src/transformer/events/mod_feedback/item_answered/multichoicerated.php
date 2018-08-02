@@ -63,6 +63,7 @@ function multichoicerated(array $config, \stdClass $event, \stdClass $feedbackva
             'completion' => $feedbackvalue->value !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/moodle/feedback_item_rating' => $selectedchoice->rating,
+                'http://learninglocker.net/xapi/cmi/choice/response' => $selectedchoice->name,
             ],
         ],
         'context' => [
