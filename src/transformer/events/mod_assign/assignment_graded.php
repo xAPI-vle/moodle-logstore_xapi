@@ -64,7 +64,7 @@ function assignment_graded(array $config, \stdClass $event) {
                 $lang => 'attained grade for'
             ],
         ],
-        'object' => utils\get_activity\module($config, 'assign', $assignment, $lang),
+        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'result' => [
             'score' => [
                 'raw' => $scoreraw,
@@ -84,9 +84,6 @@ function assignment_graded(array $config, \stdClass $event) {
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\event_module($config, $event, $lang)
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course)

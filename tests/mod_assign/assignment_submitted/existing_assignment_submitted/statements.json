@@ -14,9 +14,9 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/assignment_submissions\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/assign\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                 "name": {
                     "en": "test_name"
                 }
