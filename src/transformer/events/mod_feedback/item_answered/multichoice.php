@@ -51,6 +51,9 @@ function multichoice(array $config, \stdClass $event, \stdClass $feedbackvalue, 
         'result' => [
             'response' => $selectedchoice,
             'completion' => $feedbackvalue->value !== '',
+            "extensions" => [
+                "http://learninglocker.net/xapi/cmi/choice/response" => $selectedchoice,
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],
