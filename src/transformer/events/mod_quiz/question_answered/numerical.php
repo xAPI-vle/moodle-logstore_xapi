@@ -38,11 +38,11 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
             ],
         ],
         'object' => [
-            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $questionattempt->questionsummary,
+                    $lang => $question->questiontext,
                 ],
                 'interactionType' => 'numeric',
             ]
@@ -52,6 +52,9 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/numeric/response' => floatval($questionattempt->responsesummary),
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

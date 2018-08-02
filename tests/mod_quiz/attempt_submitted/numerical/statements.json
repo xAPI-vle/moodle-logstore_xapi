@@ -108,7 +108,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/question\/question.php?cmid=1&id=1",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/question",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/cmi.interaction",
                 "name": {
                     "en": "test_question"
                 },
@@ -119,7 +119,10 @@
         "result": {
             "response": "1",
             "completion": true,
-            "success": true
+            "success": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/cmi\/numeric\/response": 1
+            }
         },
         "context": {
             "platform": "Moodle",
