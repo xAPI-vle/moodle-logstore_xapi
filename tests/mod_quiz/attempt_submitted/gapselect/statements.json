@@ -119,7 +119,14 @@
         "result": {
             "response": "{spicy} {mango} {milkshake}",
             "completion": true,
-            "success": true
+            "success": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/moodle\/quiz_question_response": [
+                    "spicy",
+                    "mango",
+                    "milkshake"
+                ]
+            }
         },
         "context": {
             "platform": "Moodle",
