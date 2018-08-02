@@ -96,7 +96,10 @@
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
             "response": "3",
-            "completion": true
+            "completion": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/moodle\/feedback_item_value": 3
+            }
         },
         "context": {
             "platform": "Moodle",
