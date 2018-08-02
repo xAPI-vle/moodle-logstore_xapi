@@ -14,30 +14,45 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_assign;
+namespace src\transformer\events\mod_quiz\question_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function assignment_submitted(array $config, \stdClass $event) {
+function randomsamatch(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $assignmentsubmission = $repo->read_record_by_id('assign_submission', $event->objectid);
-    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
+    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
+    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/submit',
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'submitted'
+                $lang => 'answered'
             ],
         ],
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => [
+            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'definition' => [
+                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'name' => [
+                    $lang => $question->questiontext,
+                ],
+                'interactionType' => 'matching',
+            ]
+        ],
         'timestamp' => utils\get_event_timestamp($event),
+        'result' => [
+            'response' => $questionattempt->responsesummary,
+            'completion' => $questionattempt->responsesummary !== '',
+            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -48,9 +63,11 @@ function assignment_submitted(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]
