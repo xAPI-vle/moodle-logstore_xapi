@@ -98,7 +98,7 @@
             "response": "3",
             "completion": true,
             "extensions": {
-                "http:\/\/learninglocker.net\/xapi\/moodle\/feedback_item_value": 3
+                "http:\/\/learninglocker.net\/xapi\/cmi\/numeric\/response": 3
             }
         },
         "context": {

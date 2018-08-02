@@ -50,7 +50,7 @@ function numeric(array $config, \stdClass $event, \stdClass $feedbackvalue, \std
             'response' => $feedbackvalue->value,
             'completion' => $feedbackvalue->value !== '',
             'extensions' => [
-                'http://learninglocker.net/xapi/moodle/feedback_item_value' => floatval($feedbackvalue->value),
+                'http://learninglocker.net/xapi/cmi/numeric/response' => floatval($feedbackvalue->value),
             ],
         ],
         'context' => [
