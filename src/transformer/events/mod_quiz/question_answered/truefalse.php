@@ -38,11 +38,11 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             ],
         ],
         'object' => [
-            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $questionattempt->questionsummary,
+                    $lang => $question->questiontext,
                 ],
                 'interactionType' => 'true-false',
             ]
@@ -52,6 +52,9 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'extensions' => [
+                'http://learninglocker.net/xapi/cmi/true-false/response' => $questionattempt->responsesummary === 'True',
+            ],
         ],
         'context' => [
             'platform' => $config['source_name'],

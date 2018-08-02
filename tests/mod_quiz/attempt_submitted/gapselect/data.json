@@ -52,7 +52,6 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "questionsummary": "Example [[1]] missing [[2]] words [[3]]\n; [[1]] -> {spicy / mango / milkshake}",
             "rightanswer": "{spicy} {mango} {milkshake}",
             "responsesummary": "{spicy} {mango} {milkshake}"
         }
