@@ -14,21 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\get_activity;
+namespace tests\mod_quiz\attempt_submitted\match;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
-function feedback(array $config, \stdClass $feedback, $lang) {
-    $name = $feedback->name ? $feedback->name : 'A Moodle feedback survey';
-
-    return [
-        'id' => $config['app_url'].'/mod/feedback/view.php?id='.$feedback->id,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/survey',
-            'name' => [
-                $lang => $name,
-            ],
-        ],
-    ];
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }
