@@ -32,9 +32,9 @@ function match(array $config, \stdClass $event, \stdClass $questionattempt, \std
         explode('; ', $questionattempt->responsesummary),
         function ($reduction, $selection) {
             $split = explode("\n -> ", $selection);
-            $selectionKey = $split[0];
-            $selectionValue = $split[1];
-            $reduction[$selectionKey] = $selectionValue;
+            $selectionkey = $split[0];
+            $selectionvalue = $split[1];
+            $reduction[$selectionkey] = $selectionvalue;
             return $reduction;
         },
         []
