@@ -39,9 +39,9 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
             ],
         ],
         'object' => [
-            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
                     $lang => $question->questiontext,
                 ],
