@@ -108,7 +108,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/question\/question.php?cmid=1&id=1",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/question",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/cmi.interaction",
                 "name": {
                     "en": "<p>Example [[1]] missing [[2]] words [[3]]<\/p>"
                 },
@@ -119,7 +119,14 @@
         "result": {
             "response": "{spicy} {mango} {milkshake}",
             "completion": true,
-            "success": true
+            "success": true,
+            "extensions": {
+                "http:\/\/learninglocker.net\/xapi\/cmi\/sequencing\/response": [
+                    "spicy",
+                    "mango",
+                    "milkshake"
+                ]
+            }
         },
         "context": {
             "platform": "Moodle",

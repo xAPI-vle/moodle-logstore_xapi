@@ -52,14 +52,14 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "questionsummary": "test_question",
             "responsesummary": "test_answer"
         }
     ],
     "question": [
         {
             "id": 1,
-            "qtype": "essay"
+            "qtype": "essay",
+            "questiontext": "test_question"
         }
     ]
 }
