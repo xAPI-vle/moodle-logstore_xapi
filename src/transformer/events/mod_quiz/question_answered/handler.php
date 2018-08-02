@@ -27,10 +27,16 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
     switch ($question->qtype) {
         case 'essay':
             return essay($config, $event, $questionattempt, $question);
+        case 'gapselect':
+            return gapselect($config, $event, $questionattempt, $question);
         case 'truefalse':
             return truefalse($config, $event, $questionattempt, $question);
+        case 'randomsamatch':
+            return randomsamatch($config, $event, $questionattempt, $question);
         case 'shortanswer':
             return shortanswer($config, $event, $questionattempt, $question);
+        case 'match':
+            return match($config, $event, $questionattempt, $question);
         case 'multichoice':
             return multichoice($config, $event, $questionattempt, $question);
         case 'numerical':

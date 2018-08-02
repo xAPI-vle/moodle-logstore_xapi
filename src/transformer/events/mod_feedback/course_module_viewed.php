@@ -20,20 +20,19 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function response_submitted(array $config, \stdClass $event) {
+function course_module_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $feedback = $repo->read_record_by_id('feedback', $event->objectid);
     $lang = utils\get_course_lang($course);
-    $feedbackcompleted = $repo->read_record_by_id('feedback_completed', $event->objectid);
-    $feedback = $repo->read_record_by_id('feedback', $feedbackcompleted->feedback);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/submitted',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'submitted'
+                $lang => 'viewed'
             ],
         ],
         'object' => utils\get_activity\course_feedback($config, $event->contextinstanceid, $feedback, $lang),
@@ -53,6 +52,6 @@ function response_submitted(array $config, \stdClass $event) {
                     utils\get_activity\source($config),
                 ]
             ],
-        ],
+        ]
     ]];
 }

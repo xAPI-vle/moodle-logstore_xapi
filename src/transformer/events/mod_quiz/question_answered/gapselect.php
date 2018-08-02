@@ -14,30 +14,46 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_feedback;
+namespace src\transformer\events\mod_quiz\question_answered;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function response_submitted(array $config, \stdClass $event) {
+function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
+    $question = $repo->read_record_by_id('question', $questionattempt->questionid);
+    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
+    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
-    $feedbackcompleted = $repo->read_record_by_id('feedback_completed', $event->objectid);
-    $feedback = $repo->read_record_by_id('feedback', $feedbackcompleted->feedback);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/submitted',
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'submitted'
+                $lang => 'answered'
             ],
         ],
-        'object' => utils\get_activity\course_feedback($config, $event->contextinstanceid, $feedback, $lang),
+        'object' => [
+            'id' => $config['app_url'].'/question/question.php?cmid='.$coursemodule->id.'&id='.$question->id,
+            'definition' => [
+                'type' => 'http://adlnet.gov/expapi/activities/question',
+                'name' => [
+                    $lang => $question->questiontext,
+                ],
+                'interactionType' => 'sequencing',
+            ]
+        ],
         'timestamp' => utils\get_event_timestamp($event),
+        'result' => [
+            'response' => $questionattempt->responsesummary,
+            'completion' => $questionattempt->responsesummary !== null,
+            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -48,11 +64,13 @@ function response_submitted(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
                 ]
             ],
-        ],
+        ]
     ]];
 }
