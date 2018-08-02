@@ -52,7 +52,6 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "questionsummary": "test_question",
             "responsesummary": "True",
             "rightanswer": "True"
         }
@@ -60,7 +59,8 @@
     "question": [
         {
             "id": 1,
-            "qtype": "truefalse"
+            "qtype": "truefalse",
+            "questiontext": "test_question"
         }
     ]
 }

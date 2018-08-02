@@ -25,7 +25,6 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
-    $question = $repo->read_record_by_id('question', $questionattempt->questionid);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);

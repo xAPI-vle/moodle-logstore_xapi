@@ -42,7 +42,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $questionattempt->questionsummary,
+                    $lang => $question->questiontext,
                 ],
                 'interactionType' => 'true-false',
             ]
