@@ -14,11 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_feedback\response_submitted\existing_response;
+namespace src\transformer\events\mod_feedback\response_submitted;
+
 defined('MOODLE_INTERNAL') || die();
 
-class test extends \tests\xapi_test_case {
-    protected function get_test_dir() {
-        return __DIR__;
-    }
+use src\transformer\utils as utils;
+use src\transformer\events\mod_feedback\item_answered as item_answered;
+
+function handler(array $config, \stdClass $event) {
+    $repo = $config['repo'];
+    $feedbackvalues = $repo->read_records('feedback_value', [
+        'completed' => $event->objectid
+    ]);
+
+    return array_merge(
+        response_submitted($config, $event),
+        array_reduce($feedbackvalues, function ($result, $feedbackvalue) use ($config, $event) {
+            return array_merge($result, item_answered\handler($config, $event, $feedbackvalue));
+        }, [])
+    );
 }
