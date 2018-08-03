@@ -19,16 +19,11 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function course_feedback(array $config, $cmid, $feedback, $lang) {
-    $name = $feedback->name ? $feedback->name : 'A Moodle feedback survey';
-
-    return [
-        'id' => $config['app_url'].'/mod/feedback/view.php?id='.$cmid,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/survey',
-            'name' => [
-                $lang => $name,
-            ],
-        ],
-    ];
+function course_feedback(array $config, \stdClass $course, $cmid) {
+    return utils\get_activity\course_module(
+        $config,
+        $course,
+        $cmid,
+        'http://id.tincanapi.com/activitytype/survey'
+    );
 }
