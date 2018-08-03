@@ -36,7 +36,8 @@ function handler(array $config, array $events) {
             return $transformedevent;
         } catch (\Exception $e) {
             $logerror = $config['log_error'];
-            $logerror("Caught exception for event id #" . $eventobj->id . ": " .  $e->getMessage(), "\n");
+            $logerror("Caught exception for event id #" . $eventobj->id . ": " .  $e->getMessage());
+            $logerror($e->getTraceAsString());
             return null;
         }
     }, $events));
