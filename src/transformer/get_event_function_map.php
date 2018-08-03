@@ -44,7 +44,7 @@ function get_event_function_map() {
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
         '\mod_glossary\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
-        '\mod_lesson\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_lesson\event\course_module_viewed' => 'mod_lesson\course_module_viewed',
         '\mod_lti\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_page\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_quiz\event\course_module_viewed' => 'all\course_module_viewed',
