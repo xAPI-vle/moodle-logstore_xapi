@@ -18,10 +18,30 @@
             "lang": "en"
         }
     ],
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
+    "modules": [
+        {
+            "id": 1,
+            "name": "facetoface"
+        }
+    ],
     "facetoface": [
         {
             "id": 1,
             "name": "test_facetoface_name"
+        }
+    ],
+    "facetoface_sessions": [
+        {
+            "id": 1,
+            "facetoface": 1
         }
     ],
     "facetoface_signups": [

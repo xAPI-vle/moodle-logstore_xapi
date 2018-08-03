@@ -34,7 +34,12 @@ function cancel_booking(array $config, \stdClass $event) {
                 $lang => 'unregistered from'
             ],
         ],
-        'object' => utils\get_activity\event_module($config, $event, $lang),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid,
+            'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion'
+        ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

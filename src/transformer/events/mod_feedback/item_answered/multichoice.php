@@ -65,7 +65,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $feedbackvalue, 
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_feedback($config, $event->contextinstanceid, $feedback, $lang),
+                    utils\get_activity\course_feedback($config, $course, $event->contextinstanceid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

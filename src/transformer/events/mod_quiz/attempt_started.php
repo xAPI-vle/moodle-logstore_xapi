@@ -37,7 +37,7 @@ function attempt_started(array $config, \stdClass $event) {
                 $lang => 'started'
             ],
         ],
-        'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
+        'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -47,7 +47,7 @@ function attempt_started(array $config, \stdClass $event) {
             ],
             'contextActivities' => [
                 'other' => [
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $event->contextinstanceid),
                 ],
                 'grouping' => [
                     utils\get_activity\site($config),

@@ -35,7 +35,7 @@ function discussion_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\discussion($config, $discussion),
+        'object' => utils\get_activity\course_discussion($config, $course, $discussion),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -47,6 +47,7 @@ function discussion_viewed(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

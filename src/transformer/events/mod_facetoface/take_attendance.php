@@ -46,7 +46,12 @@ function take_attendance(array $config, \stdClass $event) {
                             $lang => 'attended'
                         ],
                     ],
-                    'object' => utils\get_activity\event_module($config, $event, $lang),
+                    'object' => utils\get_activity\course_module(
+                        $config,
+                        $course,
+                        $event->contextinstanceid,
+                        'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion'
+                    ),
                     'timestamp' => utils\get_event_timestamp($event),
                     'result' => [
                         'duration' => "PT".(string) $sessionduration."S",

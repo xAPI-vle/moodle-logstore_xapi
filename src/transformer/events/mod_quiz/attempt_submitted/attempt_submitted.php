@@ -41,7 +41,7 @@ function attempt_submitted(array $config, \stdClass $event) {
                 $lang => 'completed'
             ],
         ],
-        'object' => utils\get_activity\module($config, 'quiz', $quiz, $lang),
+        'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => utils\get_attempt_result($config, $attempt, $gradeitem),
         'context' => [

@@ -18,7 +18,7 @@
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/discussion",
                 "name": {
-                    "en": "test_forum_name"
+                    "en": "test_forum_discussion_name"
                 }
             }
         },
@@ -51,6 +51,15 @@
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/course",
                             "name": {
                                 "en": "test_name"
+                            }
+                        }
+                    },
+                    {
+                        "id": "http:\/\/www.example.org\/mod\/forum\/view.php?id=1",
+                        "definition": {
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/forum-topic",
+                            "name": {
+                                "en": "test_forum_name"
                             }
                         }
                     }

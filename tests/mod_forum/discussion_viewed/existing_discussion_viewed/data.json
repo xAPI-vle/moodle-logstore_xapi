@@ -13,10 +13,30 @@
             "lang": "en"
         }
     ],
-    "forum_discussions": [
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
+    "modules": [
+        {
+            "id": 1,
+            "name": "forum"
+        }
+    ],
+    "forum": [
         {
             "id": 1,
             "name": "test_forum_name"
+        }
+    ],
+    "forum_discussions": [
+        {
+            "id": 1,
+            "name": "test_forum_discussion_name"
         }
     ]
 }
