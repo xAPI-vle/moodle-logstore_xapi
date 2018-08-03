@@ -26,6 +26,12 @@
             "instance": 1
         }
     ],
+    "modules": [
+        {
+            "id": 1,
+            "name": "quiz"
+        }
+    ],
     "quiz_attempts": [
         {
             "id": 1,

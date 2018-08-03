@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                 "name": {
                     "en": "test_quiz_name"
                 }
@@ -157,7 +157,7 @@
                     {
                         "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
                         "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                             "name": {
                                 "en": "test_quiz_name"
                             }

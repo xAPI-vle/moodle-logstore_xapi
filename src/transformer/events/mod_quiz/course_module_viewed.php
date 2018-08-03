@@ -14,48 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_quiz\question_answered;
+namespace src\transformer\events\mod_quiz;
 
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
+function course_module_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/answered',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'answered'
+                $lang => 'viewed'
             ],
         ],
-        'object' => [
-            'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $question->questiontext,
-                ],
-                'interactionType' => 'true-false',
-            ]
-        ],
+        'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => [
-            'response' => $questionattempt->responsesummary,
-            'completion' => $questionattempt->responsesummary !== null,
-            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
-            'extensions' => [
-                'http://learninglocker.net/xapi/cmi/true-false/response' => $questionattempt->responsesummary === 'True',
-            ],
-        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -66,8 +46,6 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

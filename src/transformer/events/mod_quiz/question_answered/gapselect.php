@@ -67,7 +67,7 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\module($config, 'quiz', $quiz, $lang),
+                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
                     utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
