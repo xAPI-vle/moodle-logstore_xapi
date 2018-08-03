@@ -39,7 +39,7 @@ function get_event_function_map() {
         '\mod_feedback\event\course_module_viewed' => 'mod_feedback\course_module_viewed',
         '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted\handler',
         '\mod_folder\event\course_module_viewed' => 'all\course_module_viewed',
-        '\mod_forum\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_forum\event\course_module_viewed' => 'mod_forum\course_module_viewed',
         '\mod_forum\event\discussion_viewed' => 'mod_forum\discussion_viewed',
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
         '\mod_glossary\event\course_module_viewed' => 'all\course_module_viewed',

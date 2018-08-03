@@ -30,13 +30,7 @@
     "forum": [
         {
             "id": 1,
-            "name": "test_forum_name"
-        }
-    ],
-    "forum_discussions": [
-        {
-            "id": 1,
-            "name": "test_forum_discussion_name"
+            "name": "test_name"
         }
     ]
 }

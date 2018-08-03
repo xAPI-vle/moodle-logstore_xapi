@@ -14,23 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\get_activity;
+namespace tests\mod_forum\course_module_viewed\existing_module;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
-function discussion(array $config, \stdClass $discussion) {
-    $lang = $config['source_lang'];
-    $appurl = $config['app_url'];
-    $discussionurl = $appurl . '/mod/forum/discuss.php?d=' . $discussion->id;
-
-    return [
-        'id' => $discussionurl,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/discussion',
-            'name' => [
-                $lang => $discussion->name,
-            ],
-        ],
-    ];
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }

@@ -3,8 +3,6 @@
     "userid": 1,
     "courseid": 1,
     "timecreated": 1433946701,
-    "objecttable": "forum",
-    "objectid": 1,
     "contextinstanceid": 1,
-    "eventname": "\\mod_forum\\event\\discussion_viewed"
+    "eventname": "\\mod_forum\\event\\course_module_viewed"
 }
