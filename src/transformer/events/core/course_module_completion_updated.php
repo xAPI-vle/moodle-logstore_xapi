@@ -37,7 +37,12 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 $lang => 'completed'
             ],
         ],
-        'object' => utils\get_activity\module($config, $moduletype->name, $module, $lang),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid,
+            'http://id.tincanapi.com/activitytype/lms/module'
+        ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
