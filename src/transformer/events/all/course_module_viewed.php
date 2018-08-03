@@ -34,7 +34,12 @@ function course_module_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\event_module($config, $course, $event),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid,
+            'http://id.tincanapi.com/activitytype/lms/module'
+        ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

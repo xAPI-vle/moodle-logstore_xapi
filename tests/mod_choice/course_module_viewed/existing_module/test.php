@@ -14,16 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\get_activity;
+namespace tests\mod_choice\course_module_viewed\existing_module;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
-function event_module(array $config, \stdClass $course, \stdClass $event) {
-    return utils\get_activity\course_module(
-        $config,
-        $course,
-        $event->contextinstanceid,
-        'http://id.tincanapi.com/activitytype/lms/module'
-    );
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }

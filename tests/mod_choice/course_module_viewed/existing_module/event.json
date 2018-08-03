@@ -4,5 +4,5 @@
     "courseid": 1,
     "timecreated": 1433946701,
     "contextinstanceid": 1,
-    "eventname": "\\mod_scorm\\event\\course_module_viewed"
+    "eventname": "\\mod_choice\\event\\course_module_viewed"
 }
