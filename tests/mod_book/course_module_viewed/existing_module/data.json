@@ -24,10 +24,10 @@
     "modules": [
         {
             "id": 1,
-            "name": "scorm"
+            "name": "book"
         }
     ],
-    "scorm": [
+    "book": [
         {
             "id": 1,
             "name": "test_name"

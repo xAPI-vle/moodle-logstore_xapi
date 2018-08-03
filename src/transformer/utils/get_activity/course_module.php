@@ -19,11 +19,23 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function event_module(array $config, \stdClass $course, \stdClass $event) {
-    return utils\get_activity\course_module(
-        $config,
-        $course,
-        $event->contextinstanceid,
-        'http://id.tincanapi.com/activitytype/lms/module'
-    );
+function course_module(array $config, $course, $cmid, $xapitype) {
+    $repo = $config['repo'];
+    $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+    $module = $repo->read_record_by_id('modules', $coursemodule->module);
+    $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
+    
+    $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
+    $courselang = utils\get_course_lang($course);
+    $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
+
+    return [
+        'id' => $coursemoduleurl,
+        'definition' => [
+            'type' => $xapitype,
+            'name' => [
+                $courselang => $instancename,
+            ],
+        ],
+    ];
 }
