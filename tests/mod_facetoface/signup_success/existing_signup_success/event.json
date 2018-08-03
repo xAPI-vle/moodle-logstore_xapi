@@ -5,5 +5,6 @@
     "timecreated": 1433946701,
     "objecttable": "facetoface",
     "objectid": 1,
+    "contextinstanceid": 1,
     "eventname": "\\mod_facetoface\\event\\signup_success"
 }

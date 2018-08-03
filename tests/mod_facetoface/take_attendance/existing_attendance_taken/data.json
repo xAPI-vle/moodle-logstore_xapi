@@ -24,6 +24,12 @@
             "name": "test_facetoface_name"
         }
     ],
+    "facetoface_sessions": [
+        {
+            "id": 1,
+            "facetoface": 1
+        }
+    ],
     "facetoface_signups": [
         {
             "id": 1,

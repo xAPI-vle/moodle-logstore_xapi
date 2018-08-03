@@ -27,6 +27,8 @@ function take_attendance(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
     $sessionid = $event->objectid;
     $signups = $repo->read_records('facetoface_signups', ['sessionid' => $sessionid]);
+    $session = $repo->read_record_by_id('facetoface_sessions', $sessionid);
+    $facetoface = $repo->read_record_by_id('facetoface', $session->facetoface);
     $statements = [];
     $sessionduration = utils\get_session_duration($config, $sessionid);
 
@@ -46,7 +48,7 @@ function take_attendance(array $config, \stdClass $event) {
                             $lang => 'attended'
                         ],
                     ],
-                    'object' => utils\get_activity\event_module($config, $event, $lang),
+                    'object' => utils\get_activity\course_facetoface($config, $event->contextinstanceid, $facetoface, $lang),
                     'timestamp' => utils\get_event_timestamp($event),
                     'result' => [
                         'duration' => "PT".(string) $sessionduration."S",

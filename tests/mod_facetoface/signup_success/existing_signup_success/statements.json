@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/facetoface\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                "type": "https:\/\/w3id.org\/xapi\/acrossx\/activities\/face-to-face-discussion",
                 "name": {
                     "en": "test_facetoface_name"
                 }
