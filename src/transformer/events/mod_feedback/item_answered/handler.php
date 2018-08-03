@@ -25,6 +25,8 @@ function handler(array $config, \stdClass $event, \stdClass $feedbackvalue) {
     $feedbackitem = $repo->read_record_by_id('feedback_item', $feedbackvalue->item);
 
     switch ($feedbackitem->typ) {
+        case 'multichoicerated':
+            return multichoicerated($config, $event, $feedbackvalue, $feedbackitem);
         case 'multichoice':
             return multichoice($config, $event, $feedbackvalue, $feedbackitem);
         case 'numeric':
