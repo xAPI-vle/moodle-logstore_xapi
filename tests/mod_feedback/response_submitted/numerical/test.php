@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_feedback\response_submitted\numeric;
+namespace tests\mod_feedback\response_submitted\numerical;
 defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {

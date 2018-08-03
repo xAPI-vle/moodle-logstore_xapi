@@ -30,7 +30,7 @@ function handler(array $config, \stdClass $event, \stdClass $feedbackvalue) {
         case 'multichoice':
             return multichoice($config, $event, $feedbackvalue, $feedbackitem);
         case 'numeric':
-            return numeric($config, $event, $feedbackvalue, $feedbackitem);
+            return numerical($config, $event, $feedbackvalue, $feedbackitem);
         case 'textarea':
             return textarea($config, $event, $feedbackvalue, $feedbackitem);
         case 'textfield':
