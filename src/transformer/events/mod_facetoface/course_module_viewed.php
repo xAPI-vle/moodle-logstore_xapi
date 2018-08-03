@@ -20,7 +20,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function signup_success(array $config, \stdClass $event) {
+function course_module_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -29,9 +29,9 @@ function signup_success(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/registered',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'registered to'
+                $lang => 'viewed'
             ],
         ],
         'object' => utils\get_activity\course_module(
@@ -53,7 +53,7 @@ function signup_success(array $config, \stdClass $event) {
                     utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]

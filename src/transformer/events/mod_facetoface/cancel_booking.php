@@ -24,7 +24,6 @@ function cancel_booking(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $facetoface = $repo->read_record_by_id('facetoface', $event->objectid);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -35,7 +34,12 @@ function cancel_booking(array $config, \stdClass $event) {
                 $lang => 'unregistered from'
             ],
         ],
-        'object' => utils\get_activity\course_facetoface($config, $event->contextinstanceid, $facetoface, $lang),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid,
+            'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion'
+        ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

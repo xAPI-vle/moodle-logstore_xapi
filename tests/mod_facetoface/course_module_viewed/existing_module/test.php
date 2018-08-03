@@ -14,21 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\get_activity;
+namespace tests\mod_facetoface\course_module_viewed\existing_module;
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
-
-function course_facetoface(array $config, $cmid, $facetoface, $lang) {
-    $name = $facetoface->name;
-
-    return [
-        'id' => $config['app_url'].'/mod/facetoface/view.php?id='.$cmid,
-        'definition' => [
-            'type' => 'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion',
-            'name' => [
-                $lang => $name,
-            ],
-        ],
-    ];
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }

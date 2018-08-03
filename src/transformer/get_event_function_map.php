@@ -33,7 +33,7 @@ function get_event_function_map() {
         '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_data\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_facetoface\event\cancel_booking' => 'mod_facetoface\cancel_booking',
-        '\mod_facetoface\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_facetoface\event\course_module_viewed' => 'mod_facetoface\course_module_viewed',
         '\mod_facetoface\event\signup_success' => 'mod_facetoface\signup_success',
         '\mod_facetoface\event\take_attendance' => 'mod_facetoface\take_attendance',
         '\mod_feedback\event\course_module_viewed' => 'mod_feedback\course_module_viewed',

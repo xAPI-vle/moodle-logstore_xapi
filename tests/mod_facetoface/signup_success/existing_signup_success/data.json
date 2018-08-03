@@ -13,6 +13,20 @@
             "lang": "en"
         }
     ],
+    "course_modules": [
+        {
+            "id": 1,
+            "course": 1,
+            "module": 1,
+            "instance": 1
+        }
+    ],
+    "modules": [
+        {
+            "id": 1,
+            "name": "facetoface"
+        }
+    ],
     "facetoface": [
         {
             "id": 1,
