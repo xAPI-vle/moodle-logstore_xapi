@@ -60,7 +60,7 @@ function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \st
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_feedback($config, $course, $event->contextinstanceid)
+                    utils\get_activity\course_feedback($config, $course, $event->contextinstanceid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
