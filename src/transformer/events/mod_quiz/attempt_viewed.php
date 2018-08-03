@@ -20,24 +20,21 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function attempt_started(array $config, \stdClass $event) {
+function attempt_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/start',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'started'
+                $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
+        'object' => utils\get_activity\quiz_attempt($config, $event->id, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -46,12 +43,10 @@ function attempt_started(array $config, \stdClass $event) {
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
             ],
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $event->contextinstanceid),
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
