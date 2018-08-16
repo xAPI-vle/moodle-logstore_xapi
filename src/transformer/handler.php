@@ -23,12 +23,16 @@ function handler(array $config, array $events) {
         $eventobj = (object) $event;
         try {
             $eventname = $eventobj->eventname;
-            $eventfunctionname = $eventfunctionmap[$eventname];
-            $eventfunction = '\src\transformer\events\\' . $eventfunctionname;
-            $eventconfig = array_merge([
-                'event_function' => $eventfunction,
-            ], $config);
-            $eventstatements = $eventfunction($eventconfig, $eventobj);
+            if (isset($eventfunctionmap[$eventname])) {
+                $eventfunctionname = $eventfunctionmap[$eventname];
+                $eventfunction = '\src\transformer\events\\' . $eventfunctionname;
+                $eventconfig = array_merge([
+                    'event_function' => $eventfunction,
+                ], $config);
+                $eventstatements = $eventfunction($eventconfig, $eventobj);
+            } else {
+                $eventstatements = [];
+            }
             $transformedevent = [
                 'eventid' => $eventobj->id,
                 'statements' => $eventstatements,
