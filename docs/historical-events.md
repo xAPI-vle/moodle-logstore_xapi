@@ -10,7 +10,7 @@ INSERT INTO mdl_logstore_xapi_log
 SELECT * FROM mdl_logstore_standard_log
 ```
 
-Note that you may want to add a where clause to this SQL query if you only want to process some past events. For example, if you only wanted to process past events between `2018-01-01T00:00Z` and `2018-01-02T00:00Z` you would use the where clause below, where the dates have been [converted to Unix timestamp integers](http://www.4webhelp.net/us/timestamp.php?action=date&day=01&month=01&year=2018&hour=00&minute=00&second=00&timezone=0). 
+Note that you may want to add a `WHERE` clause to this SQL query if you only want to process some past events. For example, if you only wanted to process past events between `2018-01-01T00:00Z` and `2018-01-02T00:00Z` you would use the `WHERE` clause below, where the dates have been [converted to Unix timestamp integers](http://www.4webhelp.net/us/timestamp.php?action=date&day=01&month=01&year=2018&hour=00&minute=00&second=00&timezone=0). 
 
 ```sql
 WHERE timecreated BETWEEN 1514764800 AND 1514851200
