@@ -90,7 +90,7 @@ function load(array $config, array $events) {
         $loadedbatchevents = load_transormed_events_to_lrs($config, $batch);
         return array_merge($result, $loadedbatchevents);
     }, []);
-    
+
     // Flags events that weren't transformed successfully as events that didn't load.
     $failedtransformevents = utils\filter_transformed_events($events, false);
     $nonloadedevents = utils\construct_loaded_events($failedtransformevents, false);
