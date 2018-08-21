@@ -53,14 +53,14 @@
             "gradepass": 50
         }
     ],
-	"question_attempts": [
-		{
-			"id": 1,
-			"questionusageid": 1,
-			"questionid": 1,
-			"responsesummary": "answer 1"
-			"rightanswer": "answer 1"
-		}
+    "question_attempts": [
+        {
+            "id": 1,
+            "questionusageid": 1,
+            "questionid": 1,
+            "responsesummary": "answer 2; answer 1"
+			"rightanswer": "answer 2; answer 1"
+        }
     ],
     "question": [
         {
@@ -74,12 +74,12 @@
             "id": 1,
             "fraction": 1.000,
 			"answer": "answer 1"
-        },
+        }
 		{
             "id": 2,
             "fraction": 1.000,
 			"answer": "answer 2"
-        },
+        }
 		{
             "id": 3,
             "fraction": 1.000,
