@@ -59,7 +59,7 @@
             "questionusageid": 1,
             "questionid": 1,
             "responsesummary": "answer 2; answer 1"
-			"rightanswer": "answer 2; answer 1"
+            "rightanswer": "answer 2; answer 1"
         }
     ],
     "question": [
@@ -69,21 +69,21 @@
             "questiontext": "test_question"
         }
     ]
-	"quiz_answers": [
+    "quiz_answers": [
         {
             "id": 1,
             "fraction": 1.000,
-			"answer": "answer 1"
+            "answer": "answer 1"
         }
-		{
+        {
             "id": 2,
             "fraction": 1.000,
-			"answer": "answer 2"
+            "answer": "answer 2"
         }
-		{
+        {
             "id": 3,
             "fraction": 1.000,
-			"answer": "answer 3"
+            "answer": "answer 3"
         }
     ]
 }

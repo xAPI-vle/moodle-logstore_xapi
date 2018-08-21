@@ -105,42 +105,44 @@
                 "en": "answered"
             }
         },
-                "object": {
+        "object": {
             "id": "http:\/\/www.example.org\/question\/question.php?cmid=1&id=1",
             "definition": {
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/cmi.interaction",
                 "name": {
                     "en": "test_question"
                 },
-                "interactionType": "choice"
-				"correctResponsePattern": "answer 1"
+                "interactionType": "choice",
+                "correctResponsePattern": [
+                    "answer 1"
+                ]
             }
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
             "response": "answer 1",
             "completion": true,
-			"success": true,
+            "success": true,
             "extensions": {
                 "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "answer 1"
             },
-			"answers": {
-				"1":{
-					"fraction": 1.000,
-					"answer": "answer 1",
-					"id": 1,
-				},
-				"2":{
-					"fraction": 1.000,
-					"answer": "answer 2",
-					"id": 2,
-				},
-				"3":{
-					"fraction": 1.000,
-					"answer": "answer 3",
-					"id": 3,
-				}
-			}
+            "answers": {
+                "1":{
+                    "fraction": 1.000,
+                    "answer": "answer 1",
+                    "id": 1,
+                },
+                "2":{
+                    "fraction": 1.000,
+                    "answer": "answer 2",
+                    "id": 2,
+                },
+                "3":{
+                    "fraction": 1.000,
+                    "answer": "answer 3",
+                    "id": 3,
+                }
+            }
         },
         "context": {
             "platform": "Moodle",
