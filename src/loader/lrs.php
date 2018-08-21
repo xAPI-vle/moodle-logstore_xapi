@@ -17,6 +17,8 @@
 namespace src\loader\lrs;
 defined('MOODLE_INTERNAL') || die();
 
+use src\loader\utils as utils;
+
 function correct_endpoint($endpoint) {
     $endswithstatements = substr($endpoint, -11) === "/statements";
     if ($endswithstatements) {
@@ -25,17 +27,13 @@ function correct_endpoint($endpoint) {
     return rtrim($endpoint, '/');
 }
 
-function load_transormed_events_to_lrs(array $config, array $transformedevents) {
+function send_http_statements(array $config, array $statements) {
     $endpoint = $config['lrs_endpoint'];
     $username = $config['lrs_username'];
     $password = $config['lrs_password'];
 
     $url = correct_endpoint($endpoint).'/statements';
     $auth = base64_encode($username.':'.$password);
-    $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
-        $eventstatements = $transformedevent['statements'];
-        return array_merge($result, $eventstatements);
-    }, []);
     $postdata = json_encode($statements);
 
     $request = curl_init();
@@ -55,10 +53,25 @@ function load_transormed_events_to_lrs(array $config, array $transformedevents) 
 
     if ($responsecode !== 200) {
         throw new \Exception($responsetext);
-        return [];
     }
+}
 
-    return $transformedevents;
+function load_transormed_events_to_lrs(array $config, array $transformedevents) {
+    try {
+        $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
+            $eventstatements = $transformedevent['statements'];
+            return array_merge($result, $eventstatements);
+        }, []);
+        send_http_statements($config, $statements);
+        $loadedevents = utils\construct_loaded_events($transformedevents, true);
+        return $loadedevents;
+    } catch (\Exception $e) {
+        $logerror = $config['log_error'];
+        $logerror("Failed load for event id #" . $eventobj->id . ": " .  $e->getMessage());
+        $logerror($e->getTraceAsString());
+        $loadedevents = utils\construct_loaded_events($transformedevents, false);
+        return $loadedevents;
+    }
 }
 
 function get_event_batches(array $config, array $transformedevents) {
@@ -69,11 +82,19 @@ function get_event_batches(array $config, array $transformedevents) {
     return [$transformedevents];
 }
 
-function load(array $config, array $transformedevents) {
-    $batches = get_event_batches($config, $transformedevents);
+function load(array $config, array $events) {
+    // Attempts to load events that were transformed successfully in batches.
+    $successfultransformevents = utils\filter_transformed_events($events, true);
+    $batches = get_event_batches($config, $successfultransformevents);
     $loadedevents = array_reduce($batches, function ($result, $batch) use ($config) {
         $loadedbatchevents = load_transormed_events_to_lrs($config, $batch);
         return array_merge($result, $loadedbatchevents);
     }, []);
-    return $loadedevents;
+    
+    // Flags events that weren't transformed successfully as events that didn't load.
+    $failedtransformevents = utils\filter_transformed_events($events, false);
+    $nonloadedevents = utils\construct_loaded_events($failedtransformevents, false);
+
+    // Returns loaded and non-loaded events to avoid re-processing.
+    return array_merge($loadedevents, $nonloadedevents);
 }

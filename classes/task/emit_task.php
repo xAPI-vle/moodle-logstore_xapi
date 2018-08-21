@@ -31,11 +31,23 @@ class emit_task extends \core\task\scheduled_task {
         return get_string('taskemit', 'logstore_xapi');
     }
 
-    /**
-     * Do the job.
-     * Throw exceptions on errors (the job will be retried).
-     */
-    public function execute() {
+    private function get_failed_events($events) {
+        $nonloadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === false;
+        });
+        $failedevents = array_map(function ($nonloadedevent) {
+            return $nonloadedevent['event'];
+        });
+        return $failedevents;
+    }
+
+    private function get_event_ids($events) {
+        return array_map(function ($loadedevent) {
+            return $loadedevent['event']->id;
+        }, $loadedevents);
+    }
+
+    private function extract_events() {
         global $DB;
         $manager = get_log_manager();
         $store = new store($manager);
@@ -45,11 +57,26 @@ class emit_task extends \core\task\scheduled_task {
         $limitfrom = 0;
         $limitnum = $store->get_max_batch_size();
         $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
+        return $extractedevents;
+    }
+
+    /**
+     * Do the job.
+     * Throw exceptions on errors (the job will be retried).
+     */
+    public function execute() {
+        // Extracts, transforms, and loads events.
+        $extractedevents = $this->extract_events();
         $loadedevents = $store->process_events($extractedevents);
-        $loadedeventids = array_map(function ($transformedevent) {
-            return $transformedevent['eventid'];
-        }, $loadedevents);
+
+        // Stores failed events.
+        $failedevents = $this->get_failed_events($loadedevents);
+        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+
+        // Deletes processed events.
+        $loadedeventids = $this->get_event_ids($loadedevents);
         $DB->delete_records_list('logstore_xapi_log', 'id', $loadedeventids);
+
         mtrace("Events (".implode(', ', $loadedeventids).") have been successfully sent to LRS.");
     }
 }
