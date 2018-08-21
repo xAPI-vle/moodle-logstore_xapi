@@ -25,10 +25,14 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
+    $answers = $repo->read_records('quiz_answers', array('id' => $questionattempt->questionid));
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
-
+    $answerarray = array();
+    foreach ($answers as $id => $answer) {
+        $answerarray[$id] = array('answer' => $answer->answer, 'fraction' => $answer->fraction);
+    }
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -45,11 +49,16 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
                     $lang => $question->questiontext,
                 ],
                 'interactionType' => 'choice',
+                "correctResponsePatter" => [$questionattempt->rightanswer],
+            ],
+            'extensions' => [
+                'answers' => $answerarray
             ]
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
+            'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/choice/response' => $questionattempt->responsesummary,
