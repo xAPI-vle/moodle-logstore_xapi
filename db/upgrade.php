@@ -16,7 +16,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-function create_xapi_log_table($tablename) {
+function create_xapi_log_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
 
@@ -65,17 +65,17 @@ function create_xapi_log_table($tablename) {
 }
 
 function xmldb_logstore_xapi_upgrade($oldversion) {
-    global $CFG, $DB;
+    global $DB;
 
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2015081001) {
-        create_xapi_log_table('logstore_xapi_log');
+        create_xapi_log_table($dbman, 'logstore_xapi_log');
         upgrade_plugin_savepoint(true, 2015081001, 'logstore', 'xapi');
     }
 
     if ($oldversion < 2018082100) {
-        create_xapi_log_table('logstore_xapi_failed_log');
+        create_xapi_log_table($dbman, 'logstore_xapi_failed_log');
         upgrade_plugin_savepoint(true, 2018082100, 'logstore', 'xapi');
     }
 
