@@ -19,9 +19,9 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
-    $hasValidEmail = filter_var($user->email, FILTER_VALIDATE_EMAIL);
+    $hasvalidemail = filter_var($user->email, FILTER_VALIDATE_EMAIL);
 
-    if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasValidEmail) {
+    if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
         return [
             'name' => $fullname,
             'mbox' => 'mailto:' . $user->email,
