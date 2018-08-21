@@ -74,7 +74,7 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2015081001, 'logstore', 'xapi');
     }
 
-    if ($oldversion <= 2018082100) {
+    if ($oldversion < 2018082100) {
         create_xapi_log_table('logstore_xapi_failed_log');
         upgrade_plugin_savepoint(true, 2018082100, 'logstore', 'xapi');
     }
