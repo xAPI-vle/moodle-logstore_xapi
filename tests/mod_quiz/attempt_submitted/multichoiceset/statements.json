@@ -112,14 +112,14 @@
                 "name": {
                     "en": "test_question"
                 },
-                "interactionType": "choice",
+                "interactionType": "choice"
             }
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
             "response": "answer 1; answer 2",
-            "completion": true,
             "success": true,
+			"completion": true,
             "extensions": {
                 "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "answer 1; answer 2"
             }
