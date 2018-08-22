@@ -37,7 +37,7 @@ class emit_task extends \core\task\scheduled_task {
         });
         $failedevents = array_map(function ($nonloadedevent) {
             return $nonloadedevent['event'];
-        });
+        }, $nonloadedevents);
         return $failedevents;
     }
 
