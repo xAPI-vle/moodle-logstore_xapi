@@ -41,7 +41,7 @@ class emit_task extends \core\task\scheduled_task {
         return $failedevents;
     }
 
-    private function get_event_ids($events) {
+    private function get_event_ids($loadedevents) {
         return array_map(function ($loadedevent) {
             return $loadedevent['event']->id;
         }, $loadedevents);
