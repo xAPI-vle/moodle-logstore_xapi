@@ -69,7 +69,7 @@
             "questiontext": "test_question"
         }
     ],
-    "quiz_answers": [
+    "question_answers": [
         {
             "id": 1,
             "fraction": 1.000,
