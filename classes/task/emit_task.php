@@ -49,7 +49,6 @@ class emit_task extends \core\task\scheduled_task {
 
     private function extract_events($limitnum) {
         global $DB;
-        $manager = get_log_manager();
         $conditions = null;
         $sort = '';
         $fields = '*';
@@ -63,6 +62,7 @@ class emit_task extends \core\task\scheduled_task {
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
+        $manager = get_log_manager();
         $store = new store($manager);
 
         // Extracts, transforms, and loads events.
