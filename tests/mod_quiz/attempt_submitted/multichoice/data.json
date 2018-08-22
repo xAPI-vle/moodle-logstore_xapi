@@ -68,7 +68,7 @@
             "qtype": "multichoice",
             "questiontext": "test_question"
         }
-    ]
+    ],
     "quiz_answers": [
         {
             "id": 1,

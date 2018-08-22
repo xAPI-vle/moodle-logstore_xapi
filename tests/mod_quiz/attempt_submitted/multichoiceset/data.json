@@ -58,8 +58,8 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "responsesummary": "answer 2; answer 1",
-            "rightanswer": "answer 2; answer 1"
+            "responsesummary": "answer 1; answer 2",
+            "rightanswer": "answer 1; answer 2"
         }
     ],
     "question": [
