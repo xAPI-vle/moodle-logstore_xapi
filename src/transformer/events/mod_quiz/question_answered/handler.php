@@ -37,8 +37,8 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
             return shortanswer($config, $event, $questionattempt, $question);
         case 'match':
             return match($config, $event, $questionattempt, $question);
-		case 'multichoiceset':
         case 'multichoice':
+		case 'multichoiceset':
             return multichoice($config, $event, $questionattempt, $question);
         case 'numerical':
             return numerical($config, $event, $questionattempt, $question);
