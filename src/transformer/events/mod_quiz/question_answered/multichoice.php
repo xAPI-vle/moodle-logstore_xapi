@@ -33,8 +33,8 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     foreach ($answers as $id => $answer) {
         $answerarray[] = ["id" => "$id", "description" => array($lang => $answer->answer)];
     }
-    // To handle a a negative config response for response choices, we don't want to hand a blank string/array.
-    $definition_array = [
+    // To handle a negative config response for response choices, we don't want to hand a blank string/array.
+    $definition = [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
             $lang => $question->questiontext,
@@ -42,7 +42,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         'interactionType' => 'choice'
     ];
     if ($config['send_response_choices']) {
-        $definition_array = [
+        $definition = [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
                 $lang => $question->questiontext,
@@ -64,7 +64,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => $definition_array,
+            'definition' => $definition,
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
