@@ -106,6 +106,7 @@ class store extends php_obj implements log_writer {
                 'plugin_version' => $plugin->release,
                 'repo' => new \src\transformer\repos\MoodleRepository($DB),
                 'app_url' => $CFG->wwwroot,
+                'send_response_choices' => $this->get_config('send_response_choices', 0),
             ],
             'loader' => [
                 'loader' => 'lrs',
@@ -114,7 +115,6 @@ class store extends php_obj implements log_writer {
                 'lrs_password' => $this->get_config('password', ''),
                 'lrs_max_batch_size' => $this->get_max_batch_size(),
             ],
-            'send_response_choices' => $this->get_config('send_response_choices', 0),
         ];
         $loadedevents = \src\handler($handlerconfig, $events);
         return $loadedevents;
