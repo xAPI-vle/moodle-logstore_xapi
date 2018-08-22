@@ -47,15 +47,13 @@ class emit_task extends \core\task\scheduled_task {
         }, $loadedevents);
     }
 
-    private function extract_events() {
+    private function extract_events($limitnum) {
         global $DB;
         $manager = get_log_manager();
-        $store = new store($manager);
         $conditions = null;
         $sort = '';
         $fields = '*';
         $limitfrom = 0;
-        $limitnum = $store->get_max_batch_size();
         $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
         return $extractedevents;
     }
@@ -65,8 +63,10 @@ class emit_task extends \core\task\scheduled_task {
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
+        $store = new store($manager);
+
         // Extracts, transforms, and loads events.
-        $extractedevents = $this->extract_events();
+        $extractedevents = $this->extract_events($store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
 
         // Stores failed events.
