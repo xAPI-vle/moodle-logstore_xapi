@@ -119,7 +119,7 @@
         "result": {
             "response": "answer 1; answer 2",
             "success": true,
-			"completion": true,
+            "completion": true,
             "extensions": {
                 "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "answer 1; answer 2"
             }
