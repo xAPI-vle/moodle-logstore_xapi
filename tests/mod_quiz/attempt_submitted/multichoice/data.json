@@ -58,14 +58,14 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "responsesummary": "answer 1"
+            "responsesummary": "answer 1",
             "rightanswer": "answer 1"
         }
     ],
     "question": [
         {
             "id": 1,
-            "qtype": "multichoiceset",
+            "qtype": "multichoice",
             "questiontext": "test_question"
         }
     ]
