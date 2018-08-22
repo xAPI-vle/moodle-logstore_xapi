@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\loader\none;
+namespace src\loader\utils;
 
 defined('MOODLE_INTERNAL') || die();
 
-use src\loader\utils as utils;
-
-function load(array $config, array $transformedevents) {
-    return utils\construct_loaded_events($transformedevents, true);
+function filter_transformed_events(array $events, $transformed) {
+    $filteredevents = array_filter($events, function ($event) use ($transformed) {
+        return $event['transformed'] === $transformed;
+    });
+    return $filteredevents;
 }
