@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 function handler(array $config, array $events) {
     $eventfunctionmap = get_event_function_map();
-    $transformedevents = array_filter(array_map(function ($event) use ($config, $eventfunctionmap) {
+    $transformedevents = array_map(function ($event) use ($config, $eventfunctionmap) {
         $eventobj = (object) $event;
         try {
             $eventname = $eventobj->eventname;
@@ -33,17 +33,27 @@ function handler(array $config, array $events) {
             } else {
                 $eventstatements = [];
             }
+
+            // Returns successfully transformed event with its statements.
             $transformedevent = [
-                'eventid' => $eventobj->id,
+                'event' => $eventobj,
                 'statements' => $eventstatements,
+                'transformed' => true,
             ];
             return $transformedevent;
         } catch (\Exception $e) {
             $logerror = $config['log_error'];
-            $logerror("Caught exception for event id #" . $eventobj->id . ": " .  $e->getMessage());
+            $logerror("Failed transform for event id #" . $eventobj->id . ": " .  $e->getMessage());
             $logerror($e->getTraceAsString());
-            return null;
+
+            // Returns unsuccessfully transformed event without statements.
+            $transformedevent = [
+                'event' => $eventobj,
+                'statements' => [],
+                'transformed' => false,
+            ];
+            return $transformedevent;
         }
-    }, $events));
+    }, $events);
     return $transformedevents;
 }
