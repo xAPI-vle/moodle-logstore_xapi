@@ -51,6 +51,10 @@ if ($hassiteconfig) {
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_response_choices',
+       get_string('send_response_choices', 'logstore_xapi'),
+       get_string('send_response_choices_desc', 'logstore_xapi'), 0));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),

@@ -25,13 +25,34 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
-    $answers = $repo->read_records('question_answers', array('id' => $questionattempt->questionid));
+    $answers = $repo->read_records('question_answers', array('question' => $questionattempt->questionid));
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
     $answerarray = array();
     foreach ($answers as $id => $answer) {
-        $answerarray[$id] = array('answer' => $answer->answer, 'fraction' => $answer->fraction);
+        $answerarray[] = ["id" => "$id", "description" => array($lang => $answer->answer)];
+    }
+    // To handle a a negative config response for response choices, we don't want to hand a blank string/array.
+    $definition_array = [
+        'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+        'name' => [
+            $lang => $question->questiontext,
+        ],
+        'interactionType' => 'choice'
+    ];
+    if ($config['send_response_choices']) {
+        $definition_array = [
+            'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+            'name' => [
+                $lang => $question->questiontext,
+            ],
+            'interactionType' => 'choice',
+            'correctResponsesPattern' => [
+                $questionattempt->rightanswer,
+            ],
+            "choices" => $answerarray
+        ];
     }
     return [[
         'actor' => utils\get_user($config, $user),
@@ -43,17 +64,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $question->questiontext,
-                ],
-                'interactionType' => 'choice',
-                "correctResponsePatter" => [$questionattempt->rightanswer],
-            ],
-            'extensions' => [
-                'answers' => $answerarray
-            ]
+            'definition' => $definition_array,
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
