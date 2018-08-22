@@ -41,7 +41,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'interactionType' => 'choice'
     ];
-    if ( \get_config('logstore_xapi','send_response_choices') !== 0) {
+    if ($config['send_response_choices']) {
         $definition_array = [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
