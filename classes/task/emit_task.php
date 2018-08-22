@@ -57,6 +57,19 @@ class emit_task extends \core\task\scheduled_task {
         return $extractedevents;
     }
 
+    private function delete_processed_events($events) {
+        global $DB;
+        $eventids = $this->get_event_ids($events);
+        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
+        mtrace("Events (".implode(', ', $loadedeventids).") have been successfully sent to LRS.");
+    }
+
+    private function store_failed_events($events) {
+        global $DB;
+        $failedevents = $this->get_failed_events($events);
+        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+    }
+
     /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
@@ -65,18 +78,9 @@ class emit_task extends \core\task\scheduled_task {
         $manager = get_log_manager();
         $store = new store($manager);
 
-        // Extracts, transforms, and loads events.
         $extractedevents = $this->extract_events($store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
-
-        // Stores failed events.
-        $failedevents = $this->get_failed_events($loadedevents);
-        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
-
-        // Deletes processed events.
-        $loadedeventids = $this->get_event_ids($loadedevents);
-        $DB->delete_records_list('logstore_xapi_log', 'id', $loadedeventids);
-
-        mtrace("Events (".implode(', ', $loadedeventids).") have been successfully sent to LRS.");
+        $this->store_failed_events($loadedevents);
+        $this->delete_processed_events($loadedevents);
     }
 }
