@@ -73,17 +73,20 @@
         {
             "id": 1,
             "fraction": 1.000,
-            "answer": "answer 1"
+            "answer": "answer 1",
+			"question": 1
         },
         {
             "id": 2,
             "fraction": 1.000,
-            "answer": "answer 2"
+            "answer": "answer 2",
+			"question": 1
         },
         {
             "id": 3,
             "fraction": 1.000,
-            "answer": "answer 3"
+            "answer": "answer 3",
+			"question": 1
         }
     ]
 }
