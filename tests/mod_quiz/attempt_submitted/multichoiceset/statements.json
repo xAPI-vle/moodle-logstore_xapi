@@ -117,10 +117,11 @@
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
-            "response": "test_answer",
+            "response": "answer 1; answer 2",
+            "success": true,
             "completion": true,
             "extensions": {
-                "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "test_answer"
+                "http:\/\/learninglocker.net\/xapi\/cmi\/choice\/response": "answer 1; answer 2"
             }
         },
         "context": {

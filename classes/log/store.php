@@ -100,6 +100,7 @@ class store extends php_obj implements log_writer {
                 'source_version' => $CFG->release,
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
+                'send_response_choices' => $this->get_config('sendresponsechoices', false),
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_username' => $this->get_config('send_username', false),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',

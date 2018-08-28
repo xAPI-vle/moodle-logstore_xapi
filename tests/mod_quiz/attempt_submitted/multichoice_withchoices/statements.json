@@ -112,7 +112,18 @@
                 "name": {
                     "en": "test_question"
                 },
-                "interactionType": "choice"
+                "interactionType": "choice",
+                "correctResponsesPattern": [
+                    "answer 1"
+                ],
+                "choices": [
+                    {
+                        "id": "1",
+                        "description": {
+                            "en": "answer 1"
+                        }
+                    }
+                ]
             }
         },
         "timestamp": "2015-06-10T15:31:41+01:00",

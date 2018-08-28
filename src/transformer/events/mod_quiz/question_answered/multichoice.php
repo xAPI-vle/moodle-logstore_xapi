@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_quiz\question_answered;
-
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
@@ -39,17 +38,12 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $question->questiontext,
-                ],
-                'interactionType' => 'choice',
-            ]
+            'definition' => utils\get_multichoice_definition($config, $questionattempt, $question, $lang),
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
+            'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/choice/response' => $questionattempt->responsesummary,

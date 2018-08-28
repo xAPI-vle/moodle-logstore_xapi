@@ -58,14 +58,14 @@
             "id": 1,
             "questionusageid": 1,
             "questionid": 1,
-            "responsesummary": "answer 1; answer 2",
-            "rightanswer": "answer 1; answer 2"
+            "responsesummary": "answer 1",
+            "rightanswer": "answer 1"
         }
     ],
     "question": [
         {
             "id": 1,
-            "qtype": "multichoiceset",
+            "qtype": "multichoice",
             "questiontext": "test_question"
         }
     ],
@@ -74,18 +74,6 @@
             "id": 1,
             "fraction": 1.000,
             "answer": "answer 1",
-            "question": 1
-        },
-        {
-            "id": 2,
-            "fraction": 1.000,
-            "answer": "answer 2",
-            "question": 1
-        },
-        {
-            "id": 3,
-            "fraction": 1.000,
-            "answer": "answer 3",
             "question": 1
         }
     ]
