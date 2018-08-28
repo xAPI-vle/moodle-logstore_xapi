@@ -46,4 +46,4 @@ $string['send_username_desc'] = 'Statements will identify users with their usern
 $string['shortcourseid'] = 'Send short course name';
 $string['shortcourseid_desc'] = 'Statements will contain the shortname for a course as a short course id extension';
 $string['send_response_choices'] = 'Send response choices';
-$string['send_response_choices_desc'] = 'Statements for multiple choice will be sent with the correct response and potential choices to LRS';
+$string['send_response_choices_desc'] = 'Statements for multiple choice question answers will be sent to the LRS with the correct response and potential choices';
