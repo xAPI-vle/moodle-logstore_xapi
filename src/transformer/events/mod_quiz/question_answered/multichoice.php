@@ -25,10 +25,35 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $attempt = $repo->read_record_by_id('quiz_attempts', $questionattempt->questionusageid);
+    $answers = $repo->read_records('question_answers', array('question' => $questionattempt->questionid));
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
-
+    $answerarray = array();
+    foreach ($answers as $id => $answer) {
+        $answerarray[] = ["id" => "$id", "description" => array($lang => $answer->answer)];
+    }
+    // To handle a negative config response for response choices, we don't want to hand a blank string/array.
+    $definition = [
+        'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+        'name' => [
+            $lang => $question->questiontext,
+        ],
+        'interactionType' => 'choice'
+    ];
+    if ($config['send_response_choices']) {
+        $definition = [
+            'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+            'name' => [
+                $lang => $question->questiontext,
+            ],
+            'interactionType' => 'choice',
+            'correctResponsesPattern' => [
+                $questionattempt->rightanswer,
+            ],
+            "choices" => $answerarray
+        ];
+    }
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -39,17 +64,12 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $question->questiontext,
-                ],
-                'interactionType' => 'choice',
-            ]
+            'definition' => $definition,
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
+            'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/choice/response' => $questionattempt->responsesummary,

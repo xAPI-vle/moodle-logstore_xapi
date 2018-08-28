@@ -106,6 +106,7 @@ class store extends php_obj implements log_writer {
                 'plugin_version' => $plugin->release,
                 'repo' => new \src\transformer\repos\MoodleRepository($DB),
                 'app_url' => $CFG->wwwroot,
+                'send_response_choices' => $this->get_config('sendresponsechoices', false),
             ],
             'loader' => [
                 'loader' => 'lrs',
