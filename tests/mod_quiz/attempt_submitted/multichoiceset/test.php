@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\loader\none;
-
+namespace tests\mod_quiz\attempt_submitted\multichoiceset;
 defined('MOODLE_INTERNAL') || die();
 
-use src\loader\utils as utils;
-
-function load(array $config, array $transformedevents) {
-    return utils\construct_loaded_events($transformedevents, true);
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }
