@@ -118,19 +118,19 @@
                 ],
                 "choices": [
                     {
-                        "id": 1,
+                        "id": "1",
                         "description": {
                             "en": "answer 1"
                         }
                     },
                     {
-                        "id": 2,
+                        "id": "2",
                         "description": {
                             "en": "answer 2"
                         }
                     },
                     {
-                        "id": 3,
+                        "id": "3",
                         "description": {
                             "en": "answer 3"
                         }

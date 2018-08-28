@@ -25,7 +25,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
         ]);
         $choices = array_map(function ($answer) use ($lang) {
             return [
-                "id" => $answer->id,
+                "id" => "$answer->id",
                 "description" => [
                     $lang => $answer->answer
                 ]

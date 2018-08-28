@@ -118,7 +118,7 @@
                 ],
                 "choices": [
                     {
-                        "id": 1,
+                        "id": "1",
                         "description": {
                             "en": "answer 1"
                         }
