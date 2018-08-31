@@ -84,7 +84,11 @@ class store extends php_obj implements log_writer {
     private function get_proxy_endpoint() {
         global $CFG;
         if (!empty($CFG->proxyhost)) {
-            return $CFG->proxyhost.':'.$CFG->proxyport;
+            if (!empty($CFG->proxyport)) {
+                return $CFG->proxyhost.':'.$CFG->proxyport;
+            } else {
+                return $CFG->proxyhost;
+            }
         }
         return null;
     }
