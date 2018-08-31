@@ -17,6 +17,9 @@
 namespace src\loader\moodle_curl_lrs;
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
+require_once($CFG->libdir . '/filelib.php');
+
 use src\loader\utils as utils;
 
 function send_http_statements(array $config, array $statements) {
@@ -29,7 +32,7 @@ function send_http_statements(array $config, array $statements) {
     $auth = base64_encode($username.':'.$password);
     $postdata = json_encode($statements);
 
-    $request = new curl();
+    $request = new \curl();
     $responsetext = $request->post($url, $postdata, [
         'CURLOPT_HTTPHEADER' => [
             'Authorization: Basic '.$auth,

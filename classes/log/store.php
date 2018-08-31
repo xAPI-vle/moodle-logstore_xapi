@@ -121,7 +121,7 @@ class store extends php_obj implements log_writer {
                 'app_url' => $CFG->wwwroot,
             ],
             'loader' => [
-                'loader' => 'lrs',
+                'loader' => 'moodle_curl_lrs',
                 'lrs_endpoint' => $this->get_config('endpoint', ''),
                 'lrs_username' => $this->get_config('username', ''),
                 'lrs_password' => $this->get_config('password', ''),
