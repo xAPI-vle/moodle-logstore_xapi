@@ -81,6 +81,14 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    private function get_proxy_endpoint() {
+        global $CFG;
+        if (!empty($CFG->proxyhost)) {
+            return $CFG->proxyhost.':'.$CFG->proxyport;
+        }
+        return null;
+    }
+
     public function process_events(array $events) {
         global $DB;
         global $CFG;
@@ -114,6 +122,7 @@ class store extends php_obj implements log_writer {
                 'lrs_username' => $this->get_config('username', ''),
                 'lrs_password' => $this->get_config('password', ''),
                 'lrs_max_batch_size' => $this->get_max_batch_size(),
+                'lrs_proxy_endpoint' => $this->get_proxy_endpoint(),
             ],
         ];
         $loadedevents = \src\handler($handlerconfig, $events);

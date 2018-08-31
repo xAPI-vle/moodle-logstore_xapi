@@ -31,6 +31,7 @@ function send_http_statements(array $config, array $statements) {
     $endpoint = $config['lrs_endpoint'];
     $username = $config['lrs_username'];
     $password = $config['lrs_password'];
+    $proxyendpoint = $config['lrs_proxy_endpoint'];
 
     $url = correct_endpoint($endpoint).'/statements';
     $auth = base64_encode($username.':'.$password);
@@ -41,6 +42,9 @@ function send_http_statements(array $config, array $statements) {
     curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
     curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
+    if (isset($proxyendpoint)) {
+        curl_setopt($request, CURLOPT_PROXY, $proxyendpoint);
+    }
     curl_setopt($request, CURLOPT_HTTPHEADER, [
         'Authorization: Basic '.$auth,
         'X-Experience-API-Version: 1.0.0',
