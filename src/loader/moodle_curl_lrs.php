@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\loader\lrs;
+namespace src\loader\moodle_curl_lrs;
 defined('MOODLE_INTERNAL') || die();
 
 use src\loader\utils as utils;
@@ -29,23 +29,15 @@ function send_http_statements(array $config, array $statements) {
     $auth = base64_encode($username.':'.$password);
     $postdata = json_encode($statements);
 
-    $request = curl_init();
-    curl_setopt($request, CURLOPT_URL, $url);
-    curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-    if (isset($proxyendpoint)) {
-        curl_setopt($request, CURLOPT_PROXY, $proxyendpoint);
-    }
-    curl_setopt($request, CURLOPT_HTTPHEADER, [
-        'Authorization: Basic '.$auth,
-        'X-Experience-API-Version: 1.0.0',
-        'Content-Type: application/json',
+    $request = new curl();
+    $responsetext = $request->post($url, $postdata, [
+        'CURLOPT_HTTPHEADER' => [
+            'Authorization: Basic '.$auth,
+            'X-Experience-API-Version: 1.0.0',
+            'Content-Type: application/json',
+        ],
     ]);
-
-    $responsetext = curl_exec($request);
-    $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
-    curl_close($request);
+    $responsecode = $request->info['http_code'];
 
     if ($responsecode !== 200) {
         throw new \Exception($responsetext);
@@ -68,14 +60,6 @@ function load_transormed_events_to_lrs(array $config, array $transformedevents) 
         $loadedevents = utils\construct_loaded_events($transformedevents, false);
         return $loadedevents;
     }
-}
-
-function get_event_batches(array $config, array $transformedevents) {
-    $maxbatchsize = $config['lrs_max_batch_size'];
-    if (!empty($maxbatchsize) && $maxbatchsize < count($transformedevents)) {
-        return array_chunk($transformedevents, $maxbatchsize);
-    }
-    return [$transformedevents];
 }
 
 function load(array $config, array $events) {
