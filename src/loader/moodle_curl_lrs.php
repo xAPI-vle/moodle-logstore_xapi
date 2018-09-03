@@ -26,7 +26,7 @@ require_once($CFG->libdir . '/filelib.php');
 use src\loader\utils as utils;
 
 function load(array $config, array $events) {
-    $send_http_statements = function (array $config, array $statements) {
+    $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
@@ -50,5 +50,5 @@ function load(array $config, array $events) {
             throw new \Exception($responsetext);
         }
     };
-    return utils\load_in_batches($config, $events, $send_http_statements);
+    return utils\load_in_batches($config, $events, $sendhttpstatements);
 }
