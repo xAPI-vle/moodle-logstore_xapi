@@ -54,6 +54,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
                 'lrs_username' => '',
                 'lrs_password' => '',
                 'lrs_max_batch_size' => 1,
+                'lrs_proxy_endpoint' => null,
             ],
         ];
         $loadedevents = \src\handler($handlerconfig, [$event]);
