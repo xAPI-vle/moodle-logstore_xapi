@@ -14,8 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\loader\lrs;
+namespace src\loader\moodle_curl_lrs;
 defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+if (!isset($CFG)) {
+    $CFG = (object) [ 'libdir' => 'utils' ];
+}
+require_once($CFG->libdir . '/filelib.php');
 
 use src\loader\utils as utils;
 
@@ -30,20 +36,15 @@ function load(array $config, array $events) {
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
 
-        $request = curl_init();
-        curl_setopt($request, CURLOPT_URL, $url);
-        curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($request, CURLOPT_HTTPHEADER, [
-            'Authorization: Basic '.$auth,
-            'X-Experience-API-Version: 1.0.0',
-            'Content-Type: application/json',
+        $request = new \curl();
+        $responsetext = $request->post($url, $postdata, [
+            'CURLOPT_HTTPHEADER' => [
+                'Authorization: Basic '.$auth,
+                'X-Experience-API-Version: 1.0.0',
+                'Content-Type: application/json',
+            ],
         ]);
-
-        $responsetext = curl_exec($request);
-        $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
-        curl_close($request);
+        $responsecode = $request->info['http_code'];
 
         if ($responsecode !== 200) {
             throw new \Exception($responsetext);
