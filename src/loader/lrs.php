@@ -35,9 +35,6 @@ function load(array $config, array $events) {
         curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-        if (isset($proxyendpoint)) {
-            curl_setopt($request, CURLOPT_PROXY, $proxyendpoint);
-        }
         curl_setopt($request, CURLOPT_HTTPHEADER, [
             'Authorization: Basic '.$auth,
             'X-Experience-API-Version: 1.0.0',
