@@ -31,11 +31,11 @@ function load(array $config, array $events) {
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
         $proxyendpoint = $config['lrs_proxy_endpoint'];
-    
+
         $url = utils\correct_endpoint($endpoint).'/statements';
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
-    
+
         $request = new \curl();
         $responsetext = $request->post($url, $postdata, [
             'CURLOPT_HTTPHEADER' => [
@@ -45,7 +45,7 @@ function load(array $config, array $events) {
             ],
         ]);
         $responsecode = $request->info['http_code'];
-    
+
         if ($responsecode !== 200) {
             throw new \Exception($responsetext);
         }

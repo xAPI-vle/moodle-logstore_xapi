@@ -25,11 +25,11 @@ function load(array $config, array $events) {
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
         $proxyendpoint = $config['lrs_proxy_endpoint'];
-    
+
         $url = utils\correct_endpoint($endpoint).'/statements';
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
-    
+
         $request = curl_init();
         curl_setopt($request, CURLOPT_URL, $url);
         curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
@@ -43,7 +43,7 @@ function load(array $config, array $events) {
             'X-Experience-API-Version: 1.0.0',
             'Content-Type: application/json',
         ]);
-    
+
         $responsetext = curl_exec($request);
         $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
         curl_close($request);
