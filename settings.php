@@ -47,6 +47,10 @@ if ($hassiteconfig) {
         get_string('shortcourseid', 'logstore_xapi'),
         get_string('shortcourseid_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendidnumber',
+        get_string('sendidnumber', 'logstore_xapi'),
+        get_string('sendidnumber_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_username',
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'), 0));

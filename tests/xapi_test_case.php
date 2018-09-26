@@ -77,6 +77,7 @@ abstract class xapi_test_case extends PhpUnitTestCase {
             'send_mbox' => false,
             'send_response_choices' => false,
             'send_short_course_id' => false,
+            'send_course_and_module_idnumber' => false,
             'send_username' => false,
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
