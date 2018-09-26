@@ -22,30 +22,25 @@ use src\transformer\utils as utils;
 function course(array $config, \stdClass $course) {
     $coursename = $course->fullname ? $course->fullname : 'A Moodle course';
     $courselang = utils\get_course_lang($course);
-    $sendshortid = utils\is_enabled_config($config, 'send_short_course_id');
 
-    if ($sendshortid) {
-        return [
-            'id' => $config['app_url'].'/course/view.php?id='.$course->id,
-            'definition' => [
-                'type' => 'http://id.tincanapi.com/activitytype/lms/course',
-                'name' => [
-                    $courselang => $coursename,
-                ],
-                'extensions' => [
-                    'https://w3id.org/learning-analytics/learning-management-system/short-id' => $course->shortname
-                ]
-            ],
-        ];
+    $object = [
+                  'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+                  'definition' => [
+                      'type' => 'http://id.tincanapi.com/activitytype/lms/course',
+                      'name' => [
+                          $courselang => $coursename,
+                      ],
+                  ],
+              ];
+
+    if (utils\is_enabled_config($config, 'send_short_course_id')) {
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
     }
 
-    return [
-        'id' => $config['app_url'].'/course/view.php?id='.$course->id,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/lms/course',
-            'name' => [
-                $courselang => $coursename,
-            ],
-        ],
-    ];
+    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+        $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
+    }
+
+    return $object;
 }

@@ -29,7 +29,7 @@ function course_module(array $config, $course, $cmid, $xapitype) {
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
-    return [
+    $object = [
         'id' => $coursemoduleurl,
         'definition' => [
             'type' => $xapitype,
@@ -38,4 +38,11 @@ function course_module(array $config, $course, $cmid, $xapitype) {
             ],
         ],
     ];
+
+    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+        $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $moduleidnumber;
+    }
+
+    return $object;
 }
