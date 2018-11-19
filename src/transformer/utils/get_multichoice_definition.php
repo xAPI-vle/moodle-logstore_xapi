@@ -18,27 +18,30 @@ namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
 function get_multichoice_definition(array $config, \stdClass $questionattempt, \stdClass $question, $lang) {
+    // For some reason, newlines and &nbsp is being added to strings,
+    // in order to remove new lines we have to ensure nbsp is also removed.
+    $replacestrings = array("\n", "&nbsp");
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
         $answers = $repo->read_records('question_answers', [
             'question' => $questionattempt->questionid
         ]);
-        $choices = array_map(function ($answer) use ($lang) {
+        $choices = array_map(function ($answer, $replacestrings) use ($lang) {
             return [
                 "id" => "$answer->id",
                 "description" => [
-                    $lang => $answer->answer
+                    $lang => str_replace($replacestrings, "", strip_tags($answer->answer))
                 ]
             ];
         }, $answers);
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang => $question->questiontext,
+                $lang => strip_tags($question->questiontext),
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
-                $questionattempt->rightanswer,
+                str_replace($replacestrings, "", strip_tags($questionattempt->rightanswer)),
             ],
             'choices' => $choices
         ];
@@ -47,7 +50,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang => $question->questiontext,
+            $lang => strip_tags($question->questiontext),
         ],
         'interactionType' => 'choice'
     ];
