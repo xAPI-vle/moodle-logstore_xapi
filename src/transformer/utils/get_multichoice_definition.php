@@ -21,12 +21,14 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
     // For some reason, newlines and &nbsp is being added to strings,
     // in order to remove new lines we have to ensure nbsp is also removed.
     $replacestrings = array("\n", "&nbsp");
+    // Reducing number of times string replace is called, by moving duplicate code up here.
+    $questiontext = str_replace($replacestrings, "", strip_tags($question->questiontext));
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
         $answers = $repo->read_records('question_answers', [
             'question' => $questionattempt->questionid
         ]);
-        $choices = array_map(function ($answer, $replacestrings) use ($lang) {
+        $choices = array_map(function ($answer) use ($lang, $replacestrings) {
             return [
                 "id" => "$answer->id",
                 "description" => [
@@ -37,20 +39,21 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang => strip_tags($question->questiontext),
+                $lang =>  $questiontext,
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
                 str_replace($replacestrings, "", strip_tags($questionattempt->rightanswer)),
             ],
-            'choices' => $choices
+            // Need to pull out id's that are appended during array_map so json parses it correctly as an array.
+            'choices' => array_values($choices)
         ];
     }
 
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang => strip_tags($question->questiontext),
+            $lang =>  $questiontext,
         ],
         'interactionType' => 'choice'
     ];

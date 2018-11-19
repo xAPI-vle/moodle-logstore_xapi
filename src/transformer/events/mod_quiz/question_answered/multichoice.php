@@ -30,6 +30,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     // For some reason, newlines and &nbsp is being added to strings,
     // in order to remove new lines we have to ensure nbsp is also removed.
     $replacestrings = array("\n", "&nbsp");
+    $responsesummary = str_replace($replacestrings, "", strip_tags($questionattempt->responsesummary));
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -44,12 +45,12 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => str_replace($replacestrings, "", strip_tags($questionattempt->responsesummary)),
+            'response' => $responsesummary,
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/choice/response' =>
-                    str_replace($replacestrings, "", strip_tags($questionattempt->responsesummary)),
+                    $responsesummary,
             ],
         ],
         'context' => [
