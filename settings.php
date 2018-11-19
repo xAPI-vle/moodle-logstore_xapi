@@ -14,19 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * External xapi log store plugin
- *
- * @package    logstore_xapi
- * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
- *                  Ryan Smith <ryan.smith@ht2.co.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/vendor/autoload.php');
-use \MXTranslator\Controller as translator_controller;
+require_once(__DIR__ . '/src/autoload.php');
 
 if ($hassiteconfig) {
     // Endpoint.
@@ -43,7 +33,7 @@ if ($hassiteconfig) {
     // Switch background batch mode on.
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
         get_string('backgroundmode', 'logstore_xapi'),
-        get_string('backgroundmode_desc', 'logstore_xapi'), 0));
+        get_string('backgroundmode_desc', 'logstore_xapi'), 1));
 
     $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsize',
         get_string('maxbatchsize', 'logstore_xapi'),
@@ -53,6 +43,22 @@ if ($hassiteconfig) {
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
+        get_string('shortcourseid', 'logstore_xapi'),
+        get_string('shortcourseid_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendidnumber',
+        get_string('sendidnumber', 'logstore_xapi'),
+        get_string('sendidnumber_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_username',
+        get_string('send_username', 'logstore_xapi'),
+        get_string('send_username_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendresponsechoices',
+       get_string('send_response_choices', 'logstore_xapi'),
+       get_string('send_response_choices_desc', 'logstore_xapi'), 0));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),
@@ -61,10 +67,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/logguests',
         get_string('logguests', 'logstore_xapi'), '', '0'));
 
-    $menuroutes = array();
-    $routes = translator_controller::$routes;
-    foreach (array_keys($routes) as $routekey) {
-        $menuroutes[$routekey] = $routekey;
+    $menuroutes = [];
+    $eventfunctionmap = \src\transformer\get_event_function_map();
+    foreach (array_keys($eventfunctionmap) as $eventname) {
+        $menuroutes[$eventname] = $eventname;
     }
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',

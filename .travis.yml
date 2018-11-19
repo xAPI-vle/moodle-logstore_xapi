@@ -23,7 +23,7 @@ before_install:
   - echo "Travis branch $TRAVIS_BRANCH"
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
-  - nvm install 8
+  - nvm install 8.9
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
@@ -41,7 +41,8 @@ script:
   - moodle-plugin-ci savepoints
 # - moodle-plugin-ci mustache
 # - moodle-plugin-ci grunt
-  - moodle-plugin-ci phpunit
+  - pwd
+  - cd $TRAVIS_BUILD_DIR && ./vendor/bin/phpunit && cd ../..
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
@@ -61,10 +62,16 @@ before_deploy:
   - sh ./scripts/generateZipFile.sh
 
 deploy:
-  provider: releases
-  api_key: $GH_TOKEN
-  file: xapi.zip
-  skip_cleanup: true
-  on:
-    tags: true
-    php: 7.1
+  - provider: releases
+    api_key: $GH_TOKEN
+    file: xapi.zip
+    skip_cleanup: true
+    on:
+      tags: true
+      php: 7.1
+  - provider: script
+    script: npm install && npm run moodle-plugin-release
+    skip_cleanup: true
+    on:
+      tags: true
+      php: 7.1
