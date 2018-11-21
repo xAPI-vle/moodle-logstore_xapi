@@ -54,4 +54,13 @@ class MoodleRepository extends Repository {
         }
         return $record;
     }
+
+    /**
+     * Reads records in a pure sql format. Used for quiz attempt lookup.
+     * @param String $sql
+     * @return \stdClass or false if not found
+     */
+    public function read_records_sql($sql){
+        return $this->store->get_records_sql($sql);
+    }
 }
