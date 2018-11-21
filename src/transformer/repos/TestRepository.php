@@ -54,7 +54,7 @@ class TestRepository extends Repository {
      * @param String $sql
      * @return mixed|PhpArr
      */
-    public function read_records_sql($sql){
+    public function read_records_sql($sql) {
         return $this->read_records('question_attempts', [
             'questionusageid' => 1
         ]);

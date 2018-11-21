@@ -60,7 +60,7 @@ class MoodleRepository extends Repository {
      * @param String $sql
      * @return \stdClass or false if not found
      */
-    public function read_records_sql($sql){
+    public function read_records_sql($sql) {
         return $this->store->get_records_sql($sql);
     }
 }
