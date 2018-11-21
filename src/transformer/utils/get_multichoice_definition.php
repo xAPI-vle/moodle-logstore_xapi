@@ -39,7 +39,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang =>  $questiontext,
+                $lang => $questiontext,
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
@@ -53,7 +53,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang =>  $questiontext,
+            $lang => $questiontext,
         ],
         'interactionType' => 'choice'
     ];
