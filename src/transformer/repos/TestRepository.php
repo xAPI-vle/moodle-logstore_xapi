@@ -48,4 +48,15 @@ class TestRepository extends Repository {
 
         return $matchingrecords;
     }
+
+    /**
+     * Reads records in a pure sql format. Used for quiz attempt lookup.
+     * @param String $sql
+     * @return mixed|PhpArr
+     */
+    public function read_records_sql($sql){
+        return $this->read_records('question_attempts', [
+            'questionusageid' => 1
+        ]);
+    }
 }

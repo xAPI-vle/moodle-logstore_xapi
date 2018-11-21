@@ -30,6 +30,12 @@ abstract class Repository extends PhpObj {
     public abstract function read_records($type, array $query);
 
     /**
+     * Reads records as sql statement
+     * @param String $sql
+     * @return mixed
+     */
+    public abstract function read_records_sql($sql);
+    /**
      * Reads an object from the store with the given type and query.
      * @param String $type
      * @param [String => Mixed] $query
@@ -50,6 +56,7 @@ abstract class Repository extends PhpObj {
      * @param String $id
      * @param String $type
      * @return PhpObj
+     * @throws \Exception
      */
     public function read_record_by_id($type, $id) {
         return $this->read_record($type, ['id' => $id]);

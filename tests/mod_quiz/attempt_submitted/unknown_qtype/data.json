@@ -31,10 +31,17 @@
         {
             "id": 1,
             "quiz": 1,
+            "uniqueid": 1,
             "sumgrades": 50,
             "state": "finished",
             "timefinish": 1,
             "timestart": 0
+        }
+    ],
+    "question_usages": [
+        {
+            "id": 1
+
         }
     ],
     "quiz": [

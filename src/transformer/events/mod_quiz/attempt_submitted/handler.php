@@ -24,8 +24,8 @@ use src\transformer\events\mod_quiz\question_answered as question_answered;
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $sql = "SELECT qat.* FROM {quiz_attempts} as qa
-join mdl_question_usages as qu on qu.id = qa.uniqueid
-join mdl_question_attempts as qat on qat.questionusageid = qu.id
+join {question_usages} as qu on qu.id = qa.uniqueid
+join {question_attempts} as qat on qat.questionusageid = qu.id
 where qa.id = $event->objectid";
     // Need to do complex lookup due to the way Moodle links Quiz Attempt with Question Attempt.
     $questionattempts = $repo->read_records_sql($sql);
