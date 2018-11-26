@@ -35,7 +35,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang => utils\get_string_html_removed($questionattempt->responsesummary),
+                $lang => utils\get_string_html_removed($question->questiontext),
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
@@ -49,7 +49,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang => utils\get_string_html_removed($questionattempt->responsesummary),
+            $lang => utils\get_string_html_removed($question->questiontext),
         ],
         'interactionType' => 'choice'
     ];
