@@ -28,9 +28,6 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
-    // For some reason, newlines and &nbsp is being added to strings,
-    // in order to remove new lines we have to ensure nbsp is also removed.
-    $replacestrings = array("\n", "&nbsp;");
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -44,14 +41,14 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => str_replace($replacestrings, "", strip_tags($question->questiontext)),
+                    $lang => utils\get_string_html_removed($question->questiontext),
                 ],
                 'interactionType' => 'true-false',
             ]
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => str_replace($replacestrings, "", strip_tags($questionattempt->responsesummary)),
+            'response' => utils\get_string_html_removed($questionattempt->responsesummary),
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [
