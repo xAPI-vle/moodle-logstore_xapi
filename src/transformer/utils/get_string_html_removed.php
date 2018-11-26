@@ -17,7 +17,7 @@
 namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
-function get_string_html_removed($string){
+function get_string_html_removed($string) {
     // For some reason, newlines and &nbsp; is being added to strings,
     // in order to remove new lines we have to ensure nbsp is also removed.
     $replacestrings = ["\n", "&nbsp;"];
