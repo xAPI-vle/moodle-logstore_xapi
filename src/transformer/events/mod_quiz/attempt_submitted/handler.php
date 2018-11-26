@@ -23,12 +23,10 @@ use src\transformer\events\mod_quiz\question_answered as question_answered;
 
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $sql = "SELECT qat.* FROM {quiz_attempts} as qa
-join {question_usages} as qu on qu.id = qa.uniqueid
-join {question_attempts} as qat on qat.questionusageid = qu.id
-where qa.id = $event->objectid";
-    // Need to do complex lookup due to the way Moodle links Quiz Attempt with Question Attempt.
-    $questionattempts = $repo->read_records_sql($sql);
+    $quizattempt = $repo->read_record('quiz_attempt', ['id' => $event->objectid]);
+    $questionusage = $repo->read_record('question_usage', ['id' => $quizattempt->uniqueid]);
+    // Other two look ups should be returning one record, This one should return all questions attempted.
+    $questionattempts = $repo->read_records('question_attempts', ['questionusageid' => $questionusage->id]);
 
     return array_merge(
         attempt_submitted($config, $event),

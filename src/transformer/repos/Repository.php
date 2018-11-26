@@ -28,13 +28,6 @@ abstract class Repository extends PhpObj {
      * @return PhpArr
      */
     public abstract function read_records($type, array $query);
-
-    /**
-     * Reads records as sql statement
-     * @param String $sql
-     * @return mixed
-     */
-    public abstract function read_records_sql($sql);
     /**
      * Reads an object from the store with the given type and query.
      * @param String $type
