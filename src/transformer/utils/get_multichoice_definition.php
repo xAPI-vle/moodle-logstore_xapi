@@ -20,7 +20,7 @@ defined('MOODLE_INTERNAL') || die();
 function get_multichoice_definition(array $config, \stdClass $questionattempt, \stdClass $question, $lang) {
     // For some reason, newlines and &nbsp is being added to strings,
     // in order to remove new lines we have to ensure nbsp is also removed.
-    $replacestrings = array("\n", "&nbsp");
+    $replacestrings = ["\n", "&nbsp"];
     // Reducing number of times string replace is called, by moving duplicate code up here.
     $questiontext = str_replace($replacestrings, "", strip_tags($question->questiontext));
     if ($config['send_response_choices']) {
