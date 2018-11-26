@@ -24,7 +24,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record('quiz_attempts', array('uniqueid' => $questionattempt->questionusageid));
+    $attempt = $repo->read_record('quiz_attempts', ['uniqueid' => $questionattempt->questionusageid]);
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
@@ -53,7 +53,8 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [
-                'http://learninglocker.net/xapi/cmi/true-false/response' => $questionattempt->responsesummary === 'True',
+                'http://learninglocker.net/xapi/cmi/true-false/response' => $questionattempt->responsesummary ===
+                    'True',
             ],
         ],
         'context' => [
