@@ -27,9 +27,6 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
-    // For some reason, newlines and &nbsp is being added to strings,
-    // in order to remove new lines we have to ensure nbsp is also removed.
-    $responsesummary = utils\get_string_html_removed($questionattempt->responsesummary);
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -44,12 +41,12 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $responsesummary,
+            'response' => utils\get_string_html_removed($questionattempt->responsesummary),
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/choice/response' =>
-                    $responsesummary,
+                    utils\get_string_html_removed($questionattempt->responsesummary),
             ],
         ],
         'context' => [

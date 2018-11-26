@@ -15,35 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
+use src\transformer\utils as utils;
 defined('MOODLE_INTERNAL') || die();
 
 function get_multichoice_definition(array $config, \stdClass $questionattempt, \stdClass $question, $lang) {
-    // For some reason, newlines and &nbsp is being added to strings,
-    // in order to remove new lines we have to ensure nbsp is also removed.
-    $replacestrings = ["\n", "&nbsp"];
-    // Reducing number of times string replace is called, by moving duplicate code up here.
-    $questiontext = str_replace($replacestrings, "", strip_tags($question->questiontext));
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
         $answers = $repo->read_records('question_answers', [
             'question' => $questionattempt->questionid
         ]);
-        $choices = array_map(function ($answer) use ($lang, $replacestrings) {
+        $choices = array_map(function ($answer) use ($lang) {
             return [
                 "id" => "$answer->id",
                 "description" => [
-                    $lang => str_replace($replacestrings, "", strip_tags($answer->answer))
+                    $lang => utils\get_string_html_removed($answer->answer)
                 ]
             ];
         }, $answers);
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang => $questiontext,
+                $lang => utils\get_string_html_removed($questionattempt->responsesummary),
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
-                str_replace($replacestrings, "", strip_tags($questionattempt->rightanswer)),
+                utils\get_string_html_removed($questionattempt->rightanswer),
             ],
             // Need to pull out id's that are appended during array_map so json parses it correctly as an array.
             'choices' => array_values($choices)
@@ -53,7 +49,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang => $questiontext,
+            $lang => utils\get_string_html_removed($questionattempt->responsesummary),
         ],
         'interactionType' => 'choice'
     ];
