@@ -23,9 +23,9 @@ use src\transformer\events\mod_quiz\question_answered as question_answered;
 
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $questionattempts = $repo->read_records('question_attempts', [
-        'questionusageid' => $event->objectid
-    ]);
+    $quizattempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
+    // Other two look ups should be returning one record, This one should return all questions attempted.
+    $questionattempts = $repo->read_records('question_attempts', ['questionusageid' => $quizattempt->uniqueid]);
 
     return array_merge(
         attempt_submitted($config, $event),

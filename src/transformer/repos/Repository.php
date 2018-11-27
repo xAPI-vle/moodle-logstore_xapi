@@ -28,7 +28,6 @@ abstract class Repository extends PhpObj {
      * @return PhpArr
      */
     public abstract function read_records($type, array $query);
-
     /**
      * Reads an object from the store with the given type and query.
      * @param String $type
@@ -50,6 +49,7 @@ abstract class Repository extends PhpObj {
      * @param String $id
      * @param String $type
      * @return PhpObj
+     * @throws \Exception
      */
     public function read_record_by_id($type, $id) {
         return $this->read_record($type, ['id' => $id]);
