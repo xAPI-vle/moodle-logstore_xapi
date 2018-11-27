@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
+use src\transformer\utils as utils;
 defined('MOODLE_INTERNAL') || die();
 
 function get_multichoice_definition(array $config, \stdClass $questionattempt, \stdClass $question, $lang) {
@@ -27,27 +28,28 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
             return [
                 "id" => "$answer->id",
                 "description" => [
-                    $lang => $answer->answer
+                    $lang => utils\get_string_html_removed($answer->answer)
                 ]
             ];
         }, $answers);
         return [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
             'name' => [
-                $lang => $question->questiontext,
+                $lang => utils\get_string_html_removed($question->questiontext),
             ],
             'interactionType' => 'choice',
             'correctResponsesPattern' => [
-                $questionattempt->rightanswer,
+                utils\get_string_html_removed($questionattempt->rightanswer),
             ],
-            'choices' => $choices
+            // Need to pull out id's that are appended during array_map so json parses it correctly as an array.
+            'choices' => array_values($choices)
         ];
     }
 
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
-            $lang => $question->questiontext,
+            $lang => utils\get_string_html_removed($question->questiontext),
         ],
         'interactionType' => 'choice'
     ];
