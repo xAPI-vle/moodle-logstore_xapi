@@ -1,12 +1,10 @@
 # [Moodle Logstore xAPI](https://moodle.org/plugins/view/logstore_xapi)
-> Emits events from the [Moodle](https://moodle.org/) Logstore as [xAPI](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md) statements.
+> Emits [xAPI](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md) statements using the [Moodle](https://moodle.org/) Logstore.
 
-[![Build Status](https://travis-ci.org/jlowe64/moodle-logstore_xapi.svg?branch=master)](https://travis-ci.org/jlowe64/moodle-logstore_xapi)
-[![Moodle Plugin Directory](http://img.shields.io/badge/moodle-plugin-orange.svg)](https://moodle.org/plugins/view/logstore_xapi)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/LearningLocker/learninglocker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-- [Installation](docs/installation.md)
-- [Report bugs, enhancements, and questions](contributing.md#issue-templates)
-- [Supported events](docs/events.md)
-- [Developer documentation](docs/developers.md)
-- [Plugin design](docs/design.md)
+- Install the plugin using [our zip installation guide](/docs/install-with-zip.md).
+- Process events before the plugin was installed using [our historical events guide](/docs/historical-events.md).
+- Ask questions with the [Gitter chat room](https://gitter.im/LearningLocker/learninglocker).
+- Report bugs and suggest features with the [Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
+- View the supported events in [our `get_event_function_map` function](/src/transformer/get_event_function_map.php).
+- Change existing statements for the supported events using [our change statements guide](/docs/change-statements.md).
+- Create statements using [our new statements guide](/docs/new-statements.md).

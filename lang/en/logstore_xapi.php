@@ -14,15 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * External xapi log store plugin
- *
- * @package    logstore_xapi
- * @copyright  2015 Jerrett Fowler <jfowler@charitylearning.org>
- *                  Ryan Smith <ryan.smith@ht2.co.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
 $string['endpoint'] = 'Endpoint';
@@ -37,10 +28,24 @@ $string['username'] = 'Username';
 $string['xapisettingstitle'] = 'Logstore xAPI Settings';
 $string['backgroundmode'] = 'Send statements by scheduled task?';
 $string['backgroundmode_desc'] = 'This will force Moodle to send the statements to the LRS in the background,
-        via a cron task. This will make the process less close to real time, but will help to prevent unpredictable
+        via a cron task to avoid blocking page responses. This will make the process less close to real time, but will help to prevent unpredictable
         Moodle performance linked to the performance of the LRS.';
 $string['maxbatchsize'] = 'Maximum batch size';
 $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
         statements that will be sent in a single operation. Setting this to zero will cause all available statements to
         be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
+$string['routes'] = 'Include actions with these routes';
+$string['filters'] = 'Filter logs';
+$string['logguests'] = 'Log guest actions';
+$string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
+$string['mbox'] = 'Identify users by email';
+$string['mbox_desc'] = 'Statements will identify users with their email (mbox) when this box is ticked.';
+$string['send_username'] = 'Identify users by id';
+$string['send_username_desc'] = 'Statements will identify users with their username when this box is ticked, but only if identifying users by email is disabled.';
+$string['shortcourseid'] = 'Send short course name';
+$string['shortcourseid_desc'] = 'Statements will contain the shortname for a course as a short course id extension';
+$string['sendidnumber'] = 'Send course and activity ID number';
+$string['sendidnumber_desc'] = 'Statements will include the ID number (admin defined) for courses and activities in the object extensions';
+$string['send_response_choices'] = 'Send response choices';
+$string['send_response_choices_desc'] = 'Statements for multiple choice question answers will be sent to the LRS with the correct response and potential choices';

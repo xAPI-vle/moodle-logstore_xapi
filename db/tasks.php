@@ -14,21 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Standard log reader/writer cron task.
- *
- * @package    logstore_xapi
- * @copyright  2015 Michael Aherne
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
 $tasks = array(
     array(
         'classname' => '\logstore_xapi\task\emit_task',
         'blocking' => 0,
-        'minute' => '*/5',
+        'minute' => '*/1',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',

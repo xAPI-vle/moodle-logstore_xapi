@@ -1,0 +1,19 @@
+{
+  "name": "moodle-logstore_xapi",
+  "version": "0.0.0-development",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xAPI-vle/moodle-logstore_xapi.git"
+  },
+  "scripts": {
+    "semantic-release": "ht2-release-private-travisci",
+    "moodle-plugin-release": "moodle-plugin-release release -i 1461 -z './xapi.zip'"
+  },
+  "devDependencies": {
+    "@ht2-labs/semantic-release": "1.1.47",
+    "@ryansmith94/moodle-plugin-release": "2.0.1"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

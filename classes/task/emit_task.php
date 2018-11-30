@@ -14,19 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Process events in queue.
- *
- * @package    logstore_xapi
- * @copyright  2015 Michael Aherne
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 namespace logstore_xapi\task;
+defined('MOODLE_INTERNAL') || die();
 
 use tool_log\log\manager;
 use logstore_xapi\log\store;
-defined('MOODLE_INTERNAL') || die();
 
 class emit_task extends \core\task\scheduled_task {
 
@@ -39,21 +31,56 @@ class emit_task extends \core\task\scheduled_task {
         return get_string('taskemit', 'logstore_xapi');
     }
 
+    private function get_failed_events($events) {
+        $nonloadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === false;
+        });
+        $failedevents = array_map(function ($nonloadedevent) {
+            return $nonloadedevent['event'];
+        }, $nonloadedevents);
+        return $failedevents;
+    }
+
+    private function get_event_ids($loadedevents) {
+        return array_map(function ($loadedevent) {
+            return $loadedevent['event']->id;
+        }, $loadedevents);
+    }
+
+    private function extract_events($limitnum) {
+        global $DB;
+        $conditions = null;
+        $sort = '';
+        $fields = '*';
+        $limitfrom = 0;
+        $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
+        return $extractedevents;
+    }
+
+    private function delete_processed_events($events) {
+        global $DB;
+        $eventids = $this->get_event_ids($events);
+        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
+        mtrace("Events (".implode(', ', $eventids).") have been successfully sent to LRS.");
+    }
+
+    private function store_failed_events($events) {
+        global $DB;
+        $failedevents = $this->get_failed_events($events);
+        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+    }
+
     /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
-        global $DB;
-
         $manager = get_log_manager();
         $store = new store($manager);
 
-        $events = $DB->get_records('logstore_xapi_log');
-        $store->process_events($events);
-
-        $DB->delete_records_list('logstore_xapi_log', 'id', array_keys($events));
-
-        mtrace("Sent learning records to LRS.");
+        $extractedevents = $this->extract_events($store->get_max_batch_size());
+        $loadedevents = $store->process_events($extractedevents);
+        $this->store_failed_events($loadedevents);
+        $this->delete_processed_events($loadedevents);
     }
 }
