@@ -36,7 +36,14 @@ function load(array $config, array $events) {
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
 
-        $request = new \curl();
+        $requestoptions = array();
+
+        if (isset($proxyendpoint)) {
+            $requestoptions['proxy'] = true;
+            $requestoptions['proxy_host'] = $proxyendpoint;
+        }
+
+        $request = new \curl($requestoptions);
         $responsetext = $request->post($url, $postdata, [
             'CURLOPT_HTTPHEADER' => [
                 'Authorization: Basic '.$auth,
