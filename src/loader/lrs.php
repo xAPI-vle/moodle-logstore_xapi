@@ -24,7 +24,6 @@ function load(array $config, array $events) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
-        $proxyendpoint = $config['lrs_proxy_endpoint'];
 
         $url = utils\correct_endpoint($endpoint).'/statements';
         $auth = base64_encode($username.':'.$password);
