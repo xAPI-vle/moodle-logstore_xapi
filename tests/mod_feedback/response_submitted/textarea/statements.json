@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "http:\/\/id.tincanapi.com\/verb\/submitted",
+            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/submit",
             "display": {
                 "en": "submitted"
             }

@@ -31,7 +31,7 @@ function response_submitted(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/submitted',
+            'id' => 'http://activitystrea.ms/schema/1.0/submit',
             'display' => [
                 $lang => 'submitted'
             ],
