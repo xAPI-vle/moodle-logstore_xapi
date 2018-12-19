@@ -43,20 +43,13 @@ function assignment_graded(array $config, \stdClass $event) {
     $scoremax = (float) ($gradeitems->grademax ?: 0);
     $scorepass = (float) ($gradeitems->gradepass ?: null);
 
-    $completion = 'unknown';
+    $success = false;
 
     if ($scoreraw >= $scorepass) {
-        $completion = true;
+        $success = true;
     }
 
-    // Calculate scaled score as the distance from zero towards the max (or min for negative scores).
-    if ($scoreraw >= 0) {
-        $scorescaled = $scoreraw / $scoremax;
-    } else {
-        $scorescaled = $scoreraw / $scoremin;
-    }
-
-    return [[
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/scored',
@@ -67,12 +60,10 @@ function assignment_graded(array $config, \stdClass $event) {
         'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'result' => [
             'score' => [
-                'raw' => $scoreraw,
-                'min' => $scoremin,
-                'max' => $scoremax,
-                'scaled' => $scorescaled
+                'raw' => $scoreraw
             ],
-            'completion' => $completion,
+            'completion' => true,
+            'success' => $success,
             'response' => $gradecomment
         ],
         'timestamp' => utils\get_event_timestamp($event),
@@ -93,5 +84,20 @@ function assignment_graded(array $config, \stdClass $event) {
                 ],
             ],
         ]
-    ]];
+    ];
+
+    // Calculate scaled score as the distance from zero towards the max (or min for negative scores).
+    if ($scoreraw >= 0) {
+        $statement['result']['score']['scaled'] = $scoreraw / $scoremax;
+    }
+    // Only include min score if raw score is valid for that min.
+    if ($scoreraw >= $scoremin) {
+        $statement['result']['score']['min'] = $scoremin;
+    }
+    // Only include max score if raw score is valid for that max.
+    if ($scoreraw <= $scoremax) {
+        $statement['result']['score']['max'] = $scoremax;
+    }
+
+    return [$statement];
 }
