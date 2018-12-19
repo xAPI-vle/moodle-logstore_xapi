@@ -86,10 +86,6 @@ function assignment_graded(array $config, \stdClass $event) {
         ]
     ];
 
-    // Calculate scaled score as the distance from zero towards the max (or min for negative scores).
-    if ($scoreraw >= 0) {
-        $statement['result']['score']['scaled'] = $scoreraw / $scoremax;
-    }
     // Only include min score if raw score is valid for that min.
     if ($scoreraw >= $scoremin) {
         $statement['result']['score']['min'] = $scoremin;
@@ -97,6 +93,10 @@ function assignment_graded(array $config, \stdClass $event) {
     // Only include max score if raw score is valid for that max.
     if ($scoreraw <= $scoremax) {
         $statement['result']['score']['max'] = $scoremax;
+    }
+    // Calculate scaled score as the distance from zero towards the max (or min for negative scores).
+    if ($scoreraw >= 0) {
+        $statement['result']['score']['scaled'] = $scoreraw / $scoremax;
     }
 
     return [$statement];
