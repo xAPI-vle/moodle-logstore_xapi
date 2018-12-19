@@ -29,7 +29,7 @@ function course_completed(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/completed',
+            'id' => 'http://adlnet.gov/expapi/verbs/completed',
             'display' => [
                 $lang => 'completed'
             ],
