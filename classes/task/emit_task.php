@@ -41,6 +41,16 @@ class emit_task extends \core\task\scheduled_task {
         return $failedevents;
     }
 
+    private function get_successful_events($events) {
+        $loadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === true;
+        });
+        $successfulevents = array_map(function ($loadedevent) {
+            return $loadedevent['event'];
+        }, $loadedevents);
+        return $successfulevents;
+    }
+
     private function get_event_ids($loadedevents) {
         return array_map(function ($loadedevent) {
             return $loadedevent['event']->id;
@@ -60,14 +70,18 @@ class emit_task extends \core\task\scheduled_task {
     private function delete_processed_events($events) {
         global $DB;
         $eventids = $this->get_event_ids($events);
-        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
-        mtrace("Events (".implode(', ', $eventids).") have been successfully sent to LRS.");
+        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);        
     }
 
     private function store_failed_events($events) {
         global $DB;
         $failedevents = $this->get_failed_events($events);
         $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+        mtrace(count($failedevents) . " event(s) have failed to send to the LRS.");
+    }
+
+    private function record_successful_events($events) {
+        mtrace(count($this->get_successful_events($events)) . " event(s) have been successfully sent to the LRS.");
     }
 
     /**
@@ -81,6 +95,7 @@ class emit_task extends \core\task\scheduled_task {
         $extractedevents = $this->extract_events($store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
         $this->store_failed_events($loadedevents);
+        $this->record_successful_events($loadedevents);
         $this->delete_processed_events($loadedevents);
     }
 }
