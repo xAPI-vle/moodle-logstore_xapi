@@ -33,14 +33,13 @@ function load_batch(array $config, array $transformedevents, callable $loader) {
         $logerror("Failed load batch (" . $batchsize . " events)" .  $e->getMessage());
         $logerror($e->getTraceAsString());
 
-        // Recursively retry sending statements in increasingly smaller batches so that only the actual bad data fails. 
-        if ($batchsize === 1){
+        // Recursively retry sending statements in increasingly smaller batches so that only the actual bad data fails.
+        if ($batchsize === 1) {
             $loadedevents = construct_loaded_events($transformedevents, false);
-        }
-        else {
+        } else {
             $newconfig = $config;
             $newconfig['lrs_max_batch_size'] = round($batchsize / 2);
-            $batches = get_event_batches($newconfig,$transformedevents);
+            $batches = get_event_batches($newconfig, $transformedevents);
             $loadedevents = array_reduce($batches, function ($result, $batch) use ($newconfig, $loader) {
                 $loadedbatchevents = load_batch($newconfig, $batch, $loader);
                 return array_merge($result, $loadedbatchevents);

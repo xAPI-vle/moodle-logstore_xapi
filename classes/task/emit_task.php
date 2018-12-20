@@ -70,7 +70,7 @@ class emit_task extends \core\task\scheduled_task {
     private function delete_processed_events($events) {
         global $DB;
         $eventids = $this->get_event_ids($events);
-        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);        
+        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
     }
 
     private function store_failed_events($events) {
