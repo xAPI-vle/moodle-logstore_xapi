@@ -33,8 +33,9 @@ function book_chapter(array $config, \stdClass $course, \stdClass $chapter, int 
     }
 
     if (property_exists($chapter, 'content')) {
-        $definition['description'] = [];
-        $definition['description'][$courselang] = utils\get_string_html_removed($chapter->content);
+        $definition['description'] = [
+            $courselang => utils\get_string_html_removed($chapter->content)
+        ];
     }
 
     return [
