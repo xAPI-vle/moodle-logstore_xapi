@@ -30,7 +30,7 @@
     "book": [
         {
             "id": 1,
-            "name": "test_name"
+            "name": "test_book_name"
         }
     ],
     "book_chapters": [

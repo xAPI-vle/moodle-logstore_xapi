@@ -58,7 +58,7 @@
                         }
                     },
                     {
-                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=5",
+                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1",
                         "definition": {
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/book",
                             "name": {
