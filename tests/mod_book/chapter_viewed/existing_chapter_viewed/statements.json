@@ -14,7 +14,7 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=5&chapterid=3",
+            "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1&chapterid=2",
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/chapter",
                 "name": {
@@ -80,7 +80,7 @@
                 ],
                 "parent": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=5&chapterid=1",
+                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1&chapterid=1",
                         "definition": {
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/chapter",
                             "name": {
