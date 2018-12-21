@@ -4,7 +4,7 @@
     "courseid": 1,
     "timecreated": 1433946701,
     "objecttable": "book_chapters",
-    "objectid": 1,
+    "objectid": 2,
     "contextinstanceid": 1,
     "eventname": "\\mod_book\\event\\chapter_viewed"
 }
