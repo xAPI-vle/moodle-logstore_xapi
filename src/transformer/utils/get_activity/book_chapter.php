@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function book_chapter(array $config, \stdClass $course, \stdClass $chapter, int $cmid) {
+function book_chapter(array $config, \stdClass $course, \stdClass $chapter, $cmid) {
     $courselang = utils\get_course_lang($course);
     $url = $config['app_url'].'/mod/book/view.php?id=' . $cmid . '&chapterid=' . $chapter->id;
 
