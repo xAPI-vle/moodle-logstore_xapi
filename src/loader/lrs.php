@@ -29,6 +29,10 @@ function load(array $config, array $events) {
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
 
+        if ($postdata === false) {
+            throw new \Exception('JSON encode error: '.json_last_error_msg());
+        }
+
         $request = curl_init();
         curl_setopt($request, CURLOPT_URL, $url);
         curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
