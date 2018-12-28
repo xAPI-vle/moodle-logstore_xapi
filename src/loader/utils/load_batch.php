@@ -33,8 +33,9 @@ function load_batch(array $config, array $transformedevents, callable $loader) {
         $logerror("Failed load batch (" . $batchsize . " events)" .  $e->getMessage());
         $logerror($e->getTraceAsString());
 
-        // Recursively retry sending statements in increasingly smaller batches so that only the actual bad data fails.
-        if ($batchsize === 1) {
+        // In the event of a 400 error, recursively retry sending statements in increasingly
+        // smaller batches so that only the actual bad data fails.
+        if ($batchsize === 1 || $e->getCode() !== 400) {
             $loadedevents = construct_loaded_events($transformedevents, false);
         } else {
             $newconfig = $config;
