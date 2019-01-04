@@ -115,6 +115,7 @@ class store extends php_obj implements log_writer {
                 'lrs_username' => $this->get_config('username', ''),
                 'lrs_password' => $this->get_config('password', ''),
                 'lrs_max_batch_size' => $this->get_max_batch_size(),
+                'lrs_resend_failed_batches' => $this->get_config('resendfailedbatches', false),
             ],
         ];
         $loadedevents = \src\handler($handlerconfig, $events);
