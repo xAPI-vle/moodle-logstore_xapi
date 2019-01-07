@@ -77,20 +77,6 @@
                             }
                         }
                     }
-                ],
-                "parent": [
-                    {
-                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1&chapterid=1",
-                        "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/chapter",
-                            "name": {
-                                "en": "test_parent_name"
-                            },
-                            "description": {
-                                "en": "test_parent_content"
-                            }
-                        }
-                    }
                 ]
             }
         }
