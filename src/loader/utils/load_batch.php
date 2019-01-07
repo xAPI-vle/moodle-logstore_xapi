@@ -35,7 +35,7 @@ function load_batch(array $config, array $transformedevents, callable $loader) {
 
         // In the event of a 400 error, recursively retry sending statements in increasingly
         // smaller batches so that only the actual bad data fails.
-        if ($batchsize === 1 || $e->getCode() !== 400 || $config['lrs_resend_failed_batches'] !== true) {
+        if ($batchsize === 1 || $e->getCode() !== 400 || $config['lrs_resend_failed_batches'] !== '1') {
             $loadedevents = construct_loaded_events($transformedevents, false);
         } else {
             $newconfig = $config;
