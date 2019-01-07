@@ -35,6 +35,10 @@ function load(array $config, array $events) {
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
 
+        if ($postdata === false) {
+            throw new \Exception('JSON encode error: '.json_last_error_msg());
+        }
+
         $request = new \curl();
         $responsetext = $request->post($url, $postdata, [
             'CURLOPT_HTTPHEADER' => [

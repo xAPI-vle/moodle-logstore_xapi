@@ -1,55 +1,40 @@
 [
     {
         "actor": {
-            "name": "test2_fullname",
+            "name": "test_fullname",
             "account": {
                 "homePage": "http:\/\/www.example.org",
-                "name": "2"
+                "name": "1"
             }
         },
         "verb": {
-            "id": "http:\/\/adlnet.gov\/expapi\/verbs\/scored",
+            "id": "http:\/\/id.tincanapi.com\/verb\/viewed",
             "display": {
-                "en": "attained grade for"
+                "en": "viewed"
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/assign\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1&chapterid=2",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
+                "type": "http:\/\/id.tincanapi.com\/activitytype\/chapter",
                 "name": {
-                    "en": "test_name"
+                    "en": "test_book_chapter_title"
+                },
+                "description": {
+                    "en": "test_book_chapter_content"
                 }
             }
         },
-        "result": {
-            "score": {
-                "raw": 1,
-                "min": 0,
-                "max": 2,
-                "scaled": 0.5
-            },
-            "completion": true,
-            "success": true,
-            "response": "test_comment_text"
-        },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "context": {
-            "instructor": {
-                "name": "test_fullname",
-                "account": {
-                    "homePage": "http:\/\/www.example.org",
-                    "name": "1"
-                }
-            },
             "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http:\/\/lrs.learninglocker.net\/define\/extensions\/info": {
                     "http:\/\/moodle.org": "1.0.0",
                     "https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi": "0.0.0-development",
-                    "event_name": "\\mod_assign\\event\\submission_graded",
-                    "event_function": "\\src\\transformer\\events\\mod_assign\\assignment_graded"
+                    "event_name": "\\mod_book\\event\\chapter_viewed",
+                    "event_function": "\\src\\transformer\\events\\mod_book\\chapter_viewed"
                 }
             },
             "contextActivities": {
@@ -71,6 +56,15 @@
                                 "en": "test_name"
                             }
                         }
+                    },
+                    {
+                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1",
+                        "definition": {
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/book",
+                            "name": {
+                                "en": "test_book_name"
+                            }
+                        }
                     }
                 ],
                 "category": [
@@ -80,6 +74,20 @@
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/source",
                             "name": {
                                 "en": "Moodle"
+                            }
+                        }
+                    }
+                ],
+                "parent": [
+                    {
+                        "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1&chapterid=1",
+                        "definition": {
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/chapter",
+                            "name": {
+                                "en": "test_parent_name"
+                            },
+                            "description": {
+                                "en": "test_parent_content"
                             }
                         }
                     }
