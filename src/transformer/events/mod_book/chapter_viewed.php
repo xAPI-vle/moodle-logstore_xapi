@@ -61,7 +61,7 @@ function chapter_viewed(array $config, \stdClass $event) {
         ]
     ];
 
-    if ($chapter->subchapter !== 0) {
+    if ($chapter->subchapter !== '0') {
         $parentchapter = $repo->read_record_by_id('book_chapters', $chapter->subchapter);
         $statement['context']['contextActivities']['parent'] = [
             utils\get_activity\book_chapter($config, $course, $parentchapter, $event->contextinstanceid)
