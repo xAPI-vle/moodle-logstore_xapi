@@ -39,6 +39,10 @@ if ($hassiteconfig) {
         get_string('maxbatchsize', 'logstore_xapi'),
         get_string('maxbatchsize_desc', 'logstore_xapi'), 30, PARAM_INT));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/resendfailedbatches',
+        get_string('resendfailedbatches', 'logstore_xapi'),
+        get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
