@@ -10,7 +10,7 @@
     "moodle-plugin-release": "moodle-plugin-release release -i 1461 -z './xapi.zip'"
   },
   "devDependencies": {
-    "@ht2-labs/semantic-release": "1.1.58",
+    "@ht2-labs/semantic-release": "1.1.59",
     "@ryansmith94/moodle-plugin-release": "2.0.1"
   },
   "publishConfig": {
