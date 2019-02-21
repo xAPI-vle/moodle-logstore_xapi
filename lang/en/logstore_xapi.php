@@ -49,3 +49,5 @@ $string['sendidnumber'] = 'Send course and activity ID number';
 $string['sendidnumber_desc'] = 'Statements will include the ID number (admin defined) for courses and activities in the object extensions';
 $string['send_response_choices'] = 'Send response choices';
 $string['send_response_choices_desc'] = 'Statements for multiple choice question answers will be sent to the LRS with the correct response and potential choices';
+$string['resendfailedbatches'] = 'Resend failed batches';
+$string['resendfailedbatches_desc'] = 'When processing events in batches, try re-sending events in smaller batches if a batch fails. If not selected, the whole batch will not be sent in the event of a failed event.';
