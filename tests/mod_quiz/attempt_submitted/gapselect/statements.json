@@ -110,7 +110,7 @@
             "definition": {
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/cmi.interaction",
                 "name": {
-                    "en": "<p>Example [[1]] missing [[2]] words [[3]]<\/p>"
+                    "en": "Example [[1]] missing [[2]] words [[3]]"
                 },
                 "interactionType": "sequencing"
             }
