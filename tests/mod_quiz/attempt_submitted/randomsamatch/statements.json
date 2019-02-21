@@ -110,7 +110,7 @@
             "definition": {
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/cmi.interaction",
                 "name": {
-                    "en": "<p>Example Random short-answer matching question<br><\/p>"
+                    "en": "Example Random short-answer matching question"
                 },
                 "interactionType": "matching"
             }

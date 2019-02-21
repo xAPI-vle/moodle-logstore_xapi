@@ -42,7 +42,7 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $question->questiontext,
+                    $lang => utils\get_string_html_removed($question->questiontext)
                 ],
                 'interactionType' => 'numeric',
             ]
