@@ -53,7 +53,7 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
                 'name' => [
-                    $lang => $question->questiontext,
+                    $lang => utils\get_string_html_removed($question->questiontext)
                 ],
                 'interactionType' => 'matching',
             ]
