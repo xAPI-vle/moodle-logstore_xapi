@@ -50,7 +50,7 @@ function load(array $config, array $events) {
         $responsecode = $request->info['http_code'];
 
         if ($responsecode !== 200) {
-            throw new \Exception($responsetext);
+            throw new \Exception($responsetext, $responsecode);
         }
     };
     return utils\load_in_batches($config, $events, $sendhttpstatements);
