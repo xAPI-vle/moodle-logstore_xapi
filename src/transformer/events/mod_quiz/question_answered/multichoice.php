@@ -27,6 +27,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
+    $selections = explode('; ', utils\get_string_html_removed($questionattempt->responsesummary));
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -41,7 +42,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => utils\get_string_html_removed($questionattempt->responsesummary),
+            'response' => implode ('[,]', $selections),
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [

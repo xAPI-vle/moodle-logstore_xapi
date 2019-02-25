@@ -40,7 +40,8 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt, \
                 $correctresponsepattern = implode ('[,]', $selections);
                 break;
             default:
-                $correctresponsepattern = utils\get_string_html_removed($questionattempt->rightanswer);
+                $selections = explode('; ', utils\get_string_html_removed($questionattempt->rightanswer));
+                $correctresponsepattern = implode ('[,]', $selections);
                 break;
         }
 

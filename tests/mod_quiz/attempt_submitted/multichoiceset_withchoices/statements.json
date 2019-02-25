@@ -114,7 +114,7 @@
                 },
                 "interactionType": "choice",
                 "correctResponsesPattern": [
-                    "answer 1; answer 2"
+                    "answer 1[,]answer 2"
                 ],
                 "choices": [
                     {
@@ -140,7 +140,7 @@
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "result": {
-            "response": "answer 1; answer 2",
+            "response": "answer 1[,]answer 2",
             "success": true,
             "completion": true,
             "extensions": {
