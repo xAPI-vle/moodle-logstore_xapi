@@ -40,17 +40,11 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => utils\get_string_html_removed($question->questiontext)
-                ],
-                'interactionType' => 'sequencing',
-            ]
+            'definition' => utils\get_multichoice_definition($config, $questionattempt, $question, $lang, 'sequencing'),
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
+            'response' => implode ('[,]', $selections),
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [
