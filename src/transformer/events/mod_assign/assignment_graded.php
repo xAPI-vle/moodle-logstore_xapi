@@ -29,10 +29,17 @@ function assignment_graded(array $config, \stdClass $event) {
     $assignment = $repo->read_record_by_id('assign', $grade->assignment);
     $lang = utils\get_course_lang($course);
 
-    $gradecomment = $repo->read_record('assignfeedback_comments', [
-        'assignment' => $grade->assignment,
-        'grade' => $grade->id
-    ])->commenttext;
+    $gradecomment = null;
+
+    try {
+        $gradecomment = $repo->read_record('assignfeedback_comments', [
+            'assignment' => $grade->assignment,
+            'grade' => $grade->id
+        ])->commenttext;
+    } catch (Exception $e) {
+        // No comment on the grade
+    }
+    
     $gradeitems = $repo->read_record('grade_items', [
         'itemmodule' => 'assign',
         'iteminstance' => $grade->assignment
@@ -63,8 +70,7 @@ function assignment_graded(array $config, \stdClass $event) {
                 'raw' => $scoreraw
             ],
             'completion' => true,
-            'success' => $success,
-            'response' => $gradecomment
+            'success' => $success
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
@@ -85,6 +91,10 @@ function assignment_graded(array $config, \stdClass $event) {
             ],
         ]
     ];
+
+    if (!is_null($gradecomment)){
+        $statement['result']['response'] = $gradecomment;
+    }
 
     // Only include min score if raw score is valid for that min.
     if ($scoreraw >= $scoremin) {
