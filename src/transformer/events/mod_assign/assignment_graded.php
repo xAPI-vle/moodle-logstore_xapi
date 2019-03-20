@@ -30,16 +30,15 @@ function assignment_graded(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
 
     $gradecomment = null;
-
     try {
         $gradecomment = $repo->read_record('assignfeedback_comments', [
             'assignment' => $grade->assignment,
             'grade' => $grade->id
         ])->commenttext;
     } catch (Exception $e) {
-        // No comment on the grade
+        $gradecomment = null;
     }
-    
+
     $gradeitems = $repo->read_record('grade_items', [
         'itemmodule' => 'assign',
         'iteminstance' => $grade->assignment
@@ -92,7 +91,7 @@ function assignment_graded(array $config, \stdClass $event) {
         ]
     ];
 
-    if (!is_null($gradecomment)){
+    if (!is_null($gradecomment)) {
         $statement['result']['response'] = $gradecomment;
     }
 
