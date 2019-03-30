@@ -75,5 +75,12 @@
             "qtype": "gapselect",
             "questiontext": "<p>Example [[1]] missing [[2]] words [[3]]</p>"
         }
+    ],
+    "grade_grades": [
+        {
+            "itemid": 1,
+            "userid": 1,
+            "rawgrade": 50
+        }
     ]
 }
