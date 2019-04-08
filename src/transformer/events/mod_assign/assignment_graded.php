@@ -35,7 +35,7 @@ function assignment_graded(array $config, \stdClass $event) {
             'assignment' => $grade->assignment,
             'grade' => $grade->id
         ])->commenttext;
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         $gradecomment = null;
     }
 
