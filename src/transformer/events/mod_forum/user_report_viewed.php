@@ -29,8 +29,7 @@ function user_report_viewed(array $config, \stdClass $event) {
             "id" => 0
         ];
         $lang = "en";
-    }
-    else {
+    } else {
         $course = $repo->read_record_by_id('course', $event->courseid);
         $lang = utils\get_course_lang($course);
     }

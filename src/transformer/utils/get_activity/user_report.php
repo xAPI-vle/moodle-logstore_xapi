@@ -35,8 +35,7 @@ function user_report(array $config, \stdClass $user, \stdClass $course, $related
 
     if ($course->id == "0") {
         $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$relateduserid;
-    }
-    else {
+    } else {
         $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$relateduserid.'&course='.$course->id;
         $activity['definition']['extensions']['https://moodle.org/xapi/extensions/course_id'] = $course->id;
     }
