@@ -14,7 +14,6 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=2&course=1",
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/user-profile",
                 "name": {
@@ -24,7 +23,8 @@
                     "https:\/\/moodle.org\/xapi\/extensions\/user_id": 1,
                     "https:\/\/moodle.org\/xapi\/extensions\/course_id": 1
                 }
-            }
+            },
+            "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=2&course=1"
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
         "context": {
