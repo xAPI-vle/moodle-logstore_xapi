@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function user_report(array $config, \stdClass $user, \stdClass $course, $relateduserid, $courselang) {
+function user_report(array $config, \stdClass $user, \stdClass $course, $courselang) {
 
     $activity = [
         'definition' => [
@@ -34,9 +34,9 @@ function user_report(array $config, \stdClass $user, \stdClass $course, $related
     ];
 
     if ($course->id == "0") {
-        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$relateduserid;
+        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$user->id;
     } else {
-        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$relateduserid.'&course='.$course->id;
+        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$user->id.'&course='.$course->id;
         $activity['definition']['extensions']['https://moodle.org/xapi/extensions/course_id'] = $course->id;
     }
 

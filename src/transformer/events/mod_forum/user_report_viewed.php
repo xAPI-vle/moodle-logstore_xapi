@@ -23,6 +23,7 @@ use src\transformer\utils as utils;
 function user_report_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
+    $relateduser = $repo->read_record_by_id('user', $event->relateduserid);
 
     if ($event->courseid == "0") {
         $course = (object) [
@@ -42,7 +43,7 @@ function user_report_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\user_report($config, $user, $course, $event->relateduserid, $lang),
+        'object' => utils\get_activity\user_report($config, $relateduser, $course, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

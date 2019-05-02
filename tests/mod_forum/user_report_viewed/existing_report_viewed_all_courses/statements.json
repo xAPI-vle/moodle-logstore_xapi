@@ -17,10 +17,10 @@
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/user-profile",
                 "name": {
-                    "en": "forum posts of loggedin_user_firstname"
+                    "en": "forum posts of viewed_user_firstname"
                 },
                 "extensions": {
-                    "https:\/\/moodle.org\/xapi\/extensions\/user_id": 1
+                    "https:\/\/moodle.org\/xapi\/extensions\/user_id": 2
                 }
             },
             "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=2"
