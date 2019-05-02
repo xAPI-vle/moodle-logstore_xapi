@@ -14,7 +14,7 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=1&course=1",
+            "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=2&course=1",
             "definition": {
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/user-profile",
                 "name": {
