@@ -83,5 +83,12 @@
             "answer": "answer 1",
             "question": 1
         }
+    ],
+    "grade_grades": [
+        {
+            "itemid": 1,
+            "userid": 1,
+            "rawgrade": 50
+        }
     ]
 }
