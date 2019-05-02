@@ -20,8 +20,7 @@
                     "en": "forum posts of loggedin_user_firstname"
                 },
                 "extensions": {
-                    "https:\/\/moodle.org\/xapi\/extensions\/user_id": 1,
-                    "https:\/\/moodle.org\/xapi\/extensions\/course_id": 1
+                    "https:\/\/moodle.org\/xapi\/extensions\/user_id": 1
                 }
             },
             "id": "http:\/\/www.example.org\/mod\/forum\/user.php?id=2"
