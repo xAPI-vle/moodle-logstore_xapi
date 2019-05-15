@@ -24,8 +24,8 @@ class test extends \tests\xapi_test_case {
 
     protected function get_transformer_config() {
         $testdata = $this->get_test_data();
-        $transformer_config = parent::get_transformer_config();
-        return array_merge($transformer_config, [
+        $transformerconfig = parent::get_transformer_config();
+        return array_merge($transformerconfig, [
             'send_jisc_data' => true,
         ]);
     }
