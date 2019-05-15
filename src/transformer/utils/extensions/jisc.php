@@ -14,14 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils;
+namespace src\transformer\utils\extensions;
 defined('MOODLE_INTERNAL') || die();
 
-function get_info(array $config, \stdClass $event) {
-    return [
-        $config['source_url'] => $config['source_version'],
-        $config['plugin_url'] => $config['plugin_version'],
-        'event_name' => $event->eventname,
-        'event_function' => $config['event_function'],
-    ];
+use src\transformer\utils as utils;
+
+function jisc(array $config, \stdClass $event, $course) {
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        return array_merge(
+            [
+                'http://xapi.jisc.ac.uk/sessionId' => $config['session_id'],
+                'http://id.tincanapi.com/extension/ip-address' => $event->ip,
+                'http://xapi.jisc.ac.uk/statementCat' => 'VLE',
+            ],
+            course_area($course)
+        );
+    }
+    return [];
 }
