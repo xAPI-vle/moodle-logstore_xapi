@@ -76,9 +76,7 @@ function assignment_graded(array $config, \stdClass $event) {
             'instructor' => utils\get_user($config, $instructor),
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),

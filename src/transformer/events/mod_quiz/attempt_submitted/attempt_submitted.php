@@ -51,9 +51,7 @@ function attempt_submitted(array $config, \stdClass $event) {
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'other' => [
                     utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),

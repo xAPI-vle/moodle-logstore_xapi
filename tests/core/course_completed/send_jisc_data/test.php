@@ -14,14 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils;
+namespace tests\core\course_completed\send_jisc_data;
 defined('MOODLE_INTERNAL') || die();
 
-function get_info(array $config, \stdClass $event) {
-    return [
-        $config['source_url'] => $config['source_version'],
-        $config['plugin_url'] => $config['plugin_version'],
-        'event_name' => $event->eventname,
-        'event_function' => $config['event_function'],
-    ];
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
+
+    protected function get_transformer_config() {
+        $testdata = $this->get_test_data();
+        $transformerconfig = parent::get_transformer_config();
+        return array_merge($transformerconfig, [
+            'send_jisc_data' => true,
+        ]);
+    }
 }
