@@ -14,11 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_assign\assignment_graded\existing_assignment_graded;
+namespace tests\core\user_created\send_jisc_data;
 defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
+    }
+
+    protected function get_transformer_config() {
+        $testdata = $this->get_test_data();
+        $transformerconfig = parent::get_transformer_config();
+        return array_merge($transformerconfig, [
+            'send_jisc_data' => true,
+        ]);
     }
 }

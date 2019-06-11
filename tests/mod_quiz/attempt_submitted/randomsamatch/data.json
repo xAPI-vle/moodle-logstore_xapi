@@ -75,5 +75,12 @@
             "qtype": "randomsamatch",
             "questiontext": "<p>Example Random short-answer matching question<br></p>"
         }
+    ],
+    "grade_grades": [
+        {
+            "itemid": 1,
+            "userid": 1,
+            "rawgrade": 50
+        }
     ]
 }

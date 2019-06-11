@@ -95,5 +95,12 @@
             "answer": "answer 3",
             "question": 1
         }
+    ],
+    "grade_grades": [
+        {
+            "itemid": 1,
+            "userid": 1,
+            "rawgrade": 50
+        }
     ]
 }

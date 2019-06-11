@@ -14,7 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils;
+namespace tests\mod_forum\user_report_viewed\existing_report_viewed_all_courses;
 defined('MOODLE_INTERNAL') || die();
 
-const INFO_EXTENSION = 'http://lrs.learninglocker.net/define/extensions/info';
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
+}

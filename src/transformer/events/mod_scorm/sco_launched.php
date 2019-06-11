@@ -40,9 +40,7 @@ function sco_launched(array $config, \stdClass $event) {
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),

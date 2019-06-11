@@ -31,6 +31,10 @@ function attempt_submitted(array $config, \stdClass $event) {
         'itemmodule' => 'quiz',
         'iteminstance' => $quiz->id,
     ]);
+    $attemptgrade = $repo->read_record('grade_grades', [
+        'itemid' => $gradeitem->id,
+        'userid' => $event->relateduserid
+    ]);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -43,13 +47,11 @@ function attempt_submitted(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => utils\get_attempt_result($config, $attempt, $gradeitem),
+        'result' => utils\get_attempt_result($config, $attempt, $gradeitem, $attemptgrade),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'other' => [
                     utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),

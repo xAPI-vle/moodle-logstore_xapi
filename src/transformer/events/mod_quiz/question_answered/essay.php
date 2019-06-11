@@ -29,6 +29,8 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
 
+    $responsesummary = is_null($questionattempt->responsesummary) ? '' : $questionattempt->responsesummary;
+
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -49,15 +51,13 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
-            'completion' => $questionattempt->responsesummary !== '',
+            'response' => $responsesummary,
+            'completion' => $responsesummary !== '',
         ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),

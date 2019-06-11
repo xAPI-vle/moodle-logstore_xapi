@@ -23,11 +23,19 @@ use src\transformer\utils as utils;
 function user_report_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $discussion = $repo->read_record_by_id('user', $event->relateduserid);
-    $lang = utils\get_course_lang($course);
+    $relateduser = $repo->read_record_by_id('user', $event->relateduserid);
 
-    return[[
+    if ($event->courseid == "0") {
+        $course = (object) [
+            "id" => 0
+        ];
+        $lang = "en";
+    } else {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+        $lang = utils\get_course_lang($course);
+    }
+
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
@@ -35,23 +43,26 @@ function user_report_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\user_report($config, $user, $course),
+        'object' => utils\get_activity\user_report($config, $relateduser, $course, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-            ],
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
                 ]
             ],
         ]
-    ]];
+    ];
+
+    if ($event->courseid != "0") {
+        array_push($statement['context']['contextActivities']['grouping'], utils\get_activity\course($config, $course));
+    }
+
+    return[$statement];
 }

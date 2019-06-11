@@ -75,5 +75,12 @@
             "qtype": "match",
             "questiontext": "test_question"
         }
+    ],
+    "grade_grades": [
+        {
+            "itemid": 1,
+            "userid": 1,
+            "rawgrade": 50
+        }
     ]
 }
