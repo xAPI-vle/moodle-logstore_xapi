@@ -63,9 +63,10 @@ function get_event_function_map() {
         '\mod_url\event\course_module_viewed' => 'mod_url\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
+        '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
     ];
 
-    $environmentevents = array_keys(\report_eventlist_list_generator::get_all_events_list(false));
+    $environmentevents = class_exists("report_eventlist_list_generator") ? array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
 
     return array_filter($availableevents, function($k) use ($environmentevents) {
         return in_array($k, $environmentevents);

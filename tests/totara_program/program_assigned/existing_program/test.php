@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\extensions;
+namespace tests\totara_program\program_assigned\existing_program;
 defined('MOODLE_INTERNAL') || die();
 
-function base(array $config, \stdClass $event, $course=null) {
-    return array_merge(
-        info($config, $event),
-        jisc($config, $event, $course)
-    );
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
 }
