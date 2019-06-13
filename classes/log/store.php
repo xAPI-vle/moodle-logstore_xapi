@@ -119,7 +119,7 @@ class store extends php_obj implements log_writer {
             ],
         ];
 
-        if(isset($CFG->totara_release)) {
+        if (isset($CFG->totara_release)) {
             $source = [
                 'source_url' => 'http://totaralearning.com',
                 'source_name' => 'Totara Learn',
