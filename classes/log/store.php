@@ -85,7 +85,6 @@ class store extends php_obj implements log_writer {
         global $DB;
         global $CFG;
         require(__DIR__ . '/../../version.php');
-        require($CFG->dirroot . '/version.php');
         $logerror = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };
@@ -120,11 +119,11 @@ class store extends php_obj implements log_writer {
             ],
         ];
 
-        if(isset($TOTARA)) {
+        if(isset($CFG->totara_release)) {
             $source = [
                 'source_url' => 'http://totaralearning.com',
                 'source_name' => 'Totara Learn',
-                'source_version' => $TOTARA->version
+                'source_version' => $CFG->totara_version
             ];
         } else {
             $source = [
