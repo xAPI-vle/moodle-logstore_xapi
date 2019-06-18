@@ -14,12 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\extensions;
+namespace src\transformer\utils\totara;
 defined('MOODLE_INTERNAL') || die();
 
-function base(array $config, \stdClass $event, $course=null) {
-    return array_merge(
-        info($config, $event),
-        jisc($config, $event, $course)
-    );
+function program(array $config, \stdClass $program, $lang) {
+    $programname = $program->fullname ? $program->fullname : 'A Totara program';
+
+    $object = [
+        'id' => $config['app_url'].'/totara/program/view.php?id='.$program->id,
+        'definition' => [
+            'type' => 'http://id.tincanapi.com/activitytype/lms/program',
+            'name' => [
+                $lang => $programname,
+            ],
+        ],
+    ];
+
+    return $object;
 }

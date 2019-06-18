@@ -91,13 +91,11 @@ class store extends php_obj implements log_writer {
         $loginfo = function ($message = '') {
             debugging($message, DEBUG_DEVELOPER);
         };
+
         $handlerconfig = [
             'log_error' => $logerror,
             'log_info' => $loginfo,
             'transformer' => [
-                'source_url' => 'http://moodle.org',
-                'source_name' => 'Moodle',
-                'source_version' => $CFG->release,
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
                 'send_response_choices' => $this->get_config('sendresponsechoices', false),
@@ -120,6 +118,23 @@ class store extends php_obj implements log_writer {
                 'lrs_resend_failed_batches' => $this->get_config('resendfailedbatches', false),
             ],
         ];
+
+        if (isset($CFG->totara_release)) {
+            $source = [
+                'source_url' => 'http://totaralearning.com',
+                'source_name' => 'Totara Learn',
+                'source_version' => $CFG->totara_version
+            ];
+        } else {
+            $source = [
+                'source_url' => 'http://moodle.org',
+                'source_name' => 'Moodle',
+                'source_version' => $CFG->release
+            ];
+        }
+
+        $handlerconfig['transformer'] = array_merge($handlerconfig['transformer'], $source);
+
         $loadedevents = \src\handler($handlerconfig, $events);
         return $loadedevents;
     }
