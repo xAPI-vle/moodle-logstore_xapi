@@ -53,3 +53,7 @@ $string['send_response_choices'] = 'Send response choices';
 $string['send_response_choices_desc'] = 'Statements for multiple choice and sequencing question answers will be sent to the LRS with the correct response and potential choices';
 $string['resendfailedbatches'] = 'Resend failed batches';
 $string['resendfailedbatches_desc'] = 'When processing events in batches, try re-sending events in smaller batches if a batch fails. If not selected, the whole batch will not be sent in the event of a failed event.';
+$string['privacy:metadata:logstore_xapi_log'] = 'xAPI holding table for cron processing';
+$string['privacy:metadata:logstore_xapi_log:userid'] = 'User Id of xAPI holding table for cron processing';
+$string['privacy:metadata:logstore_xapi_failed_log'] = 'xAPI holding table for failed events';
+$string['privacy:metadata:logstore_xapi_failed_log:userid'] = 'User Id of xAPI holding table for failed events';
