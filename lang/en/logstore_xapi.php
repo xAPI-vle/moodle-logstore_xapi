@@ -16,15 +16,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['endpoint'] = 'Endpoint';
+$string['endpoint'] = 'Your LRS endpoint for the xAPI';
 $string['settings'] = 'General Settings';
 $string['xapifieldset'] = 'Custom example fieldset';
 $string['xapi'] = 'xAPI';
-$string['password'] = 'Password';
+$string['password'] = 'Your LRS basic auth secret/password for the xAPI';
 $string['pluginadministration'] = 'Logstore xAPI administration';
 $string['pluginname'] = 'Logstore xAPI';
 $string['submit'] = 'Submit';
-$string['username'] = 'Username';
+$string['username'] = 'Your LRS basic auth key/username for the xAPI';
 $string['xapisettingstitle'] = 'Logstore xAPI Settings';
 $string['backgroundmode'] = 'Send statements by scheduled task?';
 $string['backgroundmode_desc'] = 'This will force Moodle to send the statements to the LRS in the background,
