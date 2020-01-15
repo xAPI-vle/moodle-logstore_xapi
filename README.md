@@ -3,7 +3,7 @@
 
 - Install the plugin using [our zip installation guide](/docs/install-with-zip.md).
 - Process events before the plugin was installed using [our historical events guide](/docs/historical-events.md).
-- Ask questions with the [Gitter chat room](https://gitter.im/LearningLocker/learninglocker).
+- Ask questions via the [Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
 - Report bugs and suggest features with the [Github issue tracker](https://github.com/xAPI-vle/moodle-logstore_xapi/issues).
 - View the supported events in [our `get_event_function_map` function](/src/transformer/get_event_function_map.php).
 - Change existing statements for the supported events using [our change statements guide](/docs/change-statements.md).
