@@ -1,6 +1,10 @@
 language: php
 sudo: false
 
+services:
+  - mysql
+  - postgresql
+
 cache:
   directories:
     - $HOME/.composer/cache
