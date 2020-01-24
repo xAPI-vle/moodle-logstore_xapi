@@ -15,7 +15,7 @@ env:
     - MOODLE_BRANCH=MOODLE_35_STABLE
   matrix:
     - DB=pgsql
-    - DB=mysql
+    - DB=mysqli
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
