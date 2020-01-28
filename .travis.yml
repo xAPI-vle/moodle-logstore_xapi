@@ -1,6 +1,10 @@
 language: php
 sudo: false
 
+services:
+  - mysql
+  - postgresql
+
 cache:
   directories:
     - $HOME/.composer/cache
@@ -8,14 +12,13 @@ cache:
 php:
   - 7.1
   - 7.0
-  - 5.6
 
 env:
   global:
-    - MOODLE_BRANCH=MOODLE_32_STABLE
+    - MOODLE_BRANCH=MOODLE_35_STABLE
   matrix:
     - DB=pgsql
-#   - DB=mysqli
+    - DB=mysqli
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
