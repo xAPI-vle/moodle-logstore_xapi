@@ -6,7 +6,7 @@
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
-        "php": "^7.0.3"
+        "php": "^7.0"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"
