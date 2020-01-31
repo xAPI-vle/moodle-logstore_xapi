@@ -28,7 +28,7 @@ function forum_discussion_post(array $config, \stdClass $course, $discussionid, 
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
             'name' => [
-                $courselang => 'to a discussion',
+                $courselang => 'a discussion',
             ],
         ],
     ];
