@@ -36,7 +36,7 @@ function post_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/replied',
             'display' => [
-                $lang => 'replied'
+                $lang => 'replied to'
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post($config, $course, $discussionid, $post),
