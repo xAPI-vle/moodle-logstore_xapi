@@ -42,7 +42,7 @@
     "forum_posts": [
         {
             "id": 1,
-            "name": "test_response_text"
+            "message": "test_response_text"
         }
     ]
 }

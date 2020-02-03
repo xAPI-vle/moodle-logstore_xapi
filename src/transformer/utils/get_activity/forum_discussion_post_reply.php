@@ -20,8 +20,8 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function forum_discussion_post_reply(array $config, \stdClass $post) {
+    $repo = $config['repo'];
+    $actualreply = $repo->read_record_by_id('forum_posts', $post->id);
 
-    $actualreply = property_exists($post, 'name') ? $post->name : 'Response';;
-
-    return $actualreply;
+    return $actualreply->message;
 }
