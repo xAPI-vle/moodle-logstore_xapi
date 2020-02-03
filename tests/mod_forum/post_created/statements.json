@@ -14,15 +14,18 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/forum\/discuss.php?d=1#p1",
+            "id": "http:\/\/www.example.org\/mod\/forum\/discuss.php?d=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/forum-reply",
+                "type": "http:\/\/id.tincanapi.com\/activitytype\/discussion",
                 "name": {
-                    "en": "a discussion"
+                    "en": "test_forum_discussion_name"
                 }
             }
         },
         "timestamp": "2015-06-10T15:31:41+01:00",
+        "result": {
+            "response": "test_response_text"
+        },
         "context": {
             "platform": "Moodle",
             "language": "en",
@@ -62,14 +65,13 @@
                                 "en": "test_forum_name"
                             }
                         }
-                    },
+                    }
+                ],
+                "other": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/forum\/discuss.php?d=1",
+                        "id": "http:\/\/www.example.org\/mod\/forum\/discuss.php?d=1#p1",
                         "definition": {
-                            "type": "http:\/\/id.tincanapi.com\/activitytype\/discussion",
-                            "name": {
-                                "en": "test_forum_discussion_name"
-                            }
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/forum-reply"
                         }
                     }
                 ],

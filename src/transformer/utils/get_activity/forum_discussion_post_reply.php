@@ -19,13 +19,9 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function forum_discussion_post(array $config, $discussionid, \stdClass $post) {
-    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$post->id;
+function forum_discussion_post_reply(array $config, \stdClass $post) {
 
-    return [
-        'id' => $posturl,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
-        ],
-    ];
+    $actualreply = property_exists($post, 'name') ? $post->name : 'Response';;
+
+    return $actualreply;
 }
