@@ -48,12 +48,11 @@ script:
 # - moodle-plugin-ci mustache
 # - moodle-plugin-ci grunt
   - pwd
-  - ls $TRAVIS_BUILD_DIR
   - cd $TRAVIS_BUILD_DIR
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
-  - rm -rf vendor
+  - rm -rf "$(find -type d -name xapi)/vendor"
   - moodle-plugin-ci codechecker
   - cd $TRAVIS_BUILD_DIR
 
