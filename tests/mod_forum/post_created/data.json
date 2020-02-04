@@ -42,7 +42,8 @@
     "forum_posts": [
         {
             "id": 1,
-            "message": "test_response_text"
+            "message": "<div class=\"text_to_html\">test_response_text</div>"
+
         }
     ]
 }

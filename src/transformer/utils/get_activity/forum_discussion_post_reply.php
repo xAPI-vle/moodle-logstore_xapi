@@ -23,5 +23,5 @@ function forum_discussion_post_reply(array $config, \stdClass $post) {
     $repo = $config['repo'];
     $actualreply = $repo->read_record_by_id('forum_posts', $post->id);
 
-    return $actualreply->message;
+    return utils\get_string_html_removed($actualreply->message);
 }
