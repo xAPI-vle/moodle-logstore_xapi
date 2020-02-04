@@ -54,7 +54,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.1" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.2" ]; then
     npm install;
     export BUILD_LEADER_ID=1;
     npm run semantic-release;
