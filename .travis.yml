@@ -1,5 +1,6 @@
 language: php
-sudo: false
+
+sudo: true
 
 services:
   - mysql
@@ -8,10 +9,11 @@ services:
 cache:
   directories:
     - $HOME/.composer/cache
+    - $HOME/.npm
 
 php:
-  - 7.1
-  - 7.0
+  - 7.3
+  - 7.2
 
 env:
   global:
@@ -27,9 +29,10 @@ before_install:
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install 8.9
+  - nvm use 8.9
   - cd ../..
   - composer selfupdate
-  - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
@@ -44,8 +47,6 @@ script:
   - moodle-plugin-ci savepoints
 # - moodle-plugin-ci mustache
 # - moodle-plugin-ci grunt
-  - pwd
-  - cd $TRAVIS_BUILD_DIR && ./vendor/bin/phpunit && cd ../..
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
@@ -54,7 +55,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.1" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.2" ]; then
     npm install;
     export BUILD_LEADER_ID=1;
     npm run semantic-release;
