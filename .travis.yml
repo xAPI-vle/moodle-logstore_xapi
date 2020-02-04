@@ -48,7 +48,7 @@ script:
 # - moodle-plugin-ci mustache
 # - moodle-plugin-ci grunt
   - pwd
-  - cd $TRAVIS_BUILD_DIR && ./xAPI-vle/moodle-logstore_xapi/vendor/bin/phpunit && cd ../..
+  - cd xAPI-vle/moodle-logstore_xapi/vendor/bin/phpunit && cd ../..
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
