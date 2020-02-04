@@ -1,5 +1,6 @@
 language: php
-sudo: false
+
+sudo: true
 
 services:
   - mysql
@@ -8,6 +9,7 @@ services:
 cache:
   directories:
     - $HOME/.composer/cache
+    - $HOME/.npm
 
 php:
   - 7.3
@@ -27,6 +29,7 @@ before_install:
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
   - nvm install 8.9
+  - nvm use 8.9
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
