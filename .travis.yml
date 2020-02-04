@@ -52,7 +52,7 @@ script:
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
-  - rm -rf "$(find / -type d -name xapi)/vendor"
+  - rm -rf "$(find $TRAVIS_BUILD_DIR -type d -name xapi)/vendor"
   - moodle-plugin-ci codechecker
   - cd $TRAVIS_BUILD_DIR
 
