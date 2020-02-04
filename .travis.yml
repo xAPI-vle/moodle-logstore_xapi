@@ -49,11 +49,11 @@ script:
 # - moodle-plugin-ci grunt
   - pwd
   - ls $TRAVIS_BUILD_DIR
-  - cd $TRAVIS_BUILD_DIR && /xAPI-vle/moodle-logstore_xapi/vendor/bin/phpunit && cd ../..
+  - cd $TRAVIS_BUILD_DIR
 # - moodle-plugin-ci behat
 
   # run codechecker without the vendor/ directory
-  - rm -rf "$(find -type d -name xapi)/vendor"
+  - rm -rf vendor
   - moodle-plugin-ci codechecker
   - cd $TRAVIS_BUILD_DIR
 
