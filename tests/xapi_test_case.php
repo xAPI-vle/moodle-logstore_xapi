@@ -17,7 +17,7 @@
 namespace tests;
 defined('MOODLE_INTERNAL') || die();
 
-use \PHPUnit_Framework_TestCase as PhpUnitTestCase;
+use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
 use \Locker\XApi\Statement as LockerStatement;
 
 abstract class xapi_test_case extends PhpUnitTestCase {
