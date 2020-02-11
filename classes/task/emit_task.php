@@ -77,11 +77,11 @@ class emit_task extends \core\task\scheduled_task {
         global $DB;
         $failedevents = $this->get_failed_events($events);
         $DB->insert_records('logstore_xapi_failed_log', $failedevents);
-        mtrace(count($failedevents) . " event(s) have failed to send to the LRS.");
+        mtrace(count($failedevents) . " " . get_string('failed_events', 'logstore_xapi'));
     }
 
     private function record_successful_events($events) {
-        mtrace(count($this->get_successful_events($events)) . " event(s) have been successfully sent to the LRS.");
+        mtrace(count($this->get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
     }
 
     /**
