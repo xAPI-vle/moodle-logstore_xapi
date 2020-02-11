@@ -11,3 +11,4 @@
 /version.php
 /xapi
 /xapi.zip
+.phpunit.result.cache
