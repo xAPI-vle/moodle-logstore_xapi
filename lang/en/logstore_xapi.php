@@ -36,6 +36,8 @@ $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This 
         be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
 $string['routes'] = 'Include actions with these routes';
+$string['failed_events'] = 'event(s) have failed to send to the LRS.';
+$string['successful_events'] = 'event(s) have been successfully processed.';
 $string['filters'] = 'Filter logs';
 $string['logguests'] = 'Log guest actions';
 $string['filters_help'] = 'Enable filters that INCLUDE some actions to be logged.';
