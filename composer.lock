@@ -65,16 +65,16 @@
         },
         {
             "name": "learninglocker/statementfactory",
-            "version": "v0.0.10",
+            "version": "v0.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LearningLocker/StatementFactory.git",
-                "reference": "61a6aa2dabc785300d8fc90efc704aaac4187278"
+                "reference": "92c8d9a94f1edc29ba899ed30409f045315c7273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LearningLocker/StatementFactory/zipball/61a6aa2dabc785300d8fc90efc704aaac4187278",
-                "reference": "61a6aa2dabc785300d8fc90efc704aaac4187278",
+                "url": "https://api.github.com/repos/LearningLocker/StatementFactory/zipball/92c8d9a94f1edc29ba899ed30409f045315c7273",
+                "reference": "92c8d9a94f1edc29ba899ed30409f045315c7273",
                 "shasum": ""
             },
             "type": "library",
@@ -94,7 +94,7 @@
                 }
             ],
             "description": "Learning Locker's classes for xAPI.",
-            "time": "2016-08-25T14:02:22+00:00"
+            "time": "2020-02-11T10:15:03+00:00"
         },
         {
             "name": "myclabs/deep-copy",
