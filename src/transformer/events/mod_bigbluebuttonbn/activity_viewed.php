@@ -25,7 +25,7 @@ function activity_viewed(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
-
+    echo "paul!";
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [

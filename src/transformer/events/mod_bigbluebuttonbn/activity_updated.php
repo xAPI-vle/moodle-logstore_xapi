@@ -31,7 +31,7 @@ function activity_updated(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/update',
             'display' => [
-                $lang => 'update'
+                $lang => 'updated'
             ],
         ],
         'object' => utils\get_activity\course_module(

@@ -34,7 +34,7 @@ function recording_unpublished(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/retract',
             'display' => [
-                $lang => 'retract'
+                $lang => 'retracted'
             ],
         ],
         'object' => utils\get_activity\course_module(

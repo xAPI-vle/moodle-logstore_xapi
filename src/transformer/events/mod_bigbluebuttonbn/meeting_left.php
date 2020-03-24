@@ -34,7 +34,7 @@ function meeting_left(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/leave',
             'display' => [
-                $lang => 'leave'
+                $lang => 'left'
             ],
         ],
         'object' => utils\get_activity\course_module(

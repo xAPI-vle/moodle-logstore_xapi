@@ -33,7 +33,7 @@ function meeting_joined(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/join',
             'display' => [
-                $lang => 'join'
+                $lang => 'joined'
             ],
         ],
         'object' => utils\get_activity\course_module(
