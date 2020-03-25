@@ -26,13 +26,13 @@ use src\transformer\utils as utils;
  * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
- * @param $evt_id                The URL of the Verb we wish to use.
+ * @param $evtid                The URL of the Verb we wish to use.
  *                                  (example: 'http://activitystrea.ms/schema/1.0/leave' )
- * @param $evt_disp_name         The conjugated Verb so it reads better in SCORM log.
+ * @param $evtdispname         The conjugated Verb so it reads better in SCORM log.
  *                                  (example: 'left' )
  * @return array
  */
-function create_stmt(array $config, \stdClass $event, $evt_id, $evt_disp_name ) {
+function create_stmt(array $config, \stdClass $event, $evtid, $evtdispname ) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -41,9 +41,9 @@ function create_stmt(array $config, \stdClass $event, $evt_id, $evt_disp_name ) 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => $evt_id,
+            'id' => $evtid,
             'display' => [
-                $lang => $evt_disp_name
+                $lang => $evtdispname
             ],
         ],
         'object' => utils\get_activity\course_module(
