@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * The mod_bigbluebuttonbn meeting ended event (triggered by bbb_ajax.php and index.php when the meeting is ended by the user).
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function meeting_ended(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://id.tincanapi.com/verb/adjourned', 'adjourned' );
+    return create_stmt( $config, $event, 'http://id.tincanapi.com/verb/adjourned', 'adjourned' );
 }

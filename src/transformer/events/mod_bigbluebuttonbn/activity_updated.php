@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * Triggered when the an attribute like the name of the BBB activity is edited.
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function activity_updated(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://activitystrea.ms/schema/1.0/update', 'updated' );
+    return create_stmt( $config, $event, 'http://activitystrea.ms/schema/1.0/update', 'updated' );
 }

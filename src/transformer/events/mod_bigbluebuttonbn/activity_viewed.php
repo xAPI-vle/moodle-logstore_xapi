@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * Triggered when a BBB activity is viewed.
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function activity_viewed(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://id.tincanapi.com/verb/viewed', 'viewed' );
+    return create_stmt( $config, $event, 'http://id.tincanapi.com/verb/viewed', 'viewed' );
 }

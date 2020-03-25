@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * Triggered when a new BBB activity gets created.
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function activity_created(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/created', 'created' );
+    return create_stmt( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/created', 'created' );
 }

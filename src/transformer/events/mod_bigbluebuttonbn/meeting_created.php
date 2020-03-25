@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * The mod_bigbluebuttonbn meeting created event (triggered by bbb_view.php when the meeting is created before join
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function meeting_created(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://activitystrea.ms/schema/1.0/create', 'created' );
+    return create_stmt( $config, $event, 'http://activitystrea.ms/schema/1.0/create', 'created' );
 }

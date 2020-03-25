@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * The mod_bigbluebuttonbn recording imported event (triggered when a recording is imported).
@@ -28,5 +28,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 function recording_imported(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://adlnet.gov/expapi/verbs/imported', 'imported' );
+    return create_stmt( $config, $event, 'http://adlnet.gov/expapi/verbs/imported', 'imported' );
 }

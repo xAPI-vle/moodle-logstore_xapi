@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
+use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * Used to convey what actions occur during a recording:
@@ -27,5 +27,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
  */
 function live_session(array $config, \stdClass $event) {
 
-    return createStmt( $config, $event, 'http://id.tincanapi.com/verb/live', 'live' );
+    return create_stmt( $config, $event, 'http://id.tincanapi.com/verb/live', 'live' );
 }
