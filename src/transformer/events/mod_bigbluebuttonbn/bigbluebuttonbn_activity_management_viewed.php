@@ -15,10 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-
-defined('MOODLE_INTERNAL') || die();
-
-use src\transformer\utils as utils;
+use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn activity management viewed event (triggered by index.php).
@@ -28,39 +25,6 @@ use src\transformer\utils as utils;
  * @return array
  */
 function bigbluebuttonbn_activity_management_viewed(array $config, \stdClass $event) {
-    $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $lang = utils\get_course_lang($course);
 
-    return [[
-        'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
-            'display' => [
-                $lang => 'viewed'
-            ],
-        ],
-        'object' => utils\get_activity\course_module(
-            $config,
-            $course,
-            $event->contextinstanceid,
-            'http://adlnet.gov/expapi/activities/link'
-        ),
-        'timestamp' => utils\get_event_timestamp($event),
-        'context' => [
-            'platform' => $config['source_name'],
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
-            'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
-                ],
-                'category' => [
-                    utils\get_activity\source($config),
-                ]
-            ],
-        ]
-    ]];
+    return createStmt( $config, $event, 'http://id.tincanapi.com/verb/viewed', 'viewed' );
 }
