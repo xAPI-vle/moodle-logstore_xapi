@@ -20,6 +20,7 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 /**
  * The mod_bigbluebuttonbn activity management viewed event (triggered by index.php).
  *
+ * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
  * @return array

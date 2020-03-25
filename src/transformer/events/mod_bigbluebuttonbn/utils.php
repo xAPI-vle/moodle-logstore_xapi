@@ -20,6 +20,18 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
+/**
+ * Create a Statement for the logs. 
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @param $evtId            The URL of the Verb we wish to use.
+ *                          (example: 'http://activitystrea.ms/schema/1.0/leave' )
+ * @param $evtDispName      The conjugated Verb so it reads better in SCORM log
+ *                          (example: 'left' )
+ * @return array
+ */
 function createStmt(array $config, \stdClass $event, $evtId, $evtDispName ) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);

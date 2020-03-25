@@ -19,6 +19,11 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn meeting joined event (triggered by bbb_view.php when the user joins the session).
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function meeting_joined(array $config, \stdClass $event) {
 

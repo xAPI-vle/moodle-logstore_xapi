@@ -19,6 +19,11 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn recording protected event (triggered when a recording is protected).
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function recording_protected(array $config, \stdClass $event) {
 

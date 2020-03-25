@@ -19,6 +19,8 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * Used to convey what actions occur during a recording:
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
  * @return array

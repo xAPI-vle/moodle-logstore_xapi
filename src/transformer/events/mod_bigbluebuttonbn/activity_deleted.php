@@ -17,6 +17,14 @@
 namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
+/**
+ * Triggered when a BBB activity is deleted.
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
+ */
 function activity_deleted(array $config, \stdClass $event) {
 
     return createStmt( $config, $event, 'http://activitystrea.ms/schema/1.0/delete', 'deleted' );

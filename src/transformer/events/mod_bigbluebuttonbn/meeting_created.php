@@ -17,8 +17,13 @@
 namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
-/*
+/**
  * The mod_bigbluebuttonbn meeting created event (triggered by bbb_view.php when the meeting is created before join
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function meeting_created(array $config, \stdClass $event) {
 

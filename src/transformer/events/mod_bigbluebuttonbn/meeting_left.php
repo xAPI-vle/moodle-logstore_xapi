@@ -19,6 +19,11 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn meeting left event.
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function meeting_left(array $config, \stdClass $event) {
 

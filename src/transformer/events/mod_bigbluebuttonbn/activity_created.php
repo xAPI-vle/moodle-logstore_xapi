@@ -18,7 +18,9 @@ namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
+ * Triggered when a new BBB activity gets created.
  *
+ * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
  * @return array

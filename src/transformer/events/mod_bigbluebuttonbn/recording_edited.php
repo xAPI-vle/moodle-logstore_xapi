@@ -19,6 +19,12 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn recording edited event.
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ *
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function recording_edited(array $config, \stdClass $event) {
 

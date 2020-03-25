@@ -19,7 +19,13 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn recording imported event (triggered when a recording is imported).
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
+
 function recording_imported(array $config, \stdClass $event) {
 
     return createStmt( $config, $event, 'http://adlnet.gov/expapi/verbs/imported', 'imported' );

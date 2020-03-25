@@ -19,6 +19,11 @@ use function src\transformer\events\mod_bigbluebuttonbn\createStmt;
 
 /**
  * The mod_bigbluebuttonbn recording unpublished event (triggered when a recording is unpublished).
+ *
+ * @author Paul Walter (https://github.com/paulito-bandito)
+ * @param array $config
+ * @param \stdClass $event
+ * @return array
  */
 function recording_unpublished(array $config, \stdClass $event) {
 
