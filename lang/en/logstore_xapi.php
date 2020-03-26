@@ -34,7 +34,22 @@ $string['maxbatchsize'] = 'Maximum batch size';
 $string['maxbatchsize_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
         statements that will be sent in a single operation. Setting this to zero will cause all available statements to
         be sent at once, although this is not recommended.';
+$string['maxbatchsizeforfailed'] = 'Maximum batch size for failed requests';
+$string['maxbatchsizeforfailed_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
+        statements that will be sent in a single operation for failed requests. Setting this to zero will cause all available statements to
+        be sent at once, although this is not recommended.';
+$string['maxbatchsizeforhistorical'] = 'Maximum batch size for historical requests';
+$string['maxbatchsizeforhistorical_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
+        statements that will be sent in a single operation for historical requests. Setting this to zero will cause all available statements to
+        be sent at once, although this is not recommended.';
+$string['maxbatchsizeforreconciled'] = 'Maximum batch size for reconciled requests';
+$string['maxbatchsizeforreconciled_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
+        statements that will be sent in a single operation for reconciled requests. Setting this to zero will cause all available statements to
+        be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
+$string['taskfailed'] = 'Emit failed records to LRS';
+$string['taskhistorical'] = 'Emit historic records to LRS';
+$string['taskreconcile'] = 'Emit reconcile records to LRS';
 $string['routes'] = 'Include actions with these routes';
 $string['failed_events'] = 'event(s) have failed to send to the LRS.';
 $string['successful_events'] = 'event(s) have been successfully processed.';
