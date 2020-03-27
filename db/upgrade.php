@@ -79,5 +79,30 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2018082100, 'logstore', 'xapi');
     }
 
+    if ($oldversion < 2020032700) {
+
+        // Define field errortype to be added to logstore_xapi_failed_log.
+        $table = new xmldb_table('logstore_xapi_failed_log');
+        $field = new xmldb_field('errortype', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'realuserid');
+
+        // Conditionally launch add field errortype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field response to be added to logstore_xapi_failed_log.
+        $table = new xmldb_table('logstore_xapi_failed_log');
+        $field = new xmldb_field('response', XMLDB_TYPE_TEXT, null, null, null, null, null, 'errortype');
+
+        // Conditionally launch add field response.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Xapi savepoint reached.
+        upgrade_plugin_savepoint(true, 2020032700, 'logstore', 'xapi');
+    }
+
+
     return true;
 }
