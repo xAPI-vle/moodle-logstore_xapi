@@ -48,8 +48,8 @@ $string['maxbatchsizeforreconciled_desc'] = 'Statements are sent to the LRS in b
         be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
 $string['taskfailed'] = 'Emit failed records to LRS';
-$string['taskhistorical'] = 'Emit historic records to LRS';
-$string['taskreconcile'] = 'Emit reconcile records to LRS';
+$string['taskhistorical'] = 'Emit historical records to LRS';
+$string['taskreconciled'] = 'Emit reconciled records to LRS';
 $string['routes'] = 'Include actions with these routes';
 $string['failed_events'] = 'event(s) have failed to send to the LRS.';
 $string['successful_events'] = 'event(s) have been successfully processed.';
