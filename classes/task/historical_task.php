@@ -14,11 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi\task;
 defined('MOODLE_INTERNAL') || die();
 
-$plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2018082103;
-$plugin->release = '';
-$plugin->requires = 2018051700;
-$plugin->maturity = MATURITY_STABLE;
+use tool_log\log\manager;
+use logstore_xapi\log\store;
+
+class historical_task extends \core\task\scheduled_task {
+
+    /**
+     * Get a descriptive name for this task (shown to admins).
+     *
+     * @return string
+     */
+    public function get_name() {
+        return get_string('taskhistorical', 'logstore_xapi');
+    }
+
+    /**
+     * Do the job.
+     * Throw exceptions on errors (the job will be retried).
+     */
+    public function execute() {
+        $manager = get_log_manager();
+        $store = new store($manager);
+
+        echo "In historical task execute".PHP_EOL;
+    }
+}

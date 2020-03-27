@@ -39,6 +39,21 @@ if ($hassiteconfig) {
         get_string('maxbatchsize', 'logstore_xapi'),
         get_string('maxbatchsize_desc', 'logstore_xapi'), 30, PARAM_INT));
 
+    // Maximum batch size for failed records being replayed.
+    $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsizeforfailed',
+        get_string('maxbatchsizeforfailed', 'logstore_xapi'),
+        get_string('maxbatchsizeforfailed_desc', 'logstore_xapi'), 15, PARAM_INT));
+
+    // Maximum batch size for historical records.
+    $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsizeforhistorical',
+        get_string('maxbatchsizeforhistorical', 'logstore_xapi'),
+        get_string('maxbatchsizeforhistorical_desc', 'logstore_xapi'), 30, PARAM_INT));
+
+    // Maximum batch size for reconciled records.
+    $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsizeforreconciled',
+        get_string('maxbatchsizeforreconciled', 'logstore_xapi'),
+        get_string('maxbatchsizeforreconciled_desc', 'logstore_xapi'), 30, PARAM_INT));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/resendfailedbatches',
         get_string('resendfailedbatches', 'logstore_xapi'),
         get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
@@ -83,5 +98,4 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
-
 }
