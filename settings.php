@@ -98,4 +98,13 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
+
+    // xAPI Error Log page.
+    $temp = new admin_externalpage(
+        'logstorexapierrorlog',
+        get_string('logstorexapierrorlog', 'logstore_xapi'),
+        new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_ERROR)),
+        array('tool/logstorexapi:viewerrorlog')
+    );
+    $ADMIN->add('root', $temp);
 }

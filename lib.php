@@ -14,11 +14,5 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2020033004;
-$plugin->release = '';
-$plugin->requires = 2018051700;
-$plugin->maturity = MATURITY_STABLE;
+define('XAPI_REPORT_ID_ERROR', 0);
+define('XAPI_REPORT_ID_HISTORIC', 1);
