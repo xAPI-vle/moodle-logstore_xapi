@@ -82,6 +82,11 @@ if ($hassiteconfig) {
        get_string('send_response_choices', 'logstore_xapi'),
        get_string('send_response_choices_desc', 'logstore_xapi'), 0));
 
+    // Control sending notifications.
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/enablesendingnotifications',
+        get_string('enablesendingnotifications', 'logstore_xapi'),
+        get_string('enablesendingnotifications_desc', 'logstore_xapi'), 1));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),
