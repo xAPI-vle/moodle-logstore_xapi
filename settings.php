@@ -87,6 +87,11 @@ if ($hassiteconfig) {
         get_string('enablesendingnotifications', 'logstore_xapi'),
         get_string('enablesendingnotifications_desc', 'logstore_xapi'), 1));
 
+    // Set threshold for sending notifications.
+    $settings->add(new admin_setting_configtext('logstore_xapi/errornotificationtrigger',
+        get_string('errornotificationtrigger', 'logstore_xapi'),
+        get_string('errornotificationtrigger_desc', 'logstore_xapi'), 10, PARAM_INT));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),
