@@ -17,6 +17,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/src/autoload.php');
+require_once(__DIR__ . '/lib.php');
 
 if ($hassiteconfig) {
     // Endpoint.
@@ -91,6 +92,29 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('logstore_xapi/errornotificationtrigger',
         get_string('errornotificationtrigger', 'logstore_xapi'),
         get_string('errornotificationtrigger_desc', 'logstore_xapi'), 10, PARAM_INT));
+
+    // Cohorts.
+    $settings->add(new admin_setting_heading('cohorts',
+        get_string('cohorts', 'logstore_xapi'),
+        get_string('cohorts_help', 'logstore_xapi')));
+
+    $cohorts = logstore_xapi_get_cohorts();
+    $arrcohorts = array();
+    foreach ($cohorts as $cohort) {
+        $arrcohorts[$cohort->id] = $cohort->name;
+    }
+
+    // If there are no cohorts then do not display this option
+    // especially when displaying the settings page for the first time after an upgrade
+    if (count($arrcohorts) != 0) {
+        $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/cohorts',
+            get_string('includecohorts', 'logstore_xapi'), '', '', $arrcohorts));
+    }
+
+    // Additional email addresses.
+    $settings->add(new admin_setting_configtext('logstore_xapi/send_additional_email_addresses',
+        get_string('send_additional_email_addresses', 'logstore_xapi'),
+        get_string('send_additional_email_addresses_desc', 'logstore_xapi'), '', PARAM_TEXT));
 
     // Filters.
     $settings->add(new admin_setting_heading('filters',
