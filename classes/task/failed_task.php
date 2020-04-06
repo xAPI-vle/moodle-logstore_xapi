@@ -31,6 +31,88 @@ class failed_task extends \core\task\scheduled_task {
         return get_string('taskfailed', 'logstore_xapi');
     }
 
+    private function extract_failed_events($limitnum) {
+        global $DB;
+        $conditions = null;
+        $sort = '';
+        $fields = '*';
+        $limitfrom = 0;
+        $extractedevents = $DB->get_records('logstore_xapi_failed_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
+        return $extractedevents;
+    }
+
+    private function extract_events($limitnum) {
+        global $DB;
+        $conditions = null;
+        $sort = '';
+        $fields = '*';
+        $limitfrom = 0;
+        $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
+        return $extractedevents;
+    }
+
+    private function insert_failed_events_into_xapi_log($events) {
+        global $DB;
+        $DB->insert_records("logstore_xapi_log", $events);
+    }
+
+    private function delete_failed_events($events) {
+        global $DB;
+        $eventids = $this->get_delete_event_ids($events);
+        $DB->delete_records_list('logstore_xapi_failed_log', 'id', $eventids);
+    }
+
+    private function get_failed_events($events) {
+        $nonloadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === false;
+        });
+        $failedevents = array_map(function ($nonloadedevent) {
+            return $nonloadedevent['event'];
+        }, $nonloadedevents);
+        return $failedevents;
+    }
+
+    private function get_successful_events($events) {
+        $loadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === true;
+        });
+        $successfulevents = array_map(function ($loadedevent) {
+            return $loadedevent['event'];
+        }, $loadedevents);
+        return $successfulevents;
+    }
+
+    private function store_failed_events($events) {
+        global $DB;
+        $failedevents = $this->get_failed_events($events);
+        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+        mtrace(count($failedevents) . " " . get_string('failed_events', 'logstore_xapi'));
+    }
+
+    private function record_successful_events($events) {
+        mtrace(count($this->get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+    }
+
+    private function get_event_ids($loadedevents) {
+        return array_map(function ($loadedevent) {
+            return $loadedevent['event']->id;
+        }, $loadedevents);
+    }
+
+    private function get_delete_event_ids($loadedevents) {
+        $arr = array();
+        foreach ($loadedevents as $event) {
+            $arr[] = $event->id;
+        }
+        return $arr;
+    }
+
+    private function delete_processed_events($events) {
+        global $DB;
+        $eventids = $this->get_event_ids($events);
+        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
+    }
+
     /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
@@ -38,6 +120,19 @@ class failed_task extends \core\task\scheduled_task {
     public function execute() {
         $manager = get_log_manager();
         $store = new store($manager);
+
+        // copy failed events back into the xapi log
+        // and deleted the failed events from the failed log
+        $extractedfailedevents = $this->extract_failed_events($store->get_max_batch_size());
+        $this->insert_failed_events_into_xapi_log($extractedfailedevents);
+        $this->delete_failed_events($extractedfailedevents);
+
+        // re-run as normal
+        $extractedevents = $this->extract_events($store->get_max_batch_size());
+        $loadedevents = $store->process_events($extractedevents);
+        $this->store_failed_events($loadedevents);
+        $this->record_successful_events($loadedevents);
+        $this->delete_processed_events($loadedevents);
 
         echo "In failed task execute".PHP_EOL;
     }
