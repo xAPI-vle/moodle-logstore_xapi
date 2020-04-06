@@ -31,9 +31,9 @@ echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 
 // TODO: results will vary depending on the report type (Errors or Historic Events)
-$sql = "SELECT x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated
+$sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
-    INNER JOIN {user} u
+     LEFT JOIN {user} u
             ON u.id = x.userid";
 $results = $DB->get_records_sql($sql, null, $page*$perpage, $perpage);
 // TODO: update count query when filtering is introduced
@@ -63,6 +63,7 @@ if (empty($results)) {
     $table->id = "report";
 
     foreach ($results as $result) {
+        $row = [];
         if ($id == XAPI_REPORT_ID_ERROR) {
             $row[] = $result->type;
         }
@@ -75,7 +76,7 @@ if (empty($results)) {
         if ($id == XAPI_REPORT_ID_ERROR) {
             $row[] = $result->response;
         }
-        $row[] = $result->info;
+        $row[] = ''; // TODO: output $result->info;
         $row[] = $result->timecreated;
         $table->data[] = $row;
     }

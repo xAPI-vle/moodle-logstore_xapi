@@ -17,6 +17,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/src/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 if ($hassiteconfig) {
     // Endpoint.
@@ -116,5 +117,5 @@ if ($hassiteconfig) {
         new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_ERROR)),
         array('tool/logstorexapi:viewerrorlog')
     );
-    $ADMIN->add('root', $temp);
+    $ADMIN->add('logging', $temp);
 }
