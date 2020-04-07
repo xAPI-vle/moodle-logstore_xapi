@@ -17,7 +17,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/src/autoload.php');
-require_once(__DIR__ . '/lib.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 if ($hassiteconfig) {
     // Endpoint.
@@ -132,4 +132,13 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
+
+    // xAPI Error Log page.
+    $errorreport = new admin_externalpage(
+        'logstorexapierrorlog',
+        get_string('logstorexapierrorlog', 'logstore_xapi'),
+        new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_ERROR)),
+        array('tool/logstorexapi:viewerrorlog')
+    );
+    $ADMIN->add('logging', $errorreport);
 }
