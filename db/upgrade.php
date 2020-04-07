@@ -91,7 +91,6 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
         }
 
         // Define field response to be added to logstore_xapi_failed_log.
-        $table = new xmldb_table('logstore_xapi_failed_log');
         $field = new xmldb_field('response', XMLDB_TYPE_TEXT, null, null, null, null, null, 'errortype');
 
         // Conditionally launch add field response.
@@ -102,7 +101,6 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
         // Xapi savepoint reached.
         upgrade_plugin_savepoint(true, 2020032700, 'logstore', 'xapi');
     }
-
 
     return true;
 }

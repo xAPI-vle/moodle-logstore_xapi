@@ -14,13 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once('../../../../../config.php');
+require_once(__DIR__ . '/../../../../../config.php');
 require_once($CFG->dirroot . '/lib/adminlib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
+define('XAPI_REPORT_STARTING_PAGE', 0);
+define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
+
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
-$page         = optional_param('page', 0, PARAM_INT);
-$perpage      = optional_param('perpage', 30, PARAM_INT);
+$page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
+$perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
 navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
 admin_externalpage_setup('logstorexapierrorlog');
@@ -30,19 +33,17 @@ echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 
-// TODO: results will vary depending on the report type (Errors or Historic Events)
+// TODO: LMS-1627 - results will vary depending on the report type (Errors or Historic Events)
 $sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
      LEFT JOIN {user} u
             ON u.id = x.userid";
 $results = $DB->get_records_sql($sql, null, $page*$perpage, $perpage);
-// TODO: update count query when filtering is introduced
+// TODO: LMS-1650 update count query when filtering is introduced
 $count = $DB->count_records('logstore_xapi_failed_log');
 
 if (empty($results)) {
     echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
-
-    $table = NULL;
 } else {
     $table = new html_table();
     $table->head = array();
@@ -76,13 +77,10 @@ if (empty($results)) {
         if ($id == XAPI_REPORT_ID_ERROR) {
             $row[] = $result->response;
         }
-        $row[] = ''; // TODO: output $result->info;
+        $row[] = ''; // TODO: LMS-1797 output $result->info;
         $row[] = $result->timecreated;
         $table->data[] = $row;
     }
-}
-
-if (!empty($table)) {
     echo html_writer::start_tag('div', array('class'=>'no-overflow'));
     echo html_writer::table($table);
     echo html_writer::end_tag('div');

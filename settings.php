@@ -134,11 +134,11 @@ if ($hassiteconfig) {
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
 
     // xAPI Error Log page.
-    $temp = new admin_externalpage(
+    $errorreport = new admin_externalpage(
         'logstorexapierrorlog',
         get_string('logstorexapierrorlog', 'logstore_xapi'),
         new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_ERROR)),
         array('tool/logstorexapi:viewerrorlog')
     );
-    $ADMIN->add('logging', $temp);
+    $ADMIN->add('logging', $errorreport);
 }
