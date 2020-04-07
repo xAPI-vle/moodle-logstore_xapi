@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="admin/tool/log/store/xapi/db" VERSION="20140415" COMMENT="XMLDB file for Moodle admin/tool/log/store/xapi"
+<XMLDB PATH="admin/tool/log/store/xapi/db" VERSION="20200327" COMMENT="XMLDB file for Moodle admin/tool/log/store/xapi"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../../../lib/xmldb/xmldb.xsd"
 >
@@ -37,7 +37,6 @@
         <INDEX NAME="user-module" UNIQUE="false" FIELDS="userid, contextlevel, contextinstanceid, crud, edulevel, timecreated"/>
       </INDEXES>
     </TABLE>
-
     <TABLE NAME="logstore_xapi_failed_log" COMMENT="xAPI holding table for failed events">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
@@ -61,6 +60,8 @@
         <FIELD NAME="origin" TYPE="char" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="cli, cron, ws, etc."/>
         <FIELD NAME="ip" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" COMMENT="IP address"/>
         <FIELD NAME="realuserid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="real user id when logged-in-as"/>
+        <FIELD NAME="errortype" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The type of error (Statement send failure, Failure to authenticate with LDH, Network error, Malformed statement etc.)"/>
+        <FIELD NAME="response" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="The response or response code received from the LDH"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

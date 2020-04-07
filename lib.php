@@ -16,6 +16,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+define('XAPI_REPORT_ID_ERROR', 0);
+define('XAPI_REPORT_ID_HISTORIC', 1);
 /**
  * Get all visible cohorts in the system.
  *
@@ -84,7 +86,7 @@ function logstore_xapi_get_cohort_members($cohortids) {
  */
 function logstore_xapi_distinct_email_addresses() {
     $arr = array();
- 
+
     // ensure no duplicates in csv
     $emailaddresses = get_config('logstore_xapi', 'send_additional_email_addresses');
     $arrselected = explode(",", $emailaddresses);
@@ -97,7 +99,7 @@ function logstore_xapi_distinct_email_addresses() {
     // get selected cohorts
     $cohorts = logstore_xapi_get_selected_cohorts();
     $cohortswithmembers = logstore_xapi_get_cohort_members($cohorts);
-    
+
     // add to the list again ensuring no duplicates
     foreach ($cohortswithmembers as $cohort) {
         foreach ($cohort["emails"] as $email) {
