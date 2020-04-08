@@ -26,6 +26,9 @@ require_once($CFG->libdir . '/filelib.php');
 use src\loader\utils as utils;
 
 function load(array $config, array $events) {
+    unset($_SESSION["xapi_errortype"]);
+    unset($_SESSION["xapi_response"]);
+
     $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
@@ -50,6 +53,8 @@ function load(array $config, array $events) {
         $responsecode = $request->info['http_code'];
 
         if ($responsecode !== 200) {
+            $_SESSION["xapi_errortype"] = $responsecode;
+            $_SESSION["xapi_response"] = $responsetext;
             throw new \Exception($responsetext, $responsecode);
         }
     };
