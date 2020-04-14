@@ -26,8 +26,6 @@ require_once($CFG->libdir . '/filelib.php');
 use src\loader\utils as utils;
 
 function load(array $config, array $events) {
-    unset($_SESSION["xapi_errortype"]);
-    unset($_SESSION["xapi_response"]);
 
     $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];
