@@ -32,8 +32,8 @@ function load_in_batches(array $config, array $events, callable $loader) {
 
     // Add error code.
     foreach ($failedtransformevents as $failed) {
-        $failed["event"]->errortype = get_string('failed_transform_errortype', 'logstore_xapi');
-        $failed["event"]->response =  get_string('failed_transform_response', 'logstore_xapi');
+        $failed["event"]->errortype = get_string('failedtransformerrortype', 'logstore_xapi');
+        $failed["event"]->response =  get_string('failedtransformresponse', 'logstore_xapi');
     }
 
     $nonloadedevents = construct_loaded_events($failedtransformevents, false);
