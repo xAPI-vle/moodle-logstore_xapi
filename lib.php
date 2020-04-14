@@ -123,6 +123,7 @@ function logstore_xapi_distinct_email_addresses() {
  */
 function logstore_xapi_get_distinct_options_from_failed_table($column) {
     global $DB;
+
     $options = [0 => get_string('any')];
     $results = $DB->get_fieldset_select('logstore_xapi_failed_log', "DISTINCT $column", '');
     if ($results) {
