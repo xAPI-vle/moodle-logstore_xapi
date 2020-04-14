@@ -49,47 +49,48 @@ $mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
 // TODO: LMS-1627 - results will vary depending on the report type (Errors or Historic Events)
 
 $params = [];
-$where = 'WHERE 1 = 1';
+$where = ['1 = 1'];
 
 if ($fromform = $mform->get_data()) {
     if (!empty($fromform->errortype)) {
-        $where .= ' AND x.errortype = :errortype';
+        $where[] = 'x.errortype = :errortype';
         $params['errortype'] = $fromform->errortype;
     }
 
     if (!empty($fromform->eventname)) {
-        $where .= ' AND x.eventname = :eventname';
+        $where[] = 'x.eventname = :eventname';
         $params['eventname'] = $fromform->eventname;
     }
 
     if (!empty($fromform->response)) {
-        $where .= ' AND x.response = :response';
+        $where[] = 'x.response = :response';
         $params['response'] = $fromform->response;
     }
 
     if (!empty($fromform->datefrom)) {
         $datefrom = make_timestamp($fromform->datefrom['year'], $fromform->datefrom['month'], $fromform->datefrom['day']);
-        $where .= ' AND x.timecreated >= :datefrom';
+        $where[] = 'x.timecreated >= :datefrom';
         $params['datefrom'] = $datefrom;
     }
 
     if (!empty($fromform->dateto)) {
         $dateto = make_timestamp($fromform->dateto['year'], $fromform->dateto['month'], $fromform->dateto['day']);
-        $where .= ' AND x.timecreated <= :dateto';
+        $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $dateto;
     }
 }
 
+$where = implode(' AND ', $where);
 $sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
      LEFT JOIN {user} u
             ON u.id = x.userid
-         $where";
+         WHERE $where";
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 $sql = "SELECT COUNT(id)
           FROM {logstore_xapi_failed_log} x
-         $where";
+         WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
 
 $mform->display();
