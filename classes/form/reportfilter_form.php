@@ -17,7 +17,7 @@
 require_once($CFG->libdir.'/formslib.php');
 
 /**
- * The contact form to the site's Data Protection Officer
+ * The filter form for the xAPI admin reports
  *
  * @copyright 2020 Learning Pool Ltd <https://learningpool.com/>
  * @author Stephen O'Hara <stephen.ohara@learningpool.com>
