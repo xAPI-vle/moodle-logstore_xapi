@@ -29,13 +29,6 @@ function load_in_batches(array $config, array $events, callable $loader) {
 
     // Flags events that weren't transformed successfully as events that didn't load.
     $failedtransformevents = filter_transformed_events($events, false);
-
-    // Add error code.
-    foreach ($failedtransformevents as $failed) {
-        $failed["event"]->errortype = get_string('failedtransformerrortype', 'logstore_xapi');
-        $failed["event"]->response = get_string('failedtransformresponse', 'logstore_xapi');
-    }
-
     $nonloadedevents = construct_loaded_events($failedtransformevents, false);
 
     // Returns loaded and non-loaded events to avoid re-processing.
