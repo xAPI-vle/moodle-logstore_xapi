@@ -91,6 +91,7 @@ $string['noerrorsfound'] = 'No errors found';
 $string['logstorexapi:viewerrorlog'] = 'View xAPI error log';
 $string['failed_transform_errortype'] = '101';
 $string['failed_transform_response'] = 'Not transformed successfully';
+$string['logstorexapi:manageerrors'] = 'Replay failed statements';
 $string['privacy:metadata:logstore_xapi_log'] = 'xAPI holding table for cron processing';
 $string['privacy:metadata:logstore_xapi_log:userid'] = 'User Id of xAPI holding table for cron processing';
 $string['privacy:metadata:logstore_xapi_failed_log'] = 'xAPI holding table for failed events';
