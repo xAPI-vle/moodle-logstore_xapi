@@ -38,16 +38,6 @@ class emit_task extends \core\task\scheduled_task {
         $failedevents = array_map(function ($nonloadedevent) {
             return $nonloadedevent['event'];
         }, $nonloadedevents);
-
-        // enrich failed event with errortype and response
-        foreach ($failedevents as $event) {
-            if (!empty($_SESSION['xapi_errortype'])) {
-                $event->errortype = $_SESSION['xapi_errortype'];
-            }
-            if (!empty($_SESSION['xapi_response'])) {
-                $event->response = $_SESSION['xapi_response'];
-            }
-        }
         return $failedevents;
     }
 

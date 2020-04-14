@@ -53,8 +53,6 @@ function load(array $config, array $events) {
         $responsecode = $request->info['http_code'];
 
         if ($responsecode !== 200) {
-            $_SESSION["xapi_errortype"] = $responsecode;
-            $_SESSION["xapi_response"] = $responsetext;
             throw new \Exception($responsetext, $responsecode);
         }
     };
