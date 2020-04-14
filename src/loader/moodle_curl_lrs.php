@@ -26,7 +26,6 @@ require_once($CFG->libdir . '/filelib.php');
 use src\loader\utils as utils;
 
 function load(array $config, array $events) {
-
     $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];

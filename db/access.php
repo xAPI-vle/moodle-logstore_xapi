@@ -35,5 +35,13 @@ $capabilities = array(
                 'archetypes'   => array(
                         'manager' => CAP_ALLOW
                 )
+            ),
+        'tool/logstorexapi:manageerrors' => array(
+                'riskbitmask'  => RISK_CONFIG,
+                'captype'      => 'read',
+                'contextlevel' => CONTEXT_SYSTEM,
+                'archetypes'   => array(
+                      'manager' => CAP_ALLOW
+                )
         )
 );
