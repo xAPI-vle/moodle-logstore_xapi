@@ -19,7 +19,8 @@ require_once($CFG->libdir.'/formslib.php');
 /**
  * The contact form to the site's Data Protection Officer
  *
- * @copyright 2020 onwards Stephen O'Hara
+ * @copyright 2020 Learning Pool Ltd <https://learningpool.com/>
+ * @author Stephen O'Hara <stephen.ohara@learningpool.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package tool_logstore_xapi
  */
