@@ -113,3 +113,22 @@ function logstore_xapi_distinct_email_addresses() {
     sort($arr);
     return $arr;
 }
+
+/**
+ * Gets the unique column values
+ *
+ * @param $column
+ * @return array
+ * @throws dml_exception
+ */
+function logstore_xapi_get_distinct_options_from_failed_table($column) {
+    global $DB;
+    $options = [0 => get_string('any')];
+    $results = $DB->get_fieldset_select('logstore_xapi_failed_log', "DISTINCT $column", '');
+    if ($results) {
+        // The array keys by default are numbered, here we will assign the values to the keys
+        $results = array_combine($results, $results);
+        $options = array_merge($options, $results);
+    }
+    return $options;
+}

@@ -29,6 +29,37 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
+        $mform = $this->_form;
+        $errortypes = $this->_customdata['errortypes'];
+        $eventnames = $this->_customdata['eventnames'];
+        $responses = $this->_customdata['responses'];
 
+        $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
+        $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
+        $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+        $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
+        $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
+
+        $this->add_action_buttons(false, get_string('search'));
+    }
+
+    /**
+     * Form validation
+     *
+     * @param array $data data from the form.
+     * @param array $files files uploaded.
+     *
+     * @return array of errors.
+     */
+    public function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+
+        if (!empty($data['datefrom']) && !empty($data['dateto'])) {
+            if ($data['datefrom'] >= $data['dateto']) {
+                $errors['dateto'] = get_string('datetovalidation', 'logstore_xapi');
+            }
+        }
+
+        return $errors;
     }
 }
