@@ -21,10 +21,14 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function sco_launched(array $config, \stdClass $event) {
+    global $DB;
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $scorm = $repo->read_record_by_id('scorm', $event->objectid);
+    $scormscoes = $DB->get_record('scorm_scoes', array('id' => $event->objectid), 'scorm');
+    $scorm = $repo->read_record_by_id('scorm', $scormscoes->scorm);
+    //$scorm = $repo->read_record_by_id('scorm', $event->objectid);
     $lang = utils\get_course_lang($course);
 
     return [[
