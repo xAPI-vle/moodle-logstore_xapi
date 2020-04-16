@@ -50,6 +50,7 @@ $string['taskemit'] = 'Emit records to LRS';
 $string['taskfailed'] = 'Emit failed records to LRS';
 $string['taskhistorical'] = 'Emit historical records to LRS';
 $string['taskreconciled'] = 'Emit reconciled records to LRS';
+$string['tasksendfailednotifications'] = 'Send failed notifications';
 $string['enablesendingnotifications'] = 'Send notifications?';
 $string['enablesendingnotifications_desc'] = 'Control if notifications should be sent to configured recipients.';
 $string['errornotificationtrigger'] = 'Error notification trigger';
