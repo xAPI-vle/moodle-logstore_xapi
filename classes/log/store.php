@@ -19,6 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../src/autoload.php');
 
+use core_plugin_manager;
 use \tool_log\log\writer as log_writer;
 use \tool_log\log\manager as log_manager;
 use \tool_log\helper\store as helper_store;
@@ -82,9 +83,23 @@ class store extends php_obj implements log_writer {
     }
 
     public function process_events(array $events) {
-        global $DB;
-        global $CFG;
-        require(__DIR__ . '/../../version.php');
+
+        $config = $this->get_handler_config();
+        $loadedevents = \src\handler($config, $events);
+
+        return $loadedevents;
+    }
+
+    /**
+     * Get handler configuration.
+     *
+     * @return array Handler configuration.
+     */
+    protected function get_handler_config() {
+        global $DB, $CFG;
+
+        $plugin = core_plugin_manager::instance()->get_plugin_info('logstore_xapi');
+
         $logerror = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };
@@ -135,8 +150,7 @@ class store extends php_obj implements log_writer {
 
         $handlerconfig['transformer'] = array_merge($handlerconfig['transformer'], $source);
 
-        $loadedevents = \src\handler($handlerconfig, $events);
-        return $loadedevents;
+        return $handlerconfig;
     }
 
     /**
