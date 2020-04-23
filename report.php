@@ -17,6 +17,7 @@
 require_once(__DIR__ . '/../../../../../config.php');
 require_once($CFG->dirroot . '/lib/adminlib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
@@ -33,14 +34,66 @@ echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 
+$errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+$eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
+$responses = logstore_xapi_get_distinct_options_from_failed_table('response');
+
+$filterparams = [
+    'errortypes' => $errortypes,
+    'eventnames' => $eventnames,
+    'responses' => $responses
+];
+
+$mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
+
 // TODO: LMS-1627 - results will vary depending on the report type (Errors or Historic Events)
+
+$params = [];
+$where = ['1 = 1'];
+
+if ($fromform = $mform->get_data()) {
+    if (!empty($fromform->errortype)) {
+        $where[] = 'x.errortype = :errortype';
+        $params['errortype'] = $fromform->errortype;
+    }
+
+    if (!empty($fromform->eventname)) {
+        $where[] = 'x.eventname = :eventname';
+        $params['eventname'] = $fromform->eventname;
+    }
+
+    if (!empty($fromform->response)) {
+        $where[] = 'x.response = :response';
+        $params['response'] = $fromform->response;
+    }
+
+    if (!empty($fromform->datefrom)) {
+        $datefrom = make_timestamp($fromform->datefrom['year'], $fromform->datefrom['month'], $fromform->datefrom['day']);
+        $where[] = 'x.timecreated >= :datefrom';
+        $params['datefrom'] = $datefrom;
+    }
+
+    if (!empty($fromform->dateto)) {
+        $dateto = make_timestamp($fromform->dateto['year'], $fromform->dateto['month'], $fromform->dateto['day']);
+        $where[] = 'x.timecreated <= :dateto';
+        $params['dateto'] = $dateto;
+    }
+}
+
+$where = implode(' AND ', $where);
 $sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
      LEFT JOIN {user} u
-            ON u.id = x.userid";
-$results = $DB->get_records_sql($sql, null, $page*$perpage, $perpage);
-// TODO: LMS-1650 update count query when filtering is introduced
-$count = $DB->count_records('logstore_xapi_failed_log');
+            ON u.id = x.userid
+         WHERE $where";
+$results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
+
+$sql = "SELECT COUNT(id)
+          FROM {logstore_xapi_failed_log} x
+         WHERE $where";
+$count = $DB->count_records_sql($sql, $params);
+
+$mform->display();
 
 if (empty($results)) {
     echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
