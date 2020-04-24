@@ -100,8 +100,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     
         // second table
         $table = new \html_table();
-        $table->attributes['style'] = "align:left";
-    
+
         // header
         $heading1 = get_string('datetimegmt', 'logstore_xapi');
         $heading2 = get_string('eventname', 'logstore_xapi');
