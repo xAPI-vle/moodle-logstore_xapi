@@ -74,32 +74,32 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $emailmsg .= '<style type="text/css">.header {text-align:left;}</style>';
     
         // first line
-        $emailmsg .= html_writer::tag('p', get_string('failedtosend', 'logstore_xapi'));
+        $emailmsg .= \html_writer::tag('p', get_string('failedtosend', 'logstore_xapi'));
     
         // summary info
         $endpointname = get_string('endpoint', 'logstore_xapi');
         $url = get_config('logstore_xapi', 'endpoint');
-        $endpointurl = html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
+        $endpointurl = \html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
     
         $errorlogpage = get_string('errorlogpage', 'logstore_xapi');
         $url = new \moodle_url("/admin/tool/log/store/xapi/report.php");
-        $errorlogurl = html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
+        $errorlogurl = \html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
     
         // first table
-        $table = new html_table();
+        $table = new \html_table();
     
         // data
         $table->data[] = array($endpointname, $endpointurl);
         $table->data[] = array($errorlogpage, $errorlogurl);
     
         // add table to message
-        $emailmsg .= html_writer::table($table);
+        $emailmsg .= \html_writer::table($table);
     
         // separator
-        $emailmsg .= html_writer::tag('h3', get_string('failurelog', 'logstore_xapi'));
+        $emailmsg .= \html_writer::tag('h3', get_string('failurelog', 'logstore_xapi'));
     
         // second table
-        $table = new html_table();
+        $table = new \html_table();
         $table->attributes['style'] = "align:left";
     
         // header
@@ -117,7 +117,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         }
     
         // add table to message
-        $emailmsg .= html_writer::table($table);
+        $emailmsg .= \html_writer::table($table);
     
         return $emailmsg;
     }
@@ -129,14 +129,14 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
      */
     private function sendmail($msg, $subject, $emailto) {
 
-        $user = new stdClass();
+        $user = new \stdClass();
         $user->id = self::DEFAULT_RECEIVER;
         $user->username = self::DEFAULT_RECEIVER_NAME;
         $user->email = $emailto;
         $user->deleted = 0;
         $user->mailformat = FORMAT_HTML;
     
-        $from = new stdClass();
+        $from = new \stdClass();
         $from->id = self::DEFAULT_SENDER;
         $from->username = self::DEFAULT_SENDER_NAME;
         $from->email = self::DEFAULT_SENDER_EMAIL;
