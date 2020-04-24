@@ -98,3 +98,12 @@ $string['privacy:metadata:logstore_xapi_log'] = 'xAPI holding table for cron pro
 $string['privacy:metadata:logstore_xapi_log:userid'] = 'User Id of xAPI holding table for cron processing';
 $string['privacy:metadata:logstore_xapi_failed_log'] = 'xAPI holding table for failed events';
 $string['privacy:metadata:logstore_xapi_failed_log:userid'] = 'User Id of xAPI holding table for failed events';
+
+// Info strings from xAPI errors
+$string['networkerror'] = 'There was a network error sending the response: {$a}';
+$string['recipeerror'] = 'The LRS responded with a 400 error, this can be due to an issue with the recipe. The following message
+    was returned: "{$a}"';
+$string['autherror'] = 'The server is returning a 401 error: {$a}. Please ensure the endpoint, username and auth secret/password for
+    the xAPI is correct in the Logstore xAPI settings.';
+$string['unknownerror'] = 'Error code: "{$a->errortype}" Response: "{$a->response}"';
+$string['lrserror'] = 'There is a problem with the LRS. The LRS has responded with a 500 error. Response: {$a}';
