@@ -29,19 +29,19 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
         'tool/logstorexapi:viewerrorlog' => array(
-                'riskbitmask'  => RISK_CONFIG,
-                'captype'      => 'read',
-                'contextlevel' => CONTEXT_SYSTEM,
-                'archetypes'   => array(
-                        'manager' => CAP_ALLOW
-                )
-            ),
+            'riskbitmask'  => RISK_CONFIG,
+            'captype'      => 'read',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes'   => array(
+                'manager' => CAP_ALLOW
+            )
+        ),
         'tool/logstorexapi:manageerrors' => array(
-                'riskbitmask'  => RISK_CONFIG,
-                'captype'      => 'read',
-                'contextlevel' => CONTEXT_SYSTEM,
-                'archetypes'   => array(
-                      'manager' => CAP_ALLOW
-                )
+            'riskbitmask'  => RISK_CONFIG,
+            'captype'      => 'read',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes'   => array(
+                'manager' => CAP_ALLOW
+            )
         )
 );
