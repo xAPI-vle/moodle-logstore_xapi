@@ -46,8 +46,6 @@ $filterparams = [
 
 $mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
 
-// TODO: LMS-1627 - results will vary depending on the report type (Errors or Historic Events)
-
 $params = [];
 $where = ['1 = 1'];
 
@@ -80,9 +78,17 @@ if ($fromform = $mform->get_data()) {
     }
 }
 
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $basetable = 'logstore_xapi_failed_log';
+    $extraselect = 'x.errortype, x.response';
+} else {
+    $basetable = 'logstore_xapi_log';
+    $extraselect = 'x.username, x.contextid';
+}
+
 $where = implode(' AND ', $where);
-$sql = "SELECT x.id, x.errortype, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
-          FROM {logstore_xapi_failed_log} x
+$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
+          FROM {$basetable} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
@@ -123,7 +129,7 @@ if (empty($results)) {
         }
         $row[] = $result->eventname;
         if ($id == XAPI_REPORT_ID_HISTORIC) {
-            $row[] = fullname($result);
+            $row[] = $result->username;
             $context = context::instance_by_id($result->contextid);
             $row[] = $context->get_context_name();
         }
