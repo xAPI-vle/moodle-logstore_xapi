@@ -104,3 +104,12 @@ $string['errorlogpage'] = "Error log page";
 $string['failurelog'] = "Failure log";
 $string['failedsubject'] = "XAPI Logstore: failed to send messages report";
 $string['norows'] = "No rows to report";
+
+// Info strings from xAPI errors
+$string['networkerror'] = 'There was a network error sending the response: {$a}';
+$string['recipeerror'] = 'The LDH responded with a 400 error, this can be due to an issue with the recipe. The following message
+    was returned: "{$a}"';
+$string['autherror'] = 'The server is returning a 401 error: {$a}. Please ensure the endpoint, username and auth secret/password for
+    the xAPI is correct in the Logstore xAPI settings.';
+$string['unknownerror'] = 'Error code: "{$a->errortype}" Response: "{$a->response}"';
+$string['lrserror'] = 'There is a problem with the LDH. The LDH has responded with a 500 error. Response: {$a}';
