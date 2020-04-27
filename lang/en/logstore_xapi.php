@@ -90,11 +90,9 @@ $string['info'] = 'Info';
 $string['datetimegmt'] = 'Date/Time (GMT)';
 $string['logstorexapierrorlog'] = 'Logstore xAPI Error Log';
 $string['noerrorsfound'] = 'No errors found';
-$string['logstorexapi:viewerrorlog'] = 'View xAPI error log';
 $string['datetovalidation'] = 'The To date cannot be before the From date';
 $string['failedtransformerrortype'] = '101';
 $string['failedtransformresponse'] = 'Not transformed successfully';
-$string['logstorexapi:manageerrors'] = 'Replay failed statements';
 $string['privacy:metadata:logstore_xapi_log'] = 'xAPI holding table for cron processing';
 $string['privacy:metadata:logstore_xapi_log:userid'] = 'User Id of xAPI holding table for cron processing';
 $string['privacy:metadata:logstore_xapi_failed_log'] = 'xAPI holding table for failed events';
@@ -104,6 +102,11 @@ $string['errorlogpage'] = "Error log page";
 $string['failurelog'] = "Failure log";
 $string['failedsubject'] = "XAPI Logstore: failed to send messages report";
 $string['norows'] = "No rows to report";
+
+// Capabilities
+$string['logstorexapi:viewerrorlog'] = 'View xAPI error log';
+$string['logstorexapi:manageerrors'] = 'Replay failed statements';
+$string['logstorexapi:managehistoric'] = 'Manage historic data';
 
 // Info strings from xAPI errors
 $string['networkerror'] = 'There was a network error sending the response: {$a}';
