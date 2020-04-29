@@ -72,5 +72,21 @@
         <INDEX NAME="user-module" UNIQUE="false" FIELDS="userid, contextlevel, contextinstanceid, crud, edulevel, timecreated"/>
       </INDEXES>
     </TABLE>
+    <TABLE NAME="logstore_xapi_notif_sent_log" COMMENT="xAPI holding table for sent notifications">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="failedlogid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="email" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="failedlogid" UNIQUE="false" FIELDS="failedlogid"/>
+        <INDEX NAME="email" UNIQUE="false" FIELDS="email"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
   </TABLES>
 </XMLDB>
