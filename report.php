@@ -81,7 +81,7 @@ if ($fromform = $mform->get_data()) {
 }
 
 $where = implode(' AND ', $where);
-$sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
+$sql = "SELECT x.id, x.errortype, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
      LEFT JOIN {user} u
             ON u.id = x.userid
@@ -119,7 +119,7 @@ if (empty($results)) {
     foreach ($results as $result) {
         $row = [];
         if ($id == XAPI_REPORT_ID_ERROR) {
-            $row[] = $result->type;
+            $row[] = $result->errortype;
         }
         $row[] = $result->eventname;
         if ($id == XAPI_REPORT_ID_HISTORIC) {
@@ -128,10 +128,14 @@ if (empty($results)) {
             $row[] = $context->get_context_name();
         }
         if ($id == XAPI_REPORT_ID_ERROR) {
-            $row[] = $result->response;
+            $response = '';
+            if (isset($result->response)) {
+                $response = '<pre>' . print_r(logstore_xapi_decode_response($result->response), true) . '</pre>';
+            }
+            $row[] = $response;
         }
-        $row[] = ''; // TODO: LMS-1797 output $result->info;
-        $row[] = $result->timecreated;
+        $row[] = logstore_xapi_get_info_string($result);
+        $row[] = userdate($result->timecreated);
         $table->data[] = $row;
     }
     echo html_writer::start_tag('div', array('class'=>'no-overflow'));
