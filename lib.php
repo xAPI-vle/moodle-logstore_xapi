@@ -133,3 +133,55 @@ function logstore_xapi_get_distinct_options_from_failed_table($column) {
     }
     return $options;
 }
+
+/**
+ * Decode the json array stored in the response column. Will return false if json is invalid
+ *
+ * @param $response
+ * @return array|bool
+ */
+function logstore_xapi_decode_response($response) {
+    $decode = json_decode($response, true);
+    // Check JSON is valid
+    if (json_last_error() === JSON_ERROR_NONE) {
+        return $decode;
+    }
+    return false;
+}
+
+/**
+ * Generate the string for the info column in the report
+ *
+ * @param $row
+ * @return string
+ * @throws coding_exception
+ */
+function logstore_xapi_get_info_string($row) {
+    if (!empty($row->errortype)) {
+        $response = '-';
+        if (isset($row->response)) {
+            $decode = logstore_xapi_decode_response($row->response);
+            if ($decode) {
+                $response = $decode;
+            }
+        }
+        switch ($row->errortype) {
+            case 101:
+                return get_string('networkerror', 'logstore_xapi', $response);
+            case 400:
+                // Recipe issue
+                return get_string('recipeerror', 'logstore_xapi', $response);
+            case 401:
+                // Unauthorised, could be an issue with xAPI credentials
+                return get_string('autherror', 'logstore_xapi', $response);
+            case 500:
+                // xAPI server error
+                return get_string('lrserror', 'logstore_xapi', $response);
+            default:
+                // Generic error catch all
+                return get_string('unknownerror', 'logstore_xapi', ['errortype' => $row->errortype, 'response' => $response]);
+                break;
+        }
+    }
+    return ''; // Return blank if no errortype captured
+}
