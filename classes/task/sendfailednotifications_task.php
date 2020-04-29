@@ -124,7 +124,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     /**
      * Send email using email_to_user.
      *
-     * @param array $failedrows an array of failed rows from xapi_failed_log
+     * @param array $failedrows an array of failed rows from logstore_xapi_failed_log
      * @param string $msg email message
      * @param string $subject email subject
      * @param string $emailto email address for recipient
