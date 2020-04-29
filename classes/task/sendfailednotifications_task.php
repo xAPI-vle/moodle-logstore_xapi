@@ -124,6 +124,11 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     /**
      * Send email using email_to_user.
      *
+     * @param array failedrows an array of of failed rows from xapi_failed_log
+     * @param string msg email message
+     * @param string subject email subject
+     * @param string emailto email address for recipient
+     * 
      * @return int 1 = sent, 0 = not sent
      */
     private function sendmail($failedrows, $msg, $subject, $emailto) {
@@ -150,6 +155,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             $rv = $DB->get_records("logstore_xapi_notif_sent_log", array("failedlogid" => $row->id, "email" => $emailto));
             if (empty($rv)) {
                 $rowstosend = true;
+                break;
             }
         }
 
