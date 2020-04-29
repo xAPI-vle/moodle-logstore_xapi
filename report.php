@@ -68,15 +68,13 @@ if ($fromform = $mform->get_data()) {
     }
 
     if (!empty($fromform->datefrom)) {
-        $datefrom = make_timestamp($fromform->datefrom['year'], $fromform->datefrom['month'], $fromform->datefrom['day']);
         $where[] = 'x.timecreated >= :datefrom';
-        $params['datefrom'] = $datefrom;
+        $params['datefrom'] = $fromform->datefrom;
     }
 
     if (!empty($fromform->dateto)) {
-        $dateto = make_timestamp($fromform->dateto['year'], $fromform->dateto['month'], $fromform->dateto['day']);
         $where[] = 'x.timecreated <= :dateto';
-        $params['dateto'] = $dateto;
+        $params['dateto'] = $fromform->dateto;
     }
 }
 
