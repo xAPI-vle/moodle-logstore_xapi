@@ -141,9 +141,9 @@ if (!empty($results)) {
         $row[] = userdate($result->timecreated);
 
         // Add container to the individual reply statements.
-        $spanreply = \html_writer::start_span('reply-event', ['id' => 'reply-event-id-' . $result->id]);
-        $spanreply .= \html_writer::end_span();
-        $row[] = $spanreply;
+        $replycontainer = \html_writer::start_span('reply-event', ['id' => 'reply-event-id-' . $result->id]);
+        $replycontainer .= \html_writer::end_span();
+        $row[] = $replycontainer;
 
         $table->data[] = $row;
     }
