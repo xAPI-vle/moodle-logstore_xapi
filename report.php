@@ -168,7 +168,7 @@ echo \html_writer::end_div();
 if (empty($results)) {
     echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
 } else {
-    echo \html_writer::start_div('', ['class' => 'no-overflow', 'id' => 'xapierrorlog_data']);
+    echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
     echo \html_writer::table($table);
     echo \html_writer::end_div();
     echo $OUTPUT->paging_bar($count, $page, $perpage, $baseurl);
