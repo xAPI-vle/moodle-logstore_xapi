@@ -23,9 +23,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
     function(str, mdlcfg, notification, templates, $) {
 
         /**
-         * Store event ids.
+         * Store a sum.
          */
-        var eventIDs = [];
+        var countedEvents = 0;
 
         /**
          * Store load HTML snippet.
@@ -51,18 +51,19 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
          * Store jquery selectors.
          */
         var SELECTORS = {
-            SUBMIT_FORM: '#xapierrorlog_form #id_submitbutton',
+            CHECKBOXES: '#xapierrorlog_form .form-check-input',
+            CHECKBOX_DATEFROM: '#xapierrorlog_form #id_datefrom_enabled',
+            CHECKBOX_DATETO: '#xapierrorlog_form #id_dateto_enabled',
+            PAGE_LINKS: '.pagination .page-item .page-link',
+            RESEND_BUTTON: '#xapierrorlog_form #id_resendselected',
+            REPLAY_EVENTS: '#xapierrorlog_data .reply-event',
             SELECTS: '#xapierrorlog_form .custom-select',
             SELECT_ERRORTYPE: '#xapierrorlog_form #id_errortype',
             SELECT_EVENTNAME: '#xapierrorlog_form #id_eventname',
             SELECT_RESPONSE: '#xapierrorlog_form #id_response',
             SELECT_DATAFROM: '#xapierrorlog_form #id_datefrom .custom-select',
             SELECT_DATATO: '#xapierrorlog_form #id_dateto .custom-select',
-            CHECKBOXES: '#xapierrorlog_form .form-check-input',
-            CHECKBOX_DATEFROM: '#xapierrorlog_form #id_datefrom_enabled',
-            CHECKBOX_DATETO: '#xapierrorlog_form #id_dateto_enabled',
-            RESEND_BUTTON: '#xapierrorlog_form #id_resendselected',
-            REPLAY_EVENTS: '#xapierrorlog_data .reply-event',
+            SUBMIT_FORM: '#xapierrorlog_form #id_submitbutton',
         };
 
         /**
@@ -75,8 +76,8 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Initialisation method called by php js_call_amd()
              */
-            init: function(ids) {
-                eventIDs = ids;
+            init: function(counts) {
+                countedEvents = counts;
 
                 this.disableResend();
                 this.updateResend();
@@ -109,6 +110,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     e.preventDefault();
 
                     self.disableFormControls();
+                    self.disablePagination();
 
                     var element = $(this);
 
@@ -126,7 +128,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              * Replay an individual event using ajax.
              */
             doReplayEvent: function(eventId) {
-                var url = mdlcfg.wwwroot + '/admin/tool/log/store/xapi/ajax/replay_events.php';
+                var url = mdlcfg.wwwroot + '/admin/tool/log/store/xapi/ajax/moveback_to_log.php';
                 var eventIds = [eventId];
                 var self = this;
                 var element = $('#' + REPLAY_EVENT_ID_PREFIX + eventId);
@@ -145,12 +147,13 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     success: function(data) {
                         element.empty();
 
-                        if (data.success == 1 && data.processed == 1) {
+                        if (data.success) {
                             element.append(doneHTML);
                         } else {
                             element.append(failedHTML);
                         }
                         self.enableFormControls();
+                        self.enablePagination();
                     },
                     fail: function(ex) {
                         notification.exception(ex);
@@ -158,6 +161,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                         element.empty();
                         element.append(failedHTML);
                         self.enableFormControls();
+                        self.enablePagination();
                     }
                 });
             },
@@ -167,7 +171,6 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              */
             updateResend: function() {
                 var element = $(SELECTORS.RESEND_BUTTON);
-                var count = eventIDs.length;
                 var self = this;
 
                 str.get_strings([
@@ -175,13 +178,13 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                         key: 'resendevents',
                         component: 'logstore_xapi',
                         param: {
-                            count: count
+                            count: countedEvents
                         }
                     }
                 ]).done(function(resend) {
                     element.attr('Value', resend);
 
-                    if (count > 0) {
+                    if (countedEvents != 0) {
                         self.enableResend();
                     }
                 });
@@ -203,6 +206,35 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                 elements.removeClass("disabled");
                 elements.prop('disabled', false);
                 elements.removeAttr("disabled");
+            },
+
+            /**
+             * Disable page links.
+             */
+            disablePagination: function() {
+                if ($(SELECTORS.PAGE_LINKS).length == 0) {
+                    return;
+                }
+
+                var elements = $(SELECTORS.PAGE_LINKS);
+
+                this.disableElements(elements);
+                elements.bind('click', function(e){
+                    e.preventDefault();
+                });
+            },
+
+            /**
+             * Enable page links.
+             */
+            enablePagination: function() {
+                if ($(SELECTORS.PAGE_LINKS).length == 0) {
+                    return;
+                }
+                var elements = $(SELECTORS.PAGE_LINKS);
+
+                this.enableElements(elements);
+                elements.unbind('click');
             },
 
             /**
