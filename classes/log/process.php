@@ -18,7 +18,7 @@
  *
  * @package     logstore_xapi
  * @subpackage  log
- * @author      László Záborski <zaborski.laszlo@gmail.com> (http://www.zabo.hu)
+ * @author      Záborski László <laszlo.zaborski@learningpool.com>
  * @copyright   2020 Learning Pool Ltd (http://learningpool.com)
  */
 
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @package     logstore_xapi
  * @subpackage  log
- * @author      László Záborski <zaborski.laszlo@gmail.com> (http://www.zabo.hu)
+ * @author      Záborski László <laszlo.zaborski@learningpool.com>
  * @copyright   2020 Learning Pool Ltd (http://learningpool.com)
  */
 class process {
@@ -50,6 +50,20 @@ class process {
      * @var array event ids[]
      */
     protected $eventids = array();
+
+    /**
+     * List of events which were processed and successful.
+     *
+     * @var array events
+     */
+    public $successfulevents = array();
+
+    /**
+     * List of events which were processed and failed.
+     *
+     * @var array events
+     */
+    public $failedevents = array();
 
     /**
      * The table where the process works
@@ -157,6 +171,20 @@ class process {
     }
 
     /**
+     * Get deletion event ids.
+     * Do not use array_map because it can throw an exception.
+     *
+     * @return array
+     */
+    private function get_delete_event_ids($loadedevents) {
+        $arr = array();
+        foreach ($loadedevents as $event) {
+            $arr[] = $event->id;
+        }
+        return $arr;
+    }
+
+    /**
      * Get failed events from loaded events array.
      *
      * @param array $events Loaded events
@@ -196,13 +224,11 @@ class process {
     public function store_failed_events(array $events) {
         global $DB;
 
-        $eventids = $this->get_event_ids($events);
+        $eventids = $this->get_delete_event_ids($events);
 
         $DB->delete_records_list($this->table, 'id', $eventids);
 
         $DB->insert_records(self::LOGSTORE_FAILED, $events);
-
-        mtrace(count($events) . " " . get_string('failed_events', 'logstore_xapi'));
     }
 
     /**
@@ -240,10 +266,18 @@ class process {
         }
 
         $loadedevents = $this->store->process_events($events);
-        $failedevents = $this->get_failed_events($loadedevents);
-        $successfulevents = $this->get_successful_events($loadedevents);
-        $this->store_failed_events($failedevents);
-        $this->record_successful_events($successfulevents);
-        $this->delete_processed_events($successfulevents);
+
+        // Store failed events.
+        $this->failedevents = $this->get_failed_events($loadedevents);
+        if(!empty($this->failedevents)) {
+            $this->store_failed_events($this->failedevents);
+        }
+
+        // Remove successful_events.
+        $this->successfulevents = $this->get_successful_events($loadedevents);
+        if(!empty($this->successfulevents)) {
+            //$this->record_successful_events($this->successfulevents);
+            $this->delete_processed_events($this->successfulevents);
+        }
     }
 }

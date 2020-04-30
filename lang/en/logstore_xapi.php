@@ -116,3 +116,6 @@ $string['autherror'] = 'The server is returning a 401 error: {$a}. Please ensure
     the xAPI is correct in the Logstore xAPI settings.';
 $string['unknownerror'] = 'Error code: "{$a->errortype}" Response: "{$a->response}"';
 $string['lrserror'] = 'There is a problem with the LDH. The LDH has responded with a 500 error. Response: {$a}';
+$string['failed'] = 'Failed';
+$string['resendevents'] = 'Resend ({$a->count})';
+$string['replayevent'] = 'Replay event';

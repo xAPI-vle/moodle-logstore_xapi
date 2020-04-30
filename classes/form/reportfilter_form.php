@@ -42,6 +42,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
 
         $this->add_action_buttons(false, get_string('search'));
+        $mform->addElement('submit', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => 'loading']));
     }
 
     /**
