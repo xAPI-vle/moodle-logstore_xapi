@@ -140,7 +140,11 @@ if (!empty($results)) {
         $row[] = logstore_xapi_get_info_string($result);
         $row[] = userdate($result->timecreated);
 
-        $row[] = '<span id="reply-event-id-' . $result->id . '" class="reply-event"></span>';
+        // Add container to the individual reply statements.
+        $spanreply = \html_writer::start_span('reply-event', ['id' => 'reply-event-id-' . $result->id]);
+        $spanreply .= \html_writer::end_span();
+        $row[] = $spanreply;
+
         $table->data[] = $row;
     }
 }
@@ -165,7 +169,7 @@ if (empty($results)) {
     echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
 } else {
     echo \html_writer::start_div('', ['class' => 'no-overflow', 'id' => 'xapierrorlog_data']);
-    echo html_writer::table($table);
+    echo \html_writer::table($table);
     echo \html_writer::end_div();
     echo $OUTPUT->paging_bar($count, $page, $perpage, $baseurl);
 }
