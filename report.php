@@ -20,7 +20,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 define('XAPI_REPORT_STARTING_PAGE', 0);
-define('XAPI_REPORT_PERPAGE_DEFAULT', 2);
+define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
 
 global $PAGE, $OUTPUT;
 

@@ -176,7 +176,7 @@ class process {
      *
      * @return array
      */
-    private function get_delete_event_ids($loadedevents) {
+    protected function get_delete_event_ids($loadedevents) {
         $arr = array();
         foreach ($loadedevents as $event) {
             $arr[] = $event->id;
