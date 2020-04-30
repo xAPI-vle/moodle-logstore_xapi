@@ -22,8 +22,6 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
 
-global $PAGE, $OUTPUT;
-
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
@@ -32,7 +30,6 @@ navigation_node::override_active_url(new moodle_url('/admin/settings.php', array
 admin_externalpage_setup('logstorexapierrorlog');
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
-$systemcontext = context_system::instance();
 
 $errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
 $eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
@@ -79,13 +76,6 @@ if ($fromform = $mform->get_data()) {
 }
 
 $where = implode(' AND ', $where);
-$sql = "SELECT x.id
-          FROM {logstore_xapi_failed_log} x
-     LEFT JOIN {user} u
-            ON u.id = x.userid
-         WHERE $where";
-$eventids = array_keys($DB->get_records_sql($sql, $params));
-
 $sql = "SELECT x.id, x.errortype, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
           FROM {logstore_xapi_failed_log} x
      LEFT JOIN {user} u
@@ -149,14 +139,11 @@ if (!empty($results)) {
     }
 }
 
-// Create page view.
-$PAGE->set_context($systemcontext);
-$PAGE->set_url($baseurl);
-$PAGE->set_pagelayout('report');
-
-$PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$eventids]);
+// Add requested items to the page view.
+$PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
+// Show page.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
 
@@ -175,4 +162,3 @@ if (empty($results)) {
 }
 echo \html_writer::end_div();
 echo $OUTPUT->footer();
-
