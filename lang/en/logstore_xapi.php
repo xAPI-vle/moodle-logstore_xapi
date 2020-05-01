@@ -89,6 +89,7 @@ $string['errortype'] = 'Error Type';
 $string['info'] = 'Info';
 $string['datetimegmt'] = 'Date/Time (GMT)';
 $string['logstorexapierrorlog'] = 'Logstore xAPI Error Log';
+$string['logstorexapihistoriclog'] = 'Logstore xAPI Historic Log';
 $string['noerrorsfound'] = 'No errors found';
 $string['datetovalidation'] = 'The To date cannot be before the From date';
 $string['failedtransformerrortype'] = '101';

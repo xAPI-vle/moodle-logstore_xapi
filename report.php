@@ -66,24 +66,22 @@ if ($fromform = $mform->get_data()) {
     }
 
     if (!empty($fromform->datefrom)) {
-        $datefrom = make_timestamp($fromform->datefrom['year'], $fromform->datefrom['month'], $fromform->datefrom['day']);
         $where[] = 'x.timecreated >= :datefrom';
-        $params['datefrom'] = $datefrom;
+        $params['datefrom'] = $fromform->datefrom;
     }
 
     if (!empty($fromform->dateto)) {
-        $dateto = make_timestamp($fromform->dateto['year'], $fromform->dateto['month'], $fromform->dateto['day']);
         $where[] = 'x.timecreated <= :dateto';
-        $params['dateto'] = $dateto;
+        $params['dateto'] = $fromform->dateto;
     }
 }
 
 if ($id == XAPI_REPORT_ID_ERROR) {
-    $basetable = 'logstore_xapi_failed_log';
+    $basetable = '{logstore_xapi_failed_log}';
     $extraselect = 'x.errortype, x.response';
 } else {
-    $basetable = 'logstore_xapi_log';
-    $extraselect = 'x.username, x.contextid';
+    $basetable = '{logstore_xapi_log}';
+    $extraselect = 'u.username, x.contextid';
 }
 
 $where = implode(' AND ', $where);
