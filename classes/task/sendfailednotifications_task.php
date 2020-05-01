@@ -185,9 +185,21 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         echo "In send failed notifications task execute".PHP_EOL;
 
+        $enablesendingnotifications = get_config('logstore_xapi', 'enablesendingnotifications');
+        if (empty($enablesendingnotifications)) {
+            echo get_string('notificationsnotenabled', 'logstore_xapi').PHP_EOL;
+            return;
+        }
+
         $results = $this->get_failed_rows();
         if (count($results) == 0) {
             echo get_string('norows', 'logstore_xapi').PHP_EOL;
+            return;
+        }
+
+        $notificationtrigger = get_config('logstore_xapi', 'errornotificationtrigger');
+        if (count($results) < $notificationtrigger) {
+            echo get_string('notificationtriggerlimitnotreached', 'logstore_xapi').PHP_EOL;
             return;
         }
 

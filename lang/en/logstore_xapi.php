@@ -102,6 +102,8 @@ $string['errorlogpage'] = "Error log page";
 $string['failurelog'] = "Failure log";
 $string['failedsubject'] = "XAPI Logstore: failed to send messages report";
 $string['norows'] = "No rows to report";
+$string['notificationsnotenabled'] = "Notifications not enabled";
+$string['notificationtriggerlimitnotreached'] = "Notification trigger limit not reached";
 
 // Capabilities
 $string['logstorexapi:viewerrorlog'] = 'View xAPI error log';
