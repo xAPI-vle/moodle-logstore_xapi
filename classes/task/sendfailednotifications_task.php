@@ -124,9 +124,16 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     /**
      * Send email using email_to_user.
      *
+     * @param array $failedrows an array of failed rows from logstore_xapi_failed_log
+     * @param string $msg email message
+     * @param string $subject email subject
+     * @param string $emailto email address for recipient
+     * 
      * @return int 1 = sent, 0 = not sent
      */
-    private function sendmail($msg, $subject, $emailto) {
+    private function sendmail($failedrows, $msg, $subject, $emailto) {
+
+        global $DB;
 
         $user = new \stdClass();
         $user->id = self::DEFAULT_RECEIVER;
@@ -141,9 +148,31 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $from->email = self::DEFAULT_SENDER_EMAIL;
         $from->deleted = 0;
         $from->mailformat = FORMAT_HTML;
-    
-        $messageid = email_to_user($user, $from, $subject, html_to_text($msg), $msg);
-        return $messageid;
+
+        // if any rows haven't been sent before then set flag to send
+        $rowstosend = false;
+        foreach ($failedrows as $row) {
+            $rv = $DB->get_records("logstore_xapi_notif_sent_log", array("failedlogid" => $row->id, "email" => $emailto));
+            if (empty($rv)) {
+                $rowstosend = true;
+                break;
+            }
+        }
+
+        if ($rowstosend == true) {
+            $messageid = email_to_user($user, $from, $subject, html_to_text($msg), $msg);
+
+            // log that these notifications have been sent
+            $now = time();
+            $rows = array();
+            foreach ($failedrows as $row) {
+                $rows[] = array("failedlogid" => $row->id, "email" => $emailto, "timecreated" => $now);
+            }
+
+            $DB->insert_records("logstore_xapi_notif_sent_log", $rows);
+            return $messageid;
+        }
+        return 0;
     }
 
     /**
@@ -167,7 +196,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         $users = logstore_xapi_distinct_email_addresses();
         foreach ($users as $user) {
-            $this->sendmail($msg, $subject, $user);
+            $this->sendmail($results, $msg, $subject, $user);
         }
     }
 }
