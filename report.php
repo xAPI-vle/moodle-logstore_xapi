@@ -34,14 +34,20 @@ echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 
-$errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
-$eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
-$responses = logstore_xapi_get_distinct_options_from_failed_table('response');
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+    $eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
+    $responses = logstore_xapi_get_distinct_options_from_failed_table('response');
+} else {
+    $eventcontexts = '';
+}
 
 $filterparams = [
+    'reportid' => $id,
     'errortypes' => $errortypes,
     'eventnames' => $eventnames,
-    'responses' => $responses
+    'responses' => $responses,
+    'eventcontexts' => $eventcontexts
 ];
 
 $mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
@@ -50,6 +56,11 @@ $params = [];
 $where = ['1 = 1'];
 
 if ($fromform = $mform->get_data()) {
+    if (!empty($fromform->fullname)) {
+        $fullname = $DB->sql_fullname('u.firstname', 'u.lastname');
+        $conditions[] = $DB->sql_like($fullname, ':fullname', false, false);
+    }
+
     if (!empty($fromform->errortype)) {
         $where[] = 'x.errortype = :errortype';
         $params['errortype'] = $fromform->errortype;
@@ -80,7 +91,7 @@ if ($id == XAPI_REPORT_ID_ERROR) {
     $basetable = '{logstore_xapi_failed_log}';
     $extraselect = 'x.errortype, x.response';
 } else {
-    $basetable = '{logstore_xapi_log}';
+    $basetable = '{logstore_standard_log}';
     $extraselect = 'u.username, x.contextid';
 }
 
@@ -93,7 +104,7 @@ $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecr
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 $sql = "SELECT COUNT(id)
-          FROM {logstore_xapi_failed_log} x
+          FROM {$basetable} x
          WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
 

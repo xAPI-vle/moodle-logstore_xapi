@@ -31,13 +31,23 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      */
     public function definition() {
         $mform = $this->_form;
+        $reportid = $this->_customdata['reportid'];
         $errortypes = $this->_customdata['errortypes'];
         $eventnames = $this->_customdata['eventnames'];
         $responses = $this->_customdata['responses'];
+        $eventcontexts = $this->_customdata['eventcontexts'];
 
-        $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
+        }
         $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
-        $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
+            $mform->addElement('text', 'fullname', get_string('user', 'logstore_xapi'));
+            $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
+        }
         $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
 
