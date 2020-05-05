@@ -75,14 +75,14 @@ function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
     // Select table.
     $table = new xmldb_table($tablename);
 
-    // Conditionally add field logstorestandardlogid to logstore_xapi_log.
+    // Conditionally add field logstorestandardlogid to table.
     $field = new xmldb_field('logstorestandardlogid', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
     if (!$dbman->field_exists($table, $field)) {
         $dbman->add_field($table, $field);
     }
     $table->add_index('logstorestandardlogid', XMLDB_INDEX_NOTUNIQUE, array('logstorestandardlogid'));
 
-    // Conditionally add field type to logstore_xapi_log.
+    // Conditionally add field type to table.
     $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
     if (!$dbman->field_exists($table, $field)) {
         $dbman->add_field($table, $field);
