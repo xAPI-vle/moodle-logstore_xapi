@@ -30,12 +30,15 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
+        global $DB;
+
         $mform = $this->_form;
         $reportid = $this->_customdata['reportid'];
         $errortypes = $this->_customdata['errortypes'];
         $eventnames = $this->_customdata['eventnames'];
         $responses = $this->_customdata['responses'];
         $eventcontexts = $this->_customdata['eventcontexts'];
+        $count = $DB->count_records('logstore_xapi_failed_log');
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
@@ -52,6 +55,8 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
 
         $this->add_action_buttons(false, get_string('search'));
+
+        $mform->addElement('submit', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]));
     }
 
     /**
