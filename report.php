@@ -107,7 +107,6 @@ if (!empty($results)) {
     $table->head[] = get_string('datetimegmt', 'logstore_xapi');
     $table->head[] = '';
     $table->id = "report";
-    $replayevent = get_string('replayevent', 'logstore_xapi');
 
     foreach ($results as $result) {
         $row = [];
