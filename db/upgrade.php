@@ -64,6 +64,39 @@ function create_xapi_log_table($dbman, $tablename) {
     }
 }
 
+function create_logstoreid_and_type_columns($dbman) {
+
+    // Select table.
+    $table = new xmldb_table('logstore_xapi_log');
+
+    // Conditionally add field logstore_standard_log_id to logstore_xapi_log.
+    $field = new xmldb_field('logstore_standard_log_id', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+    // Conditionally add field type to logstore_xapi_log.
+    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+    // Select table.
+    $table = new xmldb_table('logstore_xapi_failed_log');
+
+    // Conditionally add field logstore_standard_log_id to logstore_xapi_log.
+    $field = new xmldb_field('logstore_standard_log_id', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+    // Conditionally add field type to logstore_xapi_log.
+    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+}
+
 function create_xapi_notification_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
@@ -129,6 +162,11 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
     if ($oldversion < 2020041506) {
         create_xapi_notification_table($dbman, 'logstore_xapi_notif_sent_log');
         upgrade_plugin_savepoint(true, 2020041506, 'logstore', 'xapi');
+    }
+
+    if ($oldversion < 2020050100) {
+        create_logstoreid_and_type_columns($dbman);
+        upgrade_plugin_savepoint(true, 2020050100, 'logstore', 'xapi');
     }
 
     return true;

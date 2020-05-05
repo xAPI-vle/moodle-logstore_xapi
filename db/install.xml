@@ -27,6 +27,8 @@
         <FIELD NAME="origin" TYPE="char" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="cli, cron, ws, etc."/>
         <FIELD NAME="ip" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" COMMENT="IP address"/>
         <FIELD NAME="realuserid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="real user id when logged-in-as"/>
+        <FIELD NAME="logstoreid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="logstore_standard_log_id"/>
+        <FIELD NAME="type" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="xapi message type"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -62,6 +64,8 @@
         <FIELD NAME="realuserid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="real user id when logged-in-as"/>
         <FIELD NAME="errortype" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The type of error (Statement send failure, Failure to authenticate with LDH, Network error, Malformed statement etc.)"/>
         <FIELD NAME="response" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="The response or response code received from the LDH"/>
+        <FIELD NAME="logstoreid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="logstore_standard_log_id"/>
+        <FIELD NAME="type" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="xapi message type"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

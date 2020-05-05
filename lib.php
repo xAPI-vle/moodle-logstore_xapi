@@ -18,6 +18,11 @@ defined('MOODLE_INTERNAL') || die();
 
 define('XAPI_REPORT_ID_ERROR', 0);
 define('XAPI_REPORT_ID_HISTORIC', 1);
+
+define('XAPI_TYPE_LIVE', 0);
+define('XAPI_TYPE_HISTORIC', 1);
+define('XAPI_TYPE_RECONCILE', 2);
+
 /**
  * Get all visible cohorts in the system.
  *
