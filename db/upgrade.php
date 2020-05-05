@@ -64,37 +64,41 @@ function create_xapi_log_table($dbman, $tablename) {
     }
 }
 
+/**
+ * Create new columns in the database.
+ * 
+ * @param object $dbman
+ * @param string $tablename
+ *
+ */
+function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
+    // Select table.
+    $table = new xmldb_table($tablename);
+
+    // Conditionally add field logstorestandardlogid to logstore_xapi_log.
+    $field = new xmldb_field('logstorestandardlogid', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+    $table->add_index('logstorestandardlogid', XMLDB_INDEX_NOTUNIQUE, array('logstorestandardlogid'));
+
+    // Conditionally add field type to logstore_xapi_log.
+    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+    $table->add_index('type', XMLDB_INDEX_NOTUNIQUE, array('type'));
+}
+
+/**
+ * Create new columns in the database.
+ * 
+ * @param object $dbman
+ *
+ */
 function create_logstoreid_and_type_columns($dbman) {
-
-    // Select table.
-    $table = new xmldb_table('logstore_xapi_log');
-
-    // Conditionally add field logstore_standard_log_id to logstore_xapi_log.
-    $field = new xmldb_field('logstore_standard_log_id', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
-    if (!$dbman->field_exists($table, $field)) {
-        $dbman->add_field($table, $field);
-    }
-
-    // Conditionally add field type to logstore_xapi_log.
-    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
-    if (!$dbman->field_exists($table, $field)) {
-        $dbman->add_field($table, $field);
-    }
-
-    // Select table.
-    $table = new xmldb_table('logstore_xapi_failed_log');
-
-    // Conditionally add field logstore_standard_log_id to logstore_xapi_log.
-    $field = new xmldb_field('logstore_standard_log_id', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
-    if (!$dbman->field_exists($table, $field)) {
-        $dbman->add_field($table, $field);
-    }
-
-    // Conditionally add field type to logstore_xapi_log.
-    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
-    if (!$dbman->field_exists($table, $field)) {
-        $dbman->add_field($table, $field);
-    }
+    add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_log');
+    add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_failed_log');
 }
 
 function create_xapi_notification_table($dbman, $tablename) {

@@ -65,7 +65,10 @@ class store extends php_obj implements log_writer {
     }
 
     /**
-     * get eventid from logstore_standard_log
+     * Get the eventid from logstore_standard_log.
+     * Return the persistent logstore_standard_log id from the database.
+     * Return value 0 means not found.
+     * 
      * @param event_base $event
      * @return int
      *
@@ -84,17 +87,19 @@ class store extends php_obj implements log_writer {
         $sqlparams['userid'] = $event->userid;
         $sqlparams['anonymous'] = $event->anonymous;
 
-        $rows = $DB->get_records_sql("SELECT MAX(ID) AS id
-                    FROM {logstore_standard_log}
-                    WHERE eventname = :eventname
-                    AND component = :component
-                    AND action = :action
-                    AND target = :target
-                    AND (objecttable = :objecttable OR objecttable IS NULL)
-                    AND (objectid = :objectid OR objectid IS NULL)
-                    AND timecreated = :timecreated
-                    AND userid = :userid
-                    AND anonymous = :anonymous", $sqlparams);
+        $sql = "SELECT MAX(ID) AS id
+                  FROM {logstore_standard_log}
+                 WHERE eventname = :eventname
+                   AND component = :component
+                   AND action = :action
+                   AND target = :target
+                   AND (objecttable = :objecttable OR objecttable IS NULL)
+                   AND (objectid = :objectid OR objectid IS NULL)
+                   AND timecreated = :timecreated
+                   AND userid = :userid
+                   AND anonymous = :anonymous";
+
+        $rows = $DB->get_records_sql($sql, $sqlparams);
 
         if (empty($rows)) {
             return 0;
@@ -114,6 +119,7 @@ class store extends php_obj implements log_writer {
      */
     protected function insert_event_entries(array $events) {
         global $DB;
+
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
             $events = $this->get_persistent_eventids($events);
@@ -129,16 +135,15 @@ class store extends php_obj implements log_writer {
 
     /**
      * Take rows from logstore_standard_log for the emit_task or failed_task
-     * and add in the logstore_standard_log_id and set the type.
+     * and add in the logstorestandardlogid and set the type.
      *
-     * Return the persistent logstore_standard_log id from the database.
      * @param array $events raw event data
      * @return array
      */
     private function get_persistent_eventids(array $events) {
         foreach ($events as $event) {
             $eventid = $this->get_event_id($event);
-            $event->logstore_standard_log_id = $eventid;
+            $event->logstorestandardlogid = $eventid;
             $event->type = XAPI_TYPE_LIVE;
         }
         return $events;
