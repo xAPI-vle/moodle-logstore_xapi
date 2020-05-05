@@ -29,9 +29,6 @@ $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT
 navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
 admin_externalpage_setup('logstorexapierrorlog');
 
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
-
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 
 $errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
@@ -91,11 +88,7 @@ $sql = "SELECT COUNT(id)
          WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
 
-$mform->display();
-
-if (empty($results)) {
-    echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
-} else {
+if (!empty($results)) {
     $table = new html_table();
     $table->head = array();
     $table->attributes['class'] = 'admintable generaltable';
@@ -112,6 +105,7 @@ if (empty($results)) {
     }
     $table->head[] = get_string('info', 'logstore_xapi');
     $table->head[] = get_string('datetimegmt', 'logstore_xapi');
+    $table->head[] = '';
     $table->id = "report";
 
     foreach ($results as $result) {
@@ -134,12 +128,36 @@ if (empty($results)) {
         }
         $row[] = logstore_xapi_get_info_string($result);
         $row[] = userdate($result->timecreated);
+
+        // Add container to the individual reply statements.
+        $replycontainer = \html_writer::start_span('reply-event', ['id' => 'reply-event-id-' . $result->id]);
+        $replycontainer .= \html_writer::end_span();
+        $row[] = $replycontainer;
+
         $table->data[] = $row;
     }
-    echo html_writer::start_tag('div', array('class'=>'no-overflow'));
-    echo html_writer::table($table);
-    echo html_writer::end_tag('div');
-    echo $OUTPUT->paging_bar($count, $page, $perpage, $baseurl);
 }
 
+// Add requested items to the page view.
+$PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+$PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
+
+// Show page.
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
+
+echo \html_writer::start_div('', ['id' => 'xapierrorlog']);
+echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
+$mform->display();
+echo \html_writer::end_div();
+
+if (empty($results)) {
+    echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
+} else {
+    echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
+    echo \html_writer::table($table);
+    echo \html_writer::end_div();
+    echo $OUTPUT->paging_bar($count, $page, $perpage, $baseurl);
+}
+echo \html_writer::end_div();
 echo $OUTPUT->footer();
