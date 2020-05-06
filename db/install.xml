@@ -37,8 +37,8 @@
         <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
         <INDEX NAME="course-time" UNIQUE="false" FIELDS="courseid, anonymous, timecreated"/>
         <INDEX NAME="user-module" UNIQUE="false" FIELDS="userid, contextlevel, contextinstanceid, crud, edulevel, timecreated"/>
-        <INDEX NAME="logstorestandardlogid" UNIQUE="FALSE" FIELDS="logstorestandardlogid"/>
-        <INDEX NAME="type" UNIQUE="FALSE" FIELDS="type"/>
+        <INDEX NAME="logstorestandardlogid" UNIQUE="false" FIELDS="logstorestandardlogid"/>
+        <INDEX NAME="type" UNIQUE="false" FIELDS="type"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="logstore_xapi_failed_log" COMMENT="xAPI holding table for failed events">
@@ -76,8 +76,8 @@
         <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
         <INDEX NAME="course-time" UNIQUE="false" FIELDS="courseid, anonymous, timecreated"/>
         <INDEX NAME="user-module" UNIQUE="false" FIELDS="userid, contextlevel, contextinstanceid, crud, edulevel, timecreated"/>
-        <INDEX NAME="logstorestandardlogid" UNIQUE="FALSE" FIELDS="logstorestandardlogid"/>
-        <INDEX NAME="type" UNIQUE="FALSE" FIELDS="type"/>
+        <INDEX NAME="logstorestandardlogid" UNIQUE="false" FIELDS="logstorestandardlogid"/>
+        <INDEX NAME="type" UNIQUE="false" FIELDS="type"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="logstore_xapi_notif_sent_log" COMMENT="xAPI holding table for sent notifications">
