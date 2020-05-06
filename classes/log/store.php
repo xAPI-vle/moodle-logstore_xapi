@@ -76,16 +76,17 @@ class store extends php_obj implements log_writer {
     protected function get_event_id($event) {
         global $DB;
 
-        $sqlparams = [];
-        $sqlparams['eventname'] = $event->eventname;
-        $sqlparams['component'] = $event->component;
-        $sqlparams['action'] = $event->action;
-        $sqlparams['target'] = $event->target;
-        $sqlparams['objecttable'] = $event->objecttable;
-        $sqlparams['objectid'] = $event->objectid;
-        $sqlparams['timecreated'] = $event->timecreated;
-        $sqlparams['userid'] = $event->userid;
-        $sqlparams['anonymous'] = $event->anonymous;
+        $sqlparams = [
+            'eventname' => $event->eventname, 
+            'component' => $event->component, 
+            'action' => $event->action, 
+            'target' => $event->target, 
+            'objecttable' => $event->objecttable, 
+            'objectid' => $event->objectid, 
+            'timecreated' => $event->timecreated, 
+            'userid' => $event->userid, 
+            'anonymous' => $event->anonymous
+        ];
 
         $sql = "SELECT MAX(ID) AS id
                   FROM {logstore_standard_log}
