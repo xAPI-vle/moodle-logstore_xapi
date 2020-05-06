@@ -18,6 +18,7 @@ namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../src/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 use core_plugin_manager;
 use \tool_log\log\writer as log_writer;
@@ -64,6 +65,49 @@ class store extends php_obj implements log_writer {
     }
 
     /**
+     * Get the eventid from logstore_standard_log.
+     * Return the persistent logstore_standard_log id from the database.
+     * Return value 0 means not found.
+     * 
+     * @param event_base $event
+     * @return int
+     *
+     */
+    protected function get_event_id($event) {
+        global $DB;
+
+        $sqlparams = [
+            'eventname' => $event->eventname, 
+            'component' => $event->component, 
+            'action' => $event->action, 
+            'target' => $event->target, 
+            'objecttable' => $event->objecttable, 
+            'objectid' => $event->objectid, 
+            'timecreated' => $event->timecreated, 
+            'userid' => $event->userid, 
+            'anonymous' => $event->anonymous
+        ];
+
+        $sql = "SELECT MAX(id) AS id
+                  FROM {logstore_standard_log}
+                 WHERE eventname = :eventname
+                   AND component = :component
+                   AND action = :action
+                   AND target = :target
+                   AND (objecttable = :objecttable OR objecttable IS NULL)
+                   AND (objectid = :objectid OR objectid IS NULL)
+                   AND timecreated = :timecreated
+                   AND userid = :userid
+                   AND anonymous = :anonymous";
+
+        $row = $DB->get_record_sql($sql, $sqlparams);
+        if (empty($row) || empty($row->id)) {
+            return 0;
+        }
+        return $row->id;
+    }
+
+    /**
      * Insert events in bulk to the database. Overrides helper_writer.
      * @param array $events raw event data
      */
@@ -72,6 +116,7 @@ class store extends php_obj implements log_writer {
 
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
+            $events = $this->get_persistent_eventids($events);
             $DB->insert_records('logstore_xapi_log', $events);
         } else {
             $this->process_events($events);
@@ -82,7 +127,24 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    /**
+     * Take rows from logstore_standard_log for the emit_task or failed_task
+     * and add in the logstorestandardlogid and set the type.
+     *
+     * @param array $events raw event data
+     * @return array
+     */
+    private function get_persistent_eventids(array $events) {
+        foreach ($events as $event) {
+            $eventid = $this->get_event_id($event);
+            $event->logstorestandardlogid = $eventid;
+            $event->type = XAPI_IMPORT_TYPE_LIVE;
+        }
+        return $events;
+    }
+
     public function process_events(array $events) {
+        $events = $this->get_persistent_eventids($events);
 
         $config = $this->get_handler_config();
         $loadedevents = \src\handler($config, $events);

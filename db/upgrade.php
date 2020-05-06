@@ -64,6 +64,51 @@ function create_xapi_log_table($dbman, $tablename) {
     }
 }
 
+/**
+ * Create new columns in the database.
+ * 
+ * @param object $dbman
+ * @param string $tablename
+ *
+ */
+function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
+    // Select table.
+    $table = new xmldb_table($tablename);
+
+    // Conditionally add field logstorestandardlogid to table.
+    $field = new xmldb_field('logstorestandardlogid', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+    $index = new xmldb_index("logstorestandardlogid", XMLDB_INDEX_NOTUNIQUE, array('logstorestandardlogid'));
+    if (!$dbman->index_exists($table, $index)) {
+        $dbman->add_index($table, $index);
+    }
+
+    // Conditionally add field type to table.
+    $field = new xmldb_field('type', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+    $index = new xmldb_index("type", XMLDB_INDEX_NOTUNIQUE, array('type'));
+    if (!$dbman->index_exists($table, $index)) {
+        $dbman->add_index($table, $index);
+    }
+}
+
+/**
+ * Create new columns in the database.
+ * 
+ * @param object $dbman
+ *
+ */
+function create_logstoreid_and_type_columns($dbman) {
+    add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_log');
+    add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_failed_log');
+}
+
 function create_xapi_notification_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
@@ -129,6 +174,11 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
     if ($oldversion < 2020041506) {
         create_xapi_notification_table($dbman, 'logstore_xapi_notif_sent_log');
         upgrade_plugin_savepoint(true, 2020041506, 'logstore', 'xapi');
+    }
+
+    if ($oldversion < 2020050100) {
+        create_logstoreid_and_type_columns($dbman);
+        upgrade_plugin_savepoint(true, 2020050100, 'logstore', 'xapi');
     }
 
     return true;
