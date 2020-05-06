@@ -88,7 +88,7 @@ class store extends php_obj implements log_writer {
             'anonymous' => $event->anonymous
         ];
 
-        $sql = "SELECT MAX(ID) AS id
+        $sql = "SELECT MAX(id) AS id
                   FROM {logstore_standard_log}
                  WHERE eventname = :eventname
                    AND component = :component
@@ -100,18 +100,11 @@ class store extends php_obj implements log_writer {
                    AND userid = :userid
                    AND anonymous = :anonymous";
 
-        $rows = $DB->get_records_sql($sql, $sqlparams);
-
-        if (empty($rows)) {
+        $row = $DB->get_record_sql($sql, $sqlparams);
+        if (empty($row) || empty($row->id)) {
             return 0;
         }
-
-        $rowid = 0;
-        foreach ($rows as $row) {
-            $rowid = $row->id;
-            break;
-        }
-        return $rowid;
+        return $row->id;
     }
 
     /**
@@ -145,7 +138,7 @@ class store extends php_obj implements log_writer {
         foreach ($events as $event) {
             $eventid = $this->get_event_id($event);
             $event->logstorestandardlogid = $eventid;
-            $event->type = XAPI_TYPE_LIVE;
+            $event->type = XAPI_IMPORT_TYPE_LIVE;
         }
         return $events;
     }
