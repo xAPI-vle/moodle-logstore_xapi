@@ -79,52 +79,52 @@ class store extends php_obj implements log_writer {
         $sqlparams = array();
         $where = array('1 = 1');
 
-        if (!empty($event['eventname'])) {
-            $sqlparams['eventname'] = $event['eventname'];
+        if (!empty($event->eventname)) {
+            $sqlparams['eventname'] = $event->eventname;
             $where[] = 'eventname = :eventname';
         }
 
-        if (!empty($event['component'])) {
-            $sqlparams['component'] = $event['component'];
+        if (!empty($event->component)) {
+            $sqlparams['component'] = $event->component;
             $where[] = 'component = :component';
         }
 
-        if (!empty($event['action'])) {
-            $sqlparams['action'] = $event['action'];
+        if (!empty($event->action)) {
+            $sqlparams['action'] = $event->action;
             $where[] = 'action = :action';
         }
 
-        if (!empty($event['target'])) {
-            $sqlparams['target'] = $event['target'];
+        if (!empty($event->target)) {
+            $sqlparams['target'] = $event->target;
             $where[] = 'target = :target';
         }
 
-        if (!empty($event['objecttable'])) {
-            $sqlparams['objecttable'] = $event['objecttable'];
+        if (!empty($event->objecttable)) {
+            $sqlparams['objecttable'] = $event->objecttable;
             $where[] = 'objecttable = :objecttable';
         } else {
             $where[] = 'objecttable IS NULL';
         }
 
-        if (!empty($event['objectid'])) {
-            $sqlparams['objectid'] = $event['objectid'];
+        if (!empty($event->objectid)) {
+            $sqlparams['objectid'] = $event->objectid;
             $where[] = 'objectid = :objectid';
         } else {
             $where[] = 'objectid IS NULL';
         }
 
-        if (!empty($event['timecreated'])) {
-            $sqlparams['timecreated'] = $event['timecreated'];
+        if (!empty($event->timecreated)) {
+            $sqlparams['timecreated'] = $event->timecreated;
             $where[] = 'timecreated = :timecreated';
         }
 
-        if (!empty($event['userid'])) {
-            $sqlparams['userid'] = $event['userid'];
+        if (!empty($event->userid)) {
+            $sqlparams['userid'] = $event->userid;
             $where[] = 'userid = :userid';
         }
 
-        if (!empty($event['anonymous'])) {
-            $sqlparams['anonymous'] = $event['anonymous'];
+        if (!empty($event->anonymous)) {
+            $sqlparams['anonymous'] = $event->anonymous;
             $where[] = 'anonymous = :anonymous';
         }
 
@@ -175,8 +175,8 @@ class store extends php_obj implements log_writer {
      */
     private function get_persistent_eventids(array $events) {
         foreach ($events as $event) {
-            $event['logstorestandardlogid'] = $this->get_event_id($event);
-            $event['type'] = XAPI_IMPORT_TYPE_LIVE;
+            $event->logstorestandardlogid = $this->get_event_id($event);
+            $event->type = XAPI_IMPORT_TYPE_LIVE;
         }
         return $events;
     }
@@ -259,5 +259,27 @@ class store extends php_obj implements log_writer {
      */
     public function is_logging() {
         return true;
+    }
+
+    /**
+     * Reread or convert event to object.
+     *
+     * @param array $events Array of events
+     * @return array of objects of events.
+     */
+    protected function convert_array_to_objects($events) {
+        $return = array();
+
+        if (!empty($events)) {
+            foreach ($events as $event) {
+                if (is_object($event)) {
+                    $return[] = $event;
+                } else {
+                    $return[] = (object)$event;
+                }
+            }
+        }
+
+        return $return;
     }
 }
