@@ -76,29 +76,68 @@ class store extends php_obj implements log_writer {
     protected function get_event_id($event) {
         global $DB;
 
-        $sqlparams = [
-            'eventname' => $event->eventname, 
-            'component' => $event->component, 
-            'action' => $event->action, 
-            'target' => $event->target, 
-            'objecttable' => $event->objecttable, 
-            'objectid' => $event->objectid, 
-            'timecreated' => $event->timecreated, 
-            'userid' => $event->userid, 
-            'anonymous' => $event->anonymous
-        ];
+        $sqlparams = array();
+        $where = array('1 = 1');
+
+        if (!empty($event['eventname'])) {
+            $sqlparams['eventname'] = $event['eventname'];
+            $where[] = 'eventname = :eventname';
+        }
+
+        if (!empty($event['component'])) {
+            $sqlparams['component'] = $event['component'];
+            $where[] = 'component = :component';
+        }
+
+        if (!empty($event['action'])) {
+            $sqlparams['action'] = $event['action'];
+            $where[] = 'action = :action';
+        }
+
+        if (!empty($event['target'])) {
+            $sqlparams['target'] = $event['target'];
+            $where[] = 'target = :target';
+        }
+
+        if (!empty($event['objecttable'])) {
+            $sqlparams['objecttable'] = $event['objecttable'];
+            $where[] = 'objecttable = :objecttable';
+        } else {
+            $where[] = 'objecttable IS NULL';
+        }
+
+        if (!empty($event['objectid'])) {
+            $sqlparams['objectid'] = $event['objectid'];
+            $where[] = 'objectid = :objectid';
+        } else {
+            $where[] = 'objectid IS NULL';
+        }
+
+        if (!empty($event['timecreated'])) {
+            $sqlparams['timecreated'] = $event['timecreated'];
+            $where[] = 'timecreated = :timecreated';
+        }
+
+        if (!empty($event['userid'])) {
+            $sqlparams['userid'] = $event['userid'];
+            $where[] = 'userid = :userid';
+        }
+
+        if (!empty($event['anonymous'])) {
+            $sqlparams['anonymous'] = $event['anonymous'];
+            $where[] = 'anonymous = :anonymous';
+        }
+
+        // Perhaps we need more rule here.
+        if (empty($sqlparams)) {
+            return 0;
+        }
+
+        $sqlwhere = implode(' AND ', $where);
 
         $sql = "SELECT MAX(id) AS id
                   FROM {logstore_standard_log}
-                 WHERE eventname = :eventname
-                   AND component = :component
-                   AND action = :action
-                   AND target = :target
-                   AND (objecttable = :objecttable OR objecttable IS NULL)
-                   AND (objectid = :objectid OR objectid IS NULL)
-                   AND timecreated = :timecreated
-                   AND userid = :userid
-                   AND anonymous = :anonymous";
+                 WHERE " . $sqlwhere;
 
         $row = $DB->get_record_sql($sql, $sqlparams);
         if (empty($row) || empty($row->id)) {
@@ -136,9 +175,8 @@ class store extends php_obj implements log_writer {
      */
     private function get_persistent_eventids(array $events) {
         foreach ($events as $event) {
-            $eventid = $this->get_event_id($event);
-            $event->logstorestandardlogid = $eventid;
-            $event->type = XAPI_IMPORT_TYPE_LIVE;
+            $event['logstorestandardlogid'] = $this->get_event_id($event);
+            $event['type'] = XAPI_IMPORT_TYPE_LIVE;
         }
         return $events;
     }
