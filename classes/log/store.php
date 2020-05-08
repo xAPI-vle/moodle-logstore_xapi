@@ -155,6 +155,7 @@ class store extends php_obj implements log_writer {
 
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
+            $events = $this->convert_array_to_objects($events);
             $events = $this->get_persistent_eventids($events);
             $DB->insert_records('logstore_xapi_log', $events);
         } else {
