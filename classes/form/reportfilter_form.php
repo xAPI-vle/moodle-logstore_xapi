@@ -30,33 +30,39 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
-        global $DB;
-
         $mform = $this->_form;
         $reportid = $this->_customdata['reportid'];
-        $errortypes = $this->_customdata['errortypes'];
         $eventnames = $this->_customdata['eventnames'];
-        $responses = $this->_customdata['responses'];
-        $eventcontexts = $this->_customdata['eventcontexts'];
-        $count = $DB->count_records('logstore_xapi_failed_log');
+
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $errortypes = $this->_customdata['errortypes'];
+            $responses = $this->_customdata['responses'];
+        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
+            $eventcontexts = $this->_customdata['eventcontexts'];
+        }
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
         }
-        $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
+
+        $eventnameselect = $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
+        $eventnameselect->setMultiple(true);
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
         } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
             $mform->addElement('text', 'fullname', get_string('user', 'logstore_xapi'));
+            $mform->setType('fullname', PARAM_RAW);
+            $mform->addHelpButton('fullname', 'user', 'logstore_xapi');
             $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
         }
+
         $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
 
         $this->add_action_buttons(false, get_string('search'));
 
-        $mform->addElement('submit', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]));
+        $mform->addElement('submit', 'resendselected', '');
     }
 
     /**
