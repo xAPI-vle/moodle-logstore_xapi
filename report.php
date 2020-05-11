@@ -49,7 +49,6 @@ $mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];
-$eventnamequery = false;
 
 if ($fromform = $mform->get_data()) {
     if (!empty($fromform->fullname)) {
@@ -62,11 +61,8 @@ if ($fromform = $mform->get_data()) {
         $params['errortype'] = $fromform->errortype;
     }
 
-    if (!empty($fromform->eventname)) {
-        $where[] = 'x.eventname = :eventname';
-        $params['eventname'] = $fromform->eventname;
-        // TODO: this is now a multi-select so we may need to add multiple params here.
-        $eventnamequery = true;
+    if (!empty($fromform->eventnames)) {
+        $eventnames = $fromform->eventnames;
     }
 
     if (!empty($fromform->response)) {
@@ -93,13 +89,12 @@ if ($id == XAPI_REPORT_ID_ERROR) {
     $extraselect = 'u.username, x.contextid';
 }
 
-if ($eventnamequery == false) {
-    list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
-    $where[] = "x.eventname $insql";
-    $params = array_merge($params, $inparams);
-}
+list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
+$where[] = "x.eventname $insql";
+$params = array_merge($params, $inparams);
 
 $where = implode(' AND ', $where);
+
 $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
           FROM {$basetable} x
      LEFT JOIN {user} u

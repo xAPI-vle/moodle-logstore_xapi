@@ -45,7 +45,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
             $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
         }
 
-        $eventnameselect = $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
+        $eventnameselect = $mform->addElement('select', 'eventnames', get_string('eventname', 'logstore_xapi'), $eventnames);
         $eventnameselect->setMultiple(true);
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
