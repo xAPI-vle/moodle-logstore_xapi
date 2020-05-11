@@ -121,3 +121,8 @@ $string['lrserror'] = 'There is a problem with the LDH. The LDH has responded wi
 $string['failed'] = 'Failed';
 $string['resendevents'] = 'Resend ({$a->count})';
 $string['replayevent'] = 'Replay event';
+$string['confirmresendeventsheader'] = 'Set to replay events';
+$string['confirmresendevents'] = 'Warning: You are about send events to be replayed.
+ The events what you selected ({$a->count}) will be set to replay and be removed from the error report. 
+ The next running scheduled task will replay this elements.
+ Do you want to continue to do that?';
