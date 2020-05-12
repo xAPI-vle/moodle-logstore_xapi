@@ -32,6 +32,7 @@ navigation_node::override_active_url(new moodle_url('/admin/settings.php', array
 admin_externalpage_setup('logstorexapierrorlog');
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+$canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
 
 $errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
 $eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
@@ -78,7 +79,9 @@ if ($fromform = $mform->get_data()) {
     }
 
     // Last investigated element.
-    if (!empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE) {
+    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+
+    if ($canresenderrors) {
         $wheremove = implode(' AND ', $where);
 
         $sql = "SELECT id
@@ -157,7 +160,9 @@ if (!empty($results)) {
 }
 
 // Add requested items to the page view.
-$PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+if ($canmanageerrors) {
+    $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+}
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
 // Show page.

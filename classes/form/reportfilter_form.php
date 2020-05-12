@@ -52,7 +52,9 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
 
         $this->add_action_buttons(false, get_string('search'));
 
-        $mform->addElement('button', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]), ['disabled' => true, 'class' => 'disabled']);
+        if (has_capability('tool/logstorexapi:manageerrors', context_system::instance())) {
+            $mform->addElement('button', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]), ['disabled' => true, 'class' => 'disabled']);
+        }
     }
 
     /**
