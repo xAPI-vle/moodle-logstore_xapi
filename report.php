@@ -21,6 +21,8 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
 
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
+define('XAPI_REPORT_RESEND_FALSE', false);
+define('XAPI_REPORT_RESEND_TRUE', true);
 
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
@@ -38,7 +40,8 @@ $responses = logstore_xapi_get_distinct_options_from_failed_table('response');
 $filterparams = [
     'errortypes' => $errortypes,
     'eventnames' => $eventnames,
-    'responses' => $responses
+    'responses' => $responses,
+    'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
 $mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
@@ -72,6 +75,21 @@ if ($fromform = $mform->get_data()) {
     if (!empty($fromform->dateto)) {
         $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $fromform->dateto;
+    }
+
+    // Last investigated element.
+    if (!empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE) {
+        $wheremove = implode(' AND ', $where);
+
+        $sql = "SELECT id
+                  FROM {logstore_xapi_failed_log} x
+                 WHERE $wheremove";
+        $eventids = array_keys($DB->get_records_sql($sql, $params));
+
+        if (!empty($eventids)) {
+            $mover = new \logstore_xapi\log\moveback($eventids);
+            $mover->execute();  //LMS-1692 set notification
+        }
     }
 }
 
