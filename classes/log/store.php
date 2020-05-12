@@ -28,6 +28,7 @@ use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
 use \stdClass as php_obj;
+use stdClass;
 
 /**
  * This class processes events and enables them to be sent to a logstore.
@@ -168,6 +169,25 @@ class store extends php_obj implements log_writer {
     }
 
     /**
+     * Take event data from the emit_task
+     * and add to the sent log if it doesn't exist already.
+     *
+     * @param array $events raw event data
+     * @return array
+     */
+    private function add_event_to_sent_log($event) {
+        global $DB;
+        $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
+        if (empty($row)) {
+            $newrow = new stdClass();
+            $newrow->logstorestandardlogid = $event->logstorestandardlogid;
+            $newrow->type = $event->type;
+            $newrow->timecreated = time();
+            $DB->insert_record('logstore_xapi_sent_log', $newrow);
+        }
+    }
+
+    /**
      * Take rows from logstore_standard_log for the emit_task or failed_task
      * and add in the logstorestandardlogid and set the type.
      *
@@ -178,6 +198,7 @@ class store extends php_obj implements log_writer {
         foreach ($events as $event) {
             $event->logstorestandardlogid = $this->get_event_id($event);
             $event->type = XAPI_IMPORT_TYPE_LIVE;
+            $this->add_event_to_sent_log($event);
         }
         return $events;
     }
