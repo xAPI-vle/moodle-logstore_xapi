@@ -28,7 +28,6 @@ use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
 use \stdClass as php_obj;
-use stdClass;
 
 /**
  * This class processes events and enables them to be sent to a logstore.
@@ -179,7 +178,7 @@ class store extends php_obj implements log_writer {
         global $DB;
         $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
         if (empty($row)) {
-            $newrow = new stdClass();
+            $newrow = new php_obj();
             $newrow->logstorestandardlogid = $event->logstorestandardlogid;
             $newrow->type = $event->type;
             $newrow->timecreated = time();
