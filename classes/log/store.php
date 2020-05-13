@@ -167,6 +167,16 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    private function get_successful_events($events) {
+        $loadedevents = array_filter($events, function ($loadedevent) {
+            return $loadedevent['loaded'] === true;
+        });
+        $successfulevents = array_map(function ($loadedevent) {
+            return $loadedevent['event'];
+        }, $loadedevents);
+        return $successfulevents;
+    }
+
     /**
      * Take rows from logstore_standard_log for the emit_task or failed_task
      * and add in the logstorestandardlogid and set the type.
@@ -182,11 +192,43 @@ class store extends php_obj implements log_writer {
         return $events;
     }
 
+    /**
+     * Take event data in realtime mode
+     * and add to the sent log if it doesn't exist already.
+     *
+     * @param array $event raw event data
+     */
+    private function add_event_to_sent_log($event) {
+        global $DB;
+        $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
+        if (empty($row)) {
+            $newrow = new php_obj();
+            $newrow->logstorestandardlogid = $event->logstorestandardlogid;
+            $newrow->type = $event->type;
+            $newrow->timecreated = time();
+            $DB->insert_record('logstore_xapi_sent_log', $newrow);
+        }
+    }
+
+    /**
+     * Take successful events and save each using add_event_to_sent_log.
+     *
+     * @param array $events raw events data
+     */
+    private function save_sent_events(array $events) {
+        $successfulevents = $this->get_successful_events($events);
+        foreach ($successfulevents as $event) {
+            $this->add_event_to_sent_log($event);
+        }
+    }
+
     public function process_events(array $events) {
+        $events = $this->convert_array_to_objects($events);
         $events = $this->get_persistent_eventids($events);
 
         $config = $this->get_handler_config();
         $loadedevents = \src\handler($config, $events);
+        $this->save_sent_events($loadedevents);
 
         return $loadedevents;
     }
