@@ -24,12 +24,12 @@ define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
 define('XAPI_REPORT_RESEND_FALSE', false);
 define('XAPI_REPORT_RESEND_TRUE', true);
 
+// Set context.
+$systemcontext = context_system::instance();
+
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
-
-navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
-admin_externalpage_setup('logstorexapierrorlog');
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 $canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
@@ -44,6 +44,10 @@ $filterparams = [
     'responses' => $responses,
     'resend' => XAPI_REPORT_RESEND_FALSE
 ];
+
+// Set page parameters.
+$PAGE->set_context($systemcontext);
+$PAGE->set_url($baseurl);
 
 $mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
 
@@ -158,6 +162,15 @@ if (!empty($results)) {
         $table->data[] = $row;
     }
 }
+
+// Define the page layout and header/breadcrumb.
+$PAGE->set_pagelayout('report');
+$PAGE->set_title(get_string('errorlogpagetitle', 'logstore_xapi'));
+$PAGE->set_heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
+$PAGE->navbar->add(get_string('administrationsite'), new moodle_url('/admin/search.php'), navigation_node::TYPE_CUSTOM, null, 'dashboard');
+$PAGE->navbar->add(get_string('plugins', 'admin'), new moodle_url('/admin/category.php', ['category' => 'modules']));
+$PAGE->navbar->add(get_string('logging', 'tool_log'), new moodle_url('/admin/category.php', ['category' => 'logging']));
+$PAGE->navbar->add($PAGE->heading, $baseurl);
 
 // Add requested items to the page view.
 if ($canmanageerrors) {

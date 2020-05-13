@@ -111,6 +111,7 @@ $string['logstorexapi:manageerrors'] = 'Replay failed statements';
 $string['logstorexapi:managehistoric'] = 'Manage historic data';
 
 // Info strings from xAPI errors
+$string['errorlogpagetitle'] = 'xAPI error log';
 $string['networkerror'] = 'There was a network error sending the response: {$a}';
 $string['recipeerror'] = 'The LDH responded with a 400 error, this can be due to an issue with the recipe. The following message
     was returned: "{$a}"';
