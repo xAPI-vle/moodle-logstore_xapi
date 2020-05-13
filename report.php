@@ -32,6 +32,8 @@ navigation_node::override_active_url(new moodle_url('/admin/settings.php', array
 admin_externalpage_setup('logstorexapierrorlog');
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+$PAGE->set_url($baseurl);
+
 $canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
 
 $eventnames = logstore_xapi_get_event_names_array();
@@ -49,20 +51,26 @@ if ($id == XAPI_REPORT_ID_ERROR) {
     $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
 }
 
-$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams);
+$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
 
 $params = [];
 $where = ['1 = 1'];
 
 if ($fromform = $mform->get_data()) {
-    if (!empty($fromform->fullname)) {
-        $fullname = $DB->sql_fullname('u.firstname', 'u.lastname');
-        $conditions[] = $DB->sql_like($fullname, ':fullname', false, false);
+    if (!empty($fromform->userfullname)) {
+        $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
+        $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
+        $params['userfullname'] = '%' . $fromform->userfullname . '%';
     }
 
     if (!empty($fromform->errortype)) {
         $where[] = 'x.errortype = :errortype';
         $params['errortype'] = $fromform->errortype;
+    }
+
+    if (!empty($fromform->eventcontext)) {
+        $where[] = 'x.contextid = :eventcontext';
+        $params['eventcontext'] = $fromform->eventcontext;
     }
 
     if (!empty($fromform->eventnames)) {
@@ -123,8 +131,10 @@ $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecr
          WHERE $where";
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
-$sql = "SELECT COUNT(id)
+$sql = "SELECT COUNT(x.id)
           FROM {$basetable} x
+     LEFT JOIN {user} u
+            ON u.id = x.userid
          WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
 

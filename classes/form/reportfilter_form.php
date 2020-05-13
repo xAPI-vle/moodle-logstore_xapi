@@ -30,8 +30,6 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
-        global $DB;
-
         $mform = $this->_form;
         $reportid = $this->_customdata['reportid'];
         $eventnames = $this->_customdata['eventnames'];
@@ -58,9 +56,9 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
         } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
-            $mform->addElement('text', 'fullname', get_string('user', 'logstore_xapi'));
-            $mform->setType('fullname', PARAM_RAW);
-            $mform->addHelpButton('fullname', 'user', 'logstore_xapi');
+            $mform->addElement('text', 'userfullname', get_string('user', 'logstore_xapi'));
+            $mform->setType('userfullname', PARAM_RAW);
+            $mform->addHelpButton('userfullname', 'user', 'logstore_xapi');
             $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
         }
 
