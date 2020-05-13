@@ -21,21 +21,25 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
 
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
+define('XAPI_REPORT_RESEND_FALSE', false);
+define('XAPI_REPORT_RESEND_TRUE', true);
 
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
-$baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
-
 navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
-admin_externalpage_setup('logstorexapierrorlog', '', null, $baseurl);
+admin_externalpage_setup('logstorexapierrorlog');
+
+$baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+$canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
 
 $eventnames = logstore_xapi_get_event_names_array();
 
 $filterparams = [
     'reportid' => $id,
-    'eventnames' => $eventnames
+    'eventnames' => $eventnames,
+    'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
 if ($id == XAPI_REPORT_ID_ERROR) {
@@ -78,6 +82,23 @@ if ($fromform = $mform->get_data()) {
     if (!empty($fromform->dateto)) {
         $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $fromform->dateto;
+    }
+
+    // Last investigated element.
+    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+
+    if ($canresenderrors) {
+        $wheremove = implode(' AND ', $where);
+
+        $sql = "SELECT id
+                  FROM {logstore_xapi_failed_log} x
+                 WHERE $wheremove";
+        $eventids = array_keys($DB->get_records_sql($sql, $params));
+
+        if (!empty($eventids)) {
+            $mover = new \logstore_xapi\log\moveback($eventids);
+            $mover->execute();  //LMS-1692 set notification
+        }
     }
 }
 
@@ -163,7 +184,9 @@ if (!empty($results)) {
 }
 
 // Add requested items to the page view.
-$PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+if ($canmanageerrors) {
+    $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+}
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
 // Show page.

@@ -124,3 +124,5 @@ $string['lrserror'] = 'There is a problem with the LDH. The LDH has responded wi
 $string['failed'] = 'Failed';
 $string['resendevents'] = 'Resend ({$a->count})';
 $string['replayevent'] = 'Replay event';
+$string['confirmresendeventsheader'] = 'Resend events';
+$string['confirmresendevents'] = 'You are about to send {$a->count} record(s) to the queue for reprocessing.<br>Do you wish to continue?';

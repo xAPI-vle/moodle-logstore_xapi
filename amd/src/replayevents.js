@@ -28,6 +28,11 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
         var countedEvents = 0;
 
         /**
+         * Selector changed.
+         */
+        var selectorChanged = false;
+
+        /**
          * Store load HTML snippet.
          */
         var loadHTML = '';
@@ -54,8 +59,10 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             CHECKBOXES: '#xapierrorlog_form .form-check-input',
             CHECKBOX_DATEFROM: '#xapierrorlog_form #id_datefrom_enabled',
             CHECKBOX_DATETO: '#xapierrorlog_form #id_dateto_enabled',
+            FORM: '#xapierrorlog_form .mform',
             PAGE_LINKS: '.pagination .page-item .page-link',
             RESEND_BUTTON: '#xapierrorlog_form #id_resendselected',
+            RESEND_HIDDEN: '#xapierrorlog_form input[name^="resend"]',
             REPLAY_EVENTS: '#xapierrorlog_data .reply-event',
             SELECTS: '#xapierrorlog_form .custom-select',
             SELECT_ERRORTYPE: '#xapierrorlog_form #id_errortype',
@@ -79,8 +86,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             init: function(counts) {
                 countedEvents = counts;
 
-                this.disableResend();
+                this.registerOnChangeSelectEvents();
                 this.updateResend();
+                this.registerResendEvent();
 
                 this.addReplyEvents();
              },
@@ -149,6 +157,8 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
                         if (data.success) {
                             element.append(doneHTML);
+                            countedEvents--;
+                            self.updateResend();
                         } else {
                             element.append(failedHTML);
                         }
@@ -163,6 +173,67 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                         self.enableFormControls();
                         self.enablePagination();
                     }
+                });
+            },
+
+            /**
+             * Disable resend event when select has been changed.
+             */
+            registerOnChangeSelectEvents: function(){
+                var self = this;
+
+                $(SELECTORS.SELECTS).change(function() {
+                    selectorChanged = true;
+                    self.disableResend();
+                });
+            },
+
+            /**
+             * Register click on resend button.
+             */
+            registerResendEvent: function(){
+                var self = this;
+
+                if (selectorChanged) {
+                    return;
+                }
+
+                $(SELECTORS.RESEND_BUTTON).click(function() {
+                    self.disableFormControls();
+                    self.disablePagination();
+
+                    str.get_strings([
+                        {
+                            key: 'confirmresendeventsheader',
+                            component: 'logstore_xapi'
+                        },
+                        {
+                            key: 'confirmresendevents',
+                            component: 'logstore_xapi',
+                            param: {
+                                count: countedEvents
+                            }
+                        },
+                        {
+                            key: 'yes',
+                            component: 'moodle'
+                        },
+                        {
+                            key: 'no',
+                            component: 'moodle'
+                        }
+                    ]).done(function(s) {
+                        notification.confirm(s[0], s[1], s[2], s[3],
+                            function() {
+                                $(SELECTORS.RESEND_HIDDEN).val(1);
+                                $(SELECTORS.FORM).submit();
+                            },
+                            function() {
+                                self.enableFormControls();
+                                self.enablePagination();
+                            }
+                        );
+                    });
                 });
             },
 
@@ -182,9 +253,10 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                         }
                     }
                 ]).done(function(resend) {
-                    element.attr('Value', resend);
+                    element.attr('Value', countedEvents);
+                    element.html(resend);
 
-                    if (countedEvents != 0) {
+                    if (countedEvents != 0 && selectorChanged === false) {
                         self.enableResend();
                     }
                 });
@@ -342,7 +414,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate load icon.
              */
-            generateLoadHTML : function(){
+            generateLoadHTML: function(){
                 str.get_strings([
                     {
                         key: 'loadinghelp',
@@ -359,7 +431,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate done icon.
              */
-            generateDoneHTML : function(){
+            generateDoneHTML: function(){
                 str.get_strings([
                     {
                         key: 'success',
@@ -376,7 +448,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate failed icon.
              */
-            generateFailedHTML : function(){
+            generateFailedHTML: function(){
                 str.get_strings([
                     {
                         key: 'failed',
@@ -393,7 +465,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate replay icon.
              */
-            generateReplayHTML : function(){
+            generateReplayHTML: function(){
                 str.get_strings([
                     {
                         key: 'replayevent',

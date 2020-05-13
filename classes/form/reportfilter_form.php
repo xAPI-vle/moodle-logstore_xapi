@@ -30,9 +30,12 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
+        global $DB;
+
         $mform = $this->_form;
         $reportid = $this->_customdata['reportid'];
         $eventnames = $this->_customdata['eventnames'];
+        $resend = $this->_customdata['resend'];
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $errortypes = $this->_customdata['errortypes'];
@@ -40,6 +43,10 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
             $eventcontexts = $this->_customdata['eventcontexts'];
         }
+
+        $mform->addElement('hidden', 'resend');
+        $mform->setType('resend', PARAM_BOOL);
+        $mform->setDefault('resend', $resend);
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
@@ -62,7 +69,9 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
 
         $this->add_action_buttons(false, get_string('search'));
 
-        $mform->addElement('submit', 'resendselected', '');
+        if (has_capability('tool/logstorexapi:manageerrors', context_system::instance())) {
+            $mform->addElement('button', 'resendselected', '', ['disabled' => true, 'class' => 'disabled']);
+        }
     }
 
     /**
