@@ -19,6 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use tool_log\log\manager;
 use logstore_xapi\log\store;
+use stdClass;
 
 class emit_task extends \core\task\scheduled_task {
 
@@ -85,6 +86,36 @@ class emit_task extends \core\task\scheduled_task {
     }
 
     /**
+     * Take event data from the current task
+     * and add to the sent log if it doesn't exist already.
+     *
+     * @param array $event raw event data
+     */
+    private function add_event_to_sent_log($event) {
+        global $DB;
+        $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
+        if (empty($row)) {
+            $newrow = new stdClass();
+            $newrow->logstorestandardlogid = $event->logstorestandardlogid;
+            $newrow->type = $event->type;
+            $newrow->timecreated = time();
+            $DB->insert_record('logstore_xapi_sent_log', $newrow);
+        }
+    }
+
+    /**
+     * Take successful events and save each using add_event_to_sent_log.
+     *
+     * @param array $events raw events data
+     */
+    private function save_sent_events(array $events) {
+        $successfulevents = $this->get_successful_events($events);
+        foreach ($successfulevents as $event) {
+            $this->add_event_to_sent_log($event);
+        }
+    }
+
+    /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
      */
@@ -96,6 +127,7 @@ class emit_task extends \core\task\scheduled_task {
         $loadedevents = $store->process_events($extractedevents);
         $this->store_failed_events($loadedevents);
         $this->record_successful_events($loadedevents);
+        $this->save_sent_events($loadedevents);
         $this->delete_processed_events($loadedevents);
     }
 }
