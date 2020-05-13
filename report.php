@@ -28,8 +28,14 @@ $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This i
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
-navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
-admin_externalpage_setup('logstorexapierrorlog');
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $pagename = 'logstorexapierrorlog';
+} elseif ($id == XAPI_REPORT_ID_HISTORIC) {
+    $pagename = 'logstorexapihistoriclog';
+}
+
+navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => $pagename)));
+admin_externalpage_setup($pagename);
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
 $PAGE->set_url($baseurl);
@@ -201,7 +207,7 @@ $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
 // Show page.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
+echo $OUTPUT->heading(get_string($pagename, 'logstore_xapi'));
 
 echo \html_writer::start_div('', ['id' => 'xapierrorlog']);
 echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
