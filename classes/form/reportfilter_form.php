@@ -38,8 +38,6 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $responses = $this->_customdata['responses'];
         $resend = $this->_customdata['resend'];
 
-        $count = $DB->count_records('logstore_xapi_failed_log');
-
         $mform->addElement('hidden', 'resend');
         $mform->setType('resend', PARAM_BOOL);
         $mform->setDefault('resend', $resend);
@@ -53,6 +51,8 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $this->add_action_buttons(false, get_string('search'));
 
         if (has_capability('tool/logstorexapi:manageerrors', context_system::instance())) {
+            $count = $DB->count_records('logstore_xapi_failed_log');
+
             $mform->addElement('button', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]), ['disabled' => true, 'class' => 'disabled']);
         }
     }
