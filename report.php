@@ -30,40 +30,60 @@ $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This i
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
-navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => 'logstorexapierrorlog')));
-admin_externalpage_setup('logstorexapierrorlog');
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $pagename = 'logstorexapierrorlog';
+} elseif ($id == XAPI_REPORT_ID_HISTORIC) {
+    $pagename = 'logstorexapihistoriclog';
+}
+
+navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => $pagename)));
+admin_externalpage_setup($pagename);
 
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+$PAGE->set_url($baseurl);
+
 $canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
 
-$errortypes = logstore_xapi_get_distinct_options_from_failed_table('errortype');
-$eventnames = logstore_xapi_get_distinct_options_from_failed_table('eventname');
-$responses = logstore_xapi_get_distinct_options_from_failed_table('response');
+$eventnames = logstore_xapi_get_event_names_array();
 
 $filterparams = [
-    'errortypes' => $errortypes,
+    'reportid' => $id,
     'eventnames' => $eventnames,
-    'responses' => $responses,
     'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
-$notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form(null, $filterparams);
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+    $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
+} else if ($id == XAPI_REPORT_ID_HISTORIC) {
+    $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+}
 
-// TODO: LMS-1627 - results will vary depending on the report type (Errors or Historic Events)
+$notifications = array();
+$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
 
 $params = [];
 $where = ['1 = 1'];
 
 if ($fromform = $mform->get_data()) {
+    if (!empty($fromform->userfullname)) {
+        $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
+        $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
+        $params['userfullname'] = '%' . $fromform->userfullname . '%';
+    }
+
     if (!empty($fromform->errortype)) {
         $where[] = 'x.errortype = :errortype';
         $params['errortype'] = $fromform->errortype;
     }
 
-    if (!empty($fromform->eventname)) {
-        $where[] = 'x.eventname = :eventname';
-        $params['eventname'] = $fromform->eventname;
+    if (!empty($fromform->eventcontext)) {
+        $where[] = 'x.contextid = :eventcontext';
+        $params['eventcontext'] = $fromform->eventcontext;
+    }
+
+    if (!empty($fromform->eventnames)) {
+        $eventnames = $fromform->eventnames;
     }
 
     if (!empty($fromform->response)) {
@@ -103,18 +123,38 @@ if ($fromform = $mform->get_data()) {
     }
 }
 
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $basetable = '{logstore_xapi_failed_log}';
+    $extraselect = 'x.errortype, x.response';
+} else {
+    $basetable = '{logstore_standard_log}';
+    $extraselect = 'u.username, x.contextid';
+}
+
+list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
+$where[] = "x.eventname $insql";
+$params = array_merge($params, $inparams);
+
 $where = implode(' AND ', $where);
-$sql = "SELECT x.id, x.errortype, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
-          FROM {logstore_xapi_failed_log} x
+
+$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
+          FROM {$basetable} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
-$sql = "SELECT COUNT(id)
-          FROM {logstore_xapi_failed_log} x
+$sql = "SELECT COUNT(x.id)
+          FROM {$basetable} x
+     LEFT JOIN {user} u
+            ON u.id = x.userid
          WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
+
+// Now we have the count we can set this value for the submit button
+$submitcount = new stdClass();
+$submitcount->resendselected = get_string('resendevents', 'logstore_xapi', ['count' => $count]);
+$mform->set_data($submitcount);
 
 if (!empty($results)) {
     $table = new html_table();
@@ -143,7 +183,7 @@ if (!empty($results)) {
         }
         $row[] = $result->eventname;
         if ($id == XAPI_REPORT_ID_HISTORIC) {
-            $row[] = fullname($result);
+            $row[] = $result->username;
             $context = context::instance_by_id($result->contextid);
             $row[] = $context->get_context_name();
         }
@@ -174,7 +214,7 @@ $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
 // Show page.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('logstorexapierrorlog', 'logstore_xapi'));
+echo $OUTPUT->heading(get_string($pagename, 'logstore_xapi'));
 
 if (!empty($notifications)) {
     foreach ($notifications as $notification) {
