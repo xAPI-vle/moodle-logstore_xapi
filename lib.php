@@ -141,6 +141,44 @@ function logstore_xapi_get_distinct_options_from_failed_table($column) {
 }
 
 /**
+ * Get the available context's from the logstore standard log table
+ *
+ * @return array
+ * @throws dml_exception
+ */
+function logstore_xapi_get_logstore_standard_context_options() {
+    global $DB;
+
+    $options = [0 => get_string('any')];
+
+    $sql = 'SELECT DISTINCT(contextid)
+              FROM {logstore_standard_log}';
+    $contextids = $DB->get_records_sql($sql);
+
+    foreach ($contextids as $result) {
+        $context = context::instance_by_id($result->contextid);
+        $options[$context->id] = $context->get_context_name();
+    }
+
+    return $options;
+}
+
+/**
+ * Retrieves the available and enabled events for this plugin and outputs it into an array
+ *
+ * @return array
+ */
+function logstore_xapi_get_event_names_array() {
+    $eventnames = [];
+    $eventfunctionmap = \src\transformer\get_event_function_map();
+    foreach (array_keys($eventfunctionmap) as $eventname) {
+        $eventnames[$eventname] = $eventname;
+    }
+    return $eventnames;
+}
+
+
+/**
  * Decode the json array stored in the response column. Will return false if json is invalid
  *
  * @param $response

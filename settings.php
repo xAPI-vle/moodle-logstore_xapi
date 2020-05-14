@@ -141,4 +141,13 @@ if ($hassiteconfig) {
         array('tool/logstorexapi:viewerrorlog')
     );
     $ADMIN->add('logging', $errorreport);
+
+    // xAPI Historic Log page.
+    $historicreport = new admin_externalpage(
+        'logstorexapihistoriclog',
+        get_string('logstorexapihistoriclog', 'logstore_xapi'),
+        new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_HISTORIC)),
+        array('tool/logstorexapi:managehistoric')
+    );
+    $ADMIN->add('logging', $historicreport);
 }

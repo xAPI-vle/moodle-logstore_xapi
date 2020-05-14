@@ -30,30 +30,45 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      * Form definition.
      */
     public function definition() {
-        global $DB;
-
         $mform = $this->_form;
-        $errortypes = $this->_customdata['errortypes'];
+        $reportid = $this->_customdata['reportid'];
         $eventnames = $this->_customdata['eventnames'];
-        $responses = $this->_customdata['responses'];
         $resend = $this->_customdata['resend'];
+
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $errortypes = $this->_customdata['errortypes'];
+            $responses = $this->_customdata['responses'];
+        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
+            $eventcontexts = $this->_customdata['eventcontexts'];
+        }
 
         $mform->addElement('hidden', 'resend');
         $mform->setType('resend', PARAM_BOOL);
         $mform->setDefault('resend', $resend);
 
-        $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
-        $mform->addElement('select', 'eventname', get_string('eventname', 'logstore_xapi'), $eventnames);
-        $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
+        }
+
+        $eventnameselect = $mform->addElement('select', 'eventnames', get_string('eventname', 'logstore_xapi'), $eventnames);
+        $eventnameselect->setMultiple(true);
+
+        if ($reportid == XAPI_REPORT_ID_ERROR) {
+            $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
+            $mform->addElement('text', 'userfullname', get_string('user', 'logstore_xapi'));
+            $mform->setType('userfullname', PARAM_RAW);
+            $mform->addHelpButton('userfullname', 'user', 'logstore_xapi');
+            $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
+        }
+
         $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
 
         $this->add_action_buttons(false, get_string('search'));
 
         if (has_capability('tool/logstorexapi:manageerrors', context_system::instance())) {
-            $count = $DB->count_records('logstore_xapi_failed_log');
-
-            $mform->addElement('button', 'resendselected', get_string('resendevents', 'logstore_xapi', ['count' => $count]), ['disabled' => true, 'class' => 'disabled']);
+            $mform->addElement('button', 'resendselected', '', ['disabled' => true, 'class' => 'disabled']);
         }
     }
 
