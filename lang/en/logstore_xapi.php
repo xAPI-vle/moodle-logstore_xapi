@@ -126,3 +126,5 @@ $string['resendevents'] = 'Resend ({$a->count})';
 $string['replayevent'] = 'Replay event';
 $string['confirmresendeventsheader'] = 'Resend events';
 $string['confirmresendevents'] = 'You are about to send {$a->count} record(s) to the queue for reprocessing.<br>Do you wish to continue?';
+$string['resendevents:success'] = 'Events successfully sent for reprocessing.';
+$string['resendevents:failed'] = 'Events failed to be sent for reprocessing.';

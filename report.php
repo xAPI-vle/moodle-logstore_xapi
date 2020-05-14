@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+use core\output\notification;
+
 require_once(__DIR__ . '/../../../../../config.php');
 require_once($CFG->dirroot . '/lib/adminlib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
@@ -57,6 +59,7 @@ if ($id == XAPI_REPORT_ID_ERROR) {
     $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
 }
 
+$notifications = array();
 $mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
 
 $params = [];
@@ -111,7 +114,11 @@ if ($fromform = $mform->get_data()) {
 
         if (!empty($eventids)) {
             $mover = new \logstore_xapi\log\moveback($eventids);
-            $mover->execute();  //LMS-1692 set notification
+            if ($mover->execute()) {
+                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
+            } else {
+                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+            }
         }
     }
 }
@@ -208,6 +215,12 @@ $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 // Show page.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string($pagename, 'logstore_xapi'));
+
+if (!empty($notifications)) {
+    foreach ($notifications as $notification) {
+        echo $OUTPUT->render($notification);
+    }
+}
 
 echo \html_writer::start_div('', ['id' => 'xapierrorlog']);
 echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
