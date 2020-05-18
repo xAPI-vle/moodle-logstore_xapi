@@ -49,22 +49,31 @@ $filterparams = [
     'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
-$basetable = '{logstore_xapi_failed_log}';
+// Parameter settings depends on report id.
+$basetable = XAPI_REPORT_SOURCE_FAILED;
 $extraselect = 'x.errortype, x.response';
-$filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
-$filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
 $pagename = 'logstorexapierrorlog';
 
-if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $basetable = '{logstore_standard_log}';
-    $extraselect = 'u.username, x.contextid';
-    $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
-    $pagename = 'logstorexapihistoriclog';
+switch ($id) {
+    case XAPI_REPORT_ID_ERROR:
+        $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+        $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
+        break;
+
+    case XAPI_REPORT_ID_HISTORIC:
+        $basetable = XAPI_REPORT_SOURCE_HISTORICAL;
+        $extraselect = 'u.username, x.contextid';
+        $pagename = 'logstorexapihistoriclog';
+
+        $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        break;
+
+    default:
+        break;
 }
 
-
 $notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
+$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];
@@ -73,7 +82,7 @@ if ($fromform = $mform->get_data()) {
     if (!empty($fromform->userfullname)) {
         $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
         $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
-        $params['userfullname'] = '%' . $fromform->userfullname . '%';
+        $params['userfullname'] = '%' . $DB->sql_like_escape($fromform->userfullname) . '%';
     }
 
     if (!empty($fromform->errortype)) {
@@ -104,29 +113,6 @@ if ($fromform = $mform->get_data()) {
         $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $fromform->dateto;
     }
-
-    // Last investigated element.
-    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
-
-    if ($canresenderrors) {
-        $wheremove = implode(' AND ', $where);
-
-        $sql = "SELECT x.id
-                  FROM {$basetable} x
-             LEFT JOIN {user} u
-                    ON u.id = x.userid
-                 WHERE $wheremove";
-        $eventids = array_keys($DB->get_records_sql($sql, $params));
-
-        if (!empty($eventids)) {
-            $mover = new \logstore_xapi\log\moveback($eventids);
-            if ($mover->execute()) {
-                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
-            } else {
-                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
-            }
-        }
-    }
 }
 
 list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
@@ -135,15 +121,37 @@ $params = array_merge($params, $inparams);
 
 $where = implode(' AND ', $where);
 
+// Resend elements.
+$canresenderrors = $fromform = $mform->get_data() && !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+
+if ($canresenderrors) {
+    $sql = "SELECT x.id
+                  FROM {{$basetable}} x
+             LEFT JOIN {user} u
+                    ON u.id = x.userid
+                 WHERE $where";
+    $eventids = array_keys($DB->get_records_sql($sql, $params));
+
+    if (!empty($eventids)) {
+        $mover = new \logstore_xapi\log\moveback($eventids, $id);
+        if ($mover->execute()) {
+            $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
+        } else {
+            $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+        }
+    }
+}
+
+// Collect events to create view.
 $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
-          FROM {$basetable} x
+          FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 $sql = "SELECT COUNT(x.id)
-          FROM {$basetable} x
+          FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";

@@ -61,8 +61,6 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             CHECKBOX_DATETO: '#xapierrorlog_form #id_dateto_enabled',
             FORM: '#xapierrorlog_form .mform',
             PAGE_LINKS: '.pagination .page-item .page-link',
-            RESEND_BUTTON: '#xapierrorlog_form #id_resendselected',
-            RESEND_HIDDEN: '#xapierrorlog_form input[name^="resend"]',
             REPLAY_EVENTS: '#xapierrorlog_data .reply-event',
             SELECTS: '#xapierrorlog_form .custom-select',
             SELECT_ERRORTYPE: '#xapierrorlog_form #id_errortype',
@@ -70,6 +68,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             SELECT_RESPONSE: '#xapierrorlog_form #id_response',
             SELECT_DATAFROM: '#xapierrorlog_form #id_datefrom .custom-select',
             SELECT_DATATO: '#xapierrorlog_form #id_dateto .custom-select',
+            SEND_BUTTON: '#xapierrorlog_form #id_resendselected',
+            SEND_CAN_DO: '#xapierrorlog_form input[name^="resend"]',
+            SEND_ID: '#xapierrorlog_form input[name^="id"]',
             SUBMIT_FORM: '#xapierrorlog_form #id_submitbutton',
         };
 
@@ -140,6 +141,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                 var eventIds = [eventId];
                 var self = this;
                 var element = $('#' + REPLAY_EVENT_ID_PREFIX + eventId);
+                var historical = $(SELECTORS.SEND_ID).val();
 
                 element.empty();
                 element.append(loadHTML);
@@ -150,6 +152,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     url: url,
                     data: {
                         'events': eventIds,
+                        'historical': historical,
                         'sesskey': M.cfg.sesskey
                     },
                     success: function(data) {
@@ -198,7 +201,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     return;
                 }
 
-                $(SELECTORS.RESEND_BUTTON).click(function() {
+                $(SELECTORS.SEND_BUTTON).click(function() {
                     self.disableFormControls();
                     self.disablePagination();
 
@@ -225,7 +228,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     ]).done(function(s) {
                         notification.confirm(s[0], s[1], s[2], s[3],
                             function() {
-                                $(SELECTORS.RESEND_HIDDEN).val(1);
+                                $(SELECTORS.SEND_CAN_DO).val(1);
                                 $(SELECTORS.FORM).submit();
                             },
                             function() {
@@ -241,7 +244,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              * Update Resend button label.
              */
             updateResend: function() {
-                var element = $(SELECTORS.RESEND_BUTTON);
+                var element = $(SELECTORS.SEND_BUTTON);
                 var self = this;
 
                 str.get_strings([
@@ -313,14 +316,14 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              * Disable Resend button.
              */
             disableResend: function() {
-                this.disableElements($(SELECTORS.RESEND_BUTTON));
+                this.disableElements($(SELECTORS.SEND_BUTTON));
             },
 
             /**
              * Enable Resend button.
              */
             enableResend: function() {
-                this.enableElements($(SELECTORS.RESEND_BUTTON));
+                this.enableElements($(SELECTORS.SEND_BUTTON));
             },
 
             /**
