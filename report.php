@@ -126,10 +126,10 @@ $canresenderrors = $fromform = $mform->get_data() && !empty($fromform->resend) &
 
 if ($canresenderrors) {
     $sql = "SELECT x.id
-                  FROM {{$basetable}} x
-             LEFT JOIN {user} u
-                    ON u.id = x.userid
-                 WHERE $where";
+              FROM {{$basetable}} x
+         LEFT JOIN {user} u
+                ON u.id = x.userid
+             WHERE $where";
     $eventids = array_keys($DB->get_records_sql($sql, $params));
 
     if (!empty($eventids)) {
