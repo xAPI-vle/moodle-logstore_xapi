@@ -121,15 +121,16 @@ $params = array_merge($params, $inparams);
 
 $where = implode(' AND ', $where);
 
+$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
+          FROM {{$basetable}} x
+     LEFT JOIN {user} u
+            ON u.id = x.userid
+         WHERE $where";
+
 // Resend elements.
 $canresenderrors = $fromform = $mform->get_data() && !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
 
 if ($canresenderrors) {
-    $sql = "SELECT x.id
-              FROM {{$basetable}} x
-         LEFT JOIN {user} u
-                ON u.id = x.userid
-             WHERE $where";
     $eventids = array_keys($DB->get_records_sql($sql, $params));
 
     if (!empty($eventids)) {
@@ -143,11 +144,6 @@ if ($canresenderrors) {
 }
 
 // Collect events to create view.
-$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
-          FROM {{$basetable}} x
-     LEFT JOIN {user} u
-            ON u.id = x.userid
-         WHERE $where";
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 $sql = "SELECT COUNT(x.id)
