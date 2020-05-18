@@ -130,7 +130,7 @@ class moveback {
         $DB->insert_record(self::LOGSTORE_NEW, $event);
 
         if (!$this->historical) {
-            $DB->delete_records( XAPI_REPORT_SOURCE_FAILED, ['id' => $event->id]);
+            $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, ['id' => $event->id]);
         }
     }
 
@@ -146,7 +146,7 @@ class moveback {
             return false;
         }
 
-        foreach($events as $event) {
+        foreach ($events as $event) {
             $this->move_event($event);
         }
 
