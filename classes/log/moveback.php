@@ -129,7 +129,15 @@ class moveback {
 
         $DB->insert_record(self::LOGSTORE_NEW, $event);
 
-        if (!$this->historical) {
+        if ($this->historical) {
+            $params = array(
+                'logstorestandardlogid' => $event->id
+            );
+
+            if (!empty($DB->count_records(XAPI_REPORT_SOURCE_FAILED, $params))) {
+                $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, $params);
+            }
+        } else {
             $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, ['id' => $event->id]);
         }
     }
