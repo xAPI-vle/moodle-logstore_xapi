@@ -115,7 +115,7 @@ if ($fromform = $mform->get_data()) {
                   FROM {$basetable} x
              LEFT JOIN {user} u
                     ON u.id = x.userid
-                 WHERE $where";
+                 WHERE $wheremove";
         $eventids = array_keys($DB->get_records_sql($sql, $params));
 
         if (!empty($eventids)) {
