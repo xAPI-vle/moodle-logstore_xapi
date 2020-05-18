@@ -49,15 +49,19 @@ $filterparams = [
     'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
+$basetable = '{logstore_xapi_failed_log}';
+$extraselect = 'x.errortype, x.response';
+$filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+$filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
 $pagename = 'logstorexapierrorlog';
 
-if ($id == XAPI_REPORT_ID_ERROR) {
-    $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
-    $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
-} else if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $pagename = 'logstorexapihistoriclog';
+if ($id == XAPI_REPORT_ID_HISTORIC) {
+    $basetable = '{logstore_standard_log}';
+    $extraselect = 'u.username, x.contextid';
     $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+    $pagename = 'logstorexapihistoriclog';
 }
+
 
 $notifications = array();
 $mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
@@ -107,9 +111,11 @@ if ($fromform = $mform->get_data()) {
     if ($canresenderrors) {
         $wheremove = implode(' AND ', $where);
 
-        $sql = "SELECT id
-                  FROM {logstore_xapi_failed_log} x
-                 WHERE $wheremove";
+        $sql = "SELECT x.id
+                  FROM {$basetable} x
+             LEFT JOIN {user} u
+                    ON u.id = x.userid
+                 WHERE $where";
         $eventids = array_keys($DB->get_records_sql($sql, $params));
 
         if (!empty($eventids)) {
@@ -121,14 +127,6 @@ if ($fromform = $mform->get_data()) {
             }
         }
     }
-}
-
-if ($id == XAPI_REPORT_ID_ERROR) {
-    $basetable = '{logstore_xapi_failed_log}';
-    $extraselect = 'x.errortype, x.response';
-} else {
-    $basetable = '{logstore_standard_log}';
-    $extraselect = 'u.username, x.contextid';
 }
 
 list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
