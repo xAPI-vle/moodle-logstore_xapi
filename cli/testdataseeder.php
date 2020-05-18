@@ -1,0 +1,103 @@
+<?php
+define('CLI_SCRIPT', 1);
+include('../../../../../../config.php');
+
+function get_object() {
+    $obj = new stdClass();
+    $obj->eventname = '';
+    $obj->component = ''; 
+    $obj->action = ''; 
+    $obj->target = ''; 
+    $obj->objecttable = '';
+    $obj->objectid = ''; 
+    $obj->crud = ''; 
+    $obj->edulevel = ''; 
+    $obj->contextid = ''; 
+    $obj->contextlevel = ''; 
+    $obj->contextinstanceid = ''; 
+    $obj->userid = ''; 
+    $obj->courseid = ''; 
+    $obj->relateduserid = ''; 
+    $obj->anonymous = ''; 
+    $obj->other = ''; 
+    $obj->timecreated = time(); 
+    $obj->origin = ''; 
+    $obj->ip = ''; 
+    $obj->realuserid = '';
+    $obj->logstorestandardlogid = 0;
+    $obj->type = 0;
+    return $obj;
+}
+
+function clean_string($val) {
+    $clean = $val;
+    $clean = str_replace("'", "", $val);
+    return $clean;
+}
+
+function insert_row($table, $rowcsv) {
+    global $DB;
+    $obj = get_object();
+    $strarr = explode(",", $rowcsv);
+
+    $n = 0;
+    foreach ($obj as $key => $value) {
+        $clean = clean_string($strarr[$n]);
+        $obj->$key = clean_string($strarr[$n]);
+        $n++;
+    }
+
+    // add in some failed data
+    if ($table == "logstore_xapi_failed_log") {
+        $obj->errortype = "401";
+        $obj->response = '{"errorId":"4f442d54-a027-4084-bf79-2e6571ded994","message":"Unauthorised"}';
+    }
+
+    // we don't have a corresponding logstore_standard_log entry so clear it
+    $obj->logstorestandardlogid = 0;
+
+    // if this is not set, unset it
+    if ($obj->eventname == '\core\event\course_viewed') {
+        unset($obj->objecttable);
+    }
+
+    if ($obj->objectid == "NULL") {
+        unset($obj->objectid);
+    }
+    
+    // unset these so they are NULL
+    unset($obj->relateduserid);
+    unset($obj->realuserid);
+
+    // insert
+    $DB->insert_record($table, $obj);   
+}
+
+function create_user_logged_in($table) {
+    $str = "'\\core\\event\\user_loggedin','core','loggedin','user','user',2,'r',0,1,10,0,2,0,NULL,0,'a:1:{s:8:\"username\";s:5:\"admin\";}',".time().",'web','172.22.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_user_logged_out($table) {
+    $str = "'\\core\\event\\user_loggedout','core','loggedout','user','user',2,'r',0,1,10,0,2,0,NULL,0,'a:1:{s:9:\"sessionid\";s:32:\"684a3da55670cffb147d80903908e3b0\";}',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_user_course_viewed($table) {
+    $str = "'\\core\\event\\course_viewed','core','viewed','course',NULL,NULL,'r',2,2,50,1,0,1,NULL,0,'N;',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_test_data($table) {
+    create_user_logged_in($table);
+    for ($n = 0; $n < 8; $n++) {
+        create_user_course_viewed($table);
+    }
+    create_user_logged_out($table);
+}
+
+// create 10 rows in each table
+create_test_data("logstore_xapi_log");
+create_test_data("logstore_xapi_failed_log");
+
+echo "Script complete".PHP_EOL;
