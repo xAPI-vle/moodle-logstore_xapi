@@ -134,11 +134,14 @@ class moveback {
                 'logstorestandardlogid' => $event->id
             );
 
-            if (!empty($DB->count_records(XAPI_REPORT_SOURCE_FAILED, $params))) {
-                $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, $params);
-            }
         } else {
-            $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, ['id' => $event->id]);
+            $params = array(
+                'id' => $event->id
+            );
+        }
+
+        if (!empty($DB->count_records(XAPI_REPORT_SOURCE_FAILED, $params))) {
+            $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, $params);
         }
     }
 
