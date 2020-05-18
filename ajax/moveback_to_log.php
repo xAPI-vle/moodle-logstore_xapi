@@ -32,7 +32,8 @@ require_sesskey();
 require_capability('tool/logstorexapi:manageerrors', context_system::instance());
 
 $eventids = optional_param_array('events', 0, PARAM_INT);
+$historical = optional_param('historical', 0, PARAM_BOOL);
 
-$mover = new \logstore_xapi\log\moveback($eventids);
+$mover = new \logstore_xapi\log\moveback($eventids, $historical);
 
 echo json_encode(['success' => $mover->execute()]);

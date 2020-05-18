@@ -24,6 +24,10 @@ define('XAPI_IMPORT_TYPE_LIVE', 0);
 define('XAPI_IMPORT_TYPE_HISTORIC', 1);
 define('XAPI_IMPORT_TYPE_RECONCILE', 2);
 
+// Report source.
+define('XAPI_REPORT_SOURCE_FAILED', 'logstore_xapi_failed_log');
+define('XAPI_REPORT_SOURCE_HISTORICAL', 'logstore_standard_log');
+
 /**
  * Get all visible cohorts in the system.
  *
@@ -153,10 +157,10 @@ function logstore_xapi_get_logstore_standard_context_options() {
 
     $sql = 'SELECT DISTINCT(contextid)
               FROM {logstore_standard_log}';
-    $contextids = $DB->get_records_sql($sql);
+    $contextids = array_keys($DB->get_records_sql($sql));
 
-    foreach ($contextids as $result) {
-        $context = context::instance_by_id($result->contextid);
+    foreach ($contextids as $contextid) {
+        $context = context::instance_by_id($contextid);
         $options[$context->id] = $context->get_context_name();
     }
 
@@ -169,6 +173,13 @@ function logstore_xapi_get_logstore_standard_context_options() {
  * @return array
  */
 function logstore_xapi_get_event_names_array() {
+
+    if (!function_exists('\src\transformer\get_event_function_map')) {
+        global $CFG;
+
+        require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/transformer/get_event_function_map.php');
+    }
+
     $eventnames = [];
     $eventfunctionmap = \src\transformer\get_event_function_map();
     foreach (array_keys($eventfunctionmap) as $eventname) {

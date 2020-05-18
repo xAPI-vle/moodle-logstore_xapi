@@ -26,6 +26,9 @@ namespace logstore_xapi\log;
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once(__DIR__ . '/../../../../../../../config.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
+
 /**
  * Class for moving back the given failed events to standard log.
  *
@@ -40,7 +43,6 @@ class moveback {
      * logstore database names.
      */
     const LOGSTORE_NEW = "logstore_xapi_log";
-    const LOGSTORE_FAILED = "logstore_xapi_failed_log";
 
     /**
      * List of event IDs.
@@ -48,6 +50,13 @@ class moveback {
      * @var array event ids[]
      */
     protected $eventids = array();
+
+    /**
+     * The table where the process works
+     *
+     * @var bool $historical Data come from logstore table
+     */
+    protected $historical = false;
 
     /**
      * The table where the process works
@@ -74,12 +83,18 @@ class moveback {
      * Standard constructor for class.
      *
      * @param array $eventids event ids
+     * @param bool $historical
      */
-    public function __construct(array $eventids) {
+    public function __construct(array $eventids, $historical = false) {
         global $DB;
 
         $this->eventids = $eventids;
-        $this->table = self::LOGSTORE_FAILED;
+        $this->historical = $historical;
+        $this->table = XAPI_REPORT_SOURCE_FAILED;
+
+        if ($this->historical) {
+            $this->table = XAPI_REPORT_SOURCE_HISTORICAL;
+        }
 
         if (!empty($eventids)) {
             list($insql, $this->params) = $DB->get_in_or_equal($this->eventids);
@@ -108,10 +123,26 @@ class moveback {
     protected function move_event($event) {
         global $DB;
 
-        unset($event->errortype, $event->response);
+        if (!$this->historical) {
+            unset($event->errortype, $event->response);
+        }
 
         $DB->insert_record(self::LOGSTORE_NEW, $event);
-        $DB->delete_records( self::LOGSTORE_FAILED, ['id' => $event->id]);
+
+        if ($this->historical) {
+            $params = array(
+                'logstorestandardlogid' => $event->id
+            );
+
+        } else {
+            $params = array(
+                'id' => $event->id
+            );
+        }
+
+        if (!empty($DB->count_records(XAPI_REPORT_SOURCE_FAILED, $params))) {
+            $DB->delete_records(XAPI_REPORT_SOURCE_FAILED, $params);
+        }
     }
 
     /**
@@ -126,7 +157,7 @@ class moveback {
             return false;
         }
 
-        foreach($events as $event) {
+        foreach ($events as $event) {
             $this->move_event($event);
         }
 

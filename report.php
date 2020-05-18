@@ -26,20 +26,17 @@ define('XAPI_REPORT_PERPAGE_DEFAULT', 30);
 define('XAPI_REPORT_RESEND_FALSE', false);
 define('XAPI_REPORT_RESEND_TRUE', true);
 
+// Set context.
+$systemcontext = context_system::instance();
+
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
-if ($id == XAPI_REPORT_ID_ERROR) {
-    $pagename = 'logstorexapierrorlog';
-} elseif ($id == XAPI_REPORT_ID_HISTORIC) {
-    $pagename = 'logstorexapihistoriclog';
-}
-
-navigation_node::override_active_url(new moodle_url('/admin/settings.php', array('section' => $pagename)));
-admin_externalpage_setup($pagename);
-
 $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+
+// Set page parameters.
+$PAGE->set_context($systemcontext);
 $PAGE->set_url($baseurl);
 
 $canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
@@ -52,15 +49,31 @@ $filterparams = [
     'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
-if ($id == XAPI_REPORT_ID_ERROR) {
-    $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
-    $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
-} else if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+// Parameter settings depends on report id.
+$basetable = XAPI_REPORT_SOURCE_FAILED;
+$extraselect = 'x.errortype, x.response';
+$pagename = 'logstorexapierrorlog';
+
+switch ($id) {
+    case XAPI_REPORT_ID_ERROR:
+        $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
+        $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
+        break;
+
+    case XAPI_REPORT_ID_HISTORIC:
+        $basetable = XAPI_REPORT_SOURCE_HISTORICAL;
+        $extraselect = 'u.username, x.contextid';
+        $pagename = 'logstorexapihistoriclog';
+
+        $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        break;
+
+    default:
+        break;
 }
 
 $notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams, 'get');
+$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];
@@ -69,7 +82,7 @@ if ($fromform = $mform->get_data()) {
     if (!empty($fromform->userfullname)) {
         $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
         $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
-        $params['userfullname'] = '%' . $fromform->userfullname . '%';
+        $params['userfullname'] = '%' . $DB->sql_like_escape($fromform->userfullname) . '%';
     }
 
     if (!empty($fromform->errortype)) {
@@ -100,35 +113,6 @@ if ($fromform = $mform->get_data()) {
         $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $fromform->dateto;
     }
-
-    // Last investigated element.
-    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
-
-    if ($canresenderrors) {
-        $wheremove = implode(' AND ', $where);
-
-        $sql = "SELECT id
-                  FROM {logstore_xapi_failed_log} x
-                 WHERE $wheremove";
-        $eventids = array_keys($DB->get_records_sql($sql, $params));
-
-        if (!empty($eventids)) {
-            $mover = new \logstore_xapi\log\moveback($eventids);
-            if ($mover->execute()) {
-                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
-            } else {
-                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
-            }
-        }
-    }
-}
-
-if ($id == XAPI_REPORT_ID_ERROR) {
-    $basetable = '{logstore_xapi_failed_log}';
-    $extraselect = 'x.errortype, x.response';
-} else {
-    $basetable = '{logstore_standard_log}';
-    $extraselect = 'u.username, x.contextid';
 }
 
 list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
@@ -138,14 +122,32 @@ $params = array_merge($params, $inparams);
 $where = implode(' AND ', $where);
 
 $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
-          FROM {$basetable} x
+          FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
+
+// Resend elements.
+$canresenderrors = $fromform = $mform->get_data() && !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+
+if ($canresenderrors) {
+    $eventids = array_keys($DB->get_records_sql($sql, $params));
+
+    if (!empty($eventids)) {
+        $mover = new \logstore_xapi\log\moveback($eventids, $id);
+        if ($mover->execute()) {
+            $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
+        } else {
+            $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+        }
+    }
+}
+
+// Collect events to create view.
 $results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 $sql = "SELECT COUNT(x.id)
-          FROM {$basetable} x
+          FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
@@ -206,6 +208,15 @@ if (!empty($results)) {
     }
 }
 
+// Define the page layout and header/breadcrumb.
+$PAGE->set_pagelayout('report');
+$PAGE->set_title(get_string($pagename, 'logstore_xapi'));
+$PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
+$PAGE->navbar->add(get_string('administrationsite'), new moodle_url('/admin/search.php'), navigation_node::TYPE_CUSTOM, null, 'dashboard');
+$PAGE->navbar->add(get_string('plugins', 'admin'), new moodle_url('/admin/category.php', ['category' => 'modules']));
+$PAGE->navbar->add(get_string('logging', 'tool_log'), new moodle_url('/admin/category.php', ['category' => 'logging']));
+$PAGE->navbar->add($PAGE->heading, $baseurl);
+
 // Add requested items to the page view.
 if ($canmanageerrors) {
     $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
@@ -214,7 +225,6 @@ $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
 // Show page.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string($pagename, 'logstore_xapi'));
 
 if (!empty($notifications)) {
     foreach ($notifications as $notification) {
