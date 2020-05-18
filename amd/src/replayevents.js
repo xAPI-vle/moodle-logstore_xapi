@@ -33,6 +33,21 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
         var selectorChanged = false;
 
         /**
+         * Name of resend button.
+         */
+        var labelResendButton = 'resendevents';
+
+        /**
+         * Title of confirmation window.
+         */
+        var labelConfirmTitle = 'confirmresendeventsheader';
+
+        /**
+         * Content of confirmation window.
+         */
+        var labelConfirmContent = 'confirmresendevents';
+
+        /**
          * Store load HTML snippet.
          */
         var loadHTML = '';
@@ -86,6 +101,13 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              */
             init: function(counts) {
                 countedEvents = counts;
+
+                // Set labels.
+                if ($(SELECTORS.SEND_ID).val() == 1) {
+                    labelConfirmTitle = 'confirmsendeventsheader';
+                    labelConfirmContent = 'confirmsendevents';
+                    labelResendButton = 'sendevents';
+                }
 
                 this.registerOnChangeSelectEvents();
                 this.updateResend();
@@ -207,11 +229,11 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
                     str.get_strings([
                         {
-                            key: 'confirmresendeventsheader',
+                            key: labelConfirmTitle,
                             component: 'logstore_xapi'
                         },
                         {
-                            key: 'confirmresendevents',
+                            key: labelConfirmContent,
                             component: 'logstore_xapi',
                             param: {
                                 count: countedEvents
@@ -241,7 +263,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             },
 
             /**
-             * Update Resend button label.
+             * Update Send/Resend button label.
              */
             updateResend: function() {
                 var element = $(SELECTORS.SEND_BUTTON);
@@ -249,7 +271,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
                 str.get_strings([
                     {
-                        key: 'resendevents',
+                        key: labelResendButton,
                         component: 'logstore_xapi',
                         param: {
                             count: countedEvents
