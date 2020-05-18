@@ -169,6 +169,13 @@ function logstore_xapi_get_logstore_standard_context_options() {
  * @return array
  */
 function logstore_xapi_get_event_names_array() {
+
+    if (!function_exists('\src\transformer\get_event_function_map')) {
+        global $CFG;
+
+        require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/transformer/get_event_function_map.php');
+    }
+
     $eventnames = [];
     $eventfunctionmap = \src\transformer\get_event_function_map();
     foreach (array_keys($eventfunctionmap) as $eventname) {
