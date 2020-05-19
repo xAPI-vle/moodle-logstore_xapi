@@ -17,6 +17,7 @@
 
 define('CLI_SCRIPT', 1);
 require_once(__DIR__.'/../../../../../../config.php');
+require_once($CFG->libdir . '/testing/generator/lib.php');
 
 function get_object() {
     $obj = new stdClass();
@@ -129,6 +130,14 @@ function create_assignment_graded($table) {
     insert_row($table, $str);
 }
 
+/**
+ * Create a number of rows in the table.
+ * Add one row for each type, at least 10, pad the rest out with rows
+ * minus the number of message types.
+ *
+ * @param string $table tablename
+ * @param int $rows number of rows
+ */
 function create_test_data($table, $rows) {
     if ($rows < 10) {
         $rows = 10;
@@ -149,11 +158,62 @@ function create_test_data($table, $rows) {
     create_user_logged_out($table);
 }
 
-// create n-rows in each table
-// so we get one of each event and pad out the rest with course_viewed events
-$rows = 10;
+/**
+ * Create a user and return the userid.
+ * If the user already exists then return the userid. 
+ *
+ * @param string $username username
+ * @param string $firstname firstname
+ * @param string $lastname lastname
+ * @return int userid
+ */
+function create_user($username, $firstname, $lastname) {
+    global $DB;
 
-create_test_data("logstore_xapi_log", $rows);
-create_test_data("logstore_xapi_failed_log", $rows);
+    // check if user exists
+    $user = $DB->get_record('user', array('username' => $username), "id,username");
+    if ($user) {
+        return $user->id;
+    }
+
+    // generate user
+    $generator = new testing_data_generator();
+    try {
+        $user = $generator->create_user([
+            'username' => $username,
+            'firstname' => $firstname,
+            'lastname' => $lastname
+        ]);
+    } catch (Exception $e) {
+        echo $e->getMessage().PHP_EOL;
+        return 0;
+    }
+
+    return $user->id;
+}
+
+function create_standing_data() {
+    $user1 = create_user("user1", "User", "One");
+    $user2 = create_user("user2", "User", "Two");
+    echo "UserID 1: ".$user1.PHP_EOL;
+    echo "UserID 2: ".$user2.PHP_EOL;
+
+    // TODO: create course we cannot restore a real course programmatically at the moment
+    // course should contain a quiz, forum and assignment
+    // the forum post and assignment submissions are an added complication
+    // assignment grade is related to the assignment submission
+}
+
+function create_data_set() {
+    // create n-rows in each table
+    // so we get one of each event and pad out the rest with course_viewed events
+    $rows = 10;
+
+    create_test_data("logstore_xapi_log", $rows);
+    create_test_data("logstore_xapi_failed_log", $rows);
+}
+
+create_standing_data();
+create_data_set();
 
 echo "Script complete".PHP_EOL;
