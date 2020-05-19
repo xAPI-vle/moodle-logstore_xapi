@@ -20,14 +20,11 @@ use logstore_xapi\task\emit_task;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
  */
-
 class moveback_failed_statements_test extends advanced_testcase {
 
     /**
@@ -67,7 +64,7 @@ class moveback_failed_statements_test extends advanced_testcase {
         $course = $generator->create_course();
         $context = context_course::instance($course->id);
 
-        $record = (object) array(
+        $record = (object)array(
             'eventname' => '\core\event\course_viewed',
             'component' => 'core',
             'action' => 'viewed',
@@ -192,7 +189,6 @@ class moveback_failed_statements_test extends advanced_testcase {
     public function test_multiple_elements() {
         global $DB;
 
-
         $this->resetAfterTest();
         $this->setAdminUser();
 
@@ -212,7 +208,7 @@ class moveback_failed_statements_test extends advanced_testcase {
 
         $imax = 5;
 
-        for ($i=1; $i<=$imax; $i++) {
+        for ($i = 1; $i <= $imax; $i++) {
             $this->add_test_log_data($generator);
         }
 
