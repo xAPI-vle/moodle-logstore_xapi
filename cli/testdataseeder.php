@@ -1,28 +1,28 @@
 <?php
 define('CLI_SCRIPT', 1);
-include('../../../../../../config.php');
+require(__DIR__.'/../../../../../../config.php');
 
 function get_object() {
     $obj = new stdClass();
     $obj->eventname = '';
-    $obj->component = ''; 
-    $obj->action = ''; 
-    $obj->target = ''; 
+    $obj->component = '';
+    $obj->action = '';
+    $obj->target = '';
     $obj->objecttable = '';
-    $obj->objectid = ''; 
-    $obj->crud = ''; 
-    $obj->edulevel = ''; 
-    $obj->contextid = ''; 
-    $obj->contextlevel = ''; 
-    $obj->contextinstanceid = ''; 
-    $obj->userid = ''; 
-    $obj->courseid = ''; 
-    $obj->relateduserid = ''; 
-    $obj->anonymous = ''; 
-    $obj->other = ''; 
-    $obj->timecreated = time(); 
-    $obj->origin = ''; 
-    $obj->ip = ''; 
+    $obj->objectid = '';
+    $obj->crud = '';
+    $obj->edulevel = '';
+    $obj->contextid = '';
+    $obj->contextlevel = '';
+    $obj->contextinstanceid = '';
+    $obj->userid = '';
+    $obj->courseid = '';
+    $obj->relateduserid = '';
+    $obj->anonymous = '';
+    $obj->other = '';
+    $obj->timecreated = time();
+    $obj->origin = '';
+    $obj->ip = '';
     $obj->realuserid = '';
     $obj->logstorestandardlogid = 0;
     $obj->type = 0;
@@ -64,13 +64,13 @@ function insert_row($table, $rowcsv) {
     if ($obj->objectid == "NULL") {
         unset($obj->objectid);
     }
-    
+
     // unset these so they are NULL
     unset($obj->relateduserid);
     unset($obj->realuserid);
 
     // insert
-    $DB->insert_record($table, $obj);   
+    $DB->insert_record($table, $obj);
 }
 
 function create_user_logged_in($table) {
