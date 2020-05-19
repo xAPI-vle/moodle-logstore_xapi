@@ -88,11 +88,31 @@ function create_user_course_viewed($table) {
     insert_row($table, $str);
 }
 
+function create_quiz_answered_question($table) {
+    $str = "'\\mod_quiz\\event\\attempt_started','mod_quiz','started','attempt','quiz_attempts',2,'c',2,4946,70,6,3,7,3,0,'N;',1589845169,'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_quiz_submitted($table) {
+    $str = "'\\mod_quiz\\event\\attempt_submitted','mod_quiz','submitted','attempt','quiz_attempts',2,'u',2,4946,70,6,3,7,3,0,'a:2:{s:11:\"submitterid\";s:1:\"3\";s:6:\"quizid\";s:1:\"1\";}',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_forum_post($table) {
+    $str = "\\mod_forum\\event\\discussion_created','mod_forum','created','discussion','forum_discussions',1,'c',2,4947,70,7,3,7,NULL,0,'a:1:{s:7:\"forumid\";i:2;}',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
 function create_test_data($table) {
     create_user_logged_in($table);
     for ($n = 0; $n < 8; $n++) {
         create_user_course_viewed($table);
     }
+
+    create_quiz_answered_question($table);
+    create_quiz_submitted($table);
+    create_forum_post($table);
+
     create_user_logged_out($table);
 }
 
