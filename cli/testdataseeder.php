@@ -82,9 +82,13 @@ function insert_row($table, $rowcsv) {
         unset($obj->objectid);
     }
 
-    // unset these so they are NULL
-    unset($obj->relateduserid);
-    unset($obj->realuserid);
+    if ($obj->relateduserid == "NULL") {
+        unset($obj->relateduserid);
+    }
+
+    if ($obj->realuserid == "NULL") {
+        unset($obj->realuserid);
+    }
 
     // insert
     $DB->insert_record($table, $obj);
