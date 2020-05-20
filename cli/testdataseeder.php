@@ -19,6 +19,10 @@ define('CLI_SCRIPT', 1);
 require_once(__DIR__.'/../../../../../../config.php');
 require_once($CFG->libdir . '/testing/generator/lib.php');
 
+// create n-rows in each table
+// so we get one of each event and pad out the rest with course_viewed events
+define('ROWS', 10);
+
 function get_object() {
     $obj = new stdClass();
     $obj->eventname = '';
@@ -209,15 +213,11 @@ function create_standing_data() {
 }
 
 function create_data_set() {
-    // create n-rows in each table
-    // so we get one of each event and pad out the rest with course_viewed events
-    $rows = 10;
-
-    create_test_data("logstore_xapi_log", $rows);
-    create_test_data("logstore_xapi_failed_log", $rows);
+    create_test_data("logstore_xapi_log", ROWS);
+    create_test_data("logstore_xapi_failed_log", ROWS);
 }
 
 create_standing_data();
 create_data_set();
 
-echo "Script complete".PHP_EOL;
+echo "Test data has been generated.".PHP_EOL;
