@@ -42,16 +42,6 @@ class emit_task extends \core\task\scheduled_task {
         return $failedevents;
     }
 
-    private function get_successful_events($events) {
-        $loadedevents = array_filter($events, function ($loadedevent) {
-            return $loadedevent['loaded'] === true;
-        });
-        $successfulevents = array_map(function ($loadedevent) {
-            return $loadedevent['event'];
-        }, $loadedevents);
-        return $successfulevents;
-    }
-
     private function get_event_ids($loadedevents) {
         return array_map(function ($loadedevent) {
             return $loadedevent['event']->id;
@@ -82,7 +72,7 @@ class emit_task extends \core\task\scheduled_task {
     }
 
     private function record_successful_events($events) {
-        mtrace(count($this->get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+        mtrace(count(get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
     }
 
     /**
@@ -109,7 +99,7 @@ class emit_task extends \core\task\scheduled_task {
      * @param array $events raw events data
      */
     private function save_sent_events(array $events) {
-        $successfulevents = $this->get_successful_events($events);
+        $successfulevents = get_successful_events($events);
         foreach ($successfulevents as $event) {
             $this->add_event_to_sent_log($event);
         }

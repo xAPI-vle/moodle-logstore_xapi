@@ -92,21 +92,6 @@ class failed_task extends \core\task\scheduled_task {
     }
 
     /**
-     * Get successful events.
-     *
-     * @return array
-     */
-    private function get_successful_events($events) {
-        $loadedevents = array_filter($events, function ($loadedevent) {
-            return $loadedevent['loaded'] === true;
-        });
-        $successfulevents = array_map(function ($loadedevent) {
-            return $loadedevent['event'];
-        }, $loadedevents);
-        return $successfulevents;
-    }
-
-    /**
      * Store failed events in logstore_xapi_failed_log.
      *
      * @return none
@@ -125,7 +110,7 @@ class failed_task extends \core\task\scheduled_task {
      * @return none
      */
     private function record_successful_events($events) {
-        mtrace(count($this->get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+        mtrace(count(get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
     }
 
     /**
@@ -152,7 +137,7 @@ class failed_task extends \core\task\scheduled_task {
      * @param array $events raw events data
      */
     private function save_sent_events(array $events) {
-        $successfulevents = $this->get_successful_events($events);
+        $successfulevents = get_successful_events($events);
         foreach ($successfulevents as $event) {
             $this->add_event_to_sent_log($event);
         }

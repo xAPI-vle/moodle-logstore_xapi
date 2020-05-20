@@ -191,3 +191,19 @@ function logstore_xapi_get_info_string($row) {
     }
     return ''; // Return blank if no errortype captured
 }
+
+/**
+ * Get successful events.
+ *
+ * @param $events events
+ * @return array
+ */
+function get_successful_events($events) {
+    $loadedevents = array_filter($events, function ($loadedevent) {
+        return $loadedevent['loaded'] === true;
+    });
+    $successfulevents = array_map(function ($loadedevent) {
+        return $loadedevent['event'];
+    }, $loadedevents);
+    return $successfulevents;
+}
