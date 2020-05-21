@@ -17,6 +17,11 @@
 
 define('CLI_SCRIPT', 1);
 require_once(__DIR__.'/../../../../../../config.php');
+require_once($CFG->libdir . '/testing/generator/lib.php');
+
+// create n-rows in each table
+// so we get one of each event and pad out the rest with course_viewed events
+define('ROWS', 10);
 
 function get_object() {
     $obj = new stdClass();
@@ -81,9 +86,13 @@ function insert_row($table, $rowcsv) {
         unset($obj->objectid);
     }
 
-    // unset these so they are NULL
-    unset($obj->relateduserid);
-    unset($obj->realuserid);
+    if ($obj->relateduserid == "NULL") {
+        unset($obj->relateduserid);
+    }
+
+    if ($obj->realuserid == "NULL") {
+        unset($obj->realuserid);
+    }
 
     // insert
     $DB->insert_record($table, $obj);
@@ -115,15 +124,40 @@ function create_quiz_submitted($table) {
 }
 
 function create_forum_post($table) {
-    $str = "\\mod_forum\\event\\discussion_created','mod_forum','created','discussion','forum_discussions',1,'c',2,4947,70,7,3,7,NULL,0,'a:1:{s:7:\"forumid\";i:2;}',".time().",'web','172.19.0.1',NULL,'0','0'";
+    $str = "'\\mod_forum\\event\\discussion_created','mod_forum','created','discussion','forum_discussions',1,'c',2,4947,70,7,3,7,NULL,0,'a:1:{s:7:\"forumid\";i:2;}',".time().",'web','172.19.0.1',NULL,'0','0'";
     insert_row($table, $str);
 }
 
-function create_test_data($table) {
+function create_assignment_submitted($table) {
+    $str = "'\\mod_assign\\event\\assessable_submitted','mod_assign','submitted','assessable','assign_submission',2,'u',2,4948,70,8,3,7,NULL,0,'a:1:{s:19:\"submission_editable\";b:1;}',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+function create_assignment_graded($table) {
+    $str = "'\\mod_assign\\event\\submission_graded','mod_assign','graded','submission','assign_grades',1,'u',1,4948,70,8,2,7,3,0,'N;',".time().",'web','172.19.0.1',NULL,'0','0'";
+    insert_row($table, $str);
+}
+
+/**
+ * Create a number of rows in the table.
+ * Add one row for each type, at least 10, pad the rest out with rows
+ * minus the number of message types.
+ *
+ * @param string $table tablename
+ * @param int $rows number of rows
+ */
+function create_test_data($table, $rows) {
+    if ($rows < 10) {
+        $rows = 10;
+    }
+    $course_viewed = $rows - 8;
+
     create_user_logged_in($table);
-    for ($n = 0; $n < 8; $n++) {
+    for ($n = 0; $n < $course_viewed; $n++) {
         create_user_course_viewed($table);
     }
+    create_assignment_submitted($table);
+    create_assignment_graded($table);
 
     create_quiz_answered_question($table);
     create_quiz_submitted($table);
@@ -132,8 +166,58 @@ function create_test_data($table) {
     create_user_logged_out($table);
 }
 
-// create 10 rows in each table
-create_test_data("logstore_xapi_log");
-create_test_data("logstore_xapi_failed_log");
+/**
+ * Create a user and return the userid.
+ * If the user already exists then return the userid. 
+ *
+ * @param string $username username
+ * @param string $firstname firstname
+ * @param string $lastname lastname
+ * @return int userid
+ */
+function create_user($username, $firstname, $lastname) {
+    global $DB;
 
-echo "Script complete".PHP_EOL;
+    // check if user exists
+    $user = $DB->get_record('user', array('username' => $username), "id,username");
+    if ($user) {
+        return $user->id;
+    }
+
+    // generate user
+    $generator = new testing_data_generator();
+    try {
+        $user = $generator->create_user([
+            'username' => $username,
+            'firstname' => $firstname,
+            'lastname' => $lastname
+        ]);
+    } catch (Exception $e) {
+        echo $e->getMessage().PHP_EOL;
+        return 0;
+    }
+
+    return $user->id;
+}
+
+function create_standing_data() {
+    $user1 = create_user("user1", "User", "One");
+    $user2 = create_user("user2", "User", "Two");
+    echo "UserID 1: ".$user1.PHP_EOL;
+    echo "UserID 2: ".$user2.PHP_EOL;
+
+    // TODO: create course we cannot restore a real course programmatically at the moment
+    // course should contain a quiz, forum and assignment
+    // the forum post and assignment submissions are an added complication
+    // assignment grade is related to the assignment submission
+}
+
+function create_data_set() {
+    create_test_data("logstore_xapi_log", ROWS);
+    create_test_data("logstore_xapi_failed_log", ROWS);
+}
+
+create_standing_data();
+create_data_set();
+
+echo "Test data has been generated.".PHP_EOL;
