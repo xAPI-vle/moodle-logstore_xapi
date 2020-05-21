@@ -123,21 +123,29 @@ class moveback {
     protected function move_event($event) {
         global $DB;
 
-        if (!$this->historical) {
-            unset($event->errortype, $event->response);
-        }
-
-        $DB->insert_record(self::LOGSTORE_NEW, $event);
+        $skipinsert = false;
 
         if ($this->historical) {
             $params = array(
                 'logstorestandardlogid' => $event->id
             );
 
+            $event->logstorestandardlogid = $event->id;
+
+            if (!empty($DB->count_records(self::LOGSTORE_NEW, $params))) {
+                $skipinsert = true;
+            }
+
         } else {
+            unset($event->errortype, $event->response);
+
             $params = array(
                 'id' => $event->id
             );
+        }
+
+        if (!$skipinsert) {
+            $DB->insert_record(self::LOGSTORE_NEW, $event);
         }
 
         if (!empty($DB->count_records(XAPI_REPORT_SOURCE_FAILED, $params))) {
