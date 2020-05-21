@@ -182,11 +182,25 @@ class store extends php_obj implements log_writer {
         return $events;
     }
 
+    /**
+     * Take successful events and save each using add_event_to_sent_log.
+     *
+     * @param array $events raw events data
+     */
+    private function save_sent_events(array $events) {
+        $successfulevents = get_successful_events($events);
+        foreach ($successfulevents as $event) {
+            add_event_to_sent_log($event);
+        }
+    }
+
     public function process_events(array $events) {
+        $events = $this->convert_array_to_objects($events);
         $events = $this->get_persistent_eventids($events);
 
         $config = $this->get_handler_config();
         $loadedevents = \src\handler($config, $events);
+        $this->save_sent_events($loadedevents);
 
         return $loadedevents;
     }

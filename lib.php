@@ -240,3 +240,37 @@ function logstore_xapi_get_info_string($row) {
     }
     return ''; // Return blank if no errortype captured
 }
+
+/**
+ * Get successful events.
+ *
+ * @param $events events
+ * @return array
+ */
+function get_successful_events($events) {
+    $loadedevents = array_filter($events, function ($loadedevent) {
+        return $loadedevent['loaded'] === true;
+    });
+    $successfulevents = array_map(function ($loadedevent) {
+        return $loadedevent['event'];
+    }, $loadedevents);
+    return $successfulevents;
+}
+
+/**
+ * Take event data and add to the sent log if it doesn't exist already.
+ *
+ * @param array $event raw event data
+ */
+function add_event_to_sent_log($event) {
+    global $DB;
+
+    $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
+    if (empty($row)) {
+        $newrow = new stdClass();
+        $newrow->logstorestandardlogid = $event->logstorestandardlogid;
+        $newrow->type = $event->type;
+        $newrow->timecreated = time();
+        $DB->insert_record('logstore_xapi_sent_log', $newrow);
+    }
+}

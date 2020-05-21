@@ -19,6 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use tool_log\log\manager;
 use logstore_xapi\log\store;
+use stdClass;
 
 class emit_task extends \core\task\scheduled_task {
 
@@ -39,16 +40,6 @@ class emit_task extends \core\task\scheduled_task {
             return $nonloadedevent['event'];
         }, $nonloadedevents);
         return $failedevents;
-    }
-
-    private function get_successful_events($events) {
-        $loadedevents = array_filter($events, function ($loadedevent) {
-            return $loadedevent['loaded'] === true;
-        });
-        $successfulevents = array_map(function ($loadedevent) {
-            return $loadedevent['event'];
-        }, $loadedevents);
-        return $successfulevents;
     }
 
     private function get_event_ids($loadedevents) {
@@ -81,7 +72,19 @@ class emit_task extends \core\task\scheduled_task {
     }
 
     private function record_successful_events($events) {
-        mtrace(count($this->get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+        mtrace(count(get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+    }
+
+    /**
+     * Take successful events and save each using add_event_to_sent_log.
+     *
+     * @param array $events raw events data
+     */
+    private function save_sent_events(array $events) {
+        $successfulevents = get_successful_events($events);
+        foreach ($successfulevents as $event) {
+            add_event_to_sent_log($event);
+        }
     }
 
     /**
@@ -96,6 +99,7 @@ class emit_task extends \core\task\scheduled_task {
         $loadedevents = $store->process_events($extractedevents);
         $this->store_failed_events($loadedevents);
         $this->record_successful_events($loadedevents);
+        $this->save_sent_events($loadedevents);
         $this->delete_processed_events($loadedevents);
     }
 }
