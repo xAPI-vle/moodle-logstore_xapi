@@ -121,6 +121,7 @@ class failed_task extends \core\task\scheduled_task {
      */
     private function add_event_to_sent_log($event) {
         global $DB;
+
         $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
         if (empty($row)) {
             $newrow = new stdClass();
