@@ -39,7 +39,7 @@ $baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' =>
 $PAGE->set_context($systemcontext);
 $PAGE->set_url($baseurl);
 
-$canmanageerrors = has_capability('tool/logstorexapi:manageerrors', context_system::instance());
+$canmanageerrors = has_capability('logstore/xapi:manageerrors', context_system::instance());
 
 $eventnames = logstore_xapi_get_event_names_array();
 

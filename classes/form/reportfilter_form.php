@@ -67,7 +67,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
 
         $this->add_action_buttons(false, get_string('search'));
 
-        if (has_capability('tool/logstorexapi:manageerrors', context_system::instance())) {
+        if (has_capability('logstore/xapi:manageerrors', context_system::instance())) {
             $mform->addElement('button', 'resendselected', '', ['disabled' => true, 'class' => 'disabled']);
         }
     }
