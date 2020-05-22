@@ -53,6 +53,7 @@ $filterparams = [
 $basetable = XAPI_REPORT_SOURCE_FAILED;
 $extraselect = 'x.errortype, x.response';
 $pagename = 'logstorexapierrorlog';
+$subquery = '';
 
 switch ($id) {
     case XAPI_REPORT_ID_ERROR:
@@ -64,6 +65,7 @@ switch ($id) {
         $basetable = XAPI_REPORT_SOURCE_HISTORICAL;
         $extraselect = 'u.username, x.contextid';
         $pagename = 'logstorexapihistoriclog';
+        $subquery = "x.id NOT IN (SELECT logstorestandardlogid FROM {logstore_xapi_sent_log})";
 
         $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
         break;
@@ -120,6 +122,9 @@ $where[] = "x.eventname $insql";
 $params = array_merge($params, $inparams);
 
 $where = implode(' AND ', $where);
+if ($id == XAPI_REPORT_ID_HISTORIC) {
+    $where .= ' AND '.$subquery;
+}
 
 $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
           FROM {{$basetable}} x
