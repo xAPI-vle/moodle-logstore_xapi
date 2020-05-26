@@ -138,7 +138,7 @@ if ($hassiteconfig) {
         'logstorexapierrorlog',
         get_string('logstorexapierrorlog', 'logstore_xapi'),
         new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_ERROR)),
-        array('tool/logstorexapi:viewerrorlog')
+        array('logstore/xapi:viewerrorlog')
     );
     $ADMIN->add('logging', $errorreport);
 
@@ -147,7 +147,7 @@ if ($hassiteconfig) {
         'logstorexapihistoriclog',
         get_string('logstorexapihistoriclog', 'logstore_xapi'),
         new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => XAPI_REPORT_ID_HISTORIC)),
-        array('tool/logstorexapi:managehistoric')
+        array('logstore/xapi:managehistoric')
     );
     $ADMIN->add('logging', $historicreport);
 }

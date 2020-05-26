@@ -29,7 +29,7 @@ require_login();
 
 require_sesskey();
 
-require_capability('tool/logstorexapi:manageerrors', context_system::instance());
+require_capability('logstore/xapi:manageerrors', context_system::instance());
 
 $eventids = optional_param_array('events', 0, PARAM_INT);
 $historical = optional_param('historical', 0, PARAM_BOOL);

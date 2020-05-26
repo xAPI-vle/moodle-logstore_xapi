@@ -109,9 +109,9 @@ $string['user'] = 'User';
 $string['user_help'] = 'Searches the users fullname';
 
 // Capabilities
-$string['logstorexapi:viewerrorlog'] = 'View xAPI error log';
-$string['logstorexapi:manageerrors'] = 'Replay failed statements';
-$string['logstorexapi:managehistoric'] = 'Manage historic data';
+$string['xapi:viewerrorlog'] = 'View xAPI error log';
+$string['xapi:manageerrors'] = 'Replay failed statements';
+$string['xapi:managehistoric'] = 'Manage historic data';
 
 // Info strings from xAPI errors
 $string['networkerror'] = 'There was a network error sending the response: {$a}';
