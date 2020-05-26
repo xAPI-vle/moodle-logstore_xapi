@@ -21,6 +21,9 @@ require_once($CFG->dirroot . '/lib/adminlib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
+$pagename = 'logstorexapierrorlog';
+admin_externalpage_setup($pagename);
+
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 40);
 define('XAPI_REPORT_RESEND_FALSE', false);
@@ -52,7 +55,6 @@ $filterparams = [
 // Parameter settings depends on report id.
 $basetable = XAPI_REPORT_SOURCE_FAILED;
 $extraselect = 'x.errortype, x.response';
-$pagename = 'logstorexapierrorlog';
 
 switch ($id) {
     case XAPI_REPORT_ID_ERROR:
