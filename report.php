@@ -120,7 +120,7 @@ $where[] = "x.eventname $insql";
 $params = array_merge($params, $inparams);
 
 if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $where[] = "x.id NOT IN (SELECT logstorestandardlogid FROM {logstore_xapi_sent_log})";
+    $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
 }
 
 $where = implode(' AND ', $where);
