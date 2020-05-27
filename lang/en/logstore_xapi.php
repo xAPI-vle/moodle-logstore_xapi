@@ -115,13 +115,13 @@ $string['xapi:manageerrors'] = 'Replay failed statements';
 $string['xapi:managehistoric'] = 'Manage historic data';
 
 // Info strings from xAPI errors
-$string['networkerror'] = 'There was a network error sending the response: {$a}';
-$string['recipeerror'] = 'The LDH responded with a 400 error, this can be due to an issue with the recipe. The following message
-    was returned: "{$a}"';
-$string['autherror'] = 'The server is returning a 401 error: {$a}. Please ensure the endpoint, username and auth secret/password for
+$string['networkerror'] = 'There was a network error sending the response.';
+$string['recipeerror'] = 'The LDH responded with a 400 error, this can be due to an issue with the recipe.';
+$string['autherror'] = 'The server is returning a 401 error. Please ensure the endpoint, username and auth secret/password for
     the xAPI is correct in the Logstore xAPI settings.';
-$string['unknownerror'] = 'Error code: "{$a->errortype}" Response: "{$a->response}"';
-$string['lrserror'] = 'There is a problem with the LDH. The LDH has responded with a 500 error. Response: {$a}';
+$string['unknownerror'] = 'Error code: "{$a}"';
+$string['lrserror'] = 'There is a problem with the LDH. The LDH has responded with a 500 error.';
+
 $string['failed'] = 'Failed';
 $string['resendevents'] = 'Resend ({$a->count})';
 $string['sendevents'] = 'Send ({$a->count})';
