@@ -21,17 +21,30 @@ require_once($CFG->dirroot . '/lib/adminlib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
-$pagename = 'logstorexapierrorlog';
-admin_externalpage_setup($pagename);
+// Resend values.
+define('XAPI_REPORT_RESEND_FALSE', false);
+define('XAPI_REPORT_RESEND_TRUE', true);
 
 // Default values on url parameters.
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 40);
-define('XAPI_REPORT_RESEND_FALSE', false);
-define('XAPI_REPORT_RESEND_TRUE', true);
+define('XAPI_REPORT_ONPAGE_DEFAULT', '');
+define('XAPI_REPORT_EVENTCONTEXT_DEFAULT', '0');
+define('XAPI_REPORT_EVENTNAMES_DEFAULT', array());
+define('XAPI_REPORT_ERROTYPE_DEFAULT', '0');
+define('XAPI_REPORT_RESPONSE_DEFAULT', '0');
+define('XAPI_REPORT_USERNAME_DEFAULT', '');
+define('XAPI_REPORT_DATEFROM_DEFAULT', 0);
+define('XAPI_REPORT_DATETO_DEFAULT', 0);
 
 // Set context.
 $systemcontext = context_system::instance();
+
+// Add require login and only admin allowed to see this page.
+require_login(null, false);
+if (!has_capability('moodle/site:config', $systemcontext)) {
+    print_error('accessdenied', 'admin');
+}
 
 // Read parameters
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
@@ -57,6 +70,7 @@ $filterparams = [
 // Parameter settings depends on report id.
 $basetable = XAPI_REPORT_SOURCE_FAILED;
 $extraselect = 'x.errortype, x.response';
+$pagename = 'logstorexapierrorlog';
 
 switch ($id) {
     case XAPI_REPORT_ID_ERROR:
@@ -220,10 +234,6 @@ if (!empty($results)) {
 $PAGE->set_pagelayout('report');
 $PAGE->set_title(get_string($pagename, 'logstore_xapi'));
 $PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
-$PAGE->navbar->add(get_string('administrationsite'), new moodle_url('/admin/search.php'), navigation_node::TYPE_CUSTOM, null, 'dashboard');
-$PAGE->navbar->add(get_string('plugins', 'admin'), new moodle_url('/admin/category.php', ['category' => 'modules']));
-$PAGE->navbar->add(get_string('logging', 'tool_log'), new moodle_url('/admin/category.php', ['category' => 'logging']));
-$PAGE->navbar->add($PAGE->heading, $baseurl);
 
 // Add requested items to the page view.
 if ($canmanageerrors) {
