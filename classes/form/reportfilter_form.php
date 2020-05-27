@@ -31,39 +31,80 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
      */
     public function definition() {
         $mform = $this->_form;
+
+        // Set filters contents and set defaults.
         $reportid = $this->_customdata['reportid'];
         $eventnames = $this->_customdata['eventnames'];
-        $resend = $this->_customdata['resend'];
 
-        if ($reportid == XAPI_REPORT_ID_ERROR) {
-            $errortypes = $this->_customdata['errortypes'];
-            $responses = $this->_customdata['responses'];
-        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
-            $eventcontexts = $this->_customdata['eventcontexts'];
+        switch ($reportid) {
+
+            case XAPI_REPORT_ID_ERROR:
+                $errortypes = $this->_customdata['errortypes'];
+                $responses = $this->_customdata['responses'];
+                break;
+
+            case XAPI_REPORT_ID_HISTORIC:
+                $eventcontexts = $this->_customdata['eventcontexts'];
+                break;
+
+            default:
+                break;
         }
 
         $mform->addElement('hidden', 'resend');
         $mform->setType('resend', PARAM_BOOL);
-        $mform->setDefault('resend', $resend);
+        $mform->setDefault('resend', $this->_customdata['defaults']['resend']);
 
         if ($reportid == XAPI_REPORT_ID_ERROR) {
             $mform->addElement('select', 'errortype', get_string('errortype', 'logstore_xapi'), $errortypes);
+
+            if (!empty($this->_customdata['defaults']['errortype'])) {
+                $mform->setDefault('errortype', $this->_customdata['defaults']['errortype']);
+            }
         }
 
-        $eventnameselect = $mform->addElement('select', 'eventnames', get_string('eventname', 'logstore_xapi'), $eventnames);
-        $eventnameselect->setMultiple(true);
+        $mform->addElement('select', 'eventnames', get_string('eventname', 'logstore_xapi'), $eventnames);
+        $mform->getElement('eventnames')->setMultiple(true);
+        if (!empty($this->_customdata['defaults']['eventnames'])) {
+            $mform->getElement('eventnames')->setSelected($this->_customdata['defaults']['eventnames']);
+        }
 
-        if ($reportid == XAPI_REPORT_ID_ERROR) {
-            $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
-        } elseif ($reportid == XAPI_REPORT_ID_HISTORIC) {
-            $mform->addElement('text', 'userfullname', get_string('user', 'logstore_xapi'));
-            $mform->setType('userfullname', PARAM_RAW);
-            $mform->addHelpButton('userfullname', 'user', 'logstore_xapi');
-            $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
+        switch ($reportid) {
+
+            case XAPI_REPORT_ID_ERROR:
+                $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
+
+                if (!empty($this->_customdata['defaults']['response'])) {
+                    $mform->setDefault('response', $this->_customdata['defaults']['response']);
+                }
+                break;
+
+            case XAPI_REPORT_ID_HISTORIC:
+                $mform->addElement('text', 'userfullname', get_string('user', 'logstore_xapi'));
+                $mform->setType('userfullname', PARAM_RAW);
+                $mform->addHelpButton('userfullname', 'user', 'logstore_xapi');
+                if (!empty($this->_customdata['defaults']['userfullname'])) {
+                    $mform->setDefault('userfullname', $this->_customdata['defaults']['userfullname']);
+                }
+
+                $mform->addElement('select', 'eventcontext', get_string('eventcontext', 'logstore_xapi'), $eventcontexts);
+                if (!empty($this->_customdata['defaults']['eventcontext'])) {
+                    $mform->setDefault('eventcontext', $this->_customdata['defaults']['eventcontext']);
+                }
+                break;
+
+            default:
+                break;
         }
 
         $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
+        if (!empty($this->_customdata['defaults']['datefrom'])) {
+            $mform->setDefault('datefrom', $this->_customdata['defaults']['datefrom']);
+        }
         $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
+        if (!empty($this->_customdata['defaults']['dateto'])) {
+            $mform->setDefault('dateto', $this->_customdata['defaults']['dateto']);
+        }
 
         $this->add_action_buttons(false, get_string('search'));
 

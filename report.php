@@ -50,6 +50,15 @@ if (!has_capability('moodle/site:config', $systemcontext)) {
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
+$onpage       = optional_param('onpage', XAPI_REPORT_ONPAGE_DEFAULT, PARAM_TEXT);
+
+// Set pagination url's parameter.
+$urlparams = array(
+    'id' => $id,
+    'page' => $page,
+    'perpage' => $perpage,
+    'onpage' => $onpage
+);
 
 $url = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id));
 
@@ -59,12 +68,35 @@ $PAGE->set_url($url);
 
 $canmanageerrors = has_capability('logstore/xapi:manageerrors', context_system::instance());
 
+// Set filter params and defaults.
 $eventnames = logstore_xapi_get_event_names_array();
 
+$defaults = array(
+    'datefrom' => XAPI_REPORT_DATEFROM_DEFAULT,
+    'dateto' => XAPI_REPORT_DATETO_DEFAULT,
+    'eventcontext' => XAPI_REPORT_EVENTCONTEXT_DEFAULT,
+    'eventnames' => XAPI_REPORT_EVENTNAMES_DEFAULT,
+    'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
+    'resend' => XAPI_REPORT_RESEND_FALSE,
+    'response' => XAPI_REPORT_RESPONSE_DEFAULT,
+    'username' => XAPI_REPORT_USERNAME_DEFAULT,
+);
+
+// Reread submitted params.
+if (!empty($onpage)) {
+    $formelements = json_decode($onpage);
+
+    foreach (array_keys($defaults) as $element) {
+        if (!empty($formelements->$element)) {
+            $defaults[$element] = $formelements->$element;
+        }
+    }
+}
+
 $filterparams = [
+    'defaults' => $defaults,
     'reportid' => $id,
     'eventnames' => $eventnames,
-    'resend' => XAPI_REPORT_RESEND_FALSE
 ];
 
 // Parameter settings depends on report id.
@@ -91,43 +123,55 @@ switch ($id) {
 }
 
 $notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form($baseurl, $filterparams);
+$mform = new tool_logstore_xapi_reportfilter_form($url, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];
 
+// If we have submitted data overwrite form elements from form.
 if ($fromform = $mform->get_data()) {
-    if (!empty($fromform->userfullname)) {
+    // Set onpage because moodle_url function is not handling arrays.
+    $formelements = clone $fromform;
+
+    unset($formelements->resend, $formelements->submitbutton);
+
+    $urlparams['onpage'] = json_encode($formelements);
+}
+
+echo "<br>here: ";
+if (isset($formelements)) {
+    echo "we have fromform!!!!";
+    if (!empty($formelements->userfullname)) {
         $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
         $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
-        $params['userfullname'] = '%' . $DB->sql_like_escape($fromform->userfullname) . '%';
+        $params['userfullname'] = '%' . $DB->sql_like_escape($formelements->userfullname) . '%';
     }
 
-    if (!empty($fromform->errortype)) {
+    if (!empty($formelements->errortype)) {
         $where[] = 'x.errortype = :errortype';
-        $params['errortype'] = $fromform->errortype;
+        $params['errortype'] = $formelements->errortype;
     }
 
-    if (!empty($fromform->eventcontext)) {
+    if (!empty($formelements->eventcontext)) {
         $where[] = 'x.contextid = :eventcontext';
-        $params['eventcontext'] = $fromform->eventcontext;
+        $params['eventcontext'] = $formelements->eventcontext;
     }
 
-    if (!empty($fromform->eventnames)) {
-        $eventnames = $fromform->eventnames;
+    if (!empty($formelements->eventnames)) {
+        $eventnames = $formelements->eventnames;
     }
 
-    if (!empty($fromform->response)) {
+    if (!empty($formelements->response)) {
         $where[] = 'x.response = :response';
-        $params['response'] = $fromform->response;
+        $params['response'] = $formelements->response;
     }
 
-    if (!empty($fromform->datefrom)) {
+    if (!empty($formelements->datefrom)) {
         $where[] = 'x.timecreated >= :datefrom';
-        $params['datefrom'] = $fromform->datefrom;
+        $params['datefrom'] = $formelements->datefrom;
     }
 
-    if (!empty($fromform->dateto)) {
+    if (!empty($formelements->dateto)) {
         $where[] = 'x.timecreated <= :dateto';
         $params['dateto'] = $fromform->dateto;
     }
@@ -150,7 +194,7 @@ $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecr
          WHERE $where";
 
 // Resend elements.
-$canresenderrors = $fromform = $mform->get_data() && !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+$canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
 
 if ($canresenderrors) {
     $eventids = array_keys($DB->get_records_sql($sql, $params));
@@ -230,6 +274,9 @@ if (!empty($results)) {
     }
 }
 
+// Set pagination url.
+$paginationurl =new moodle_url('/admin/tool/log/store/xapi/report.php', $urlparams);
+
 // Define the page layout and header/breadcrumb.
 $PAGE->set_pagelayout('report');
 $PAGE->set_title(get_string($pagename, 'logstore_xapi'));
@@ -261,7 +308,7 @@ if (empty($results)) {
     echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
     echo \html_writer::table($table);
     echo \html_writer::end_div();
-    echo $OUTPUT->paging_bar($count, $page, $perpage, $baseurl);
+    echo $OUTPUT->paging_bar($count, $page, $perpage, $paginationurl);
 }
 echo \html_writer::end_div();
 echo $OUTPUT->footer();
