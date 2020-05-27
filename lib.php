@@ -75,15 +75,12 @@ function logstore_xapi_get_cohort_members($cohortids) {
         // Validate params.
         $cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
         if (!empty($cohort)) {
-            $cohortmembers = $DB->get_records_sql("SELECT u.id, u.email
-                FROM {user} u, {cohort_members} cm
-                WHERE u.id = cm.userid AND cm.cohortid = ?
-                ORDER BY lastname ASC, firstname ASC", array($cohort->id));
-            $emailaddresses = array();
-            foreach ($cohortmembers as $member) {
-                $emailaddresses[] = $member->email;
-            }
-            $members[] = array('cohortid' => $cohortid, 'emails' => $emailaddresses);
+            $sql = "SELECT u.*
+                      FROM {user} u, {cohort_members} cm
+                     WHERE u.id = cm.userid AND cm.cohortid = ?
+                  ORDER BY lastname ASC, firstname ASC";
+            $cohortmembers = $DB->get_records_sql($sql, array($cohort->id));
+            $members = array_merge($members, $cohortmembers);
         }
     }
     return $members;
@@ -92,36 +89,28 @@ function logstore_xapi_get_cohort_members($cohortids) {
 /**
  * Get the selected cohorts from the settings.
  *
- * @return array Returns an array of distinct email addresses from cohorts and additional email addresses.
+ * @return array Returns an array of user objects from cohorts and additional email addresses.
  */
-function logstore_xapi_distinct_email_addresses() {
-    $arr = array();
-
-    // ensure no duplicates in csv
-    $emailaddresses = get_config('logstore_xapi', 'send_additional_email_addresses');
-    $arrselected = explode(",", $emailaddresses);
-    foreach ($arrselected as $arrselection) {
-        if (!in_array($arrselection, $arr)) {
-            $arr[] = $arrselection;
-        }
-    }
-
-    // get selected cohorts
+function logstore_xapi_get_users_for_notifications() {
+    // get selected cohort users, will return a blank array if no cohorts are set.
     $cohorts = logstore_xapi_get_selected_cohorts();
-    $cohortswithmembers = logstore_xapi_get_cohort_members($cohorts);
+    $users = logstore_xapi_get_cohort_members($cohorts);
 
-    // add to the list again ensuring no duplicates
-    foreach ($cohortswithmembers as $cohort) {
-        foreach ($cohort["emails"] as $email) {
-            if (!in_array($email, $arr)) {
-                $arr[] = $email;
-            }
+    // Get the manually set email addresses from the config
+    $emailaddresses = get_config('logstore_xapi', 'send_additional_email_addresses');
+    $emailaddresses = explode(",", $emailaddresses);
+    foreach ($emailaddresses as $email) {
+        // Remove whitespace from email addresses
+        $email = preg_replace('/\s+/', '', $email);
+        if (validate_email($email)) {
+            // If the email address is valid then add it to the list of users
+            $user = new stdClass();
+            $user->email = $email;
+            $users[] = $user;
         }
     }
 
-    // sort it for logging purposes later
-    sort($arr);
-    return $arr;
+    return $users;
 }
 
 /**
@@ -188,7 +177,6 @@ function logstore_xapi_get_event_names_array() {
     return $eventnames;
 }
 
-
 /**
  * Decode the json array stored in the response column. Will return false if json is invalid
  *
@@ -248,10 +236,10 @@ function logstore_xapi_get_info_string($row) {
  * @return array
  */
 function get_successful_events($events) {
-    $loadedevents = array_filter($events, function ($loadedevent) {
+    $loadedevents = array_filter($events, function($loadedevent) {
         return $loadedevent['loaded'] === true;
     });
-    $successfulevents = array_map(function ($loadedevent) {
+    $successfulevents = array_map(function($loadedevent) {
         return $loadedevent['event'];
     }, $loadedevents);
     return $successfulevents;
