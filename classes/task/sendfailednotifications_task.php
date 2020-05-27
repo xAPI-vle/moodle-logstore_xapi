@@ -17,10 +17,10 @@
 namespace logstore_xapi\task;
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/admin/tool/log/store/xapi/lib.php');
-require_once($CFG->libdir.'/weblib.php');
-require_once($CFG->libdir.'/classes/user.php');
-require_once($CFG->libdir.'/messagelib.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
+require_once($CFG->libdir . '/weblib.php');
+require_once($CFG->libdir . '/classes/user.php');
+require_once($CFG->libdir . '/messagelib.php');
 
 use tool_log\log\manager;
 use logstore_xapi\log\store;
@@ -57,7 +57,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $sql = "SELECT x.id, x.errortype AS type, x.eventname, u.firstname, u.lastname, x.contextid, x.response, x.timecreated
                   FROM {logstore_xapi_failed_log} x
              LEFT JOIN {user} u ON u.id = x.userid";
-    
+
         $results = $DB->get_records_sql($sql);
         return $results;
     }
@@ -72,32 +72,32 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         // styles
         $emailmsg .= '<style type="text/css">.header {text-align:left;}</style>';
-    
+
         // first line
         $emailmsg .= \html_writer::tag('p', get_string('failedtosend', 'logstore_xapi'));
-    
+
         // summary info
         $endpointname = get_string('endpoint', 'logstore_xapi');
         $url = get_config('logstore_xapi', 'endpoint');
         $endpointurl = \html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
-    
+
         $errorlogpage = get_string('errorlogpage', 'logstore_xapi');
         $url = new \moodle_url("/admin/tool/log/store/xapi/report.php");
         $errorlogurl = \html_writer::tag('a', $url, array('target' => '_blank', 'href' => $url));
-    
+
         // first table
         $table = new \html_table();
-    
+
         // data
         $table->data[] = array($endpointname, $endpointurl);
         $table->data[] = array($errorlogpage, $errorlogurl);
-    
+
         // add table to message
         $emailmsg .= \html_writer::table($table);
-    
+
         // separator
         $emailmsg .= \html_writer::tag('h3', get_string('failurelog', 'logstore_xapi'));
-    
+
         // second table
         $table = new \html_table();
 
@@ -106,7 +106,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $heading2 = get_string('eventname', 'logstore_xapi');
         $heading3 = get_string('response', 'logstore_xapi');
         $table->head = array($heading1, $heading2, $heading3);
-    
+
         // data
         foreach ($results as $result) {
             $col1 = userdate($result->timecreated);
@@ -114,10 +114,10 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             $col3 = $result->response;
             $table->data[] = array($col1, $col2, $col3);
         }
-    
+
         // add table to message
         $emailmsg .= \html_writer::table($table);
-    
+
         return $emailmsg;
     }
 
@@ -138,6 +138,8 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             $email = $user->email;
             $user = \core_user::get_support_user();
             $user->email = $email;
+            // Unset emailstop to ensure the message is sent. This may already be the case when getting the support user.
+            $user->emailstop = 0;
         }
 
         $from = new \stdClass();
@@ -182,23 +184,23 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $manager = get_log_manager();
         $store = new store($manager);
 
-        echo "In send failed notifications task execute".PHP_EOL;
+        echo "In send failed notifications task execute" . PHP_EOL;
 
         $enablesendingnotifications = get_config('logstore_xapi', 'enablesendingnotifications');
         if (empty($enablesendingnotifications)) {
-            echo get_string('notificationsnotenabled', 'logstore_xapi').PHP_EOL;
+            echo get_string('notificationsnotenabled', 'logstore_xapi') . PHP_EOL;
             return;
         }
 
         $results = $this->get_failed_rows();
         if (count($results) == 0) {
-            echo get_string('norows', 'logstore_xapi').PHP_EOL;
+            echo get_string('norows', 'logstore_xapi') . PHP_EOL;
             return;
         }
 
         $notificationtrigger = get_config('logstore_xapi', 'errornotificationtrigger');
         if (count($results) < $notificationtrigger) {
-            echo get_string('notificationtriggerlimitnotreached', 'logstore_xapi').PHP_EOL;
+            echo get_string('notificationtriggerlimitnotreached', 'logstore_xapi') . PHP_EOL;
             return;
         }
 

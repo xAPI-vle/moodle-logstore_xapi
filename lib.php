@@ -176,7 +176,6 @@ function logstore_xapi_get_event_names_array() {
     return $eventnames;
 }
 
-
 /**
  * Decode the json array stored in the response column. Will return false if json is invalid
  *
@@ -236,10 +235,10 @@ function logstore_xapi_get_info_string($row) {
  * @return array
  */
 function get_successful_events($events) {
-    $loadedevents = array_filter($events, function ($loadedevent) {
+    $loadedevents = array_filter($events, function($loadedevent) {
         return $loadedevent['loaded'] === true;
     });
-    $successfulevents = array_map(function ($loadedevent) {
+    $successfulevents = array_map(function($loadedevent) {
         return $loadedevent['event'];
     }, $loadedevents);
     return $successfulevents;
