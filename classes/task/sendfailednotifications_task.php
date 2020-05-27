@@ -184,7 +184,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $manager = get_log_manager();
         $store = new store($manager);
 
-        echo "In send failed notifications task execute" . PHP_EOL;
+        echo get_string('insendfailednotificationstask', 'logstore_xapi') . PHP_EOL;
 
         $enablesendingnotifications = get_config('logstore_xapi', 'enablesendingnotifications');
         if (empty($enablesendingnotifications)) {

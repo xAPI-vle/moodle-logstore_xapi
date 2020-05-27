@@ -75,10 +75,11 @@ function logstore_xapi_get_cohort_members($cohortids) {
         // Validate params.
         $cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
         if (!empty($cohort)) {
-            $cohortmembers = $DB->get_records_sql("SELECT u.*
-                FROM {user} u, {cohort_members} cm
-                WHERE u.id = cm.userid AND cm.cohortid = ?
-                ORDER BY lastname ASC, firstname ASC", array($cohort->id));
+            $sql = "SELECT u.*
+                      FROM {user} u, {cohort_members} cm
+                     WHERE u.id = cm.userid AND cm.cohortid = ?
+                  ORDER BY lastname ASC, firstname ASC";
+            $cohortmembers = $DB->get_records_sql($sql, array($cohort->id));
             $members = array_merge($members, $cohortmembers);
         }
     }
