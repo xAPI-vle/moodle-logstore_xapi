@@ -121,6 +121,10 @@ list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'e
 $where[] = "x.eventname $insql";
 $params = array_merge($params, $inparams);
 
+if ($id == XAPI_REPORT_ID_HISTORIC) {
+    $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
+}
+
 $where = implode(' AND ', $where);
 
 $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
