@@ -24,6 +24,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
 $pagename = 'logstorexapierrorlog';
 admin_externalpage_setup($pagename);
 
+// Default values on url parameters.
 define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 40);
 define('XAPI_REPORT_RESEND_FALSE', false);
@@ -32,15 +33,16 @@ define('XAPI_REPORT_RESEND_TRUE', true);
 // Set context.
 $systemcontext = context_system::instance();
 
+// Read parameters
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
 $page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 
-$baseurl = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id, 'page' => $page, 'perpage' => $perpage));
+$url = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id));
 
 // Set page parameters.
 $PAGE->set_context($systemcontext);
-$PAGE->set_url($baseurl);
+$PAGE->set_url($url);
 
 $canmanageerrors = has_capability('logstore/xapi:manageerrors', context_system::instance());
 
