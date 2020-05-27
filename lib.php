@@ -28,6 +28,12 @@ define('XAPI_IMPORT_TYPE_RECONCILE', 2);
 define('XAPI_REPORT_SOURCE_FAILED', 'logstore_xapi_failed_log');
 define('XAPI_REPORT_SOURCE_HISTORICAL', 'logstore_standard_log');
 
+// Error types
+define('XAPI_REPORT_ERRORTYPE_NETWORKERROR', 101);
+define('XAPI_REPORT_ERRORTYPE_RECIPEERROR', 400);
+define('XAPI_REPORT_ERRORTYPE_AUTHERROR', 401);
+define('XAPI_REPORT_ERRORTYPE_LRSERROR', 500);
+
 /**
  * Get all visible cohorts in the system.
  *
@@ -221,15 +227,15 @@ function logstore_xapi_get_info_string($row) {
             }
         }
         switch ($row->errortype) {
-            case 101:
+            case XAPI_REPORT_ERRORTYPE_NETWORKERROR:
                 return get_string('networkerror', 'logstore_xapi', $response);
-            case 400:
+            case XAPI_REPORT_ERRORTYPE_RECIPEERROR:
                 // Recipe issue
                 return get_string('recipeerror', 'logstore_xapi', $response);
-            case 401:
+            case XAPI_REPORT_ERRORTYPE_AUTHERROR:
                 // Unauthorised, could be an issue with xAPI credentials
                 return get_string('autherror', 'logstore_xapi', $response);
-            case 500:
+            case XAPI_REPORT_ERRORTYPE_LRSERROR:
                 // xAPI server error
                 return get_string('lrserror', 'logstore_xapi', $response);
             default:
