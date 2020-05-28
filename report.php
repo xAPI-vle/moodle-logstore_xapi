@@ -138,9 +138,7 @@ if ($fromform = $mform->get_data()) {
     $urlparams['onpage'] = json_encode($formelements);
 }
 
-echo "<br>here: ";
 if (isset($formelements)) {
-    echo "we have fromform!!!!";
     if (!empty($formelements->userfullname)) {
         $userfullname = $DB->sql_fullname('u.firstname', 'u.lastname');
         $where[] = $DB->sql_like($userfullname, ':userfullname', false, false);
@@ -275,7 +273,7 @@ if (!empty($results)) {
 }
 
 // Set pagination url.
-$paginationurl =new moodle_url('/admin/tool/log/store/xapi/report.php', $urlparams);
+$paginationurl = new moodle_url('/admin/tool/log/store/xapi/report.php', $urlparams);
 
 // Define the page layout and header/breadcrumb.
 $PAGE->set_pagelayout('report');
