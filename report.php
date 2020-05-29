@@ -22,8 +22,8 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 // Resend values.
-define('XAPI_REPORT_RESEND_FALSE', false);
-define('XAPI_REPORT_RESEND_TRUE', true);
+define('XAPI_REPORT_RESEND_FALSE', 0);
+define('XAPI_REPORT_RESEND_TRUE', 1);
 
 // Default values on url parameters.
 define('XAPI_REPORT_STARTING_PAGE', 0);
@@ -219,6 +219,7 @@ $count = $DB->count_records_sql($sql, $params);
 
 // Now we have the count we can set this value for the submit button
 $submitcount = new stdClass();
+$submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 $submitcount->resendselected = get_string('resendevents', 'logstore_xapi', ['count' => $count]);
 $mform->set_data($submitcount);
 
@@ -282,7 +283,7 @@ $PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
 
 // Add requested items to the page view.
 if ($canmanageerrors) {
-    $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count]);
+    $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count, XAPI_REPORT_RESEND_FALSE, XAPI_REPORT_RESEND_TRUE]);
 }
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
 
