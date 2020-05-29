@@ -28,6 +28,16 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
         var countedEvents = 0;
 
         /**
+         * Store allowed resend state.
+         */
+        var canResend;
+
+        /**
+         * Store restrict resend state.
+         */
+        var canNotResend;
+
+        /**
          * Selector changed.
          */
         var selectorChanged = false;
@@ -99,8 +109,13 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Initialisation method called by php js_call_amd()
              */
-            init: function(counts) {
+            init: function(counts, notResend, Resend) {
                 countedEvents = counts;
+                canNotResend = notResend;
+                canResend = Resend;
+
+                // Set resend variable always to not allowed state.
+                $(SELECTORS.SEND_CAN_DO).val(canNotResend);
 
                 // Set labels.
                 if ($(SELECTORS.SEND_ID).val() == 1) {
@@ -250,7 +265,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     ]).done(function(s) {
                         notification.confirm(s[0], s[1], s[2], s[3],
                             function() {
-                                $(SELECTORS.SEND_CAN_DO).val(1);
+                                $(SELECTORS.SEND_CAN_DO).val(canResend);
                                 $(SELECTORS.FORM).submit();
                             },
                             function() {
