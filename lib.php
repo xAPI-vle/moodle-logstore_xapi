@@ -201,28 +201,21 @@ function logstore_xapi_decode_response($response) {
  */
 function logstore_xapi_get_info_string($row) {
     if (!empty($row->errortype)) {
-        $response = '-';
-        if (isset($row->response)) {
-            $decode = logstore_xapi_decode_response($row->response);
-            if ($decode) {
-                $response = $decode;
-            }
-        }
         switch ($row->errortype) {
             case 101:
-                return get_string('networkerror', 'logstore_xapi', $response);
+                return get_string('networkerror', 'logstore_xapi');
             case 400:
                 // Recipe issue
-                return get_string('recipeerror', 'logstore_xapi', $response);
+                return get_string('recipeerror', 'logstore_xapi');
             case 401:
                 // Unauthorised, could be an issue with xAPI credentials
-                return get_string('autherror', 'logstore_xapi', $response);
+                return get_string('autherror', 'logstore_xapi');
             case 500:
                 // xAPI server error
-                return get_string('lrserror', 'logstore_xapi', $response);
+                return get_string('lrserror', 'logstore_xapi');
             default:
                 // Generic error catch all
-                return get_string('unknownerror', 'logstore_xapi', ['errortype' => $row->errortype, 'response' => $response]);
+                return get_string('unknownerror', 'logstore_xapi', $row->errortype);
                 break;
         }
     }
