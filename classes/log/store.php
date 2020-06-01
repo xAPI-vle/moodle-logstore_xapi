@@ -174,10 +174,10 @@ class store extends php_obj implements log_writer {
      * @param array $events raw event data
      * @return array
      */
-    private function get_persistent_eventids(array $events) {
+    private function get_persistent_eventids(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
         foreach ($events as $event) {
             $event->logstorestandardlogid = $this->get_event_id($event);
-            $event->type = XAPI_IMPORT_TYPE_LIVE;
+            $event->type = $eventtype;
         }
         return $events;
     }
@@ -194,9 +194,9 @@ class store extends php_obj implements log_writer {
         }
     }
 
-    public function process_events(array $events) {
+    public function process_events(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
         $events = $this->convert_array_to_objects($events);
-        $events = $this->get_persistent_eventids($events);
+        $events = $this->get_persistent_eventids($events, $eventtype);
 
         $config = $this->get_handler_config();
         $loadedevents = \src\handler($config, $events);
