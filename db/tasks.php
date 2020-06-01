@@ -53,13 +53,4 @@ $tasks = array(
         'dayofweek' => '*',
         'month' => '*'
     ),
-    array(
-        'classname' => '\logstore_xapi\task\reconcile_task',
-        'blocking' => 0,
-        'minute' => '*',
-        'hour' => '*/12',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
 );
