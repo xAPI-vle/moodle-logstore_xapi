@@ -108,6 +108,7 @@ $string['notificationsnotenabled'] = "Notifications not enabled";
 $string['notificationtriggerlimitnotreached'] = "Notification trigger limit not reached";
 $string['user'] = 'User';
 $string['user_help'] = 'Searches the users fullname';
+$string['contextidnolongerexists'] = 'Context ID {$a} no longer exists';
 
 // Capabilities
 $string['xapi:viewerrorlog'] = 'View xAPI error log';

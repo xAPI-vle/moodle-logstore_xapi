@@ -251,8 +251,13 @@ if (!empty($results)) {
         $row[] = $result->eventname;
         if ($id == XAPI_REPORT_ID_HISTORIC) {
             $row[] = $result->username;
-            $context = context::instance_by_id($result->contextid);
-            $row[] = $context->get_context_name();
+
+            if ($context = context::instance_by_id($result->contextid, IGNORE_MISSING)){
+                $row[] = $context->get_context_name();
+            } else {
+                $row[] = get_string('contextidnolongerexists', 'logstore_xapi', $result->contextid);
+            }
+
         }
         if ($id == XAPI_REPORT_ID_ERROR) {
             $response = '';

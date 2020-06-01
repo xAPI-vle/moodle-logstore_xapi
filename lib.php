@@ -145,7 +145,10 @@ function logstore_xapi_get_logstore_standard_context_options() {
     $options = [0 => get_string('any')];
 
     $sql = 'SELECT DISTINCT(contextid)
-              FROM {logstore_standard_log}';
+              FROM {logstore_standard_log} lssl
+             WHERE EXISTS (SELECT 1
+                             FROM {context} c
+                            WHERE c.id = lssl.contextid)';
     $contextids = array_keys($DB->get_records_sql($sql));
 
     foreach ($contextids as $contextid) {
