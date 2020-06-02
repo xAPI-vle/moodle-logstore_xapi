@@ -32,61 +32,6 @@ class emit_task extends \core\task\scheduled_task {
         return get_string('taskemit', 'logstore_xapi');
     }
 
-    private function get_failed_events($events) {
-        $nonloadedevents = array_filter($events, function ($loadedevent) {
-            return $loadedevent['loaded'] === false;
-        });
-        $failedevents = array_map(function ($nonloadedevent) {
-            return $nonloadedevent['event'];
-        }, $nonloadedevents);
-        return $failedevents;
-    }
-
-    private function get_event_ids($loadedevents) {
-        return array_map(function ($loadedevent) {
-            return $loadedevent['event']->id;
-        }, $loadedevents);
-    }
-
-    private function extract_events($limitnum) {
-        global $DB;
-        $conditions = null;
-        $sort = '';
-        $fields = '*';
-        $limitfrom = 0;
-        $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
-        return $extractedevents;
-    }
-
-    private function delete_processed_events($events) {
-        global $DB;
-        $eventids = $this->get_event_ids($events);
-        $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
-    }
-
-    private function store_failed_events($events) {
-        global $DB;
-        $failedevents = $this->get_failed_events($events);
-        $DB->insert_records('logstore_xapi_failed_log', $failedevents);
-        mtrace(count($failedevents) . " " . get_string('failed_events', 'logstore_xapi'));
-    }
-
-    private function record_successful_events($events) {
-        mtrace(count(get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
-    }
-
-    /**
-     * Take successful events and save each using add_event_to_sent_log.
-     *
-     * @param array $events raw events data
-     */
-    private function save_sent_events(array $events) {
-        $successfulevents = get_successful_events($events);
-        foreach ($successfulevents as $event) {
-            add_event_to_sent_log($event);
-        }
-    }
-
     /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
@@ -95,11 +40,12 @@ class emit_task extends \core\task\scheduled_task {
         $manager = get_log_manager();
         $store = new store($manager);
 
-        $extractedevents = $this->extract_events($store->get_max_batch_size());
+        $extractedevents = extract_events($store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
-        $this->store_failed_events($loadedevents);
-        $this->record_successful_events($loadedevents);
-        $this->save_sent_events($loadedevents);
-        $this->delete_processed_events($loadedevents);
+
+        store_failed_events($loadedevents);
+        record_successful_events($loadedevents);
+        save_sent_events($loadedevents);
+        delete_processed_events($loadedevents);
     }
 }
