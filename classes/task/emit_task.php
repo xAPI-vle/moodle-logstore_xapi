@@ -40,7 +40,7 @@ class emit_task extends \core\task\scheduled_task {
         $manager = get_log_manager();
         $store = new store($manager);
 
-        $extractedevents = extract_events($store->get_max_batch_size());
+        $extractedevents = extract_events($store->get_max_batch_size(), XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_LIVE);
         $loadedevents = $store->process_events($extractedevents);
 
         store_failed_events($loadedevents);

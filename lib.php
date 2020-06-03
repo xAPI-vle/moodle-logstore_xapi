@@ -25,15 +25,17 @@ define('XAPI_IMPORT_TYPE_HISTORIC', 1);
 define('XAPI_IMPORT_TYPE_RECONCILE', 2);
 
 // Report source.
+define('XAPI_REPORT_SOURCE_LOG', 'logstore_xapi_log');
 define('XAPI_REPORT_SOURCE_FAILED', 'logstore_xapi_failed_log');
 define('XAPI_REPORT_SOURCE_HISTORICAL', 'logstore_standard_log');
 
-// Error types
+// Error types.
 define('XAPI_REPORT_ERRORTYPE_NETWORK', 101);
 define('XAPI_REPORT_ERRORTYPE_RECIPE', 400);
 define('XAPI_REPORT_ERRORTYPE_AUTH', 401);
 define('XAPI_REPORT_ERRORTYPE_LRS', 500);
 define('XAPI_REPORT_ERRORTYPE_TRANSFORM', 10000); // This high number has been set to avoid conflicting with other error codes
+
 /**
  * Get all visible cohorts in the system.
  *
@@ -270,7 +272,7 @@ function add_event_to_sent_log($event) {
  *
  * @return array
  */
-function extract_events($limitnum=0, $log='log', $type=null) {
+function extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = null) {
     global $DB;
 
     $conditions = null;
@@ -281,7 +283,7 @@ function extract_events($limitnum=0, $log='log', $type=null) {
     $fields = '*';
     $limitfrom = 0;
 
-    if ($log == 'log') {
+    if ($log == XAPI_REPORT_SOURCE_LOG) {
         $events = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);
     } else {
         $events = $DB->get_records('logstore_xapi_failed_log', $conditions, $sort, $fields, $limitfrom, $limitnum);

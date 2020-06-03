@@ -79,7 +79,7 @@ class failed_task extends \core\task\scheduled_task {
 
         // Copy failed events back into the xapi log and
         // deleted the failed events from the failed log.
-        $extractedfailedevents = extract_events($store->get_max_batch_size(), 'failed');
+        $extractedfailedevents = extract_events($store->get_max_batch_size(), XAPI_REPORT_SOURCE_FAILED);
         $this->insert_failed_events_into_xapi_log($extractedfailedevents);
         $this->delete_failed_events($extractedfailedevents);
 
