@@ -239,7 +239,7 @@ function logstore_xapi_get_info_string($row) {
  * @param $events events
  * @return array
  */
-function get_successful_events($events) {
+function logstore_xapi_get_successful_events($events) {
     $loadedevents = array_filter($events, function($loadedevent) {
         return $loadedevent['loaded'] === true;
     });
@@ -254,7 +254,7 @@ function get_successful_events($events) {
  *
  * @param array $event raw event data
  */
-function add_event_to_sent_log($event) {
+function logstore_xapi_add_event_to_sent_log($event) {
     global $DB;
 
     $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
@@ -272,7 +272,7 @@ function add_event_to_sent_log($event) {
  *
  * @return array
  */
-function extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = null) {
+function logstore_xapi_extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = null) {
     global $DB;
 
     $conditions = null;
@@ -296,7 +296,7 @@ function extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = nu
  *
  * @param array $events raw events data
  */
-function get_event_ids($loadedevents) {
+function logstore_xapi_get_event_ids($loadedevents) {
     return array_map(function ($loadedevent) {
         return $loadedevent['event']->id;
     }, $loadedevents);
@@ -307,9 +307,9 @@ function get_event_ids($loadedevents) {
  *
  * @param array $events raw events data
  */
-function delete_processed_events($events) {
+function logstore_xapi_delete_processed_events($events) {
     global $DB;
-    $eventids = get_event_ids($events);
+    $eventids = logstore_xapi_get_event_ids($events);
     $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
 }
 
@@ -318,8 +318,8 @@ function delete_processed_events($events) {
  *
  * @param array $events raw events data
  */
-function record_successful_events($events) {
-    mtrace(count(get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+function logstore_xapi_record_successful_events($events) {
+    mtrace(count(logstore_xapi_get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
 }
 
 /**
@@ -327,10 +327,10 @@ function record_successful_events($events) {
  *
  * @param array $events raw events data
  */
-function save_sent_events(array $events) {
-    $successfulevents = get_successful_events($events);
+function logstore_xapi_save_sent_events(array $events) {
+    $successfulevents = logstore_xapi_get_successful_events($events);
     foreach ($successfulevents as $event) {
-        add_event_to_sent_log($event);
+        logstore_xapi_add_event_to_sent_log($event);
     }
 }
 
@@ -340,7 +340,7 @@ function save_sent_events(array $events) {
  * @param $events events
  * @return array
  */
-function get_failed_events($events) {
+function logstore_xapi_get_failed_events($events) {
     $nonloadedevents = array_filter($events, function ($loadedevent) {
         return $loadedevent['loaded'] === false;
     });
@@ -356,10 +356,10 @@ function get_failed_events($events) {
  * @param $events events
  * @return none
  */
-function store_failed_events($events) {
+function logstore_xapi_store_failed_events($events) {
     global $DB;
 
-    $failedevents = get_failed_events($events);
+    $failedevents = logstore_xapi_get_failed_events($events);
     $DB->insert_records('logstore_xapi_failed_log', $failedevents);
     mtrace(count($failedevents) . " " . get_string('failed_events', 'logstore_xapi'));
 }

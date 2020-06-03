@@ -79,18 +79,18 @@ class failed_task extends \core\task\scheduled_task {
 
         // Copy failed events back into the xapi log and
         // deleted the failed events from the failed log.
-        $extractedfailedevents = extract_events($store->get_max_batch_size(), XAPI_REPORT_SOURCE_FAILED);
+        $extractedfailedevents = logstore_xapi_extract_events($store->get_max_batch_size(), XAPI_REPORT_SOURCE_FAILED);
         $this->insert_failed_events_into_xapi_log($extractedfailedevents);
         $this->delete_failed_events($extractedfailedevents);
 
         // Re-run as normal.
-        $extractedevents = extract_events($store->get_max_batch_size());
+        $extractedevents = logstore_xapi_extract_events($store->get_max_batch_size());
         $loadedevents = $store->process_events($extractedevents);
  
-        store_failed_events($loadedevents);
-        record_successful_events($loadedevents);
-        save_sent_events($loadedevents);
-        delete_processed_events($loadedevents);
+        logstore_xapi_store_failed_events($loadedevents);
+        logstore_xapi_record_successful_events($loadedevents);
+        logstore_xapi_save_sent_events($loadedevents);
+        logstore_xapi_delete_processed_events($loadedevents);
 
         echo "In failed task execute".PHP_EOL;
     }
