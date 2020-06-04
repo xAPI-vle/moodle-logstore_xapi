@@ -183,7 +183,7 @@ class store extends php_obj implements log_writer {
     }
 
     /**
-     * Take successful events and save each using add_event_to_sent_log.
+     * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
      *
      * @param array $events raw events data
      */
