@@ -50,11 +50,6 @@ if ($hassiteconfig) {
         get_string('maxbatchsizeforhistorical', 'logstore_xapi'),
         get_string('maxbatchsizeforhistorical_desc', 'logstore_xapi'), 30, PARAM_INT));
 
-    // Maximum batch size for reconciled records.
-    $settings->add(new admin_setting_configtext('logstore_xapi/maxbatchsizeforreconciled',
-        get_string('maxbatchsizeforreconciled', 'logstore_xapi'),
-        get_string('maxbatchsizeforreconciled_desc', 'logstore_xapi'), 30, PARAM_INT));
-
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/resendfailedbatches',
         get_string('resendfailedbatches', 'logstore_xapi'),
         get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
