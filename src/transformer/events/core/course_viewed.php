@@ -21,8 +21,13 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function course_viewed(array $config, \stdClass $event) {
+    global $CFG;
+
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+
+    // Get relateduserid or a valid userid for guest.
+    $userid = $event->userid == 0 && isset($CFG->siteguest) ? $CFG->siteguest : $event->userid;
+    $user = $repo->read_record_by_id('user', $userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
