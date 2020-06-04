@@ -42,14 +42,9 @@ $string['maxbatchsizeforhistorical'] = 'Maximum batch size for historical reques
 $string['maxbatchsizeforhistorical_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
         statements that will be sent in a single operation for historical requests. Setting this to zero will cause all available statements to
         be sent at once, although this is not recommended.';
-$string['maxbatchsizeforreconciled'] = 'Maximum batch size for reconciled requests';
-$string['maxbatchsizeforreconciled_desc'] = 'Statements are sent to the LRS in batches. This setting controls the maximum number of
-        statements that will be sent in a single operation for reconciled requests. Setting this to zero will cause all available statements to
-        be sent at once, although this is not recommended.';
 $string['taskemit'] = 'Emit records to LRS';
 $string['taskfailed'] = 'Emit failed records to LRS';
 $string['taskhistorical'] = 'Emit historical records to LRS';
-$string['taskreconciled'] = 'Emit reconciled records to LRS';
 $string['tasksendfailednotifications'] = 'Send failed notifications';
 $string['enablesendingnotifications'] = 'Send notifications?';
 $string['enablesendingnotifications_desc'] = 'Control if notifications should be sent to configured recipients.';
