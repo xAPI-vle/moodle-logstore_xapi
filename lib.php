@@ -323,7 +323,7 @@ function logstore_xapi_record_successful_events($events) {
 }
 
 /**
- * Take successful events and save each using add_event_to_sent_log.
+ * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
  *
  * @param array $events raw events data
  */
