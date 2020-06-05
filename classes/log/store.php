@@ -167,11 +167,20 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    public function get_max_batch_size_for_failed() {
+        return $this->get_config('maxbatchsizeforfailed', 100);
+    }
+
+    public function get_max_batch_size_for_historical() {
+        return $this->get_config('maxbatchsizeforhistorical', 100);
+    }
+
     /**
      * Take rows from logstore_standard_log for the emit_task or failed_task
      * and add in the logstorestandardlogid and set the type.
      *
      * @param array $events raw event data
+     * @param int $eventtype event type
      * @return array
      */
     private function get_persistent_eventids(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
@@ -194,6 +203,14 @@ class store extends php_obj implements log_writer {
         }
     }
 
+    /**
+     * Process events.
+     * Transform events using the correct event handler and save sent events.
+     *
+     * @param array $events raw event data
+     * @param int $eventtype event type
+     * @return array
+     */
     public function process_events(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
         $events = $this->convert_array_to_objects($events);
         $events = $this->get_persistent_eventids($events, $eventtype);
