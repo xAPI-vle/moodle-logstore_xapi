@@ -286,11 +286,7 @@ function logstore_xapi_extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_L
     $fields = '*';
     $limitfrom = 0;
 
-    if ($log == XAPI_REPORT_SOURCE_LOG) {
-        $events = $DB->get_records(XAPI_REPORT_SOURCE_LOG, $conditions, $sort, $fields, $limitfrom, $limitnum);
-    } else {
-        $events = $DB->get_records(XAPI_REPORT_SOURCE_FAILED, $conditions, $sort, $fields, $limitfrom, $limitnum);
-    }
+    $events = $DB->get_records($log, $conditions, $sort, $fields, $limitfrom, $limitnum);
     return $events;
 }
 
