@@ -25,15 +25,17 @@ define('XAPI_IMPORT_TYPE_HISTORIC', 1);
 define('XAPI_IMPORT_TYPE_RECONCILE', 2);
 
 // Report source.
+define('XAPI_REPORT_SOURCE_LOG', 'logstore_xapi_log');
 define('XAPI_REPORT_SOURCE_FAILED', 'logstore_xapi_failed_log');
 define('XAPI_REPORT_SOURCE_HISTORICAL', 'logstore_standard_log');
 
-// Error types
+// Error types.
 define('XAPI_REPORT_ERRORTYPE_NETWORK', 101);
 define('XAPI_REPORT_ERRORTYPE_RECIPE', 400);
 define('XAPI_REPORT_ERRORTYPE_AUTH', 401);
 define('XAPI_REPORT_ERRORTYPE_LRS', 500);
 define('XAPI_REPORT_ERRORTYPE_TRANSFORM', 10000); // This high number has been set to avoid conflicting with other error codes
+
 /**
  * Get all visible cohorts in the system.
  *
@@ -240,7 +242,7 @@ function logstore_xapi_get_info_string($row) {
  * @param $events events
  * @return array
  */
-function get_successful_events($events) {
+function logstore_xapi_get_successful_events($events) {
     $loadedevents = array_filter($events, function($loadedevent) {
         return $loadedevent['loaded'] === true;
     });
@@ -255,7 +257,7 @@ function get_successful_events($events) {
  *
  * @param array $event raw event data
  */
-function add_event_to_sent_log($event) {
+function logstore_xapi_add_event_to_sent_log($event) {
     global $DB;
 
     $row = $DB->get_record('logstore_xapi_sent_log', ['logstorestandardlogid' => $event->logstorestandardlogid]);
@@ -266,4 +268,101 @@ function add_event_to_sent_log($event) {
         $newrow->timecreated = time();
         $DB->insert_record('logstore_xapi_sent_log', $newrow);
     }
+}
+
+/**
+ * Extract events from logstore_xapi_log or logstore_xapi_failed_log.
+ *
+ * @param int $limitnum limit number
+ * @param int $log log source
+ * @param int $type event type
+ * @return array
+ */
+function logstore_xapi_extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = null) {
+    global $DB;
+
+    $conditions = null;
+    if ($type) {
+        $conditions = array("type" => $type);
+    }
+    $sort = '';
+    $fields = '*';
+    $limitfrom = 0;
+
+    $events = $DB->get_records($log, $conditions, $sort, $fields, $limitfrom, $limitnum);
+    return $events;
+}
+
+/**
+ * Get event ids.
+ *
+ * @param array $events raw events data
+ * @return array
+ */
+function logstore_xapi_get_event_ids($loadedevents) {
+    return array_map(function ($loadedevent) {
+        return $loadedevent['event']->id;
+    }, $loadedevents);
+}
+
+/**
+ * Delete processed events.
+ *
+ * @param array $events raw events data
+ */
+function logstore_xapi_delete_processed_events($events) {
+    global $DB;
+    $eventids = logstore_xapi_get_event_ids($events);
+    $DB->delete_records_list('logstore_xapi_log', 'id', $eventids);
+}
+
+/**
+ * Log the number of events using mtrace.
+ *
+ * @param array $events raw events data
+ */
+function logstore_xapi_record_successful_events($events) {
+    mtrace(count(logstore_xapi_get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
+}
+
+/**
+ * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
+ *
+ * @param array $events raw events data
+ */
+function logstore_xapi_save_sent_events(array $events) {
+    $successfulevents = logstore_xapi_get_successful_events($events);
+    foreach ($successfulevents as $event) {
+        logstore_xapi_add_event_to_sent_log($event);
+    }
+}
+
+/**
+ * Get failed events as array.
+ *
+ * @param $events events
+ * @return array
+ */
+function logstore_xapi_get_failed_events($events) {
+    $nonloadedevents = array_filter($events, function ($loadedevent) {
+        return $loadedevent['loaded'] === false;
+    });
+    $failedevents = array_map(function ($nonloadedevent) {
+        return $nonloadedevent['event'];
+    }, $nonloadedevents);
+    return $failedevents;
+}
+
+/**
+ * Store failed events in logstore_xapi_failed_log.
+ *
+ * @param $events events
+ * @return none
+ */
+function logstore_xapi_store_failed_events($events) {
+    global $DB;
+
+    $failedevents = logstore_xapi_get_failed_events($events);
+    $DB->insert_records('logstore_xapi_failed_log', $failedevents);
+    mtrace(count($failedevents) . " " . get_string('failed_events', 'logstore_xapi'));
 }

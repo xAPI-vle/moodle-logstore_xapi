@@ -167,36 +167,53 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    public function get_max_batch_size_for_failed() {
+        return $this->get_config('maxbatchsizeforfailed', 100);
+    }
+
+    public function get_max_batch_size_for_historical() {
+        return $this->get_config('maxbatchsizeforhistorical', 100);
+    }
+
     /**
      * Take rows from logstore_standard_log for the emit_task or failed_task
      * and add in the logstorestandardlogid and set the type.
      *
      * @param array $events raw event data
+     * @param int $eventtype event type
      * @return array
      */
-    private function get_persistent_eventids(array $events) {
+    private function get_persistent_eventids(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
         foreach ($events as $event) {
             $event->logstorestandardlogid = $this->get_event_id($event);
-            $event->type = XAPI_IMPORT_TYPE_LIVE;
+            $event->type = $eventtype;
         }
         return $events;
     }
 
     /**
-     * Take successful events and save each using add_event_to_sent_log.
+     * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
      *
      * @param array $events raw events data
      */
     private function save_sent_events(array $events) {
-        $successfulevents = get_successful_events($events);
+        $successfulevents = logstore_xapi_get_successful_events($events);
         foreach ($successfulevents as $event) {
-            add_event_to_sent_log($event);
+            logstore_xapi_add_event_to_sent_log($event);
         }
     }
 
-    public function process_events(array $events) {
+    /**
+     * Process events.
+     * Transform events using the correct event handler and save sent events.
+     *
+     * @param array $events raw event data
+     * @param int $eventtype event type
+     * @return array
+     */
+    public function process_events(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
         $events = $this->convert_array_to_objects($events);
-        $events = $this->get_persistent_eventids($events);
+        $events = $this->get_persistent_eventids($events, $eventtype);
 
         $config = $this->get_handler_config();
         $loadedevents = \src\handler($config, $events);
