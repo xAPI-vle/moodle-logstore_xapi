@@ -1,0 +1,62 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template logstore_xapi/failed_notification_email
+
+    Email template for the failed notifications.
+}}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 0.5em;
+    }
+  </style>
+  <title>{{#str}}datarequestemailsubject, logstore_xapi{{/str}}</title>
+</head>
+<body>
+<div>
+  <p>{{#str}}failedtosend, logstore_xapi{{/str}}</p>
+  <br/>
+  <p><a href="{{endpointurl}}">{{#str}}endpoint, logstore_xapi{{/str}}</a></p>
+  <p><a href="{{errorlogpageurl}}">{{#str}}errorlogpage, logstore_xapi{{/str}}</a></p>
+  <table>
+    <tr>
+      <th>
+        {{#str}}eventname, logstore_xapi{{/str}}
+      </th>
+      <th>
+        {{#str}}count, logstore_xapi{{/str}}
+      </th>
+    </tr>
+    {{# errors }}
+      <tr>
+        <td>
+          {{{ eventname }}}
+        </td>
+        <td>
+          {{{ count }}}
+        </td>
+      </tr>
+    {{/errors}}
+  </table>
+</div>
+</body>
+</html>
