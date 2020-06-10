@@ -53,16 +53,23 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     private function get_failed_last_id() {
         global $DB;
 
-        $lastnotification = $DB->get_record_sql('SELECT MAX(failedlogid) FROM {logstore_xapi_notif_sent_log}');
+        // We set the lastid to 0 in the event no notification emails have been sent.
+        // This will mean it will count all the rows in failed log.
+        $lastnotificationid = 0;
+        $lastnotification = $DB->get_record_sql('SELECT MAX(failedlogid) AS id FROM {logstore_xapi_notif_sent_log}');
 
-        $sql = 'SELECT MAX(id)
-                  FROM {logstore_xapi_notif_sent_log}
-                 WHERE COUNT(id) > :threshold
-                       AND id > :lastsentid';
+        if ($lastnotification) {
+            $lastnotificationid = $lastnotification->id;
+        }
+
+        $sql = 'SELECT MAX(id) AS id
+                  FROM {logstore_xapi_failed_log}
+                 WHERE id > :lastsentid
+                HAVING COUNT(id) > :threshold';
 
         $params = [
             'threshold' => get_config('logstore_xapi', 'errornotificationtrigger'),
-            'lastsentid' => $lastnotification->failedlogid
+            'lastsentid' => $lastnotificationid
         ];
 
         $lastnotification = $DB->get_record_sql($sql, $params);
@@ -83,7 +90,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         $sql = 'SELECT eventname, COUNT(eventname) AS count
                   FROM {logstore_xapi_failed_log}
-              GROUP BY errorname';
+              GROUP BY eventname';
 
         return $DB->get_records_sql($sql);
     }
@@ -139,7 +146,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
-        $output = $PAGE->get_renderer('logstore_xapi');
+        global $OUTPUT;
 
         echo get_string('insendfailednotificationstask', 'logstore_xapi') . PHP_EOL;
 
@@ -149,7 +156,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             return;
         }
 
-        $lastfailedid = get_failed_last_id();
+        $lastfailedid = $this->get_failed_last_id();
 
         if (empty($lastfailedid)) {
             echo get_string('notificationtriggerlimitnotreached', 'logstore_xapi') . PHP_EOL;
@@ -163,8 +170,9 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             $messagedata->endpointurl = $endpointurl;
         }
         $messagedata->errorlogpageurl = new \moodle_url('/admin/tool/log/store/xapi/report.php');
-        $messagedata->errors = $this->get_failed_counts();
-        $message = $output->render_from_template('logstore_xapi/failed_notification_email', $messagedata);
+        $errors = $this->get_failed_counts();
+        $messagedata->errors = array_values($errors);
+        $message = $OUTPUT->render_from_template('logstore_xapi/failed_notification_email', $messagedata);
 
         $users = logstore_xapi_get_users_for_notifications();
         foreach ($users as $user) {
