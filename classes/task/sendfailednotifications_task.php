@@ -72,10 +72,16 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         return false;
     }
 
+    /**
+     * Get the counts of failures for each error type
+     *
+     * @return array
+     * @throws \dml_exception
+     */
     private function get_failed_counts() {
         global $DB;
 
-        $sql = 'SELECT errorname, COUNT(errorname)
+        $sql = 'SELECT eventname, COUNT(eventname) AS count
                   FROM {logstore_xapi_failed_log}
               GROUP BY errorname';
 
