@@ -42,7 +42,7 @@ $systemcontext = context_system::instance();
 
 // Add require login and only admin allowed to see this page.
 require_login(null, false);
-if (!has_capability('moodle/site:config', $systemcontext)) {
+if (!has_capability('logstore/xapi:viewerrorlog', $systemcontext)) {
     print_error('accessdenied', 'admin');
 }
 
