@@ -45,31 +45,42 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     }
 
     /**
-     * Get the last id of the new notifications to send, if there are no notifications to send then return false.
+     * Get the last id of the last sent notification. This will be the largest id from the events from the last sent notification.
      *
-     * @return array|bool
+     * @return int
      * @throws \dml_exception
      */
-    private function get_failed_last_id() {
+    private function get_last_sent_id() {
         global $DB;
 
-        // We set the lastid to 0 in the event no notification emails have been sent.
-        // This will mean it will count all the rows in failed log.
-        $lastnotificationid = 0;
         $lastnotification = $DB->get_record_sql('SELECT MAX(failedlogid) AS id FROM {logstore_xapi_notif_sent_log}');
 
         if ($lastnotification) {
-            $lastnotificationid = $lastnotification->id;
+            return $lastnotification->id;
         }
+
+        // We return 0 in the event no notification emails have been sent before.
+        // This will mean it will count all the rows in failed log.
+        return 0;
+    }
+
+    /**
+     * Get the last id of the new notifications to send, if there are no notifications to send then return false.
+     *
+     * @return int|bool
+     * @throws \dml_exception
+     */
+    private function get_failed_last_id($lastsentid) {
+        global $DB;
 
         $sql = 'SELECT MAX(id) AS id
                   FROM {logstore_xapi_failed_log}
                  WHERE id > :lastsentid
-                HAVING COUNT(id) > :threshold';
+                HAVING COUNT(id) >= :threshold';
 
         $params = [
             'threshold' => get_config('logstore_xapi', 'errornotificationtrigger'),
-            'lastsentid' => $lastnotificationid
+            'lastsentid' => $lastsentid
         ];
 
         $lastnotification = $DB->get_record_sql($sql, $params);
@@ -80,19 +91,21 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     }
 
     /**
-     * Get the counts of failures for each error type
+     * Get the counts of failures for each error type. Only count events since last notification.
      *
+     * @param int $lastsentid id of the last failed event from the last sent notification.
      * @return array
      * @throws \dml_exception
      */
-    private function get_failed_counts() {
+    private function get_failed_counts($lastsentid) {
         global $DB;
 
         $sql = 'SELECT eventname, COUNT(eventname) AS count
                   FROM {logstore_xapi_failed_log}
+                 WHERE id > :lastsentid
               GROUP BY eventname';
 
-        return $DB->get_records_sql($sql);
+        return $DB->get_records_sql($sql, ['lastsentid' => $lastsentid]);
     }
 
     /**
@@ -101,8 +114,8 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
      * @param string $message email message
      * @param string $subject email subject
      * @param object $user user to receive email
-     * @param $lastfailedid
-     * @return int 1 = sent, 0 = not sent
+     * @param int $lastfailedid
+     * @return bool
      * @throws \dml_exception
      */
     private function send_notification_email($message, $subject, $user, $lastfailedid) {
@@ -156,7 +169,9 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             return;
         }
 
-        $lastfailedid = $this->get_failed_last_id();
+        $lastsentid = $this->get_last_sent_id();
+
+        $lastfailedid = $this->get_failed_last_id($lastsentid);
 
         if (empty($lastfailedid)) {
             echo get_string('notificationtriggerlimitnotreached', 'logstore_xapi') . PHP_EOL;
@@ -170,7 +185,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             $messagedata->endpointurl = $endpointurl;
         }
         $messagedata->errorlogpageurl = new \moodle_url('/admin/tool/log/store/xapi/report.php');
-        $errors = $this->get_failed_counts();
+        $errors = $this->get_failed_counts($lastsentid);
         $messagedata->errors = array_values($errors);
         $message = $OUTPUT->render_from_template('logstore_xapi/failed_notification_email', $messagedata);
 
