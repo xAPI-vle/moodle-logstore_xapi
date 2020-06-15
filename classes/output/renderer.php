@@ -14,12 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Renderer class for logstore_xapi
+ *
+ * @package    logstore_xapi
+ * @copyright  2020 Learning Pool Ltd <https://learningpool.com/>
+ * @author     Stephen O'Hara <stephen.ohara@learningpool.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace logstore_xapi\output;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2020061000;
+use plugin_renderer_base;
 
-$plugin->release = '';
-$plugin->requires = 2018051700;
-$plugin->maturity = MATURITY_STABLE;
+class renderer extends plugin_renderer_base {
+
+}
