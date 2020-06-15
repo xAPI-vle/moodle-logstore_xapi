@@ -134,9 +134,9 @@ function logstore_xapi_get_distinct_options_from_failed_table($column) {
     $options = [0 => get_string('any')];
     $results = $DB->get_fieldset_select('logstore_xapi_failed_log', "DISTINCT $column", '');
     if ($results) {
-        // The array keys by default are numbered, here we will assign the values to the keys
-        $results = array_combine($results, $results);
-        $options = array_merge($options, $results);
+        foreach ($results as $result) {
+            $options[$result] = $result;
+        }
     }
     return $options;
 }
