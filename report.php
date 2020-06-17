@@ -204,7 +204,6 @@ if ($canresenderrors) {
     $eventids = array_keys($DB->get_records_sql($sql, $params));
 
     if (!empty($eventids)) {
-
         $mover = new \logstore_xapi\log\moveback($eventids, $id);
         if ($mover->execute()) {
             $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
