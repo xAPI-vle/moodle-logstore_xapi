@@ -29,10 +29,16 @@ require_login();
 
 require_sesskey();
 
-require_capability('logstore/xapi:manageerrors', context_system::instance());
-
 $eventids = optional_param_array('events', 0, PARAM_INT);
 $historical = optional_param('historical', 0, PARAM_BOOL);
+
+$systemcontext = context_system::instance();
+
+if (empty($historical)) {
+    require_capability('logstore/xapi:manageerrors', $systemcontext);
+} else {
+    require_capability('logstore/xapi:managehistoric', $systemcontext);
+}
 
 $mover = new \logstore_xapi\log\moveback($eventids, $historical);
 
