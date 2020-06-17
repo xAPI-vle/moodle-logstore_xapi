@@ -66,8 +66,6 @@ $url = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id
 $PAGE->set_context($systemcontext);
 $PAGE->set_url($url);
 
-$canmanageerrors = has_capability('logstore/xapi:manageerrors', context_system::instance());
-
 // Set filter params and defaults.
 $eventnames = logstore_xapi_get_event_names_array();
 
@@ -103,11 +101,16 @@ $filterparams = [
 $basetable = XAPI_REPORT_SOURCE_FAILED;
 $extraselect = 'x.errortype, x.response';
 $pagename = 'logstorexapierrorlog';
+$canmanage = false;
 
 switch ($id) {
     case XAPI_REPORT_ID_ERROR:
         $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
         $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
+
+        if (has_capability('logstore/xapi:manageerrors', $systemcontext)) {
+            $canmanage = true;
+        }
         break;
 
     case XAPI_REPORT_ID_HISTORIC:
@@ -116,6 +119,9 @@ switch ($id) {
         $pagename = 'logstorexapihistoriclog';
 
         $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        if (has_capability('logstore/xapi:managehistoric', $systemcontext)) {
+            $canmanage = true;
+        }
         break;
 
     default:
@@ -192,12 +198,13 @@ $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecr
          WHERE $where";
 
 // Resend elements.
-$canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanageerrors;
+$canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
 
 if ($canresenderrors) {
     $eventids = array_keys($DB->get_records_sql($sql, $params));
 
     if (!empty($eventids)) {
+
         $mover = new \logstore_xapi\log\moveback($eventids, $id);
         if ($mover->execute()) {
             $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
@@ -289,7 +296,7 @@ $PAGE->set_title(get_string($pagename, 'logstore_xapi'));
 $PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
 
 // Add requested items to the page view.
-if ($canmanageerrors) {
+if ($canmanage) {
     $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count, XAPI_REPORT_RESEND_FALSE, XAPI_REPORT_RESEND_TRUE]);
 }
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
