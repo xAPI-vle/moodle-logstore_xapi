@@ -17,7 +17,6 @@
 namespace logstore_xapi\task;
 defined('MOODLE_INTERNAL') || die();
 
-use tool_log\log\manager;
 use logstore_xapi\log\store;
 
 class historical_task extends \core\task\scheduled_task {

@@ -17,9 +17,7 @@
 namespace logstore_xapi\task;
 defined('MOODLE_INTERNAL') || die();
 
-use tool_log\log\manager;
 use logstore_xapi\log\store;
-use stdClass;
 
 class emit_task extends \core\task\scheduled_task {
 
