@@ -61,6 +61,7 @@ function insert_row($table, $rowcsv) {
     global $DB;
     $obj = get_object();
     $strarr = explode(",", $rowcsv);
+    $type = logstore_xapi_get_type_from_table($table);
 
     $n = 0;
     foreach ($obj as $key => $value) {
@@ -77,6 +78,8 @@ function insert_row($table, $rowcsv) {
 
     // we don't have a corresponding logstore_standard_log entry so clear it
     $obj->logstorestandardlogid = 0;
+
+    $obj->type = $type;
 
     // if this is not set, unset it
     if ($obj->eventname == '\core\event\course_viewed') {
@@ -169,7 +172,7 @@ function create_test_data($table, $rows) {
 
 /**
  * Create a user and return the userid.
- * If the user already exists then return the userid. 
+ * If the user already exists then return the userid.
  *
  * @param string $username username
  * @param string $firstname firstname
