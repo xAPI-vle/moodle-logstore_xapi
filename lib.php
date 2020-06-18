@@ -22,7 +22,7 @@ define('XAPI_REPORT_ID_HISTORIC', 1);
 // Type constants.
 define('XAPI_IMPORT_TYPE_LIVE', 0);
 define('XAPI_IMPORT_TYPE_HISTORIC', 1);
-define('XAPI_IMPORT_TYPE_RECONCILE', 2);
+define('XAPI_IMPORT_TYPE_FAILED', 2);
 
 // Report source.
 define('XAPI_REPORT_SOURCE_LOG', 'logstore_xapi_log');

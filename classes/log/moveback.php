@@ -91,9 +91,11 @@ class moveback {
         $this->eventids = $eventids;
         $this->historical = $historical;
         $this->table = XAPI_REPORT_SOURCE_FAILED;
+        $this->type = XAPI_IMPORT_TYPE_FAILED;
 
         if ($this->historical) {
             $this->table = XAPI_REPORT_SOURCE_HISTORICAL;
+            $this->type = XAPI_IMPORT_TYPE_HISTORIC;
         }
 
         if (!empty($eventids)) {
@@ -124,6 +126,9 @@ class moveback {
         global $DB;
 
         $skipinsert = false;
+
+        // We set the event type so the scheduled tasks can differentiate the events for resending
+        $event->type = $this->type;
 
         if ($this->historical) {
             $params = array(
