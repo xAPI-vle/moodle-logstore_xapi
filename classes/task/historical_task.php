@@ -38,8 +38,9 @@ class historical_task extends \core\task\scheduled_task {
     public function execute() {
         $manager = get_log_manager();
         $store = new store($manager);
+        $batchsize = $store->get_max_batch_size_for_historical();
 
-        $extractedevents = logstore_xapi_extract_events($store->get_max_batch_size_for_historical(), XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_HISTORIC);
+        $extractedevents = logstore_xapi_extract_events($batchsize, XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_HISTORIC);
         $loadedevents = $store->process_events($extractedevents, XAPI_IMPORT_TYPE_HISTORIC);
 
         logstore_xapi_store_failed_events($loadedevents);
