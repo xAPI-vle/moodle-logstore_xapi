@@ -42,9 +42,6 @@ $systemcontext = context_system::instance();
 
 // Add require login and only admin allowed to see this page.
 require_login(null, false);
-if (!has_capability('logstore/xapi:viewerrorlog', $systemcontext)) {
-    print_error('accessdenied', 'admin');
-}
 
 // Read parameters
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
@@ -108,6 +105,8 @@ switch ($id) {
         $filterparams['errortypes'] = logstore_xapi_get_distinct_options_from_failed_table('errortype');
         $filterparams['responses'] = logstore_xapi_get_distinct_options_from_failed_table('response');
 
+        require_capability('logstore/xapi:viewerrorlog', $systemcontext);
+
         if (has_capability('logstore/xapi:manageerrors', $systemcontext)) {
             $canmanage = true;
         }
@@ -119,9 +118,10 @@ switch ($id) {
         $pagename = 'logstorexapihistoriclog';
 
         $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
-        if (has_capability('logstore/xapi:managehistoric', $systemcontext)) {
-            $canmanage = true;
-        }
+
+        require_capability('logstore/xapi:managehistoric', $systemcontext);
+        $canmanage = true;
+
         break;
 
     default:
