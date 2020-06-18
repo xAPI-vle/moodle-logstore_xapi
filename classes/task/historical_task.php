@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use logstore_xapi\log\store;
 
-class historical_task extends \core\task\scheduled_task {
+class historical_task extends emit_task {
 
     /**
      * Get a descriptive name for this task (shown to admins).
@@ -39,12 +39,12 @@ class historical_task extends \core\task\scheduled_task {
         $store = new store($manager);
         $batchsize = $store->get_max_batch_size_for_historical();
 
-        $extractedevents = logstore_xapi_extract_events($batchsize, XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_HISTORIC);
+        $extractedevents = $this->extract_events($batchsize, XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_HISTORIC);
         $loadedevents = $store->process_events($extractedevents, XAPI_IMPORT_TYPE_HISTORIC);
 
-        logstore_xapi_store_failed_events($loadedevents);
-        logstore_xapi_record_successful_events($loadedevents);
-        logstore_xapi_save_sent_events($loadedevents);
-        logstore_xapi_delete_processed_events($loadedevents);
+        $this->store_failed_events($loadedevents);
+        $this->record_successful_events($loadedevents);
+        $this->save_sent_events($loadedevents);
+        $this->delete_processed_events($loadedevents);
     }
 }
