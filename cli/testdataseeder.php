@@ -18,6 +18,7 @@
 define('CLI_SCRIPT', 1);
 require_once(__DIR__.'/../../../../../../config.php');
 require_once($CFG->libdir . '/testing/generator/lib.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 // create n-rows in each table
 // so we get one of each event and pad out the rest with course_viewed events
@@ -60,6 +61,7 @@ function insert_row($table, $rowcsv) {
     global $DB;
     $obj = get_object();
     $strarr = explode(",", $rowcsv);
+    $type = logstore_xapi_get_type_from_table($table);
 
     $n = 0;
     foreach ($obj as $key => $value) {
@@ -69,13 +71,15 @@ function insert_row($table, $rowcsv) {
     }
 
     // add in some failed data
-    if ($table == "logstore_xapi_failed_log") {
+    if ($table == XAPI_REPORT_SOURCE_FAILED) {
         $obj->errortype = "401";
         $obj->response = '{"errorId":"4f442d54-a027-4084-bf79-2e6571ded994","message":"Unauthorised"}';
     }
 
     // we don't have a corresponding logstore_standard_log entry so clear it
     $obj->logstorestandardlogid = 0;
+
+    $obj->type = $type;
 
     // if this is not set, unset it
     if ($obj->eventname == '\core\event\course_viewed') {
@@ -168,7 +172,7 @@ function create_test_data($table, $rows) {
 
 /**
  * Create a user and return the userid.
- * If the user already exists then return the userid. 
+ * If the user already exists then return the userid.
  *
  * @param string $username username
  * @param string $firstname firstname
@@ -213,8 +217,8 @@ function create_standing_data() {
 }
 
 function create_data_set() {
-    create_test_data("logstore_xapi_log", ROWS);
-    create_test_data("logstore_xapi_failed_log", ROWS);
+    create_test_data(XAPI_REPORT_SOURCE_LOG, ROWS);
+    create_test_data(XAPI_REPORT_SOURCE_FAILED, ROWS);
 }
 
 create_standing_data();

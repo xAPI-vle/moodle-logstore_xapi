@@ -17,9 +17,7 @@
 namespace logstore_xapi\task;
 defined('MOODLE_INTERNAL') || die();
 
-use tool_log\log\manager;
 use logstore_xapi\log\store;
-use stdClass;
 
 class emit_task extends \core\task\scheduled_task {
 
@@ -39,8 +37,9 @@ class emit_task extends \core\task\scheduled_task {
     public function execute() {
         $manager = get_log_manager();
         $store = new store($manager);
+        $batchsize = $store->get_max_batch_size();
 
-        $extractedevents = logstore_xapi_extract_events($store->get_max_batch_size(), XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_LIVE);
+        $extractedevents = logstore_xapi_extract_events($batchsize, XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_LIVE);
         $loadedevents = $store->process_events($extractedevents);
 
         logstore_xapi_store_failed_events($loadedevents);
