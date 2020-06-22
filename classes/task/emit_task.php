@@ -23,6 +23,22 @@ use logstore_xapi\log\store;
 
 class emit_task extends \core\task\scheduled_task {
 
+    /** @var int $batchsize - Batch size for sending tasks to LRS */
+    protected $batchsize;
+
+    /** @var int $type - The import type we are targeting to send */
+    protected $type = XAPI_IMPORT_TYPE_LIVE;
+
+    /**
+     * emit_task constructor.
+     */
+    public function __construct() {
+        $manager = get_log_manager();
+        $store = new store($manager);
+
+        $this->batchsize = $store->get_max_batch_size();
+    }
+
     /**
      * Get a descriptive name for this task (shown to admins).
      *
@@ -85,10 +101,10 @@ class emit_task extends \core\task\scheduled_task {
      * @return array
      * @throws \dml_exception
      */
-    protected function extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG, $type = XAPI_IMPORT_TYPE_LIVE) {
+    protected function extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_LOG) {
         global $DB;
 
-        $conditions = array('type' => $type);
+        $conditions = array('type' => $this->type);
         $sort = '';
         $fields = '*';
         $limitfrom = 0;
@@ -168,9 +184,8 @@ class emit_task extends \core\task\scheduled_task {
     public function execute() {
         $manager = get_log_manager();
         $store = new store($manager);
-        $batchsize = $store->get_max_batch_size();
 
-        $extractedevents = $this->extract_events($batchsize);
+        $extractedevents = $this->extract_events($this->batchsize);
         $loadedevents = $store->process_events($extractedevents);
 
         $this->store_failed_events($loadedevents);

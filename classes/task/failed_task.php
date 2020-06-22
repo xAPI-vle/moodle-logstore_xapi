@@ -22,6 +22,17 @@ use logstore_xapi\log\store;
 class failed_task extends emit_task {
 
     /**
+     * failed_task constructor.
+     */
+    public function __construct() {
+        $manager = get_log_manager();
+        $store = new store($manager);
+
+        $this->batchsize = $store->get_max_batch_size_for_failed();
+        $this->type = XAPI_IMPORT_TYPE_FAILED;
+    }
+
+    /**
      * Get a descriptive name for this task (shown to admins).
      *
      * @return string
@@ -39,6 +50,7 @@ class failed_task extends emit_task {
         $store = new store($manager);
         $batchsize = $store->get_max_batch_size_for_failed();
 
+        // TODO: replace with types in emit task
         $extractedevents = $this->extract_events($batchsize, XAPI_REPORT_SOURCE_LOG, XAPI_IMPORT_TYPE_FAILED);
         $loadedevents = $store->process_events($extractedevents, XAPI_IMPORT_TYPE_FAILED);
 
