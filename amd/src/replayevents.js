@@ -88,8 +88,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             PAGE_LINKS: '.pagination .page-item .page-link',
             REPLAY_EVENTS: '#xapierrorlog_data .reply-event',
             SELECTS: '#xapierrorlog_form .custom-select',
+            SELECT_CONTEXT: '#xapierrorlog_form #id_eventcontext',
             SELECT_ERRORTYPE: '#xapierrorlog_form #id_errortype',
-            SELECT_EVENTNAME: '#xapierrorlog_form #id_eventname',
+            SELECT_EVENTNAME: '#xapierrorlog_form #id_eventnames',
             SELECT_RESPONSE: '#xapierrorlog_form #id_response',
             SELECT_DATAFROM: '#xapierrorlog_form #id_datefrom .custom-select',
             SELECT_DATATO: '#xapierrorlog_form #id_dateto .custom-select',
@@ -266,6 +267,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                         notification.confirm(s[0], s[1], s[2], s[3],
                             function() {
                                 $(SELECTORS.SEND_CAN_DO).val(canResend);
+                                self.enableFormControls();
                                 $(SELECTORS.FORM).submit();
                             },
                             function() {
@@ -407,6 +409,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                 this.enableElements($(SELECTORS.SELECT_ERRORTYPE));
                 this.enableElements($(SELECTORS.SELECT_EVENTNAME));
                 this.enableElements($(SELECTORS.SELECT_RESPONSE));
+                this.enableElements($(SELECTORS.SELECT_CONTEXT));
 
                 if ($(SELECTORS.CHECKBOX_DATEFROM).is(':checked')) {
                     this.enableElements($(SELECTORS.SELECT_DATAFROM));
