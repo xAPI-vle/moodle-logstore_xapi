@@ -278,7 +278,7 @@ function logstore_xapi_add_event_to_sent_log($event) {
  * @param int $type event type
  * @return array
  */
-function logstore_xapi_extract_events($limitnum = 0, $log, $type) {
+function logstore_xapi_extract_events($limitnum, $log, $type) {
     global $DB;
 
     $conditions = array("type" => $type);
