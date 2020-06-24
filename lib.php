@@ -282,7 +282,7 @@ function logstore_xapi_extract_events($limitnum = 0, $log = XAPI_REPORT_SOURCE_L
     global $DB;
 
     $conditions = null;
-    if ($type) {
+    if (!empty($type) || $type == XAPI_IMPORT_TYPE_LIVE) {
         $conditions = array("type" => $type);
     }
     $sort = '';
