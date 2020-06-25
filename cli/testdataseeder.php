@@ -63,6 +63,11 @@ function insert_row($table, $rowcsv) {
     $strarr = explode(",", $rowcsv);
     $type = logstore_xapi_get_type_from_table($table);
 
+    if ($table == XAPI_IMPORT_TYPE_HISTORIC) {
+        $table = XAPI_REPORT_SOURCE_LOG;
+        $type = XAPI_IMPORT_TYPE_HISTORIC;
+    }
+
     $n = 0;
     foreach ($obj as $key => $value) {
         $clean = clean_string($strarr[$n]);
@@ -79,6 +84,7 @@ function insert_row($table, $rowcsv) {
     // we don't have a corresponding logstore_standard_log entry so clear it
     $obj->logstorestandardlogid = 0;
 
+    // ensure type is set and not overwritten by template value
     $obj->type = $type;
 
     // if this is not set, unset it
@@ -219,6 +225,7 @@ function create_standing_data() {
 function create_data_set() {
     create_test_data(XAPI_REPORT_SOURCE_LOG, ROWS);
     create_test_data(XAPI_REPORT_SOURCE_FAILED, ROWS);
+    create_test_data(XAPI_IMPORT_TYPE_HISTORIC, ROWS);
 }
 
 create_standing_data();
