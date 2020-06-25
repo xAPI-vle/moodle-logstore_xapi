@@ -63,11 +63,6 @@ function insert_row($table, $rowcsv) {
     $strarr = explode(",", $rowcsv);
     $type = logstore_xapi_get_type_from_table($table);
 
-    if ($table == XAPI_REPORT_SOURCE_HISTORICAL) {
-        $table = XAPI_REPORT_SOURCE_LOG;
-        $type = XAPI_IMPORT_TYPE_HISTORIC;
-    }
-
     $n = 0;
     foreach ($obj as $key => $value) {
         $clean = clean_string($strarr[$n]);
