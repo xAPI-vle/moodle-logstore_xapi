@@ -55,7 +55,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         $lastnotification = $DB->get_record_sql('SELECT MAX(failedlogid) AS id FROM {logstore_xapi_notif_sent_log}');
 
-        if ($lastnotification) {
+        if ($lastnotification && isset($lastnotification->id)) {
             return $lastnotification->id;
         }
 
