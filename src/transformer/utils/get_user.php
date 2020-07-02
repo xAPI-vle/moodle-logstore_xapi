@@ -29,7 +29,7 @@ function get_user(array $config, \stdClass $user) {
         ];
     }
 
-    if (array_key_exists('send_username', $config) && $config['send_username'] === true) {
+    if (array_key_exists('send_username', $config) && $config['send_username'] == true) {
         return [
             'name' => $fullname,
             'account' => [
