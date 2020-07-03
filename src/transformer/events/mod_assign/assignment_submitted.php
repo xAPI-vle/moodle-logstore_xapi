@@ -28,7 +28,7 @@ function assignment_submitted(array $config, \stdClass $event) {
     $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
     $lang = utils\get_course_lang($course);
 
-    $verb = utils\get_verb($config, $lang, 'submit');
+    $verb = utils\get_verb($config, $lang, 'submitted');
 
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
         $verb = utils\get_verb($config, $lang, 'completed');
