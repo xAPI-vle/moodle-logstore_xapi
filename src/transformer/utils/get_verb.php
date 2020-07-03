@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -28,17 +27,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return array
  * @throws \coding_exception
  */
-function get_verb($verb, array $config, $lang = '') {
-
-    // Set lang if it is not set.
-    if (empty($lang)) {
-        // Default is en.
-        $lang = get_course_lang(new stdClass());
-
-        if (!empty($config['source_lang'])) {
-            $lang = $config['source_lang'];
-        }
-    }
+function get_verb($verb, array $config, $lang) {
 
     $output = array();
     switch ($verb) {
@@ -49,20 +38,6 @@ function get_verb($verb, array $config, $lang = '') {
                     $lang => 'completed'
                 ],
             ];
-            break;
-
-        case 'loggedin':
-            $output = [
-                'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
-                'display' => [
-                    $lang => 'logged into'
-                ],
-            ];
-
-            // Difference to standards.
-            if (is_enabled_config($config, 'send_jisc_data')) {
-                $output['id'] = 'https://brindlewaye.com/xAPITerms/verbs/loggedin';
-            }
             break;
 
         case 'submitted':
@@ -77,7 +52,6 @@ function get_verb($verb, array $config, $lang = '') {
         default:
             break;
     }
-
 
     if (empty($output)) {
         throw new \coding_exception(get_string('unknownverb', 'logstore_xapi'));
