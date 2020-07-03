@@ -28,14 +28,15 @@ function assignment_submitted(array $config, \stdClass $event) {
     $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
     $lang = utils\get_course_lang($course);
 
+    $verb = utils\get_verb($config, $lang, 'submit');
+
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        $verb = utils\get_verb($config, $lang, 'completed');
+    }
+
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/submit',
-            'display' => [
-                $lang => 'submitted'
-            ],
-        ],
+        'verb' => $verb,
         'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [

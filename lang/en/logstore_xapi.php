@@ -104,6 +104,7 @@ $string['user'] = 'User';
 $string['user_help'] = 'Searches the users fullname';
 $string['contextidnolongerexists'] = 'Context ID {$a} no longer exists';
 $string['count'] = 'Count';
+$string['unknownverb'] = 'Unknown verb was requested, It should be set by developer.';
 
 // Capabilities
 $string['xapi:viewerrorlog'] = 'View xAPI error log';
