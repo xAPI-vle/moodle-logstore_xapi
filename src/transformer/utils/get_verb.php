@@ -18,6 +18,8 @@ namespace src\transformer\utils;
 
 defined('MOODLE_INTERNAL') || die();
 
+use src\transformer\utils as utils;
+
 /**
  * Return the requested verb with details.
  *
@@ -47,6 +49,20 @@ function get_verb($verb, array $config, $lang) {
                     $lang => 'submitted'
                 ],
             ];
+            break;
+
+        case 'loggedin':
+            $output = [
+                'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
+                'display' => [
+                    $lang = 'logged into'
+                ]
+            ];
+
+            // JISC specific verb id
+            if (utils\is_enabled_config($config, 'send_jisc_data')) {
+                $output['id'] = 'https://brindlewaye.com/xAPITerms/verbs/loggedin';
+            }
             break;
 
         default:
