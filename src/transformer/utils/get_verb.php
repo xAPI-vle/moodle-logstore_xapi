@@ -42,6 +42,15 @@ function get_verb($verb, array $config, $lang) {
             ];
             break;
 
+        case 'scored':
+            $output = [
+                'id' => 'http://adlnet.gov/expapi/verbs/scored',
+                'display' => [
+                    $lang => 'attained grade for'
+                ],
+            ];
+            break;
+
         case 'submitted':
             $output = [
                 'id' => 'http://activitystrea.ms/schema/1.0/submit',
