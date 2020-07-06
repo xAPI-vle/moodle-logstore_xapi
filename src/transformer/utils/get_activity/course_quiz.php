@@ -20,10 +20,12 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function course_quiz(array $config, \stdClass $course, $cmid) {
-    return utils\get_activity\course_module(
-        $config,
-        $course,
-        $cmid,
-        'http://adlnet.gov/expapi/activities/assessment'
-    );
+    $xapytype = 'http://adlnet.gov/expapi/activities/assessment';
+
+    // JISC specific activity type
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        $xapytype = 'http://xapi.jisc.ac.uk/activities/quiz';
+    }
+
+    return utils\get_activity\course_module($config, $course, $cmid, $xapytype);
 }
