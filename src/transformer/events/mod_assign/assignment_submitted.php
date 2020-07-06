@@ -29,18 +29,15 @@ function assignment_submitted(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
 
     $verb = utils\get_verb('submitted', $config, $lang);
-    $object = utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang);
 
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
         $verb = utils\get_verb('completed', $config, $lang);
-
-        $object['definition']['extensions']['http://xapi.jisc.ac.uk/dueDate'] = $course->startdate;
     }
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,
-        'object' => $object,
+        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
