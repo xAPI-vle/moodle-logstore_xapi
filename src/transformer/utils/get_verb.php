@@ -79,6 +79,15 @@ function get_verb($verb, array $config, $lang) {
             ];
             break;
 
+        case 'started':
+            $output = [
+                'id' => 'http://activitystrea.ms/schema/1.0/start',
+                'display' => [
+                    $lang => 'started'
+                ],
+            ];
+            break;
+
         case 'submitted':
             $output = [
                 'id' => 'http://activitystrea.ms/schema/1.0/submit',
