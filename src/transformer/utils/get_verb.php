@@ -42,15 +42,6 @@ function get_verb($verb, array $config, $lang) {
             ];
             break;
 
-        case 'submitted':
-            $output = [
-                'id' => 'http://activitystrea.ms/schema/1.0/submit',
-                'display' => [
-                    $lang => 'submitted'
-                ],
-            ];
-            break;
-
         case 'loggedin':
             $output = [
                 'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
@@ -77,6 +68,24 @@ function get_verb($verb, array $config, $lang) {
             if (utils\is_enabled_config($config, 'send_jisc_data')) {
                 $output['id'] = 'https://brindlewaye.com/xAPITerms/verbs/loggedout';
             }
+            break;
+
+        case 'scored':
+            $output = [
+                'id' => 'http://adlnet.gov/expapi/verbs/scored',
+                'display' => [
+                    $lang => 'attained grade for'
+                ],
+            ];
+            break;
+
+        case 'submitted':
+            $output = [
+                'id' => 'http://activitystrea.ms/schema/1.0/submit',
+                'display' => [
+                    $lang => 'submitted'
+                ],
+            ];
             break;
 
         default:
