@@ -42,7 +42,7 @@ function attempt_reviewed(array $config, \stdClass $event) {
 
     // Set JISC specific activity type.
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $object['definition']['type'] = 'http://xapi.jisc.ac.uk/activities/quiz';
+        $object = utils\get_activity\course_quiz($config, $course, $event->contextinstanceid);
     }
 
     return [[
