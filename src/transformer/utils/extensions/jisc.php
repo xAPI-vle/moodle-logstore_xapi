@@ -18,6 +18,7 @@ namespace src\transformer\utils\extensions;
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
+use src\transformer\utils\extensions as extensions;
 
 function jisc(array $config, \stdClass $event, $course) {
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
@@ -27,7 +28,7 @@ function jisc(array $config, \stdClass $event, $course) {
                 'http://id.tincanapi.com/extension/ip-address' => $event->ip,
                 'http://xapi.jisc.ac.uk/statementCat' => 'VLE',
             ],
-            course_area($course)
+            extensions\course_area($course)
         );
     }
     return [];
