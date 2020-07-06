@@ -27,12 +27,7 @@ function user_loggedin(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
-            'display' => [
-                $lang => 'logged into'
-            ],
-        ],
+        'verb' => utils\get_verb('loggedin', $config, $lang),
         'object' => utils\get_activity\site($config),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
