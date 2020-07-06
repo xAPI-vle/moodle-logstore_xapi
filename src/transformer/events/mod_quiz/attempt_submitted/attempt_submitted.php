@@ -39,12 +39,7 @@ function attempt_submitted(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
-            'display' => [
-                $lang => 'completed'
-            ],
-        ],
+        'verb' => utils\get_verb('completed', $config, $lang),
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => utils\get_attempt_result($config, $attempt, $gradeitem, $attemptgrade),
