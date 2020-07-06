@@ -28,12 +28,7 @@ function course_module_viewed(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
-            'display' => [
-                $lang => 'viewed'
-            ],
-        ],
+        'verb' => utils\get_verb('viewed', $config, $lang),
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
