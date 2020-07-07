@@ -20,8 +20,8 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function course_assignment(array $config, $cmid, $name, $lang) {
-    return [
-        'id' => $config['app_url'].'/mod/assign/view.php?id='.$cmid,
+    $object = [
+        'id' => $config['app_url'] . '/mod/assign/view.php?id=' . $cmid,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/assessment',
             'name' => [
@@ -29,4 +29,14 @@ function course_assignment(array $config, $cmid, $name, $lang) {
             ],
         ],
     ];
+
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $course = $repo->read_record_by_id('course', $coursemodule->course);
+
+        $object['definition']['extensions']['http://xapi.jisc.ac.uk/dueDate'] = $course->startdate;
+    }
+
+    return $object;
 }
