@@ -26,15 +26,17 @@ function attempt_viewed(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
+    $object = utils\get_activity\quiz_attempt($config, $event->id, $event->contextinstanceid);
+
+    // JISC specific activity type.
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        $object = utils\get_activity\course_quiz($config, $course, $event->contextinstanceid);
+    }
+
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
-            'display' => [
-                $lang => 'viewed'
-            ],
-        ],
-        'object' => utils\get_activity\quiz_attempt($config, $event->id, $event->contextinstanceid),
+        'verb' => utils\get_verb('viewed', $config, $lang),
+        'object' => $object,
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
