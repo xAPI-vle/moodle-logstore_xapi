@@ -18,18 +18,14 @@ namespace src\transformer\utils\extensions;
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
-use src\transformer\utils\extensions as extensions;
 
 function jisc(array $config, \stdClass $event, $course) {
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        return array_merge(
-            [
-                'http://xapi.jisc.ac.uk/sessionId' => $config['session_id'],
-                'http://id.tincanapi.com/extension/ip-address' => $event->ip,
-                'http://xapi.jisc.ac.uk/statementCat' => 'VLE',
-            ],
-            extensions\course_area($course)
-        );
-    }
-    return [];
+    return array_merge(
+        [
+            'http://xapi.jisc.ac.uk/sessionId' => $config['session_id'],
+            'http://id.tincanapi.com/extension/ip-address' => $event->ip,
+            'http://xapi.jisc.ac.uk/statementCat' => 'VLE',
+        ],
+        utils\extensions\course_area($course)
+    );
 }
