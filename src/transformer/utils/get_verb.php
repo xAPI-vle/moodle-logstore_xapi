@@ -88,6 +88,15 @@ function get_verb($verb, array $config, $lang) {
             ];
             break;
 
+        case 'viewed':
+            $output = [
+                'id' => 'http://id.tincanapi.com/verb/viewed',
+                'display' => [
+                    $lang => 'viewed'
+                ],
+            ];
+            break;
+
         default:
             break;
     }
