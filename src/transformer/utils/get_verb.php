@@ -70,6 +70,15 @@ function get_verb($verb, array $config, $lang) {
             }
             break;
 
+        case 'received':
+            $output = [
+                'id' => 'http://activitystrea.ms/schema/1.0/receive',
+                'display' => [
+                    $lang => 'received'
+                ],
+            ];
+            break;
+
         case 'scored':
             $output = [
                 'id' => 'http://adlnet.gov/expapi/verbs/scored',
