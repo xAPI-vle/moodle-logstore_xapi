@@ -28,8 +28,8 @@ before_install:
   - echo "Travis branch $TRAVIS_BRANCH"
   - composer install --no-interaction
   - phpenv config-rm xdebug.ini
-  - nvm install 8.9
-  - nvm use 8.9
+  - nvm install --lts
+  - nvm use --lts
   - cd ../..
   - composer selfupdate
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
