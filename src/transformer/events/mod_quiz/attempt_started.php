@@ -31,12 +31,7 @@ function attempt_started(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/start',
-            'display' => [
-                $lang => 'started'
-            ],
-        ],
+        'verb' => utils\get_verb('started', $config, $lang),
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [

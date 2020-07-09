@@ -57,12 +57,7 @@ function assignment_graded(array $config, \stdClass $event) {
 
     $statement = [
         'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/scored',
-            'display' => [
-                $lang => 'attained grade for'
-            ],
-        ],
+        'verb' => utils\get_verb('scored', $config, $lang),
         'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
         'result' => [
             'score' => [
