@@ -22,7 +22,7 @@ use src\transformer\utils as utils;
 function course_quiz(array $config, \stdClass $course, $cmid) {
     $xapytype = 'http://adlnet.gov/expapi/activities/assessment';
 
-    // JISC specific activity type
+    // JISC specific activity type.
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
         $xapytype = 'http://xapi.jisc.ac.uk/activities/quiz';
     }
