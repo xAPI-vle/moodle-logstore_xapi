@@ -43,9 +43,9 @@ $systemcontext = context_system::instance();
 // Add require login and only admin allowed to see this page.
 require_login(null, false);
 
-// Read parameters
-$id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID
-$page         = optional_param('page',XAPI_REPORT_STARTING_PAGE, PARAM_INT);
+// Read parameters.
+$id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID.
+$page         = optional_param('page', XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 $onpage       = optional_param('onpage', XAPI_REPORT_ONPAGE_DEFAULT, PARAM_TEXT);
 
@@ -214,7 +214,7 @@ if ($canresenderrors) {
 }
 
 // Collect events to create view.
-$results = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
+$results = $DB->get_records_sql($sql, $params, $page * $perpage, $perpage);
 
 $sql = "SELECT COUNT(x.id)
           FROM {{$basetable}} x
@@ -223,7 +223,7 @@ $sql = "SELECT COUNT(x.id)
          WHERE $where";
 $count = $DB->count_records_sql($sql, $params);
 
-// Now we have the count we can set this value for the submit button
+// Now we have the count we can set this value for the submit button.
 $submitcount = new stdClass();
 $submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 $submitcount->resendselected = get_string('resendevents', 'logstore_xapi', ['count' => $count]);
@@ -258,7 +258,7 @@ if (!empty($results)) {
         if ($id == XAPI_REPORT_ID_HISTORIC) {
             $row[] = $result->username;
 
-            if ($context = context::instance_by_id($result->contextid, IGNORE_MISSING)){
+            if ($context = context::instance_by_id($result->contextid, IGNORE_MISSING)) {
                 $row[] = $context->get_context_name();
             } else {
                 $row[] = get_string('contextidnolongerexists', 'logstore_xapi', $result->contextid);
