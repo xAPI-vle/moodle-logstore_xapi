@@ -16,6 +16,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG; // Reuired to reportfilter_form.
+
+require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
+require_once (__DIR__ . "/../classes/form/reportfilter_form.php");
+
 /**
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
