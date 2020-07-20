@@ -128,4 +128,4 @@ class failed_report_test extends advanced_testcase {
         $expectedcount->logstore_xapi_log = 1;
         $this->assert_store_tables($expectedcount);
     }
- }
+}
