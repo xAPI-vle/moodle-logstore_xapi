@@ -269,6 +269,7 @@ if (!empty($results)) {
             $response = '';
             if (isset($result->response)) {
                 // $response = '<pre>' . print_r(logstore_xapi_decode_response($result->response), true) . '</pre>';
+                $response = '+';
             } else {
                 $response = '-';
             }
