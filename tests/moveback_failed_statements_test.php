@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use logstore_xapi\log\moveback;
-use logstore_xapi\task\emit_task;
 
 defined('MOODLE_INTERNAL') || die();
+
+require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
 
 /**
  * @package    logstore_xapi
@@ -25,152 +26,16 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class moveback_failed_statements_test extends advanced_testcase {
-
-    /**
-     * Investigate given counts.
-     *
-     * @param stdClass $counts
-     */
-    protected function assert_store_tables(stdClass $counts) {
-        global $DB;
-
-        if (isset($counts->logstore_standard_log)) {
-            $logs = $DB->get_records('logstore_standard_log', array(), 'id ASC');
-            $this->assertCount($counts->logstore_standard_log, $logs);
-        }
-
-        if (isset($counts->logstore_xapi_log)) {
-            $logs = $DB->get_records('logstore_xapi_log', array(), 'id ASC');
-            $this->assertCount($counts->logstore_xapi_log, $logs);
-        }
-
-        if (isset($counts->logstore_xapi_failed_log)) {
-            $logs = $DB->get_records('logstore_xapi_failed_log', array(), 'id ASC');
-            $this->assertCount($counts->logstore_xapi_failed_log, $logs);
-        }
-    }
-
-    /**
-     * Generate log data.
-     *
-     * @param testing_data_generator $generator
-     * @return bool|int generated record id or false
-     */
-    protected function add_test_log_data(testing_data_generator $generator) {
-        global $DB;
-
-        $user = $generator->create_user();
-        $course = $generator->create_course();
-        $context = context_course::instance($course->id);
-
-        $record = (object)array(
-            'eventname' => '\core\event\course_viewed',
-            'component' => 'core',
-            'action' => 'viewed',
-            'target' => 'course',
-            'crud' => 'r',
-            'edulevel' => 2,
-            'contextid' => $context->id,
-            'contextlevel' => $context->contextlevel,
-            'contextinstanceid' => $context->instanceid,
-            'userid' => $user->id,
-            'timecreated' => time(),
-        );
-        $record->logstorestandardlogid = $DB->insert_record('logstore_standard_log', $record);
-
-        return $DB->insert_record('logstore_xapi_log', $record);
-    }
+class moveback_failed_statements_test extends enchancement_jisc_skeleton {
 
     public function test_general() {
-        $this->resetAfterTest();
-        $this->setAdminUser();
-
-        // Test all plugins are disabled by this command.
-        set_config('enabled_stores', '', 'tool_log');
-
-        $manager = get_log_manager(true);
-        $stores = $manager->get_readers();
-
-        $this->assertCount(0, $stores);
-
-        // Enable both log stores.
-        set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
-        set_config('buffersize', 0, 'logstore_standard');
-        set_config('logguests', 1, 'logstore_standard');
-        set_config('buffersize', 0, 'logstore_xapi');
-        set_config('logguests', 1, 'logstore_xapi');
-
-        // We have only one readers.
-        $manager = get_log_manager(true);
-        $stores = $manager->get_readers();
-        $this->assertCount(1, $stores);
-
-        // But both are writter.
-        $store = new logstore_standard\log\store($manager);
-        $this->assertInstanceOf('logstore_standard\log\store', $store);
-        $this->assertInstanceOf('tool_log\log\writer', $store);
-        $this->assertTrue($store->is_logging());
-
-        $store = new logstore_xapi\log\store($manager);
-        $this->assertInstanceOf('logstore_xapi\log\store', $store);
-        $this->assertInstanceOf('tool_log\log\writer', $store);
-        $this->assertTrue($store->is_logging());
-
-        // We don't have records in store tables.
-        $expectedcount = new stdClass();
-        $expectedcount->logstore_standard_log = 0;
-        $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = 0;
-        $this->assert_store_tables($expectedcount);
-
-        $generator = $this->getDataGenerator();
-        $this->add_test_log_data($generator);
-
-        $expectedcount->logstore_standard_log = 11;
-        $expectedcount->logstore_xapi_log = 1;
-        $this->assert_store_tables($expectedcount);
-
+        parent::test_general();
     }
 
     public function test_single_element() {
         global $DB;
 
-        $this->resetAfterTest();
-        $this->setAdminUser();
-
-        // Enable log stores.
-        set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
-        set_config('buffersize', 0, 'logstore_standard');
-        set_config('logguests', 1, 'logstore_standard');
-        set_config('buffersize', 0, 'logstore_xapi');
-        set_config('logguests', 1, 'logstore_xapi');
-
-        $expectedcount = new stdClass();
-        $expectedcount->logstore_standard_log = 0;
-        $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = 0;
-        $this->assert_store_tables($expectedcount);
-
-        $generator = $this->getDataGenerator();
-        $this->add_test_log_data($generator);
-
-        $expectedcount->logstore_standard_log = 11;
-        $expectedcount->logstore_xapi_log = 1;
-        $expectedcount->logstore_xapi_failed_log = 0;
-        $this->assert_store_tables($expectedcount);
-
-        // Run emit_task silently.
-        set_debugging(DEBUG_NONE);
-        $task = new emit_task();
-        ob_start();
-        $task->execute();
-        ob_end_clean();
-
-        unset($expectedcount->logstore_standard_log);
-        $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = 1;
-        $this->assert_store_tables($expectedcount);
+        parent::test_single_element();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount(1, $records);
@@ -181,6 +46,7 @@ class moveback_failed_statements_test extends advanced_testcase {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
+        $expectedcount = new stdClass();
         $expectedcount->logstore_xapi_log = 1;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
@@ -189,46 +55,10 @@ class moveback_failed_statements_test extends advanced_testcase {
     public function test_multiple_elements() {
         global $DB;
 
-        $this->resetAfterTest();
-        $this->setAdminUser();
-
-        // Enable log stores.
-        set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
-        set_config('buffersize', 0, 'logstore_standard');
-        set_config('logguests', 1, 'logstore_standard');
-        set_config('buffersize', 0, 'logstore_xapi');
-        set_config('logguests', 1, 'logstore_xapi');
-
-        $expectedcount = new stdClass();
-        $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = 0;
-        $this->assert_store_tables($expectedcount);
-
-        $generator = $this->getDataGenerator();
-
-        $imax = 5;
-
-        for ($i = 1; $i <= $imax; $i++) {
-            $this->add_test_log_data($generator);
-        }
-
-        $expectedcount->logstore_xapi_log = $imax;
-        $expectedcount->logstore_xapi_failed_log = 0;
-        $this->assert_store_tables($expectedcount);
-
-        // Run emit_task silently.
-        set_debugging(DEBUG_NONE);
-        $task = new emit_task();
-        ob_start();
-        $task->execute();
-        ob_end_clean();
-
-        $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = $imax;
-        $this->assert_store_tables($expectedcount);
+        parent::test_multiple_elements();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
-        $this->assertCount($imax, $records);
+        $this->assertCount($this->multipletestnumber, $records);
 
         $keys = array_keys($records);
 
@@ -236,7 +66,8 @@ class moveback_failed_statements_test extends advanced_testcase {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
-        $expectedcount->logstore_xapi_log = $imax;
+        $expectedcount = new stdClass();
+        $expectedcount->logstore_xapi_log = $this->multipletestnumber;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
     }
