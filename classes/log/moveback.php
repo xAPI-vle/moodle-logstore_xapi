@@ -127,7 +127,7 @@ class moveback {
 
         $skipinsert = false;
 
-        // We set the event type so the scheduled tasks can differentiate the events for resending
+        // We set the event type so the scheduled tasks can differentiate the events for resending.
         $event->type = $this->type;
 
         if ($this->historical) {
