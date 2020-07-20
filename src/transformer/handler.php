@@ -43,8 +43,10 @@ function handler(array $config, array $events) {
             return $transformedevent;
         } catch (\Exception $e) {
             $logerror = $config['log_error'];
-            $logerror("Failed transform for event id #" . $eventobj->id . ": " .  $e->getMessage());
+            $errormessage = "Failed transform for event id #" . $eventobj->id . ": " .  $e->getMessage();
+            $logerror($errormessage);
             $logerror($e->getTraceAsString());
+            $eventobj->response = json_encode(['transfromerror' => $errormessage]);
 
             // Returns unsuccessfully transformed event without statements.
             $transformedevent = [

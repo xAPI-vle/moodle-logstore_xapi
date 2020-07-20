@@ -163,6 +163,7 @@ function logstore_xapi_get_logstore_standard_context_options() {
         $context = context::instance_by_id($contextid);
         $options[$context->id] = $context->get_context_name();
     }
+    asort($options);
 
     return $options;
 }
