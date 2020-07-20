@@ -26,7 +26,6 @@ namespace logstore_xapi\log;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/../../../../../../../config.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 /**
