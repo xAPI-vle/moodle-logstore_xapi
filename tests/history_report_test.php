@@ -22,7 +22,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class failed_report_test extends enchancement_jisc_skeleton {
+class history_report_test extends enchancement_jisc_skeleton {
 
     public function test_general() {
         parent::test_general();
