@@ -18,6 +18,8 @@ use logstore_xapi\task\emit_task;
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once (__DIR__ . "/../lib.php");
+
 /**
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
@@ -29,6 +31,20 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
      * @var int Multiple test number.
      */
     protected $multipletestnumber = 5;
+
+    /**
+     * @var array Form defaults.
+     */
+    protected $formdefaults = [
+        'datefrom' => XAPI_REPORT_DATEFROM_DEFAULT,
+        'dateto' => XAPI_REPORT_DATETO_DEFAULT,
+        'eventcontext' => XAPI_REPORT_EVENTCONTEXT_DEFAULT,
+        'eventnames' => XAPI_REPORT_EVENTNAMES_DEFAULT,
+        'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
+        'resend' => XAPI_REPORT_RESEND_FALSE,
+        'response' => XAPI_REPORT_RESPONSE_DEFAULT,
+        'username' => XAPI_REPORT_USERNAME_DEFAULT,
+    ];
 
     /**
      * Investigate given counts.
@@ -121,6 +137,29 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $expectedcount->logstore_xapi_log = 0;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
+    }
+
+    /**
+     * Validate submitted form data.
+     *
+     * @param $data form's data
+     */
+    protected function validate_submitted_data($data) {
+        foreach ($this->simulatedsubmitteddata as $key => $value) {
+            if ($key == 'id') {
+                continue;
+            }
+            $this->assertObjectHasAttribute($key, $data);
+
+            if ($key == 'eventnames') {
+                $this->assertIsArray($value);
+                $this->assertIsArray($data->$key);
+                $actual = $data->$key;
+                $this->assertEquals($value[0], $actual[0]);
+                continue;
+            }
+            $this->assertEquals($value, $data->$key);
+        }
     }
 
     public function test_general() {

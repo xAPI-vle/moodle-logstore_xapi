@@ -52,7 +52,9 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
                 break;
 
             case XAPI_REPORT_ID_HISTORIC:
-                $eventcontexts = $this->_customdata['eventcontexts'];
+                if (!empty($this->_customdata['eventcontexts'])) {
+                    $eventcontexts = $this->_customdata['eventcontexts'];
+                }
 
                 if (has_capability('logstore/xapi:managehistoric', $systemcontext)) {
                     $canmanage = true;

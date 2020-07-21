@@ -36,6 +36,22 @@ define('XAPI_REPORT_ERRORTYPE_AUTH', 401);
 define('XAPI_REPORT_ERRORTYPE_LRS', 500);
 define('XAPI_REPORT_ERRORTYPE_TRANSFORM', 10000); // This high number has been set to avoid conflicting with other error codes
 
+// Resend values.
+define('XAPI_REPORT_RESEND_FALSE', 0);
+define('XAPI_REPORT_RESEND_TRUE', 1);
+
+// Default values on url parameters.
+define('XAPI_REPORT_STARTING_PAGE', 0);
+define('XAPI_REPORT_PERPAGE_DEFAULT', 40);
+define('XAPI_REPORT_ONPAGE_DEFAULT', '');
+define('XAPI_REPORT_EVENTCONTEXT_DEFAULT', '');
+define('XAPI_REPORT_EVENTNAMES_DEFAULT', array());
+define('XAPI_REPORT_ERROTYPE_DEFAULT', '0');
+define('XAPI_REPORT_RESPONSE_DEFAULT', '0');
+define('XAPI_REPORT_USERNAME_DEFAULT', '');
+define('XAPI_REPORT_DATEFROM_DEFAULT', 0);
+define('XAPI_REPORT_DATETO_DEFAULT', 0);
+
 /**
  * Get all visible cohorts in the system.
  *
