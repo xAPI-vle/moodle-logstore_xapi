@@ -74,7 +74,7 @@ $defaults = array(
     'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
     'resend' => XAPI_REPORT_RESEND_FALSE,
     'response' => XAPI_REPORT_RESPONSE_DEFAULT,
-    'username' => XAPI_REPORT_USERNAME_DEFAULT,
+    'userfullname' => XAPI_REPORT_USERNAME_DEFAULT,
 );
 
 // Reread submitted params.
@@ -82,7 +82,7 @@ if (!empty($onpage)) {
     $formelements = json_decode($onpage);
 
     foreach (array_keys($defaults) as $element) {
-        if (!empty($formelements->$element)) {
+        if (isset($formelements->$element) && !empty($formelements->$element)) {
             $defaults[$element] = $formelements->$element;
         }
     }
