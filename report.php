@@ -171,6 +171,9 @@ if (isset($formelements)) {
     }
 
     if (!empty($formelements->datefrom)) {
+        if ($formelements->datefrom == $formelements->dateto) {
+            $formelements->dateto = $formelements->dateto + DAYSECS;
+        }
         $where[] = 'x.timecreated >= :datefrom';
         $params['datefrom'] = $formelements->datefrom;
     }
