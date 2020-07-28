@@ -18,8 +18,8 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG; // Reuired to reportfilter_form.
 
-require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
-require_once (__DIR__ . "/../classes/form/reportfilter_form.php");
+require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
+require_once(__DIR__ . "/../classes/form/reportfilter_form.php");
 
 /**
  * @package    logstore_xapi
@@ -37,8 +37,8 @@ class history_report_test extends enchancement_jisc_skeleton {
         'eventnames' => ['\core\event\course_viewed'],
         'userfullname' => '',
         'eventcontext' => 0,
-        'datefrom' =>  0,
-        'dateto' =>  0,
+        'datefrom' => 0,
+        'dateto' => 0,
         'submitbutton' => 'Search'
     ];
 
@@ -47,7 +47,7 @@ class history_report_test extends enchancement_jisc_skeleton {
      *
      * @return tool_logstore_xapi_reportfilter_form
      */
-    protected function get_validated_form(){
+    protected function get_validated_form() {
         $filterparams = [
             'defaults' => $this->formdefaults,
             'reportid' => XAPI_REPORT_ID_HISTORIC,

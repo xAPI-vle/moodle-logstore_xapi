@@ -18,7 +18,7 @@ use logstore_xapi\task\emit_task;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once (__DIR__ . "/../lib.php");
+require_once(__DIR__ . "/../lib.php");
 
 /**
  * @package    logstore_xapi
@@ -108,7 +108,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
      * @param stdClass $expectedcount
      *          three params possibility: logstore_standard_log, logstore_xapi_log, logstore_xapi_failed_log
      */
-    protected function prepare_log_stores_for_logging($expectedcount){
+    protected function prepare_log_stores_for_logging($expectedcount) {
         // Enable log stores.
         set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
         set_config('buffersize', 0, 'logstore_standard');
