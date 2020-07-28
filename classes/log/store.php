@@ -68,7 +68,7 @@ class store extends php_obj implements log_writer {
      * Get the eventid from logstore_standard_log.
      * Return the persistent logstore_standard_log id from the database.
      * Return value 0 means not found.
-     * 
+     *
      * @param event_base $event
      * @return int
      *

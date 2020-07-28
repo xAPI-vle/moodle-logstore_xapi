@@ -106,12 +106,12 @@ $string['contextidnolongerexists'] = 'Context ID {$a} no longer exists';
 $string['count'] = 'Count';
 $string['unknownverb'] = 'Unknown verb was requested, It should be set by developer.';
 
-// Capabilities
+// Capabilities.
 $string['xapi:viewerrorlog'] = 'View xAPI error log';
 $string['xapi:manageerrors'] = 'Replay failed statements';
 $string['xapi:managehistoric'] = 'Manage historic data';
 
-// Info strings from xAPI errors
+// Info strings from xAPI errors.
 $string['networkerror'] = 'There was a network error sending the response.';
 $string['recipeerror'] = 'The LDH responded with a 400 error, this can be due to an issue with the recipe.';
 $string['autherror'] = 'The server is returning a 401 error. Please ensure the endpoint, username and auth secret/password for

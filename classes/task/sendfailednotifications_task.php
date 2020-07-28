@@ -121,7 +121,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     private function send_notification_email($message, $subject, $user, $lastfailedid) {
         global $DB;
 
-        // Check if we have an actual moodle user, if not we need to setup a temp user
+        // Check if we have an actual moodle user, if not we need to setup a temp user.
         if (empty($user->id)) {
             $email = $user->email;
             $user = \core_user::get_support_user();
@@ -137,10 +137,10 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
         $from->deleted = 0;
         $from->mailformat = FORMAT_HTML;
 
-        // Send the email
+        // Send the email.
         $messagesent = email_to_user($user, $from, $subject, html_to_text($message), $message);
         if ($messagesent) {
-            // log that these notifications have been sent
+            // Log that these notifications have been sent.
             $now = time();
             $lastfailed = new \stdClass();
             $lastfailed->failedlogid = $lastfailedid;
@@ -178,7 +178,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
             return;
         }
 
-        // Set up email message
+        // Set up email message.
         $subject = get_string('failedsubject', 'logstore_xapi');
         $messagedata = new \stdClass();
         $messagedata->lmsinstance = new \moodle_url('/');

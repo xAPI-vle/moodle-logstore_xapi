@@ -49,7 +49,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
 
         $keys = array_keys($records);
 
-        // Move back elements
+        // Move back elements.
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
@@ -74,7 +74,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
 
         $keys = array_keys($records);
 
-        // Move back elements
+        // Move back elements.
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 

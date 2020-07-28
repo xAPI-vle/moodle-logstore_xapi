@@ -90,7 +90,7 @@ function create_xapi_sent_log_table($dbman, $tablename) {
 
 /**
  * Create new columns in the database.
- * 
+ *
  * @param object $dbman
  * @param string $tablename
  *
@@ -124,7 +124,7 @@ function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
 
 /**
  * Create new columns in the database.
- * 
+ *
  * @param object $dbman
  *
  */
