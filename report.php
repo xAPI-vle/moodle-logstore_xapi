@@ -176,8 +176,9 @@ if (isset($formelements)) {
     }
 
     if (!empty($formelements->dateto)) {
+        // Set it to end of the day.
         $where[] = 'x.timecreated <= :dateto';
-        $params['dateto'] = $formelements->dateto;
+        $params['dateto'] = $formelements->dateto + (DAYSECS - 1);
     }
 }
 
