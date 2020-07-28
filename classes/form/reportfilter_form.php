@@ -139,7 +139,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $errors = parent::validation($data, $files);
 
         if (!empty($data['datefrom']) && !empty($data['dateto'])) {
-            if ($data['datefrom'] >= $data['dateto']) {
+            if ($data['datefrom'] > $data['dateto']) {
                 $errors['dateto'] = get_string('datetovalidation', 'logstore_xapi');
             }
         }
