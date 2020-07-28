@@ -18,7 +18,7 @@ use logstore_xapi\log\moveback;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
+require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
 
 /**
  * @package    logstore_xapi
