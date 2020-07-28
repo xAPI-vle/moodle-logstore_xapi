@@ -268,7 +268,7 @@ if (!empty($results)) {
         if ($id == XAPI_REPORT_ID_ERROR) {
             $response = '';
             if (isset($result->response)) {
-                $response = '<pre>' . json_encode(json_decode($result->response), JSON_PRETTY_PRINT)  . '</pre>';
+                $response = '<pre>' . json_encode(logstore_xapi_decode_response($result->response), JSON_PRETTY_PRINT) . '</pre>';
             } else {
                 $response = '-';
             }
