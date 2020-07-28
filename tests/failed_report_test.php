@@ -64,10 +64,17 @@ class failed_report_test extends enchancement_jisc_skeleton {
         return $form;
     }
 
+    /**
+     * General test for checking stores are writeable and readable.
+     */
     public function test_general() {
         parent::test_general();
     }
 
+    /**
+     * Creating minimum a single course view event to xapi logstore.
+     * Submit form and validate form data.
+     */
     public function test_single_element() {
         global $DB;
 
@@ -82,6 +89,11 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $this->validate_submitted_data($form->get_data());
     }
 
+    /**
+     * Creating multiple course view events to xapi logstore.
+     * Record number depends on $multipletestnumber.
+     * Submit form and validate form data.
+     */
     public function test_multiple_elements() {
         global $DB;
 

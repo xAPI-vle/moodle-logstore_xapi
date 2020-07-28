@@ -162,6 +162,9 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         }
     }
 
+    /**
+     * General test for checking stores are writeable and readable.
+     */
     public function test_general() {
         $this->resetAfterTest();
         $this->setAdminUser();
@@ -187,6 +190,9 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
 
     }
 
+    /**
+     * Creating minimum a single course view event to xapi logstore.
+     */
     public function test_single_element() {
         $this->resetAfterTest();
         $this->setAdminUser();
@@ -216,6 +222,10 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $this->assert_store_tables($expectedcount);
     }
 
+    /**
+     * Creating multiple course view events to xapi logstore.
+     * Record number depends on $multipletestnumber.
+     */
     public function test_multiple_elements() {
         $this->resetAfterTest();
         $this->setAdminUser();
