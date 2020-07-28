@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->libdir.'/formslib.php');
 
 /**
@@ -137,7 +139,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $errors = parent::validation($data, $files);
 
         if (!empty($data['datefrom']) && !empty($data['dateto'])) {
-            if ($data['datefrom'] >= $data['dateto']) {
+            if ($data['datefrom'] > $data['dateto']) {
                 $errors['dateto'] = get_string('datetovalidation', 'logstore_xapi');
             }
         }

@@ -41,7 +41,8 @@ function course_module(array $config, $course, $cmid, $xapitype) {
 
     if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
         $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
-        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $moduleidnumber;
+        $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
+        $object['definition']['extensions'][$lmsexternalid] = $moduleidnumber;
     }
 
     return $object;
