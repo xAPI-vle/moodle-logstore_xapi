@@ -177,7 +177,7 @@ if (isset($formelements)) {
 
     if (!empty($formelements->dateto)) {
         $where[] = 'x.timecreated <= :dateto';
-        $params['dateto'] = $fromform->dateto;
+        $params['dateto'] = $formelements->dateto;
     }
 }
 
