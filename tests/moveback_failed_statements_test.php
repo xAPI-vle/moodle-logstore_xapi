@@ -28,10 +28,17 @@ require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
  */
 class moveback_failed_statements_test extends enchancement_jisc_skeleton {
 
+    /**
+     * General test for checking stores are writeable and readable.
+     */
     public function test_general() {
         parent::test_general();
     }
 
+    /**
+     * Creating minimum a single course view event to xapi logstore.
+     * Using moveback script for moving a single element
+     */
     public function test_single_element() {
         global $DB;
 
@@ -52,6 +59,11 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $this->assert_store_tables($expectedcount);
     }
 
+    /**
+     * Creating multiple course view events to xapi logstore.
+     * Record number depends on $multipletestnumber.
+     * Using moveback script for moving multiple elements.
+     */
     public function test_multiple_elements() {
         global $DB;
 
