@@ -32,7 +32,7 @@ function course_module_created(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/created',
+            'id' => 'http://activitystrea.ms/schema/1.0/create',
             'display' => [
                 $lang => 'created'
             ],
