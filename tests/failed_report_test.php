@@ -18,8 +18,8 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG; // Reuired to reportfilter_form.
 
-require_once (__DIR__ . "/enchancement_jisc_skeleton.php");
-require_once (__DIR__ . "/../classes/form/reportfilter_form.php");
+require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
+require_once(__DIR__ . "/../classes/form/reportfilter_form.php");
 
 /**
  * @package    logstore_xapi
@@ -48,7 +48,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
      *
      * @return tool_logstore_xapi_reportfilter_form
      */
-    protected function get_validated_form(){
+    protected function get_validated_form() {
         $filterparams = [
             'defaults' => $this->formdefaults,
             'reportid' => XAPI_REPORT_ID_ERROR,
