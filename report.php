@@ -29,13 +29,19 @@ require_login(null, false);
 
 // Read parameters.
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID.
+$run          = optional_param('run', false, PARAM_BOOL);
 $page         = optional_param('page', XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 $onpage       = optional_param('onpage', XAPI_REPORT_ONPAGE_DEFAULT, PARAM_TEXT);
 
+if ($id == 0) {
+    $run = true;
+}
+
 // Set pagination url's parameter.
 $urlparams = array(
     'id' => $id,
+    'run' => $run,
     'page' => $page,
     'perpage' => $perpage,
     'onpage' => $onpage
@@ -198,20 +204,28 @@ if ($canresenderrors) {
     }
 }
 
-// Collect events to create view.
-$results = $DB->get_records_sql($sql, $params, $page * $perpage, $perpage);
+// Instantiate a class for populating some form data
+$submitcount = new stdClass();
+$submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 
-$sql = "SELECT COUNT(x.id)
+if ($run) {
+    // Collect events to create view.
+    $results = $DB->get_records_sql($sql, $params, $page * $perpage, $perpage);
+
+    $sql = "SELECT COUNT(x.id)
           FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
-$count = $DB->count_records_sql($sql, $params);
+    $count = $DB->count_records_sql($sql, $params);
+} else {
+    // No results will be showing so count is 0.
+    $count = 0;
+}
 
 // Now we have the count we can set this value for the submit button.
-$submitcount = new stdClass();
-$submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 $submitcount->resendselected = get_string('resendevents', 'logstore_xapi', ['count' => $count]);
+
 $mform->set_data($submitcount);
 
 if (!empty($results)) {
@@ -280,7 +294,7 @@ $PAGE->set_title(get_string($pagename, 'logstore_xapi'));
 $PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
 
 // Add requested items to the page view.
-if ($canmanage) {
+if ($canmanage && $run) {
     $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count, XAPI_REPORT_RESEND_FALSE, XAPI_REPORT_RESEND_TRUE]);
 }
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
@@ -299,9 +313,9 @@ echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
 $mform->display();
 echo \html_writer::end_div();
 
-if (empty($results)) {
+if ($run && empty($results)) {
     echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
-} else {
+} else if ($run && !empty($results)) {
     echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
     echo \html_writer::table($table);
     echo \html_writer::end_div();
