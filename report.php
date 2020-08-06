@@ -54,7 +54,11 @@ $PAGE->set_context($systemcontext);
 $PAGE->set_url($url);
 
 // Set filter params and defaults.
-$eventnames = logstore_xapi_get_event_names_array();
+if ($run) {
+    $eventnames = logstore_xapi_get_event_names_array();
+} else {
+    $eventnames = [];
+}
 
 $defaults = array(
     'datefrom' => XAPI_REPORT_DATEFROM_DEFAULT,
@@ -172,21 +176,23 @@ if (isset($formelements)) {
     }
 }
 
-list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
-$where[] = "x.eventname $insql";
-$params = array_merge($params, $inparams);
+if ($run) {
+    list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
+    $where[] = "x.eventname $insql";
+    $params = array_merge($params, $inparams);
 
-if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
+    if ($id == XAPI_REPORT_ID_HISTORIC) {
+        $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
+    }
+
+    $where = implode(' AND ', $where);
+
+    $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
+              FROM {{$basetable}} x
+         LEFT JOIN {user} u
+                ON u.id = x.userid
+             WHERE $where";
 }
-
-$where = implode(' AND ', $where);
-
-$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
-          FROM {{$basetable}} x
-     LEFT JOIN {user} u
-            ON u.id = x.userid
-         WHERE $where";
 
 // Resend elements.
 $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
