@@ -34,7 +34,7 @@ $page         = optional_param('page', XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 $onpage       = optional_param('onpage', XAPI_REPORT_ONPAGE_DEFAULT, PARAM_TEXT);
 
-if ($id == 0) {
+if ($id == XAPI_REPORT_ID_ERROR) {
     $run = true;
 }
 
@@ -54,11 +54,7 @@ $PAGE->set_context($systemcontext);
 $PAGE->set_url($url);
 
 // Set filter params and defaults.
-if ($run) {
-    $eventnames = logstore_xapi_get_event_names_array();
-} else {
-    $eventnames = [];
-}
+$eventnames = logstore_xapi_get_event_names_array();
 
 $defaults = array(
     'datefrom' => XAPI_REPORT_DATEFROM_DEFAULT,
