@@ -65,6 +65,9 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
                 break;
         }
 
+        $mform->addElement('hidden', 'run', true);
+        $mform->setType('run', PARAM_BOOL);
+
         $mform->addElement('hidden', 'resend');
         $mform->setType('resend', PARAM_BOOL);
         $mform->setDefault('resend', $this->_customdata['defaults']['resend']);

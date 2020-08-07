@@ -29,13 +29,19 @@ require_login(null, false);
 
 // Read parameters.
 $id           = optional_param('id', XAPI_REPORT_ID_ERROR, PARAM_INT); // This is the report ID.
+$run          = optional_param('run', false, PARAM_BOOL);
 $page         = optional_param('page', XAPI_REPORT_STARTING_PAGE, PARAM_INT);
 $perpage      = optional_param('perpage', XAPI_REPORT_PERPAGE_DEFAULT, PARAM_INT);
 $onpage       = optional_param('onpage', XAPI_REPORT_ONPAGE_DEFAULT, PARAM_TEXT);
 
+if ($id == XAPI_REPORT_ID_ERROR) {
+    $run = true;
+}
+
 // Set pagination url's parameter.
 $urlparams = array(
     'id' => $id,
+    'run' => $run,
     'page' => $page,
     'perpage' => $perpage,
     'onpage' => $onpage
@@ -100,8 +106,11 @@ switch ($id) {
         $basetable = XAPI_REPORT_SOURCE_HISTORICAL;
         $extraselect = 'u.username, x.contextid';
         $pagename = 'logstorexapihistoriclog';
-
-        $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        if ($run) {
+            $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        } else {
+            $filterparams['eventcontexts'] = [];
+        }
 
         require_capability('logstore/xapi:managehistoric', $systemcontext);
         $canmanage = true;
@@ -166,52 +175,62 @@ if (isset($formelements)) {
     }
 }
 
-list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
-$where[] = "x.eventname $insql";
-$params = array_merge($params, $inparams);
+if ($run) {
+    list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
+    $where[] = "x.eventname $insql";
+    $params = array_merge($params, $inparams);
 
-if ($id == XAPI_REPORT_ID_HISTORIC) {
-    $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
-}
+    if ($id == XAPI_REPORT_ID_HISTORIC) {
+        $where[] = "NOT EXISTS (SELECT 1 FROM {logstore_xapi_sent_log} lxsl WHERE lxsl.logstorestandardlogid = x.id)";
+    }
 
-$where = implode(' AND ', $where);
+    $where = implode(' AND ', $where);
 
-$sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
-          FROM {{$basetable}} x
-     LEFT JOIN {user} u
-            ON u.id = x.userid
-         WHERE $where";
+    $sql = "SELECT x.id, x.eventname, u.firstname, u.lastname, x.contextid, x.timecreated, $extraselect
+              FROM {{$basetable}} x
+         LEFT JOIN {user} u
+                ON u.id = x.userid
+             WHERE $where";
 
-// Resend elements.
-$canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
+    // Resend elements.
+    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
 
-if ($canresenderrors) {
-    $eventids = array_keys($DB->get_records_sql($sql, $params));
+    if ($canresenderrors) {
+        $eventids = array_keys($DB->get_records_sql($sql, $params));
 
-    if (!empty($eventids)) {
-        $mover = new \logstore_xapi\log\moveback($eventids, $id);
-        if ($mover->execute()) {
-            $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
-        } else {
-            $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+        if (!empty($eventids)) {
+            $mover = new \logstore_xapi\log\moveback($eventids, $id);
+            if ($mover->execute()) {
+                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
+            } else {
+                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+            }
         }
     }
 }
 
-// Collect events to create view.
-$results = $DB->get_records_sql($sql, $params, $page * $perpage, $perpage);
+// Instantiate a class for populating some form data.
+$submitcount = new stdClass();
+$submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 
-$sql = "SELECT COUNT(x.id)
+if ($run) {
+    // Collect events to create view.
+    $results = $DB->get_records_sql($sql, $params, $page * $perpage, $perpage);
+
+    $sql = "SELECT COUNT(x.id)
           FROM {{$basetable}} x
      LEFT JOIN {user} u
             ON u.id = x.userid
          WHERE $where";
-$count = $DB->count_records_sql($sql, $params);
+    $count = $DB->count_records_sql($sql, $params);
+} else {
+    // No results will be showing so count is 0.
+    $count = 0;
+}
 
 // Now we have the count we can set this value for the submit button.
-$submitcount = new stdClass();
-$submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 $submitcount->resendselected = get_string('resendevents', 'logstore_xapi', ['count' => $count]);
+
 $mform->set_data($submitcount);
 
 if (!empty($results)) {
@@ -280,7 +299,7 @@ $PAGE->set_title(get_string($pagename, 'logstore_xapi'));
 $PAGE->set_heading(get_string($pagename, 'logstore_xapi'));
 
 // Add requested items to the page view.
-if ($canmanage) {
+if ($canmanage && $run) {
     $PAGE->requires->js_call_amd('logstore_xapi/replayevents', 'init', [$count, XAPI_REPORT_RESEND_FALSE, XAPI_REPORT_RESEND_TRUE]);
 }
 $PAGE->requires->css('/admin/tool/log/store/xapi/styles.css');
@@ -299,13 +318,15 @@ echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
 $mform->display();
 echo \html_writer::end_div();
 
-if (empty($results)) {
-    echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
-} else {
-    echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
-    echo \html_writer::table($table);
-    echo \html_writer::end_div();
-    echo $OUTPUT->paging_bar($count, $page, $perpage, $paginationurl);
+if ($run) {
+    if (empty($results)) {
+        echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
+    } else {
+        echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
+        echo \html_writer::table($table);
+        echo \html_writer::end_div();
+        echo $OUTPUT->paging_bar($count, $page, $perpage, $paginationurl);
+    }
 }
 echo \html_writer::end_div();
 echo $OUTPUT->footer();
