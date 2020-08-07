@@ -106,8 +106,11 @@ switch ($id) {
         $basetable = XAPI_REPORT_SOURCE_HISTORICAL;
         $extraselect = 'u.username, x.contextid';
         $pagename = 'logstorexapihistoriclog';
-
-        $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        if ($run) {
+            $filterparams['eventcontexts'] = logstore_xapi_get_logstore_standard_context_options();
+        } else {
+            $filterparams['eventcontexts'] = [];
+        }
 
         require_capability('logstore/xapi:managehistoric', $systemcontext);
         $canmanage = true;
