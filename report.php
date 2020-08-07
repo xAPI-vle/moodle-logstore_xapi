@@ -191,25 +191,25 @@ if ($run) {
          LEFT JOIN {user} u
                 ON u.id = x.userid
              WHERE $where";
-}
 
-// Resend elements.
-$canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
+    // Resend elements.
+    $canresenderrors = !empty($fromform->resend) && $fromform->resend == XAPI_REPORT_RESEND_TRUE && $canmanage;
 
-if ($canresenderrors) {
-    $eventids = array_keys($DB->get_records_sql($sql, $params));
+    if ($canresenderrors) {
+        $eventids = array_keys($DB->get_records_sql($sql, $params));
 
-    if (!empty($eventids)) {
-        $mover = new \logstore_xapi\log\moveback($eventids, $id);
-        if ($mover->execute()) {
-            $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
-        } else {
-            $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+        if (!empty($eventids)) {
+            $mover = new \logstore_xapi\log\moveback($eventids, $id);
+            if ($mover->execute()) {
+                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), notification::NOTIFY_SUCCESS);
+            } else {
+                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), notification::NOTIFY_ERROR);
+            }
         }
     }
 }
 
-// Instantiate a class for populating some form data
+// Instantiate a class for populating some form data.
 $submitcount = new stdClass();
 $submitcount->resend = XAPI_REPORT_RESEND_FALSE;
 
