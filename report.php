@@ -318,13 +318,15 @@ echo \html_writer::start_div('', ['id' => 'xapierrorlog_form']);
 $mform->display();
 echo \html_writer::end_div();
 
-if ($run && empty($results)) {
-    echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
-} else if ($run && !empty($results)) {
-    echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
-    echo \html_writer::table($table);
-    echo \html_writer::end_div();
-    echo $OUTPUT->paging_bar($count, $page, $perpage, $paginationurl);
+if ($run) {
+    if (empty($results)) {
+        echo $OUTPUT->heading(get_string('noerrorsfound', 'logstore_xapi'));
+    } else {
+        echo \html_writer::start_div('no-overflow', ['id' => 'xapierrorlog_data']);
+        echo \html_writer::table($table);
+        echo \html_writer::end_div();
+        echo $OUTPUT->paging_bar($count, $page, $perpage, $paginationurl);
+    }
 }
 echo \html_writer::end_div();
 echo $OUTPUT->footer();
