@@ -191,7 +191,7 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Xapi savepoint reached.
+        // The xAPI savepoint reached.
         upgrade_plugin_savepoint(true, 2020032700, 'logstore', 'xapi');
     }
 
@@ -209,7 +209,7 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
 
         create_xapi_sent_log_table($dbman, "logstore_xapi_sent_log");
 
-        // Xapi savepoint reached.
+        // The xAPI savepoint reached.
         upgrade_plugin_savepoint(true, 2020050600, 'logstore', 'xapi');
     }
 

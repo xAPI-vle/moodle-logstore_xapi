@@ -128,7 +128,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
 
-    // xAPI Error Log page.
+    // The xAPI Error Log page.
     $errorreport = new admin_externalpage(
         'logstorexapierrorlog',
         get_string('logstorexapierrorlog', 'logstore_xapi'),
@@ -137,7 +137,7 @@ if ($hassiteconfig) {
     );
     $ADMIN->add('logging', $errorreport);
 
-    // xAPI Historic Log page.
+    // The xAPI Historic Log page.
     $historicreport = new admin_externalpage(
         'logstorexapihistoriclog',
         get_string('logstorexapihistoriclog', 'logstore_xapi'),
