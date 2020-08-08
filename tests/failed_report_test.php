@@ -81,7 +81,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         parent::test_single_element();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
-        $this->assertCount(1, $records);
+        $this->assertCount($this->generatedxapylog, $records);
 
         tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
@@ -100,7 +100,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         parent::test_multiple_elements();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
-        $this->assertCount($this->multipletestnumber, $records);
+        $this->assertCount($this->multipletestnumber * $this->generatedxapylog, $records);
 
         tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 

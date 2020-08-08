@@ -33,6 +33,16 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
     protected $multipletestnumber = 5;
 
     /**
+     * @var int Generated history-log events numbers
+     */
+    protected $generatedhistorylog = 11;
+
+    /**
+     * @var int Generated xapi-log events numbers
+     */
+    protected $generatedxapylog = 1;
+
+    /**
      * @var array Form defaults.
      */
     protected $formdefaults = [
@@ -45,6 +55,24 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         'response' => XAPI_REPORT_RESPONSE_DEFAULT,
         'username' => XAPI_REPORT_USERNAME_DEFAULT,
     ];
+
+    protected function setUp() {
+        global $CFG;
+
+        parent::setUp();
+
+        require($CFG->dirroot . '/version.php');
+
+        if (empty($version)) {
+            return;
+        }
+
+        // From Moodle 3.9 an extra event has been added.
+        if ($version >= 2020061500) {
+            $this->generatedhistorylog = 12;
+            $this->generatedxapylog = 2;
+        }
+    }
 
     /**
      * Investigate given counts.
@@ -184,8 +212,8 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $generator = $this->getDataGenerator();
         $this->assertTrue($this->add_test_log_data($generator));
 
-        $expectedcount->logstore_standard_log = 11;
-        $expectedcount->logstore_xapi_log = 1;
+        $expectedcount->logstore_standard_log = $this->generatedhistorylog;
+        $expectedcount->logstore_xapi_log = $this->generatedxapylog;
         $this->assert_store_tables($expectedcount);
 
     }
@@ -204,8 +232,8 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $generator = $this->getDataGenerator();
         $this->assertTrue($this->add_test_log_data($generator));
 
-        $expectedcount->logstore_standard_log = 11;
-        $expectedcount->logstore_xapi_log = 1;
+        $expectedcount->logstore_standard_log = $this->generatedhistorylog;
+        $expectedcount->logstore_xapi_log = $this->generatedxapylog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
 
@@ -218,7 +246,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
 
         unset($expectedcount->logstore_standard_log);
         $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = 1;
+        $expectedcount->logstore_xapi_failed_log = $this->generatedxapylog;
         $this->assert_store_tables($expectedcount);
     }
 
@@ -241,7 +269,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         }
 
         unset($expectedcount->logstore_standard_log);
-        $expectedcount->logstore_xapi_log = $this->multipletestnumber;
+        $expectedcount->logstore_xapi_log = $this->multipletestnumber * $this->generatedxapylog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
 
@@ -253,7 +281,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         ob_end_clean();
 
         $expectedcount->logstore_xapi_log = 0;
-        $expectedcount->logstore_xapi_failed_log = $this->multipletestnumber;
+        $expectedcount->logstore_xapi_failed_log = $this->multipletestnumber * $this->generatedxapylog;
         $this->assert_store_tables($expectedcount);
     }
 }
