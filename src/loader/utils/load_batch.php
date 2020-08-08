@@ -38,8 +38,8 @@ function load_batch(array $config, array $transformedevents, callable $loader) {
         $errormessage = $e->getMessage();
         foreach ($transformedevents as $event) {
             if ($event["transformed"] == true) {
-                $event["event"]->errortype = $errorcode;
                 $event["event"]->response = $errormessage;
+                $event["event"]->errortype = $errorcode;
             }
         }
 
