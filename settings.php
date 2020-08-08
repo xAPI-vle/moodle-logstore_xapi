@@ -99,8 +99,8 @@ if ($hassiteconfig) {
         $arrcohorts[$cohort->id] = $cohort->name;
     }
 
-    // If there are no cohorts then do not display this option
-    // especially when displaying the settings page for the first time after an upgrade
+    // If there are no cohorts then do not display this option,
+    // especially when displaying the settings page for the first time after an upgrade.
     if (count($arrcohorts) != 0) {
         $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/cohorts',
             get_string('includecohorts', 'logstore_xapi'), '', '', $arrcohorts));

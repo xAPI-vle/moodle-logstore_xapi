@@ -239,7 +239,7 @@ function logstore_xapi_get_info_string($row) {
                 // Unauthorised, could be an issue with xAPI credentials.
                 return get_string('autherror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_LRS:
-                // XAPI server error.
+                // xAPI server error.
                 return get_string('lrserror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_TRANSFORM:
                 // Transform error.
