@@ -56,6 +56,9 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         'username' => XAPI_REPORT_USERNAME_DEFAULT,
     ];
 
+    /**
+     * This method is called before each test.
+     */
     protected function setUp() {
         global $CFG;
 
