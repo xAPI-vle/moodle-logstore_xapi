@@ -34,7 +34,7 @@ define('XAPI_REPORT_ERRORTYPE_NETWORK', 101);
 define('XAPI_REPORT_ERRORTYPE_RECIPE', 400);
 define('XAPI_REPORT_ERRORTYPE_AUTH', 401);
 define('XAPI_REPORT_ERRORTYPE_LRS', 500);
-define('XAPI_REPORT_ERRORTYPE_TRANSFORM', 10000); // This high number has been set to avoid conflicting with other error codes
+define('XAPI_REPORT_ERRORTYPE_TRANSFORM', 10000); // This high number has been set to avoid conflicting with other error codes.
 
 // Resend values.
 define('XAPI_REPORT_RESEND_FALSE', 0);
@@ -116,18 +116,18 @@ function logstore_xapi_get_cohort_members($cohortids) {
  * @return array Returns an array of user objects from cohorts and additional email addresses.
  */
 function logstore_xapi_get_users_for_notifications() {
-    // get selected cohort users, will return a blank array if no cohorts are set.
+    // Get selected cohort users, will return a blank array if no cohorts are set.
     $cohorts = logstore_xapi_get_selected_cohorts();
     $users = logstore_xapi_get_cohort_members($cohorts);
 
-    // Get the manually set email addresses from the config
+    // Get the manually set email addresses from the config.
     $emailaddresses = get_config('logstore_xapi', 'send_additional_email_addresses');
     $emailaddresses = explode(",", $emailaddresses);
     foreach ($emailaddresses as $email) {
-        // Remove whitespace from email addresses
+        // Remove whitespace from email addresses.
         $email = preg_replace('/\s+/', '', $email);
         if (validate_email($email)) {
-            // If the email address is valid then add it to the list of users
+            // If the email address is valid then add it to the list of users.
             $user = new stdClass();
             $user->email = $email;
             $users[] = $user;
@@ -213,7 +213,7 @@ function logstore_xapi_get_event_names_array() {
  */
 function logstore_xapi_decode_response($response) {
     $decode = json_decode($response, true);
-    // Check JSON is valid
+    // Check JSON is valid.
     if (json_last_error() === JSON_ERROR_NONE) {
         return $decode;
     }
@@ -233,24 +233,24 @@ function logstore_xapi_get_info_string($row) {
             case XAPI_REPORT_ERRORTYPE_NETWORK:
                 return get_string('networkerror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_RECIPE:
-                // Recipe issue
+                // Recipe issue.
                 return get_string('recipeerror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_AUTH:
-                // Unauthorised, could be an issue with xAPI credentials
+                // Unauthorised, could be an issue with xAPI credentials.
                 return get_string('autherror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_LRS:
-                // xAPI server error
+                // XAPI server error.
                 return get_string('lrserror', 'logstore_xapi');
             case XAPI_REPORT_ERRORTYPE_TRANSFORM:
-                // Transform error
+                // Transform error.
                 return get_string('failedtransformresponse', 'logstore_xapi', $row->eventname);
             default:
-                // Generic error catch all
+                // Generic error catch all.
                 return get_string('unknownerror', 'logstore_xapi', $row->errortype);
                 break;
         }
     }
-    return ''; // Return blank if no errortype captured
+    return ''; // Return blank if no errortype captured.
 }
 
 /**
@@ -310,7 +310,7 @@ function logstore_xapi_extract_events($limitnum, $log, $type) {
 /**
  * Get event ids.
  *
- * @param array $events raw events data
+ * @param array $loadedevents raw events data
  * @return array
  */
 function logstore_xapi_get_event_ids($loadedevents) {
