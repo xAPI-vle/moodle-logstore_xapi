@@ -45,7 +45,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         parent::test_single_element();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
-        $this->assertCount($this->generatedxapylog, $records);
+        $this->assertCount($this->generatedxapilog, $records);
 
         $keys = array_keys($records);
 
@@ -54,7 +54,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $this->assertTrue($mover->execute());
 
         $expectedcount = new stdClass();
-        $expectedcount->logstore_xapi_log = $this->generatedxapylog;
+        $expectedcount->logstore_xapi_log = $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
     }
@@ -70,7 +70,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         parent::test_multiple_elements();
 
         $records = $DB->get_records('logstore_xapi_failed_log');
-        $this->assertCount($this->multipletestnumber * $this->generatedxapylog, $records);
+        $this->assertCount($this->multipletestnumber * $this->generatedxapilog, $records);
 
         $keys = array_keys($records);
 
@@ -79,7 +79,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $this->assertTrue($mover->execute());
 
         $expectedcount = new stdClass();
-        $expectedcount->logstore_xapi_log = $this->multipletestnumber * $this->generatedxapylog;
+        $expectedcount->logstore_xapi_log = $this->multipletestnumber * $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
     }
