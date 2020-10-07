@@ -46,7 +46,7 @@ function get_verb($verb, array $config, $lang) {
             $output = [
                 'id' => 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
                 'display' => [
-                    $lang = 'logged into'
+                    $lang => 'logged into'
                 ]
             ];
 
