@@ -17,8 +17,11 @@
 namespace src\transformer\utils;
 defined('MOODLE_INTERNAL') || die();
 
-date_default_timezone_set('Europe/London');
-
 function create_timestamp($time) {
-    return date('c', $time);
+    // Set timezone back to site default after this manual change.
+    $timezone = date_default_timezone_get();
+    date_default_timezone_set('Europe/London');
+    $date = date('c', $time);
+    date_default_timezone_set($timezone);
+    return $date;
 }
