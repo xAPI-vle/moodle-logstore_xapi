@@ -19,6 +19,9 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
+    $repo = $config['repo'];
+    $homePage = $config['app_url'];
+
     // The following email validation matches that in Learning Locker
     $hasvalidemail = mb_ereg_match("[A-Z0-9\\.\\`\\'_%+-]+@[A-Z0-9.-]+\\.[A-Z]{1,63}$", $user->email, "i");
 
@@ -29,11 +32,30 @@ function get_user(array $config, \stdClass $user) {
         ];
     }
 
+    // check if the value is set to use OAuth2 issuer as homePage
+    if (array_key_exists('send_oauth2_issuer', $config) && $config['send_oauth2_issuer'] == true) {
+        // check if this user is logged in via OAuth2
+        if (isset($user->auth) && $user->auth == 'oauth2') {
+            try {
+                // find the oauth2 issuer that this user is logged in under
+                $issuerid = $repo->read_record('auth_oauth2_linked_login', [
+                    'userid' => $user->id
+                ])->issuerid;   
+                // get the issuer's baseurl         
+                $issueridbaseurl = $repo->read_record_by_id('oauth2_issuer', $issuerid)->baseurl;
+                if (isset($issueridbaseurl)) {
+                    // if the baseurl is properly found, set the homePage to it
+                    $homePage = $issueridbaseurl;
+                }
+            } catch (\Exception $e) {   }
+        }
+    }
+
     if (array_key_exists('send_username', $config) && $config['send_username'] === true) {
         return [
             'name' => $fullname,
             'account' => [
-                'homePage' => $config['app_url'],
+                'homePage' => $homePage,
                 'name' => $user->username,
             ],
         ];
@@ -42,7 +64,7 @@ function get_user(array $config, \stdClass $user) {
     return [
         'name' => $fullname,
         'account' => [
-            'homePage' => $config['app_url'],
+            'homePage' => $homePage,
             'name' => strval($user->id),
         ],
     ];
