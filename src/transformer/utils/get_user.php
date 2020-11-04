@@ -19,31 +19,11 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
-    $repo = $config['repo'];
-    $homePage = $config['app_url'];
+    $homePage = get_homePage($config, $user);
 
     // the following email validation matches that in Learning Locker
     $hasvalidemail = mb_ereg_match("[A-Z0-9\\.\\`\\'_%+-]+@[A-Z0-9.-]+\\.[A-Z]{1,63}$", $user->email, "i");
-
-    // check if the value is set to use OAuth2 issuer as homePage
-    if (array_key_exists('send_oauth2_issuer', $config) && $config['send_oauth2_issuer'] == true) {
-        // check if this user is logged in via OAuth2
-        if (isset($user->auth) && $user->auth == 'oauth2') {
-            try {
-                // find the oauth2 issuer that this user is logged in under
-                $issuerid = $repo->read_record('auth_oauth2_linked_login', [
-                    'userid' => $user->id
-                ])->issuerid;
-                // get the issuer's baseurl
-                $issueridbaseurl = $repo->read_record_by_id('oauth2_issuer', $issuerid)->baseurl;
-                if (isset($issueridbaseurl)) {
-                    // if the baseurl is properly found, set the homePage to it
-                    $homePage = $issueridbaseurl;
-                }
-            } catch (\Exception $e) {   }
-        }
-    }
-
+    
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
         return [
             'name' => $fullname,
@@ -70,4 +50,29 @@ function get_user(array $config, \stdClass $user) {
             'name' => strval($user->id),
         ],
     ];
+}
+
+function get_homePage(array $config, \stdClass $user) {
+    $repo = $config['repo'];
+    $homePage = $config['app_url'];
+
+    // check if the value is set to use OAuth2 issuer as homePage
+    if (array_key_exists('send_oauth2_issuer', $config) && $config['send_oauth2_issuer'] == true) {
+        // check if this user is logged in via OAuth2
+        if (isset($user->auth) && $user->auth == 'oauth2') {
+            try {
+                // find the oauth2 issuer that this user is logged in under
+                $issuerid = $repo->read_record('auth_oauth2_linked_login', [
+                    'userid' => $user->id
+                ])->issuerid;
+                // get the issuer's baseurl
+                $issueridbaseurl = $repo->read_record_by_id('oauth2_issuer', $issuerid)->baseurl;
+                if (isset($issueridbaseurl)) {
+                    // if the baseurl is properly found, set the homePage to it
+                    $homePage = $issueridbaseurl;
+                }
+            } catch (\Exception $e) {   }
+        }
+    }
+    return $homePage;
 }
