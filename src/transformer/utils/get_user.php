@@ -22,15 +22,8 @@ function get_user(array $config, \stdClass $user) {
     $repo = $config['repo'];
     $homePage = $config['app_url'];
 
-    // The following email validation matches that in Learning Locker
+    // the following email validation matches that in Learning Locker
     $hasvalidemail = mb_ereg_match("[A-Z0-9\\.\\`\\'_%+-]+@[A-Z0-9.-]+\\.[A-Z]{1,63}$", $user->email, "i");
-
-    if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
-        return [
-            'name' => $fullname,
-            'mbox' => 'mailto:' . $user->email,
-        ];
-    }
 
     // check if the value is set to use OAuth2 issuer as homePage
     if (array_key_exists('send_oauth2_issuer', $config) && $config['send_oauth2_issuer'] == true) {
@@ -40,8 +33,8 @@ function get_user(array $config, \stdClass $user) {
                 // find the oauth2 issuer that this user is logged in under
                 $issuerid = $repo->read_record('auth_oauth2_linked_login', [
                     'userid' => $user->id
-                ])->issuerid;   
-                // get the issuer's baseurl         
+                ])->issuerid;
+                // get the issuer's baseurl
                 $issueridbaseurl = $repo->read_record_by_id('oauth2_issuer', $issuerid)->baseurl;
                 if (isset($issueridbaseurl)) {
                     // if the baseurl is properly found, set the homePage to it
@@ -51,12 +44,21 @@ function get_user(array $config, \stdClass $user) {
         }
     }
 
-    if (array_key_exists('send_username', $config) && $config['send_username'] === true) {
+    if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
+        return [
+            'name' => $fullname,
+            'mbox' => 'mailto:' . $user->email,
+        ];
+    }
+
+    // get the $user object field by which to identify the actor
+    $actor_identification_type = $config['actor_identification_type'];
+    if (isset($actor_identification_type)) {
         return [
             'name' => $fullname,
             'account' => [
                 'homePage' => $homePage,
-                'name' => $user->username,
+                'name' => strval($user->$actor_identification_type),
             ],
         ];
     }
