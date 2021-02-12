@@ -24,8 +24,7 @@ function get_user(array $config, \stdClass $user) {
 
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
         return [
-            'name' => $fullname,
-            'mbox' => 'mailto:' . $user->email,
+			'mbox_sha1sum' => sha1('mailto:' . $user->email)
         ];
     }
 

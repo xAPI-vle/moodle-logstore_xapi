@@ -68,6 +68,9 @@ class store extends php_obj implements log_writer {
      */
     protected function insert_event_entries(array $events) {
         global $DB;
+		
+		//don't log any events without a definitive user id (an actor) GVM 10-02-21
+		$events = array_filter($events,function($event) { return !empty($event['userid']); });
 
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
