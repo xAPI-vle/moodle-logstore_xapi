@@ -102,6 +102,9 @@ class store extends php_obj implements log_writer {
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_course_and_module_idnumber' => $this->get_config('sendidnumber', false),
                 'send_username' => $this->get_config('send_username', false),
+		// CINECA lrs.bestr.it extra user data start
+                'send_bestr_data' => $this->get_config('send_bestr_data', false),
+		// CINECA lrs.bestr.it extra user data stop
                 'send_jisc_data' => $this->get_config('send_jisc_data', false),
                 'session_id' => sesskey(),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
@@ -134,6 +137,17 @@ class store extends php_obj implements log_writer {
         }
 
         $handlerconfig['transformer'] = array_merge($handlerconfig['transformer'], $source);
+
+		// CINECA lrs.bestr.it extra user data start
+		// $user_profile_field_check = $this->get_config('user_profile_field_check', false);
+		// if ($user_profile_field_check) {
+            // $source2 = [
+                // 'user_profile_field' => $this->get_config('user_profile_field', false)
+            // ];
+		// }
+
+        // $handlerconfig['transformer'] = array_merge($handlerconfig['transformer'], $source2);
+		// CINECA lrs.bestr.it extra user data stop
 
         $loadedevents = \src\handler($handlerconfig, $events);
         return $loadedevents;
