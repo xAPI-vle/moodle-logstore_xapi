@@ -22,17 +22,19 @@ use src\transformer\utils as utils;
 function bestr(array $config, \stdClass $event, $course) {
     if (utils\is_enabled_config($config, 'send_bestr_data')) {
         $repo = $config['repo'];
-        $user = $repo->read_record_by_id('user', $event->userid);
-        return array_merge(
-            [
+        if (isset($event->relateduserid) && $event->relateduserid) {
+			$user = $repo->read_record_by_id('user', $event->relateduserid);
+		}
+		else {
+			$user = $repo->read_record_by_id('user', $event->userid);
+		}
+        return array(
 			'http://lrs.bestr.it/lrs/define/context/extensions/actor' => array(
 				"actor_name" => $user->firstname,
 				"actor_surname" => $user->lastname
 				//, "actor_birthday" => "**DATA_DI_NASCITA**"
 				)
-            ],
-            course_area($course)
-        );
+			);
     }
     return [];
 }
