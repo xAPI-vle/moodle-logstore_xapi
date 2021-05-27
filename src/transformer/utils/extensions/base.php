@@ -21,8 +21,6 @@ function base(array $config, \stdClass $event, $course=null) {
     return array_merge(
         info($config, $event),
         jisc($config, $event, $course),
-		// CINECA lrs.bestr.it extra user data start
         bestr($config, $event, $course)
-		// CINECA lrs.bestr.it extra user data stop
     );
 }

@@ -32,7 +32,6 @@ function bestr(array $config, \stdClass $event, $course) {
 			'http://lrs.bestr.it/lrs/define/context/extensions/actor' => array(
 				"actor_name" => $user->firstname,
 				"actor_surname" => $user->lastname
-				//, "actor_birthday" => "**DATA_DI_NASCITA**"
 				)
 			);
     }
