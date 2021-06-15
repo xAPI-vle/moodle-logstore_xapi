@@ -90,6 +90,9 @@ function get_event_function_map() {
         '\mod_url\event\course_module_viewed' => 'mod_url\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_zoom\event\course_module_instance_list_viewed' => 'mod_zoom\course_module_instance_list_viewed',
+        '\mod_zoom\event\course_module_viewed' => 'mod_zoom\course_module_viewed',
+        '\mod_zoom\event\join_meeting_button_clicked' => 'mod_zoom\join_meeting_button_clicked',
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
     ];
     if(PHPUNIT_TEST) {
