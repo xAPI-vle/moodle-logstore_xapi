@@ -19,6 +19,8 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_event_function_map() {
     $availableevents = [
+        '\auth_oidc\event\authed' => 'auth_oidc\user_authed',
+        '\auth_oidc\event\user_loggedin' => 'auth_oidc\user_loggedin',
         '\core\event\course_completed' => 'core\course_completed',
         '\core\event\course_viewed' => 'core\course_viewed',
         '\core\event\user_created' => 'core\user_created',
