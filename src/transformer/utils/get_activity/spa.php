@@ -174,7 +174,7 @@ function spa_report(array $config, $cmid, $reporttype)
 {
     $lang = $config['source_lang'];
     $repo = $config['repo'];
-    $xapitype = 'http://activitystrea.ms/schema/1.0/page';
+    $xapitype = 'https://w3id.org/xapi/acrossx/activities/page';
 
     $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
     $module = $repo->read_record_by_id('modules', $coursemodule->module);

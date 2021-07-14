@@ -175,7 +175,7 @@ function oublog_post(array $config, $postid)
 function oublog_site_entries(array $config, $pageid)
 {
     $lang = $config['source_lang'];
-    $xapitype = 'http://activitystrea.ms/schema/1.0/page';
+    $xapitype = 'https://w3id.org/xapi/acrossx/activities/page';
 
     $instancelisturl = $config['app_url'].'/mod/oublog/allposts.php?pageid='.$pageid;
     $instancename = 'oublog site entries';
