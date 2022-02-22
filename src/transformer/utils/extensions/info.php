@@ -18,12 +18,22 @@ namespace src\transformer\utils\extensions;
 defined('MOODLE_INTERNAL') || die();
 
 function info(array $config, \stdClass $event) {
+    $repo = $config['repo'];
+    $actorId = property_exists($event, 'relateduserid') &&
+                isset($event->relateduserid) ? $event->relateduserid:$event->userid;
+    $user = $repo->read_record_by_id('user', $actorId);
+    $username = property_exists($user, 'username') &&
+                isset($user->username) ? $user->username:"";
+    $emailAddress = property_exists($user, 'email') &&
+                isset($user->email) ? $user->email:"";
     return [
         'http://lrs.learninglocker.net/define/extensions/info' => [
             $config['source_url'] => $config['source_version'],
             $config['plugin_url'] => $config['plugin_version'],
             'event_name' => $event->eventname,
             'event_function' => $config['event_function'],
+            'emailAddress' => $emailAddress,
+            'username' => $username,      
         ],
     ];
 }
