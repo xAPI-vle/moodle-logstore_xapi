@@ -33,7 +33,7 @@ function info(array $config, \stdClass $event) {
             'event_name' => $event->eventname,
             'event_function' => $config['event_function'],
             'emailAddress' => $emailAddress,
-            'username' => $username,      
+            'username' => $username
         ],
     ];
 }
