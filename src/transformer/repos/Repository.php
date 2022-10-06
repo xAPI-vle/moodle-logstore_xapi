@@ -27,7 +27,7 @@ abstract class Repository extends PhpObj {
      * @param [String => Mixed] $query
      * @return PhpArr
      */
-    public abstract function read_records($type, array $query);
+    abstract public function read_records($type, array $query);
     /**
      * Reads an object from the store with the given type and query.
      * @param String $type
