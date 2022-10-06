@@ -33,12 +33,14 @@ function course(array $config, \stdClass $course) {
               ];
 
     if (utils\is_enabled_config($config, 'send_short_course_id')) {
-        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
+        $object['definition']['extensions']
+            ['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
     }
 
     if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
         $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
-        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
+        $object['definition']['extensions']
+            ['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
     }
 
     return $object;
