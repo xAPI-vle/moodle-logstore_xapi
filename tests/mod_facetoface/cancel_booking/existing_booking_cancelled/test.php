@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\mod_facetoface\cancel_booking\existing_booking_cancelled;
-defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

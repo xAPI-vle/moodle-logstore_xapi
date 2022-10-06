@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\mod_feedback\course_module_viewed\viewing_feedback;
-defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\mod_bigbluebuttonbn\activity_viewed;
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Class test_activity_viewed
