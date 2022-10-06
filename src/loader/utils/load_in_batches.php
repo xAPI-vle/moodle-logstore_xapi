@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function load_in_batches(array $config, array $events, callable $loader) {
     // Attempts to load events that were transformed successfully in batches.
     $successfultransformevents = filter_transformed_events($events, true);

@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils\extensions;
-defined('MOODLE_INTERNAL') || die();
 
 function base(array $config, \stdClass $event, $course=null) {
     return array_merge(

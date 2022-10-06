@@ -16,8 +16,6 @@
 
 namespace src;
 
-defined('MOODLE_INTERNAL') || die();
-
 function handler($config, $events) {
     $logerror = $config['log_error'];
     $loginfo = $config['log_info'];

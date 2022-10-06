@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_quiz\attempt_submitted;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 use src\transformer\events\mod_quiz\question_answered as question_answered;
 

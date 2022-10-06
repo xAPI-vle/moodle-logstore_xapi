@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function load_batch(array $config, array $transformedevents, callable $loader) {
     try {
         $statements = array_reduce($transformedevents, function ($result, $transformedevent) {

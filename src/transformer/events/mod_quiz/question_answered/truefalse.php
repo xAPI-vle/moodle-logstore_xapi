@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {

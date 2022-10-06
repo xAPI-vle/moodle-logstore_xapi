@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_quiz\attempt_submitted;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function attempt_submitted(array $config, \stdClass $event) {

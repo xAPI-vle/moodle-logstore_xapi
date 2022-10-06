@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 class curl {
     // This is just a dummy file to avoid failures in CI.
 }

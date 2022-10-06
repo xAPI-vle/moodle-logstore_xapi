@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\core;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function user_created(array $config, \stdClass $event) {

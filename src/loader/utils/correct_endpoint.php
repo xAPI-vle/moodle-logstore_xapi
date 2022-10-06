@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function correct_endpoint($endpoint) {
     $endswithstatements = substr($endpoint, -11) === "/statements";
     if ($endswithstatements) {

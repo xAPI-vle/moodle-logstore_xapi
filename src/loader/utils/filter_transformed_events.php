@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function filter_transformed_events(array $events, $transformed) {
     $filteredevents = array_filter($events, function ($event) use ($transformed) {
         return $event['transformed'] === $transformed;
