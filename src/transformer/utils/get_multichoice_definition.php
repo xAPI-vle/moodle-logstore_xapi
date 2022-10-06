@@ -17,7 +17,7 @@
 namespace src\transformer\utils;
 use src\transformer\utils as utils;
 
-function get_multichoice_definition(array $config, \stdClass $questionattempt, 
+function get_multichoice_definition(array $config, \stdClass $questionattempt,
 \stdClass $question, $lang, $interactiontype = 'choice') {
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
