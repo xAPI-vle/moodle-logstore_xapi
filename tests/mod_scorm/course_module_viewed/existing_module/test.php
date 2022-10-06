@@ -17,10 +17,8 @@
 namespace tests\mod_scorm\course_module_viewed\existing_module;
 defined('MOODLE_INTERNAL') || die();
 
-class test extends \tests\xapi_test_case
-{
-    protected function get_test_dir()
-    {
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
         return __DIR__;
     }
 }
