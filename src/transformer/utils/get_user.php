@@ -18,7 +18,7 @@ namespace src\transformer\utils;
 
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
-    // The following email validation matches that in Learning Locker
+    // The following email validation matches that in Learning Locker.
     $hasvalidemail = mb_ereg_match("[A-Z0-9\\.\\`\\'_%+-]+@[A-Z0-9.-]+\\.[A-Z]{1,63}$", $user->email, "i");
 
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
