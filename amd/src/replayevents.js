@@ -109,10 +109,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Initialisation method called by php js_call_amd()
-             * 
-             * @param int $counts The number of events.
-             * @param int $notResend Whether or not to resend the events.
-             * @param int &Resend Appears to be unused. TODO: Remove.
+             * @param {Number} counts The number of events.
+             * @param {Number} notResend Whether or not to resend the events.
+             * @param {Number} Resend Appears to be unused. TODO: Remove.
              */
             init: function(counts, notResend, Resend) {
                 countedEvents = counts;
@@ -177,8 +176,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Replay an individual event using ajax.
-             * 
-             * @param int $eventId The event id.
+             * @param {Number} eventId The event id.
              */
             doReplayEvent: function(eventId) {
                 var url = mdlcfg.wwwroot + '/admin/tool/log/store/xapi/ajax/moveback_to_log.php';
@@ -312,8 +310,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Disable given elements.
-             * 
-             * @param array $elements The elements to disable.
+             * @param {Array} elements The elements to disable.
              */
             disableElements: function(elements) {
                 elements.addClass("disabled");
@@ -323,8 +320,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Enable given elements.
-             * 
-             * @param array $elements The elements to enable.
+             * @param {Array} elements The elements to enable.
              */
             enableElements: function(elements) {
                 elements.removeClass("disabled");
