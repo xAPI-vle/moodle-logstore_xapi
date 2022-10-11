@@ -59,7 +59,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
     /**
      * This method is called before each test.
      */
-    protected function setUp() {
+    protected function setUp(): void  {
         global $CFG;
 
         parent::setUp();
