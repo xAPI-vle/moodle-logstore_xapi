@@ -21,7 +21,6 @@ use logstore_xapi\task\emit_task;
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . "/../lib.php");
-use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
 
 /**
  * @package    logstore_xapi
@@ -29,7 +28,7 @@ use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-abstract class enchancement_jisc_skeleton extends PhpUnitTestCase {
+abstract class enchancement_jisc_skeleton extends advanced_testcase {
     /**
      * @var int Multiple test number.
      */
