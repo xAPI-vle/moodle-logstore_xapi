@@ -14,18 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\utils\get_activity;
+/**
+ * Renderer class for logstore_xapi
+ *
+ * @package    logstore_xapi
+ * @copyright  2020 Learning Pool Ltd <https://learningpool.com/>
+ * @author     Stephen O'Hara <stephen.ohara@learningpool.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace logstore_xapi\output;
+
 defined('MOODLE_INTERNAL') || die();
 
-use src\transformer\utils as utils;
+use plugin_renderer_base;
 
-function course_quiz(array $config, \stdClass $course, $cmid) {
-    $xapytype = 'http://adlnet.gov/expapi/activities/assessment';
+class renderer extends plugin_renderer_base {
 
-    // JISC specific activity type.
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $xapytype = 'http://xapi.jisc.ac.uk/activities/quiz';
-    }
-
-    return utils\get_activity\course_module($config, $course, $cmid, $xapytype);
 }

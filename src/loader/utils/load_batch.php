@@ -30,8 +30,18 @@ function load_batch(array $config, array $transformedevents, callable $loader) {
     } catch (\Exception $e) {
         $batchsize = count($transformedevents);
         $logerror = $config['log_error'];
-        $logerror("Failed load batch (" . $batchsize . " events)" .  $e->getMessage());
+        $logerror("Failed load batch (" . $batchsize . " events)" . $e->getMessage());
         $logerror($e->getTraceAsString());
+
+        // Add error code.
+        $errorcode = $e->getCode();
+        $errormessage = $e->getMessage();
+        foreach ($transformedevents as $event) {
+            if ($event["transformed"] == true) {
+                $event["event"]->response = $errormessage;
+                $event["event"]->errortype = $errorcode;
+            }
+        }
 
         // In the event of a 400 error, recursively retry sending statements in increasingly
         // smaller batches so that only the actual bad data fails.

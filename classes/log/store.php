@@ -18,7 +18,9 @@ namespace logstore_xapi\log;
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../src/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
+use core_plugin_manager;
 use \tool_log\log\writer as log_writer;
 use \tool_log\log\manager as log_manager;
 use \tool_log\helper\store as helper_store;
@@ -63,6 +65,88 @@ class store extends php_obj implements log_writer {
     }
 
     /**
+     * Get the eventid from logstore_standard_log.
+     * Return the persistent logstore_standard_log id from the database.
+     * Return value 0 means not found.
+     *
+     * @param event_base $event
+     * @return int
+     *
+     */
+    protected function get_event_id($event) {
+        global $DB;
+
+        $sqlparams = array();
+        $where = array('1 = 1');
+
+        if (!empty($event->eventname)) {
+            $sqlparams['eventname'] = $event->eventname;
+            $where[] = 'eventname = :eventname';
+        }
+
+        if (!empty($event->component)) {
+            $sqlparams['component'] = $event->component;
+            $where[] = 'component = :component';
+        }
+
+        if (!empty($event->action)) {
+            $sqlparams['action'] = $event->action;
+            $where[] = 'action = :action';
+        }
+
+        if (!empty($event->target)) {
+            $sqlparams['target'] = $event->target;
+            $where[] = 'target = :target';
+        }
+
+        if (!empty($event->objecttable)) {
+            $sqlparams['objecttable'] = $event->objecttable;
+            $where[] = 'objecttable = :objecttable';
+        } else {
+            $where[] = 'objecttable IS NULL';
+        }
+
+        if (!empty($event->objectid)) {
+            $sqlparams['objectid'] = $event->objectid;
+            $where[] = 'objectid = :objectid';
+        } else {
+            $where[] = 'objectid IS NULL';
+        }
+
+        if (!empty($event->timecreated)) {
+            $sqlparams['timecreated'] = $event->timecreated;
+            $where[] = 'timecreated = :timecreated';
+        }
+
+        if (!empty($event->userid)) {
+            $sqlparams['userid'] = $event->userid;
+            $where[] = 'userid = :userid';
+        }
+
+        if (!empty($event->anonymous)) {
+            $sqlparams['anonymous'] = $event->anonymous;
+            $where[] = 'anonymous = :anonymous';
+        }
+
+        // Perhaps we need more rule here.
+        if (empty($sqlparams)) {
+            return 0;
+        }
+
+        $sqlwhere = implode(' AND ', $where);
+
+        $sql = "SELECT MAX(id) AS id
+                  FROM {logstore_standard_log}
+                 WHERE " . $sqlwhere;
+
+        $row = $DB->get_record_sql($sql, $sqlparams);
+        if (empty($row) || empty($row->id)) {
+            return 0;
+        }
+        return $row->id;
+    }
+
+    /**
      * Insert events in bulk to the database. Overrides helper_writer.
      * @param array $events raw event data
      */
@@ -71,6 +155,8 @@ class store extends php_obj implements log_writer {
 
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
+            $events = $this->convert_array_to_objects($events);
+            $events = $this->get_persistent_eventids($events);
             $DB->insert_records('logstore_xapi_log', $events);
         } else {
             $this->process_events($events);
@@ -81,10 +167,71 @@ class store extends php_obj implements log_writer {
         return $this->get_config('maxbatchsize', 100);
     }
 
-    public function process_events(array $events) {
-        global $DB;
-        global $CFG;
-        require(__DIR__ . '/../../version.php');
+    public function get_max_batch_size_for_failed() {
+        return $this->get_config('maxbatchsizeforfailed', 100);
+    }
+
+    public function get_max_batch_size_for_historical() {
+        return $this->get_config('maxbatchsizeforhistorical', 100);
+    }
+
+    /**
+     * Take rows from logstore_standard_log for the emit_task or failed_task
+     * and add in the logstorestandardlogid and set the type.
+     *
+     * @param array $events raw event data
+     * @param int $eventtype event type
+     * @return array
+     */
+    private function get_persistent_eventids(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
+        foreach ($events as $event) {
+            $event->logstorestandardlogid = $this->get_event_id($event);
+            $event->type = $eventtype;
+        }
+        return $events;
+    }
+
+    /**
+     * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
+     *
+     * @param array $events raw events data
+     */
+    private function save_sent_events(array $events) {
+        $successfulevents = logstore_xapi_get_successful_events($events);
+        foreach ($successfulevents as $event) {
+            logstore_xapi_add_event_to_sent_log($event);
+        }
+    }
+
+    /**
+     * Process events.
+     * Transform events using the correct event handler and save sent events.
+     *
+     * @param array $events raw event data
+     * @param int $eventtype event type
+     * @return array
+     */
+    public function process_events(array $events, $eventtype = XAPI_IMPORT_TYPE_LIVE) {
+        $events = $this->convert_array_to_objects($events);
+        $events = $this->get_persistent_eventids($events, $eventtype);
+
+        $config = $this->get_handler_config();
+        $loadedevents = \src\handler($config, $events);
+        $this->save_sent_events($loadedevents);
+
+        return $loadedevents;
+    }
+
+    /**
+     * Get handler configuration.
+     *
+     * @return array Handler configuration.
+     */
+    protected function get_handler_config() {
+        global $DB, $CFG;
+
+        $plugin = core_plugin_manager::instance()->get_plugin_info('logstore_xapi');
+
         $logerror = function ($message = '') {
             debugging($message, DEBUG_NORMAL);
         };
@@ -135,8 +282,7 @@ class store extends php_obj implements log_writer {
 
         $handlerconfig['transformer'] = array_merge($handlerconfig['transformer'], $source);
 
-        $loadedevents = \src\handler($handlerconfig, $events);
-        return $loadedevents;
+        return $handlerconfig;
     }
 
     /**
@@ -145,5 +291,27 @@ class store extends php_obj implements log_writer {
      */
     public function is_logging() {
         return true;
+    }
+
+    /**
+     * Reread or convert event to object.
+     *
+     * @param array $events Array of events
+     * @return array of objects of events.
+     */
+    protected function convert_array_to_objects($events) {
+        $return = array();
+
+        if (!empty($events)) {
+            foreach ($events as $event) {
+                if (is_object($event)) {
+                    $return[] = $event;
+                } else {
+                    $return[] = (object)$event;
+                }
+            }
+        }
+
+        return $return;
     }
 }

@@ -17,9 +17,14 @@
 namespace src\transformer\utils\extensions;
 defined('MOODLE_INTERNAL') || die();
 
+use src\transformer\utils as utils;
+
 function base(array $config, \stdClass $event, $course=null) {
-    return array_merge(
-        info($config, $event),
-        jisc($config, $event, $course)
-    );
+    $base = utils\extensions\info($config, $event);
+
+    if (utils\is_enabled_config($config, 'send_jisc_data')) {
+        $base = array_merge($base, utils\extensions\jisc($config, $event, $course));
+    }
+
+    return $base;
 }
