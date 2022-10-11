@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer;
-defined('MOODLE_INTERNAL') || die();
 
 function get_event_function_map() {
     $availableevents = [
@@ -33,7 +32,8 @@ function get_event_function_map() {
         '\mod_bigbluebuttonbn\event\activity_deleted' => 'mod_bigbluebuttonbn\activity_deleted',
         '\mod_bigbluebuttonbn\event\activity_updated' => 'mod_bigbluebuttonbn\activity_updated',
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
-        '\mod_bigbluebuttonbn\event\bigbluebuttonbn_activity_management_viewed' => 'mod_bigbluebuttonbn\bigbluebuttonbn_activity_management_viewed',
+        '\mod_bigbluebuttonbn\event\bigbluebuttonbn_activity_management_viewed' =>
+            'mod_bigbluebuttonbn\bigbluebuttonbn_activity_management_viewed',
         '\mod_bigbluebuttonbn\event\live_session' => 'mod_bigbluebuttonbn\live_session',
         '\mod_bigbluebuttonbn\event\meeting_created' => 'mod_bigbluebuttonbn\meeting_created',
         '\mod_bigbluebuttonbn\event\meeting_ended' => 'mod_bigbluebuttonbn\meeting_ended',
@@ -88,7 +88,8 @@ function get_event_function_map() {
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
     ];
 
-    $environmentevents = class_exists("report_eventlist_list_generator") ? array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
+    $environmentevents = class_exists("report_eventlist_list_generator") ?
+        array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
 
     return array_filter($availableevents, function($k) use ($environmentevents) {
         return in_array($k, $environmentevents);

@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\mod_book\chapter_viewed\existing_chapter_viewed_with_parent;
-defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

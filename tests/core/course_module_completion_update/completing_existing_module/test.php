@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\core\course_module_completion_update\completing_existing_module;
-defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

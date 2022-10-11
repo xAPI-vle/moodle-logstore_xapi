@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
 function get_session_duration($config, $sessionid) {
     $repo = $config['repo'];

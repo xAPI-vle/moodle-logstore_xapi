@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
 function get_attempt_result(array $config, $attempt, $gradeitem, $attemptgrade) {
     $gradesum = floatval(isset($attemptgrade->rawgrade) ? $attemptgrade->rawgrade : 0);

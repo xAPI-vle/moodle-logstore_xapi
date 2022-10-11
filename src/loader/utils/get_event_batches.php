@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function get_event_batches(array $config, array $transformedevents) {
     $maxbatchsize = $config['lrs_max_batch_size'];
     if (!empty($maxbatchsize) && $maxbatchsize < count($transformedevents)) {

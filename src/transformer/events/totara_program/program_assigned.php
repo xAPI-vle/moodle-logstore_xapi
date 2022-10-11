@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\totara_program;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function program_assigned(array $config, \stdClass $event) {

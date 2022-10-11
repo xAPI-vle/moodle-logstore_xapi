@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests;
-defined('MOODLE_INTERNAL') || die();
 
 use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
 use \Locker\XApi\Statement as LockerStatement;

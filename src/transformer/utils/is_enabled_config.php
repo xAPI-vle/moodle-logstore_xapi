@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
 function is_enabled_config($config, $configname) {
     return array_key_exists($configname, $config) && $config[$configname] == true;

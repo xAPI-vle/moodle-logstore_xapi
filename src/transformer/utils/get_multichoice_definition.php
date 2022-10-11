@@ -16,9 +16,9 @@
 
 namespace src\transformer\utils;
 use src\transformer\utils as utils;
-defined('MOODLE_INTERNAL') || die();
 
-function get_multichoice_definition(array $config, \stdClass $questionattempt, \stdClass $question, $lang, $interactiontype = 'choice') {
+function get_multichoice_definition(array $config, \stdClass $questionattempt,
+\stdClass $question, $lang, $interactiontype = 'choice') {
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
         $answers = $repo->read_records('question_answers', [

@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
 function get_course_lang($course) {
     $haslang = is_null($course->lang) || $course->lang == '';

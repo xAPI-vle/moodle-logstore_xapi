@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\events\mod_quiz\question_answered;
-defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 

@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
@@ -36,7 +34,7 @@ function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
         case 'shortanswer':
             return shortanswer($config, $event, $questionattempt, $question);
         case 'match':
-            return match($config, $event, $questionattempt, $question);
+            return matching($config, $event, $questionattempt, $question);
         case 'multichoice':
         case 'multichoiceset':
             return multichoice($config, $event, $questionattempt, $question);

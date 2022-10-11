@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
 function get_quiz_question_id(array $config, $coursemoduleid, $questionid) {
     return $config['app_url'].'/question/question.php?cmid='.$coursemoduleid.'&id='.$questionid;

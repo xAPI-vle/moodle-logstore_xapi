@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace tests\totara_program\program_assigned\existing_program;
-defined('MOODLE_INTERNAL') || die();
 
 class test extends \tests\xapi_test_case {
     protected function get_test_dir() {

@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_scorm;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function scoreraw_submitted(array $config, \stdClass $event) {

@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_feedback\item_answered;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \stdClass $feedbackitem) {

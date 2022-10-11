@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\loader\lrs;
-defined('MOODLE_INTERNAL') || die();
 
 use src\loader\utils as utils;
 

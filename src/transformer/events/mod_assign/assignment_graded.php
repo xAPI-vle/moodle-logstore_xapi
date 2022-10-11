@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_assign;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function assignment_graded(array $config, \stdClass $event) {

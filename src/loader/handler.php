@@ -16,8 +16,6 @@
 
 namespace src\loader;
 
-defined('MOODLE_INTERNAL') || die();
-
 function handler(array $config, array $events) {
     $loadername = $config['loader'];
     $load = "\src\loader\\$loadername\load";

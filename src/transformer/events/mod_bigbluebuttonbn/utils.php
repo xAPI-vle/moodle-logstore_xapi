@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 /**

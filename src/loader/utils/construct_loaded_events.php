@@ -16,8 +16,6 @@
 
 namespace src\loader\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 function construct_loaded_events(array $transformedevents, $loaded) {
     $loadedevents = array_map(function ($transformedevent) use ($loaded) {
         return [

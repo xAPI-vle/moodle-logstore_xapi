@@ -16,8 +16,6 @@
 
 namespace src\loader\log;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\loader\utils as utils;
 
 function load(array $config, array $transformedevents) {

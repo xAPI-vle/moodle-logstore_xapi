@@ -16,8 +16,6 @@
 
 namespace src\transformer\events\mod_book;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 function chapter_viewed(array $config, \stdClass $event) {

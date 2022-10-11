@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils\get_activity;
-defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 

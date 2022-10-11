@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils\totara;
-defined('MOODLE_INTERNAL') || die();
 
 function program(array $config, \stdClass $program, $lang) {
     $programname = $program->fullname ? $program->fullname : 'A Totara program';
