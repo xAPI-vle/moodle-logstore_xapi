@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace tests;
+
 use logstore_xapi\log\moveback;
 
 defined('MOODLE_INTERNAL') || die();
@@ -27,13 +29,6 @@ require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class moveback_failed_statements_test extends enchancement_jisc_skeleton {
-
-    /**
-     * General test for checking stores are writeable and readable.
-     */
-    public function test_general() {
-        parent::test_general();
-    }
 
     /**
      * Creating minimum a single course view event to xapi logstore.

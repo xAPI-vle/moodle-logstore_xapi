@@ -201,10 +201,10 @@ if ($run) {
         if (!empty($eventids)) {
             $mover = new \logstore_xapi\log\moveback($eventids, $id);
             if ($mover->execute()) {
-                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'), 
+                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'),
                     notification::NOTIFY_SUCCESS);
             } else {
-                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'), 
+                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'),
                     notification::NOTIFY_ERROR);
             }
         }
