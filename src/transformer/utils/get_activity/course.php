@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace src\transformer\utils\get_activity;
+defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
@@ -33,14 +34,14 @@ function course(array $config, \stdClass $course) {
               ];
 
     if (utils\is_enabled_config($config, 'send_short_course_id')) {
-        $object['definition']['extensions']
-            ['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
+        $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';
+        $object['definition']['extensions'][$lmsshortid] = $course->shortname;
     }
 
     if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
         $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
-        $object['definition']['extensions']
-            ['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
+        $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
+        $object['definition']['extensions'][$lmsexternalid] = $courseidnumber;
     }
 
     return $object;
