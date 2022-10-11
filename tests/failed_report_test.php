@@ -29,7 +29,7 @@ require_once(__DIR__ . "/../classes/form/reportfilter_form.php");
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class failed_report_test extends \tests\enchancement_jisc_skeleton {
+class failed_report_test extends enchancement_jisc_skeleton {
 
     /**
      * @var array Simulated submitted reportfilter_form data for failed report.
