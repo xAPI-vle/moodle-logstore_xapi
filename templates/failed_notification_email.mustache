@@ -18,6 +18,15 @@
     @template logstore_xapi/failed_notification_email
 
     Email template for the failed notifications.
+
+    Example context (json):
+    {
+        "str": 10000,
+        "eventname": "\core\event\course_viewed",
+        "count": 1,
+        "lmsinstance": 1,
+        "errorlogpageurl": "https://moodle.domain/etc"
+    }
 }}
 <!DOCTYPE html>
 <html lang="en">
