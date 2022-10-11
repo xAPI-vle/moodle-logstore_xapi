@@ -60,7 +60,7 @@ abstract class enchancement_jisc_skeleton extends PhpUnitTestCase {
     /**
      * This method is called before each test.
      */
-    protected function setUp(): void  {
+    protected function setUp(): void {
         global $CFG;
 
         parent::setUp();
