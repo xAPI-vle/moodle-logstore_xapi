@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests;
+namespace logstore_xapi\tests;
 
 use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
 use \Locker\XApi\Statement as LockerStatement;
