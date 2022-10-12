@@ -16,6 +16,12 @@
 
 namespace logstore_xapi\core\course_completed\send_jisc_data;
 
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/vendor/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
 class test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
