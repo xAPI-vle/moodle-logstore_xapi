@@ -84,7 +84,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      *
      * @param stdClass $counts
      */
-    protected function assert_store_tables(stdClass $counts) {
+    protected function assert_store_tables(\stdClass $counts) {
         global $DB;
 
         if (isset($counts->logstore_standard_log)) {
@@ -109,12 +109,12 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      * @param testing_data_generator $generator
      * @return bool|int generated record id or false
      */
-    protected function add_test_log_data(testing_data_generator $generator) {
+    protected function add_test_log_data(\testing_data_generator $generator) {
         global $DB;
 
         $user = $generator->create_user();
         $course = $generator->create_course();
-        $context = context_course::instance($course->id);
+        $context = \context_course::instance($course->id);
 
         $record = (object)array(
             'eventname' => '\core\event\course_viewed',
@@ -155,17 +155,18 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
         $this->assertCount(1, $stores);
 
         // But both are writter.
-        $store = new logstore_standard\log\store($manager);
+        $store = new \logstore_standard\log\store($manager);
         $this->assertInstanceOf('logstore_standard\log\store', $store);
         $this->assertInstanceOf('tool_log\log\writer', $store);
         $this->assertTrue($store->is_logging());
 
-        $store = new logstore_xapi\log\store($manager);
+        $store = new \logstore_xapi\log\store($manager);
         $this->assertInstanceOf('logstore_xapi\log\store', $store);
         $this->assertInstanceOf('tool_log\log\writer', $store);
         $this->assertTrue($store->is_logging());
 
         // We don't have records in store tables.
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_standard_log = 0;
         $expectedcount->logstore_xapi_log = 0;
         $expectedcount->logstore_xapi_failed_log = 0;
@@ -210,7 +211,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
 
         $this->assertCount(0, $stores);
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 
@@ -230,7 +231,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 
@@ -263,7 +264,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 

@@ -48,7 +48,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_xapi_log = $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
@@ -73,7 +73,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_xapi_log = $this->multipletestnumber * $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
