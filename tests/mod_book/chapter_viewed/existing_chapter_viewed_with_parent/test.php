@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_book\chapter_viewed\existing_chapter_viewed_with_parent;
+namespace logstore_xapi\mod_book\chapter_viewed\existing_chapter_viewed_with_parent;
 
-class test extends \tests\xapi_test_case {
+class test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
     }

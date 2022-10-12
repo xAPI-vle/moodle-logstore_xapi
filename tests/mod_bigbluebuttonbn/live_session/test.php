@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_bigbluebuttonbn\live_session;
+namespace logstore_xapi\mod_bigbluebuttonbn\live_session;
 
-class test_live_session extends \tests\xapi_test_case {
+class test_live_session extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
     }

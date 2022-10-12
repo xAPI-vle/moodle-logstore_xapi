@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests\mod_resource\course_module_viewed\existing_module;
+namespace logstore_xapi\mod_resource\course_module_viewed\existing_module;
 
-class test extends \tests\xapi_test_case {
+class test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
     }
