@@ -51,6 +51,7 @@ jobs:
 
       - name: Install plugin composer dependencies
         run: |
+          echo $(pwd)
           cd admin/tool/log/store/xapi
           composer install
 
