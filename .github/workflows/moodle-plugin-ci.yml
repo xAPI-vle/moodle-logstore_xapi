@@ -52,7 +52,8 @@ jobs:
       - name: Install plugin composer dependencies
         run: |
           echo $(pwd)
-          echo $(ls -l)
+          echo $(cd plugin)
+          echo $(pwd)
           composer install
 
       - name: Initialise moodle-plugin-ci
