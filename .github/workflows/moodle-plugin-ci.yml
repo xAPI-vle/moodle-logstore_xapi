@@ -50,9 +50,9 @@ jobs:
           coverage: none
 
       - name: Install plugin composer dependencies
-          run: |
-              cd admin/tool/log/store/xapi
-              composer install
+        run: |
+          cd admin/tool/log/store/xapi
+          composer install
 
       - name: Initialise moodle-plugin-ci
         run: |
