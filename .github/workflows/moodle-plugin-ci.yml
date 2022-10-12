@@ -52,7 +52,7 @@ jobs:
       - name: Install plugin composer dependencies
         run: |
           echo $(pwd)
-          cd admin/tool/log/store/xapi
+          echo $(ls -l)
           composer install
 
       - name: Initialise moodle-plugin-ci
