@@ -42,8 +42,6 @@ jobs:
 
       - name: Initialize plugin dependencies
         uses: php-actions/composer@v6
-        with:
-          path: plugin
 
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
