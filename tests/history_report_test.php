@@ -18,10 +18,10 @@ namespace logstore_xapi;
 
 defined('MOODLE_INTERNAL') || die();
 
-global $CFG; // Reuired to reportfilter_form.
+global $CFG;
 
-require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
-require_once(__DIR__ . "/../classes/form/reportfilter_form.php");
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc_skeleton.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 /**
  * @package    logstore_xapi
