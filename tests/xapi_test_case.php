@@ -16,7 +16,6 @@
 
 namespace logstore_xapi;
 
-use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
 use \Locker\XApi\Statement as LockerStatement;
 
 abstract class xapi_test_case extends \advanced_testcase {

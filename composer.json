@@ -2,11 +2,9 @@
     "name": "xapi-vle/moodle-logstore-xapi",
     "license": "GPL v3",
     "require-dev": {
-        "phpunit/phpunit": "~8.0",
         "learninglocker/statementfactory": "~0.0"
     },
     "require": {
-        "php": "^7.2",
         "ext-json": "*"
     },
     "prefer-stable": true,
