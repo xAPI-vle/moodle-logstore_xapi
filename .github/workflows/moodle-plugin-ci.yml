@@ -40,9 +40,6 @@ jobs:
         with:
           path: plugin
 
-      - name: Initialize plugin dependencies
-        uses: php-actions/composer@v6
-
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
@@ -51,6 +48,11 @@ jobs:
           ini-values: max_input_vars=5000
           # none to use phpdbg fallback. Specify pcov (Moodle 3.10 and up) or xdebug to use them instead.
           coverage: none
+
+      - name: Install plugin composer dependencies
+          run: |
+              cd admin/tool/log/store/xapi
+              composer install
 
       - name: Initialise moodle-plugin-ci
         run: |
