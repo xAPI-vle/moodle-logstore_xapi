@@ -37,6 +37,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          path: plugin
+
+      - name: Initialize plugin dependencies
         uses: php-actions/composer@v6
         with:
           path: plugin
