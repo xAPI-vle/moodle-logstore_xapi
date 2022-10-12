@@ -16,6 +16,8 @@
 
 namespace logstore_xapi\core\course_completed\send_jisc_data;
 
+defined('MOODLE_INTERNAL') || die();
+
 global $CFG;
 
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/vendor/autoload.php');
