@@ -49,13 +49,6 @@ jobs:
           # none to use phpdbg fallback. Specify pcov (Moodle 3.10 and up) or xdebug to use them instead.
           coverage: none
 
-      - name: Install plugin composer dependencies
-        run: |
-          echo $(pwd)
-          echo $(cd plugin)
-          echo $(pwd)
-          composer install
-
       - name: Initialise moodle-plugin-ci
         run: |
           composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
@@ -63,6 +56,12 @@ jobs:
           echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
+
+      - name: Install plugin composer dependencies
+        run: |
+          echo $(pwd)
+          echo $(cd plugin)
+          composer install
 
       - name: Install moodle-plugin-ci
         run: |
