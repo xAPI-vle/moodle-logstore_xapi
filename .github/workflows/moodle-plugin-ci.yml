@@ -30,13 +30,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: '7.4'
-            moodle-branch: 'MOODLE_39_STABLE'
-            database: [pgsql, mariadb]
-          - php: ['7.4', '8.0']
-            moodle-branch: ['MOODLE_311_STABLE']
-            database: [pgsql, mariadb]
+        php: ['7.4']
+        moodle-branch: ['MOODLE_39_STABLE']
+        database: [pgsql, mariadb]
 
     steps:
       - name: Check out repository code
