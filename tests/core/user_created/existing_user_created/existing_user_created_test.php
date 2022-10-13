@@ -16,7 +16,7 @@
 
 namespace logstore_xapi\core\user_created\existing_user_created;
 
-class test extends \logstore_xapi\xapi_test_case {
+class existing_user_created_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
     }

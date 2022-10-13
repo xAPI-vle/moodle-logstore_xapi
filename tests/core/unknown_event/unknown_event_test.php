@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\unknown_event\test;
+namespace logstore_xapi\core\unknown_event;
 
 class unknown_event_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
