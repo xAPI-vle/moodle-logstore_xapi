@@ -62,6 +62,7 @@ jobs:
           echo $(pwd)
           cd plugin
           composer install
+          rm vendor/learninglocker/statementfactory/tests
 
       - name: Install moodle-plugin-ci
         run: |
