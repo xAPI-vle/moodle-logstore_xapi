@@ -14,10 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\user_enrolment_created\existing_user_enrolled;
+namespace logstore_xapi\core\course_viewed\viewing_existing_course;
 
-class test extends \logstore_xapi\xapi_test_case {
+class viewing_existing_course_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
+    }
+
+    // Adding this to appease the auto-detecting of test cases.
+    // xapi_test_case has the default test cases and this test extends that.
+    public function test_init() {
+
     }
 }

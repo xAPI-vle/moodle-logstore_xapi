@@ -14,10 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\user_loggedin\existing_user_loggedin;
+namespace logstore_xapi\core\user_created\send_jisc_data;
 
-class test extends \logstore_xapi\xapi_test_case {
+class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
+    }
+
+    protected function get_transformer_config() {
+        $testdata = $this->get_test_data();
+        $transformerconfig = parent::get_transformer_config();
+        return array_merge($transformerconfig, [
+            'send_jisc_data' => true,
+        ]);
+    }
+
+    // Adding this to appease the auto-detecting of test cases.
+    // xapi_test_case has the default test cases and this test extends that.
+    public function test_init() {
+
     }
 }
