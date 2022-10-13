@@ -36,4 +36,10 @@ class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
             'send_jisc_data' => true,
         ]);
     }
+
+    // Adding this to appease the auto-detecting of test cases.
+    // xapi_test_case has the default test cases and this test extends that.
+    public function test_init() {
+
+    }
 }
