@@ -16,7 +16,7 @@
 
 namespace logstore_xapi\core\course_completed\completing_existing_course;
 
-defined('MOODLE_INTERNAL') || die();
+
 
 class completing_existing_course_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
