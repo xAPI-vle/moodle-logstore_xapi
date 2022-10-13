@@ -57,7 +57,7 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
-      - name: Install plugin composer dependencies
+      - name: Install plugin dev dependencies
         run: |
           echo $(pwd)
           cd plugin
