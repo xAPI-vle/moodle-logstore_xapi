@@ -28,8 +28,7 @@ function get_event_function_map() {
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
-        '\mod_bigbluebuttonbn\event\bigbluebuttonbn_activity_management_viewed' =>
-            'mod_bigbluebuttonbn\activity_management_viewed',
+        '\mod_bigbluebuttonbn\event\activity_management_viewed' => 'mod_bigbluebuttonbn\activity_management_viewed',
         '\mod_bigbluebuttonbn\event\live_session_event' => 'mod_bigbluebuttonbn\live_session',
         '\mod_bigbluebuttonbn\event\meeting_created' => 'mod_bigbluebuttonbn\meeting_created',
         '\mod_bigbluebuttonbn\event\meeting_ended' => 'mod_bigbluebuttonbn\meeting_ended',
