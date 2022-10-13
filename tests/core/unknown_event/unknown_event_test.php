@@ -16,6 +16,12 @@
 
 namespace logstore_xapi\core\unknown_event;
 
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
 class unknown_event_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;

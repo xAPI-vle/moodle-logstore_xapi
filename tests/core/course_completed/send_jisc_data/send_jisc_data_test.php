@@ -20,8 +20,6 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot . '/admin/tool/log/store/xapi/vendor/autoload.php');
-require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/autoload.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 class send_jisc_data_test extends \logstore_xapi\xapi_test_case {

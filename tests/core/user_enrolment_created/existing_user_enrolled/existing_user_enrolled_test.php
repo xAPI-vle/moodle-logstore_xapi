@@ -16,6 +16,12 @@
 
 namespace logstore_xapi\core\user_enrolment_created\existing_user_enrolled;
 
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
 class existing_user_enrolled_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
