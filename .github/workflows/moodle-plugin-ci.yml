@@ -104,9 +104,7 @@ jobs:
 
       - name: Install plugin PHPUnit dependencies
         run: |
-          echo $(pwd)
-          cd plugin
-          composer install
+          echo $(ls -la)
 
       - name: PHPUnit tests
         if: ${{ always() }}
