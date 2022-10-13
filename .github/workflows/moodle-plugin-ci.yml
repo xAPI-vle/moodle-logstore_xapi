@@ -105,7 +105,7 @@ jobs:
       - name: Install plugin PHPUnit dependencies
         run: |
           echo $(pwd)
-          cd moodle/admin/tool/log/store/xapi
+          cd moodle/admin/tool/log/store/xapi/
           composer install
 
       - name: PHPUnit tests
