@@ -57,6 +57,17 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+      - name: Install plugin composer dependencies
+        run: |
+          echo $(pwd)
+          cd plugin
+          composer install
+
+      - name: Remove vendor tests
+        run: |
+          cd plugin
+          rm -Rf vendor/learninglocker/statementfactory/tests
+
       - name: Install moodle-plugin-ci
         run: |
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
@@ -101,10 +112,6 @@ jobs:
       - name: Grunt
         if: ${{ always() }}
         run: moodle-plugin-ci grunt --max-lint-warnings 0
-
-      - name: Install plugin PHPUnit dependencies
-        run: |
-          echo $(ls -la)
 
       - name: PHPUnit tests
         if: ${{ always() }}
