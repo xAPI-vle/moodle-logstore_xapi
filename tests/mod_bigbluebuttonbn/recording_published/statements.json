@@ -14,11 +14,11 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/book\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/bigbluebuttonbn\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/link",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/meeting",
                 "name": {
-                    "en": "test_book_name"
+                    "en": "test_bigbluebuttonbn_name"
                 }
             }
         },

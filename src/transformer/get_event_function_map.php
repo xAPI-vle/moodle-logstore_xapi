@@ -27,14 +27,10 @@ function get_event_function_map() {
         '\core\event\course_module_completion_updated' => 'core\course_module_completion_updated',
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
-
-        '\mod_bigbluebuttonbn\event\activity_created' => 'mod_bigbluebuttonbn\activity_created',
-        '\mod_bigbluebuttonbn\event\activity_deleted' => 'mod_bigbluebuttonbn\activity_deleted',
-        '\mod_bigbluebuttonbn\event\activity_updated' => 'mod_bigbluebuttonbn\activity_updated',
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
         '\mod_bigbluebuttonbn\event\bigbluebuttonbn_activity_management_viewed' =>
-            'mod_bigbluebuttonbn\bigbluebuttonbn_activity_management_viewed',
-        '\mod_bigbluebuttonbn\event\live_session' => 'mod_bigbluebuttonbn\live_session',
+            'mod_bigbluebuttonbn\activity_management_viewed',
+        '\mod_bigbluebuttonbn\event\live_session_event' => 'mod_bigbluebuttonbn\live_session',
         '\mod_bigbluebuttonbn\event\meeting_created' => 'mod_bigbluebuttonbn\meeting_created',
         '\mod_bigbluebuttonbn\event\meeting_ended' => 'mod_bigbluebuttonbn\meeting_ended',
         '\mod_bigbluebuttonbn\event\meeting_joined' => 'mod_bigbluebuttonbn\meeting_joined',
@@ -47,7 +43,6 @@ function get_event_function_map() {
         '\mod_bigbluebuttonbn\event\recording_unprotected' => 'mod_bigbluebuttonbn\recording_unprotected',
         '\mod_bigbluebuttonbn\event\recording_unpublished' => 'mod_bigbluebuttonbn\recording_unpublished',
         '\mod_bigbluebuttonbn\event\recording_viewed' => 'mod_bigbluebuttonbn\recording_viewed',
-
         '\mod_book\event\course_module_viewed' => 'mod_book\course_module_viewed',
         '\mod_book\event\chapter_viewed' => 'mod_book\chapter_viewed',
         '\mod_chat\event\course_module_viewed' => 'mod_chat\course_module_viewed',
