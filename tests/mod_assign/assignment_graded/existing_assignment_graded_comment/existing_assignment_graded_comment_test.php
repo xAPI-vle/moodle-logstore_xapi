@@ -16,6 +16,12 @@
 
 namespace logstore_xapi\mod_assign\assignment_graded\existing_assignment_graded_comment;
 
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
 class existing_assignment_graded_comment_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
