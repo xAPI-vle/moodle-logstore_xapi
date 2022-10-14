@@ -16,8 +16,20 @@
 
 namespace logstore_xapi\mod_feedback\response_submitted\multichoicerated;
 
-class test extends \logstore_xapi\xapi_test_case {
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
+class multichoicerated_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
+    }
+
+    // Adding this to appease the auto-detecting of test cases.
+    // xapi_test_case has the default test cases and this test extends that.
+    public function test_init() {
+
     }
 }
