@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi\output;
+
+use plugin_renderer_base;
+
 /**
  * Renderer class for logstore_xapi
  *
@@ -22,11 +26,6 @@
  * @author     Stephen O'Hara <stephen.ohara@learningpool.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace logstore_xapi\output;
-
-use plugin_renderer_base;
-
 class renderer extends plugin_renderer_base {
 
 }

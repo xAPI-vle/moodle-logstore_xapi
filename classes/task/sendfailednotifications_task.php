@@ -37,11 +37,18 @@ use logstore_xapi\log\store;
 class sendfailednotifications_task extends \core\task\scheduled_task {
 
     /**
-     * Constants
-     * Repurpose email_to_user() to send for users with just email addresses.
+     * Default mail sender.
      */
     const DEFAULT_SENDER = -99;
+
+    /**
+     * Default mail sender name.
+     */
     const DEFAULT_SENDER_NAME = "";
+
+    /**
+     * Default mail sender email address.
+     */
     const DEFAULT_SENDER_EMAIL = "";
 
     /**
@@ -76,6 +83,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     /**
      * Get the last id of the new notifications to send, if there are no notifications to send then return false.
      *
+     * @param  int $lastsentid id of the last failed event from the last sent notification.
      * @return int|bool
      * @throws \dml_exception
      */
