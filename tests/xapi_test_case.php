@@ -135,10 +135,10 @@ abstract class xapi_test_case extends \advanced_testcase {
     /**
      * Assert that the statement is a valid xAPI statement.
      *
-     * @param string $statement The xAPI statement.
+     * @param array $statement The xAPI statement.
      * @return void
      */
-    private function assert_valid_xapi_statement(string $statement) {
+    private function assert_valid_xapi_statement(array $statement) {
         $errors = LockerStatement::createFromJson(json_encode($statement))->validate();
         $errorsjson = json_encode(array_map(function ($error) {
             return (string) $error;
