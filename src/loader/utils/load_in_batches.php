@@ -31,7 +31,7 @@ namespace src\loader\utils;
  *
  * @param array $config An array of configuration settings.
  * @param array $events An array of events.
- * @param callable $loader 
+ * @param callable $loader
  * @return array
  */
 function load_in_batches(array $config, array $events, callable $loader) {
