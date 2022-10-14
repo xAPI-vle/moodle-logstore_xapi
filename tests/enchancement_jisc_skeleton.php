@@ -24,7 +24,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 /**
  * Test case skeleton for the jisc enhancements.
- * 
+ *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
