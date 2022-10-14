@@ -28,6 +28,13 @@ namespace src\loader\none;
 
 use src\loader\utils as utils;
 
+/**
+ * Load none type events.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $transformedevents An array of transformed events.
+ * @return array
+ */
 function load(array $config, array $transformedevents) {
     return utils\construct_loaded_events($transformedevents, true);
 }

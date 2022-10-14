@@ -26,6 +26,14 @@
 
 namespace src\loader\utils;
 
+/**
+ * Load a batch of events.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $transformedevents An array of events.
+ * @param callable $loader
+ * @return array
+ */
 function load_batch(array $config, array $transformedevents, callable $loader) {
     try {
         $statements = array_reduce($transformedevents, function ($result, $transformedevent) {

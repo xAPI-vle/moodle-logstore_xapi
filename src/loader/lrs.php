@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * LRS loader.
+ * Send statements to the LRS.
  *
  * @package   logstore_xapi
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
@@ -28,6 +28,13 @@ namespace src\loader\lrs;
 
 use src\loader\utils as utils;
 
+/**
+ * Send statements to an LRS.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return array
+ */
 function load(array $config, array $events) {
     $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];

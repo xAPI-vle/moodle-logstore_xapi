@@ -26,7 +26,14 @@
 
 namespace src\loader\utils;
 
-function construct_loaded_events(array $transformedevents, $loaded) {
+/**
+ * Builds the loaded event.
+ *
+ * @param array $transformedevents An array of transformed events.
+ * @param bool $loaded True if event was successfully loaded. False if not.
+ * @return array
+ */
+function construct_loaded_events(array $transformedevents, bool $loaded) {
     $loadedevents = array_map(function ($transformedevent) use ($loaded) {
         return [
             'event' => $transformedevent['event'],

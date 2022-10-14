@@ -35,6 +35,13 @@ require_once($CFG->libdir . '/filelib.php');
 
 use src\loader\utils as utils;
 
+/**
+ * Load data necessary to send statements to LRS.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return array
+ */
 function load(array $config, array $events) {
 
     $sendhttpstatements = function (array $config, array $statements) {

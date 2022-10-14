@@ -26,6 +26,13 @@
 
 namespace src\loader\utils;
 
+/**
+ * Retrieve batches of events.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $transformedevents An array of events.
+ * @return array
+ */
 function get_event_batches(array $config, array $transformedevents) {
     $maxbatchsize = $config['lrs_max_batch_size'];
     if (!empty($maxbatchsize) && $maxbatchsize < count($transformedevents)) {

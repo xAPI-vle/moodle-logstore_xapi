@@ -26,6 +26,11 @@
 
 namespace src\loader\utils;
 
+/**
+ * A dummy file to avoid failures in CI.
+ *
+ * @return void
+ */
 class curl {
     // This is just a dummy file to avoid failures in CI.
 }

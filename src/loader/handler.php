@@ -26,6 +26,13 @@
 
 namespace src\loader;
 
+/**
+ * Generic handler for the loader.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return string
+ */
 function handler(array $config, array $events) {
     $loadername = $config['loader'];
     $load = "\src\loader\\$loadername\load";

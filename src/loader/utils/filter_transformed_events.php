@@ -26,7 +26,14 @@
 
 namespace src\loader\utils;
 
-function filter_transformed_events(array $events, $transformed) {
+/**
+ * Filter transformed events.
+ *
+ * @param array $events An array of events.
+ * @param bool $transformed True if events loaded. False if not.
+ * @return array
+ */
+function filter_transformed_events(array $events, bool $transformed) {
     $filteredevents = array_filter($events, function ($event) use ($transformed) {
         return $event['transformed'] === $transformed;
     });

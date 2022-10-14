@@ -26,8 +26,15 @@
 
 namespace src\loader\utils;
 
+/**
+ * Load events that were transformed successfully in batches.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @param callable $loader 
+ * @return array
+ */
 function load_in_batches(array $config, array $events, callable $loader) {
-    // Attempts to load events that were transformed successfully in batches.
     $successfultransformevents = filter_transformed_events($events, true);
     $batches = get_event_batches($config, $successfultransformevents);
     $loadedevents = array_reduce($batches, function ($result, $batch) use ($config, $loader) {

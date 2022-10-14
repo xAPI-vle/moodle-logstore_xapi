@@ -26,7 +26,13 @@
 
 namespace src\loader\utils;
 
-function correct_endpoint($endpoint) {
+/**
+ * Choose the correct xAPI LRS endpoint. Defaults to statements for now.
+ *
+ * @param string $endpoint The endpoint to send the request to.
+ * @return string
+ */
+function correct_endpoint(string $endpoint) {
     $endswithstatements = substr($endpoint, -11) === "/statements";
     if ($endswithstatements) {
         return substr($endpoint, 0, -11);
