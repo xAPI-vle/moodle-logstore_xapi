@@ -122,7 +122,7 @@ switch ($id) {
 }
 
 $notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form($url, $filterparams);
+$mform = new logstore_xapi\form\tool_logstore_xapi_reportfilter_form($url, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];

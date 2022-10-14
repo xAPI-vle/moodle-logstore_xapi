@@ -59,7 +59,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
             'responses' => logstore_xapi_get_distinct_options_from_failed_table('response')
         ];
 
-        $form = new tool_logstore_xapi_reportfilter_form('', $filterparams);
+        $form = new form\tool_logstore_xapi_reportfilter_form('', $filterparams);
         $this->assertTrue($form->is_validated());
         $this->assertTrue($form->is_submitted());
 
@@ -78,7 +78,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());
@@ -97,7 +97,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->multipletestnumber * $this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());
