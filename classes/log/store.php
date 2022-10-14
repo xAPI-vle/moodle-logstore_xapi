@@ -189,7 +189,7 @@ class store extends php_obj implements log_writer {
      * Retrieve the maximum batch size for historical events.
      *
      * @return int
-     */ 
+     */
     public function get_max_batch_size_for_historical() {
         return $this->get_config('maxbatchsizeforhistorical', 100);
     }
