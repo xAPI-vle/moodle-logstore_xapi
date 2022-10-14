@@ -14,6 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace src\transformer\repos;
+defined('MOODLE_INTERNAL') || die();
+
+require_once(__DIR__.'/Repository.php');
+
 /**
  * Moodle repository.
  *
@@ -23,18 +28,12 @@
  *            David Pesce <david.pesce@exputo.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace src\transformer\repos;
-defined('MOODLE_INTERNAL') || die();
-
-require_once(__DIR__.'/Repository.php');
-
 class MoodleRepository extends Repository {
     private $store;
 
     /**
      * Constructs a new Repository.
-     * @param $store
+     * @param object $store
      */
     public function __construct($store) {
         $this->store = $store;
@@ -42,22 +41,22 @@ class MoodleRepository extends Repository {
 
     /**
      * Reads an array of objects from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
-     * @return PhpArr
+     * @param string $type
+     * @param array $query 
+     * @return array
      */
-    public function read_records($type, array $query) {
+    public function read_records(string $type, array $query) {
         return $this->store->get_records($type, $query);
     }
 
     /**
      * Reads an object from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
+     * @param string $type
+     * @param array $query
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
-    public function read_record($type, array $query) {
+    public function read_record(string $type, array $query) {
         $record = $this->store->get_record($type, $query);
         if ($record === false) {
             throw new \Exception("$type not found.");

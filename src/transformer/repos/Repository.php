@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace src\transformer\repos;
+
+use \stdClass as PhpObj;
+
 /**
  * Generic respository.
  *
@@ -23,28 +27,24 @@
  *            David Pesce <david.pesce@exputo.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace src\transformer\repos;
-
-use \stdClass as PhpObj;
-
 abstract class Repository extends PhpObj {
 
     /**
      * Reads an array of objects from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
-     * @return PhpArr
+     * @param string $type
+     * @param array $query
+     * @return array
      */
-    abstract public function read_records($type, array $query);
+    abstract public function read_records(string $type, array $query);
+
     /**
      * Reads an object from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
+     * @param string $type
+     * @param array $query
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
-    public function read_record($type, array $query) {
+    public function read_record(string $type, array $query) {
         $records = $this->read_records($type, $query);
         $record = $records[0];
         if (!$record) {
@@ -55,8 +55,8 @@ abstract class Repository extends PhpObj {
 
     /**
      * Reads an object from the store with the given id.
-     * @param String $id
-     * @param String $type
+     * @param string $type
+     * @param string $id
      * @return PhpObj
      * @throws \Exception
      */

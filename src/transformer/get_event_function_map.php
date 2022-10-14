@@ -26,6 +26,11 @@
 
 namespace src\transformer;
 
+/**
+ * Return a map of the Moodle events to their transformers.
+ *
+ * @return array
+ */
 function get_event_function_map() {
     $availableevents = [
         '\core\event\course_completed' => 'core\course_completed',
