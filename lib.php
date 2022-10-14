@@ -14,6 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Generic library for the logstore_xapi plugin.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 define('XAPI_REPORT_ID_ERROR', 0);
 define('XAPI_REPORT_ID_HISTORIC', 1);
 
@@ -270,7 +280,7 @@ function logstore_xapi_get_successful_events($events) {
 /**
  * Take event data and add to the sent log if it doesn't exist already.
  *
- * @param array $event raw event data
+ * @param stdObj $event raw event data
  */
 function logstore_xapi_add_event_to_sent_log($event) {
     global $DB;
