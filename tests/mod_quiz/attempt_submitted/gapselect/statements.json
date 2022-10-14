@@ -22,7 +22,7 @@
                 }
             }
         },
-        "timestamp": "2015-06-10T15:31:41+01:00",
+        "timestamp": "2015-06-10T22:31:41+08:00",
         "result": {
             "score": {
                 "raw": 50,
@@ -115,7 +115,7 @@
                 "interactionType": "sequencing"
             }
         },
-        "timestamp": "2015-06-10T15:31:41+01:00",
+        "timestamp": "2015-06-10T22:31:41+08:00",
         "result": {
             "response": "spicy[,]mango[,]milkshake",
             "completion": true,
