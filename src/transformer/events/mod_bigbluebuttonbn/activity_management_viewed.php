@@ -18,7 +18,7 @@ namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
- * The mod_bigbluebuttonbn activity management viewed event (triggered by index.php).
+ * The mod_bigbluebuttonbn activity management viewed event.
  *
  * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config

@@ -13,14 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-/**
- * Move back the given failed events to standard log.
- *
- * @package     logstore_xapi
- * @subpackage  log
- * @author      Záborski László <laszlo.zaborski@learningpool.com>
- * @copyright   2020 Learning Pool Ltd (http://learningpool.com)
- */
 
 namespace logstore_xapi\log;
 

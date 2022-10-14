@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Swedish log store lang strings.
+ *
+ * @package   logstore_xapi
+ * @copyright Martin Sandberg <martin.sandberg@xtractor.se>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 $string['endpoint'] = 'Din LRS-endpoint för xAPI';

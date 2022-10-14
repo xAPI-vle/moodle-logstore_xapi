@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions
+ * Capability definitions.
  *
- * @package    tool_logstorexapi
+ * @package    logstore_xapi
  * @author     Michael Lynn <michael.lynn@learningpool.com>
  * @copyright  2020 Learning Pool Ltd <http://learningpool.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

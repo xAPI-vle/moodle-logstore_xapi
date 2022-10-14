@@ -28,10 +28,14 @@ use \tool_log\helper\reader as helper_reader;
 use \tool_log\helper\buffered_writer as helper_writer;
 use \core\event\base as event_base;
 use \stdClass as php_obj;
-
 /**
- * This class processes events and enables them to be sent to a logstore.
+ * Processes events and enables them to be sent to a logstore.
  *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class store extends php_obj implements log_writer {
     use helper_store;

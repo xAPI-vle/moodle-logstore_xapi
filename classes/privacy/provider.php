@@ -17,8 +17,11 @@
 /**
  * Privacy Subsystem implementation for logstore_xapi.
  *
- * @package    logstore_xapi
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace logstore_xapi\privacy;

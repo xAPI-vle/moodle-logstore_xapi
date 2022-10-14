@@ -25,6 +25,15 @@ require_once($CFG->libdir . '/messagelib.php');
 use tool_log\log\manager;
 use logstore_xapi\log\store;
 
+/**
+ * Send failed notifications.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class sendfailednotifications_task extends \core\task\scheduled_task {
 
     /**
