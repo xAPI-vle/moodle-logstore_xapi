@@ -33,7 +33,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  */
 class existing_user_loggedout_test extends \logstore_xapi\xapi_test_case {
 
-     /**
+    /**
      * Retrieve the directory of the unit test.
      *
      * @return string

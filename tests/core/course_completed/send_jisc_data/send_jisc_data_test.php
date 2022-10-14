@@ -42,10 +42,10 @@ class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
         return __DIR__;
     }
 
-     /**
-     * Retrieve the transformer config.
+    /**
+     * Retrieve the directory of the unit test.
      *
-     * @return array
+     * @return string
      */
     protected function get_transformer_config() {
         $testdata = $this->get_test_data();

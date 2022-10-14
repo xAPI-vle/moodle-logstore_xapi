@@ -33,7 +33,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  */
 class activity_management_viewed_test extends \logstore_xapi\xapi_test_case {
 
-     /**
+    /**
      * Retrieve the directory of the unit test.
      *
      * @return string
