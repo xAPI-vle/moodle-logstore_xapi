@@ -111,6 +111,7 @@ class moveback {
     /**
      * Move event.
      *
+     * @param object $event The event to move.
      * @return array
      */
     protected function move_event($event) {

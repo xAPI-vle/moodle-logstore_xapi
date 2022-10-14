@@ -167,14 +167,29 @@ class store extends php_obj implements log_writer {
         }
     }
 
+    /**
+     * Retrieve the maximum batch size.
+     *
+     * @return int
+     */
     public function get_max_batch_size() {
         return $this->get_config('maxbatchsize', 100);
     }
 
+    /**
+     * Retrieve the maximum batch size for failed events.
+     *
+     * @return int
+     */
     public function get_max_batch_size_for_failed() {
         return $this->get_config('maxbatchsizeforfailed', 100);
     }
 
+    /**
+     * Retrieve the maximum batch size for historical events.
+     *
+     * @return int
+     */ 
     public function get_max_batch_size_for_historical() {
         return $this->get_config('maxbatchsizeforhistorical', 100);
     }
