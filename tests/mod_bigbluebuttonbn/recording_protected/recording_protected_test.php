@@ -22,13 +22,31 @@ global $CFG;
 
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
+/**
+ * Unit test for mod_bigbluebuttonbn recording protected event.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class recording_protected_test extends \logstore_xapi\xapi_test_case {
+
+     /**
+     * Retrieve the directory of the unit test.
+     *
+     * @return string
+     */
     protected function get_test_dir() {
         return __DIR__;
     }
 
-    // Adding this to appease the auto-detecting of test cases.
-    // xapi_test_case has the default test cases and this test extends that.
+    /**
+     * Appease auto-detecting of test cases. xapi_test_case has default test cases.
+     *
+     * @return void
+     */
     public function test_init() {
 
     }
