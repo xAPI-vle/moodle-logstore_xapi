@@ -68,6 +68,7 @@ function get_object() {
 /**
  * Strip single quotes from string.
  *
+ * @param string $val String value to clean.
  * @return string
  */
 function clean_string($val) {
