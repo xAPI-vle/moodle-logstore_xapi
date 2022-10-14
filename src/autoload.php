@@ -28,6 +28,11 @@ namespace src;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Autoload function for the loader and transformer.
+ *
+ * @return void
+ */
 function autoload_src() {
     $directory = new \RecursiveDirectoryIterator(__DIR__);
     $iterator = new \RecursiveIteratorIterator($directory);

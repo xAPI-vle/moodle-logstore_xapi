@@ -26,7 +26,14 @@
 
 namespace src;
 
-function handler($config, $events) {
+/**
+ * Generic handler for loader and transformer.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return array
+ */
+function handler(array $config, array $events) {
     $logerror = $config['log_error'];
     $loginfo = $config['log_info'];
     try {
