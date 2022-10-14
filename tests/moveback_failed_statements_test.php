@@ -25,6 +25,8 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc_skeleton.php');
 
 /**
+ * Test case for moving failed statements back to retry later.
+ *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)

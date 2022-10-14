@@ -38,8 +38,6 @@ abstract class xapi_test_case extends \advanced_testcase {
 
     /**
      * Retrieve the directory of the unit test.
-     *
-     * @abstract
      */
     abstract protected function get_test_dir();
 
