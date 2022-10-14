@@ -24,6 +24,13 @@
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ /**
+ * Create the xapi_log table.
+ *
+ * @param object $dbman     Database manipulation object.
+ * @param string $tablename The name of the table.
+ * @return void
+ */
 function create_xapi_log_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
@@ -72,6 +79,13 @@ function create_xapi_log_table($dbman, $tablename) {
     }
 }
 
+ /**
+ * Create the xapi_sent_log table.
+ *
+ * @param object $dbman     Database manipulation object.
+ * @param string $tablename The name of the table.
+ * @return void
+ */
 function create_xapi_sent_log_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
@@ -96,12 +110,12 @@ function create_xapi_sent_log_table($dbman, $tablename) {
     }
 }
 
-/**
+ /**
  * Create new columns in the database.
  *
- * @param object $dbman
- * @param string $tablename
- *
+ * @param object $dbman     Database manipulation object.
+ * @param string $tablename The name of the table.
+ * @return void
  */
 function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
     // Select table.
@@ -130,17 +144,24 @@ function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
     }
 }
 
-/**
+ /**
  * Create new columns in the database.
  *
- * @param object $dbman
- *
+ * @param object $dbman     Database manipulation object.
+ * @return void
  */
 function create_logstoreid_and_type_columns($dbman) {
     add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_log');
     add_logstorestandardlogid_type_to_table($dbman, 'logstore_xapi_failed_log');
 }
 
+ /**
+ * Create xapi_notification table.
+ *
+ * @param object $dbman     Database manipulation object.
+ * @param string $tablename The name of the table.
+ * @return void
+ */
 function create_xapi_notification_table($dbman, $tablename) {
     // Define table to be created.
     $table = new xmldb_table($tablename);
@@ -165,6 +186,12 @@ function create_xapi_notification_table($dbman, $tablename) {
     }
 }
 
+ /**
+ * Determine what needs to be done for each upgrade step.
+ *
+ * @param string $oldversion Prior version of plugin during an upgrade.
+ * @return bool
+ */
 function xmldb_logstore_xapi_upgrade($oldversion) {
     global $DB;
 
