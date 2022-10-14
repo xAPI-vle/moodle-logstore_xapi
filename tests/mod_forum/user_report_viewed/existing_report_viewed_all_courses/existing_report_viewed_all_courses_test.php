@@ -16,8 +16,20 @@
 
 namespace logstore_xapi\mod_forum\user_report_viewed\existing_report_viewed_all_courses;
 
-class test extends \logstore_xapi\xapi_test_case {
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
+
+class existing_report_viewed_all_courses_test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
+    }
+
+    // Adding this to appease the auto-detecting of test cases.
+    // xapi_test_case has the default test cases and this test extends that.
+    public function test_init() {
+
     }
 }
