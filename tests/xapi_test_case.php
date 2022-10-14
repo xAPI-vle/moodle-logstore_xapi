@@ -25,22 +25,56 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/autoload.php');
 
 use \Locker\XApi\Statement as LockerStatement;
 
+/**
+ * Default test cases for the plugin.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 abstract class xapi_test_case extends \advanced_testcase {
 
+    /**
+     * Retrieve the directory of the unit test.
+     *
+     * @abstract
+     */
     abstract protected function get_test_dir();
 
+    /**
+     * Retrieve the test data from data.json.
+     *
+     * @return object
+     */
     protected function get_test_data() {
         return json_decode(file_get_contents($this->get_test_dir().'/data.json'));
     }
 
+    /**
+     * Retrieve the event data from event.json.
+     *
+     * @return object
+     */
     protected function get_event() {
         return json_decode(file_get_contents($this->get_test_dir().'/event.json'));
     }
 
+    /**
+     * Retrieve the expected statement from statements.json.
+     *
+     * @return string|false
+     */
     protected function get_expected_statements() {
         return file_get_contents($this->get_test_dir().'/statements.json');
     }
 
+    /**
+     * Create the test event.
+     *
+     * @return void
+     */
     public function test_create_event() {
         $event = $this->get_event();
         $logerror = function ($message = '') {
@@ -72,6 +106,11 @@ abstract class xapi_test_case extends \advanced_testcase {
         }
     }
 
+    /**
+     * Get the transformer configuration.
+     *
+     * @return array
+     */
     protected function get_transformer_config() {
         $testdata = $this->get_test_data();
         return [
@@ -93,6 +132,11 @@ abstract class xapi_test_case extends \advanced_testcase {
         ];
     }
 
+    /**
+     * Assert that the statement is a valid xAPI statement.
+     *
+     * @return void
+     */
     private function assert_valid_xapi_statement($statement) {
         $errors = LockerStatement::createFromJson(json_encode($statement))->validate();
         $errorsjson = json_encode(array_map(function ($error) {
@@ -101,6 +145,11 @@ abstract class xapi_test_case extends \advanced_testcase {
         $this->assertEmpty($errors, $errorsjson);
     }
 
+    /**
+     * Assert that the statement generated matches the expected statement.
+     *
+     * @return void
+     */
     private function assert_expected_statements($statements) {
         $expectedstatements = $this->get_expected_statements();
         $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);

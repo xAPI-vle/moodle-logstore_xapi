@@ -32,7 +32,7 @@ use src\loader\utils as utils;
  * Load logs.
  *
  * @param array $config An array of configuration settings.
- * @param array $events An array of transformed events.
+ * @param array $transformedevents An array of transformed events.
  * @return array
  */
 function load(array $config, array $transformedevents) {
