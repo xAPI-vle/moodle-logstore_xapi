@@ -31,16 +31,18 @@ abstract class Repository extends PhpObj {
 
     /**
      * Reads an array of objects from the store with the given type and query.
-     * @param string $type
-     * @param array $query
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @return array
      */
     abstract public function read_records(string $type, array $query);
 
     /**
      * Reads an object from the store with the given type and query.
-     * @param string $type
-     * @param array $query
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
@@ -54,9 +56,10 @@ abstract class Repository extends PhpObj {
     }
 
     /**
-     * Reads an object from the store with the given id.
-     * @param string $type
-     * @param string $id
+     * Reads an object from the store with the given type and id.
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @return PhpObj
      * @throws \Exception
      */

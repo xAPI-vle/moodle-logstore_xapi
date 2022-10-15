@@ -20,7 +20,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__.'/Repository.php');
 
 /**
- * Moodle repository.
+ * An abstraction of the Moodle Data Manipulation API.
  *
  * @package   logstore_xapi
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
@@ -33,16 +33,18 @@ class MoodleRepository extends Repository {
 
     /**
      * Constructs a new Repository.
-     * @param object $store
+     *
+     * @param object $store This is the Moodle $DB object.
      */
     public function __construct($store) {
         $this->store = $store;
     }
 
     /**
-     * Reads an array of objects from the store with the given type and query.
-     * @param string $type
-     * @param array $query 
+     * Retrieve an array of objects from the store with the given type and query.
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @return array
      */
     public function read_records(string $type, array $query) {
@@ -51,8 +53,9 @@ class MoodleRepository extends Repository {
 
     /**
      * Reads an object from the store with the given type and query.
-     * @param string $type
-     * @param array $query
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
