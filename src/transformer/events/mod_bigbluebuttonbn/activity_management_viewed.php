@@ -25,7 +25,7 @@
 namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
- /**
+/**
  * Transformer for bigbluebutton activity management viewed event.
  *
  * @param array $config The transformer config settings.
