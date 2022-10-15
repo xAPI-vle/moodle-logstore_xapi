@@ -29,6 +29,7 @@ require_once(__DIR__.'/Repository.php');
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class MoodleRepository extends Repository {
+    /** @var object Object to abstract the data within. */
     private $store;
 
     /**

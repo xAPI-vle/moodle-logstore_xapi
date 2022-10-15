@@ -29,6 +29,7 @@ require_once(__DIR__.'/Repository.php');
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class TestRepository extends Repository {
+    /** @var object Object to store the test data within. */
     private $testdata;
 
     /**

@@ -28,6 +28,13 @@ namespace src\transformer\events\mod_assign;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for the assignment graded event.
+ *
+ * @param array $config The transformer config settings.
+ * @param object $event The event to be transformed.
+ * @return array
+ */
 function assignment_graded(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $grade = $repo->read_record_by_id($event->objecttable, $event->objectid);

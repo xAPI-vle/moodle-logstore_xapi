@@ -14,19 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * The mod_bigbluebuttonbn recording edited event.
+ *
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\events\mod_bigbluebuttonbn;
 use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
- * The mod_bigbluebuttonbn recording edited event.
+ * Transformer for bigbluebutton recording edited event.
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- *
- * @param array $config
- * @param \stdClass $event
+ * @param array $config The transformer config settings.
+ * @param object $event The event to be transformed.
  * @return array
  */
 function recording_edited(array $config, \stdClass $event) {
-
     return create_stmt( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/edited', 'edited' );
 }

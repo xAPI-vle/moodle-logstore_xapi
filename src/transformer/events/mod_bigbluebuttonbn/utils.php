@@ -14,14 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
+ /**
+ * A generic statement factory.
+ *
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
+namespace src\transformer\events\mod_bigbluebuttonbn;
 use src\transformer\utils as utils;
 
 /**
- * Create a Statement for the logs.
+ * Create the statement from available data in Moodle and BigBlueButton.
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
  * @param $evtid                The URL of the Verb we wish to use.

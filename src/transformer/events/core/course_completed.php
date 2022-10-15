@@ -28,6 +28,13 @@ namespace src\transformer\events\core;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for course completed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param object $event The event to be transformed.
+ * @return array
+ */
 function course_completed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);

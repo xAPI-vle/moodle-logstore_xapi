@@ -59,7 +59,7 @@ abstract class Repository extends PhpObj {
      * Reads an object from the store with the given type and id.
      *
      * @param string $type The name of the table to retrieve from.
-     * @param array $query Any additional conditions to add to the query.
+     * @param string $id The id of the record to retrieve.
      * @return PhpObj
      * @throws \Exception
      */
