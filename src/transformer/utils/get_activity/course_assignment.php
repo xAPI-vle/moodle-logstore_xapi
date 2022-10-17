@@ -28,7 +28,16 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_assignment(array $config, $cmid, $name, $lang) {
+/**
+ * Transformer utility for retrieving (course assignment) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $cmid The id of the context.
+ * @param string $name The name of the assignment.
+ * @param string $lang The language of the assignment.
+ * @return array
+ */
+function course_assignment(array $config, string $cmid, string $name, string $lang) {
     $object = [
         'id' => $config['app_url'] . '/mod/assign/view.php?id=' . $cmid,
         'definition' => [

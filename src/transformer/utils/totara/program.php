@@ -26,7 +26,15 @@
 
 namespace src\transformer\utils\totara;
 
-function program(array $config, \stdClass $program, $lang) {
+/**
+ * Transformer utility for retrieving Totara program.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $program The Totara program object.
+ * @param string $lang The language of the program.
+ * @return array
+ */
+function program(array $config, \stdClass $program, string $lang) {
     $programname = $program->fullname ? $program->fullname : 'A Totara program';
 
     $object = [

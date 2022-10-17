@@ -26,6 +26,12 @@
 
 namespace src\transformer\utils;
 
+/**
+ * Transformer utility to retrieve the course language.
+ *
+ * @param \stdClass $course The course object.
+ * @return string
+ */
 function get_course_lang($course) {
     $haslang = is_null($course->lang) || $course->lang == '';
 

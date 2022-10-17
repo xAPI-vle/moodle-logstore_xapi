@@ -28,7 +28,15 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_quiz(array $config, \stdClass $course, $cmid) {
+/**
+ * Transformer utility for retrieving (course quiz) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
+ * @param string $cmid The id of the context.
+ * @return array
+ */
+function course_quiz(array $config, \stdClass $course, string $cmid) {
     $xapytype = 'http://adlnet.gov/expapi/activities/assessment';
 
     // JISC specific activity type.

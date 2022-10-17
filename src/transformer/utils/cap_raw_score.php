@@ -26,6 +26,14 @@
 
 namespace src\transformer\utils;
 
+/**
+ * Transformer utility for cap the raw score.
+ *
+ * @param int $rawscore The value of the rawscore.
+ * @param int $minscore The minimum the score can be.
+ * @param int $maxscore The max the score can be.
+ * @return int
+ */
 function cap_raw_score($rawscore, $minscore, $maxscore) {
     return max(min($rawscore, $maxscore), $minscore);
 }

@@ -27,8 +27,18 @@
 namespace src\transformer\utils;
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for course module viewed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $questionattempt The questionattempt object.
+ * @param \stdClass $question The question object.
+ * @param string $lang The language.
+ * @param string $interactiontype The type of interaction.
+ * @return array
+ */
 function get_multichoice_definition(array $config, \stdClass $questionattempt,
-\stdClass $question, $lang, $interactiontype = 'choice') {
+\stdClass $question, string $lang, string $interactiontype = 'choice') {
     if ($config['send_response_choices']) {
         $repo = $config['repo'];
         $answers = $repo->read_records('question_answers', [

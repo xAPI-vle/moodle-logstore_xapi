@@ -28,6 +28,12 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer utility for retrieving (site) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @return array
+ */
 function site(array $config) {
     $repo = $config['repo'];
     $site = $repo->read_record_by_id('course', 1);

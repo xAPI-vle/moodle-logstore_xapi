@@ -26,7 +26,14 @@
 
 namespace src\transformer\utils;
 
-function get_scorm_result($scormscoestracks, $rawscore) {
+/**
+ * Transformer utility for retrieving the SCORM result.
+ *
+ * @param array $scormscoestracks An array of the SCORM tracks
+ * @param string $rawscore The score of the event.
+ * @return array
+ */
+function get_scorm_result(array $scormscoestracks, string $rawscore) {
     $maxscore = null;
     $minscore = null;
 

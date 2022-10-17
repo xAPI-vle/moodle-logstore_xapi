@@ -28,7 +28,16 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function user_report(array $config, \stdClass $user, \stdClass $course, $courselang) {
+/**
+ * Transformer utility for retrieving (user report) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $user The user object.
+ * @param \stdClass $course The course object.
+ * @param string $courselang The language of the course.
+ * @return array
+ */
+function user_report(array $config, \stdClass $user, \stdClass $course, string $courselang) {
 
     $activity = [
         'definition' => [

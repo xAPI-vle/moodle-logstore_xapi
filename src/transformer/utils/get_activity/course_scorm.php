@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (course SCORM) activities.
+ * Transformer utility for retrieving (SCORM) activities.
  *
  * @package   logstore_xapi
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
@@ -28,7 +28,16 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_scorm(array $config, $cmid, $scorm, $lang) {
+/**
+ * Transformer utility for retrieving (SCORM) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $cmid The id of the context.
+ * @param \stdClass $scorm The SCORM object.
+ * @param string $lang The language of the SCORM activity.
+ * @return array
+ */
+function course_scorm(array $config, string $cmid, \stdClass $scorm, string $lang) {
     $scormname = property_exists($scorm, 'name') ? $scorm->name : 'Scorm';
 
     return [

@@ -26,6 +26,13 @@
 
 namespace src\transformer\utils\extensions;
 
+/**
+ * Transformer utility extension information.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function info(array $config, \stdClass $event) {
     return [
         'http://lrs.learninglocker.net/define/extensions/info' => [

@@ -28,6 +28,13 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for course module viewed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
+ * @return array
+ */
 function course(array $config, \stdClass $course) {
     $coursename = $course->fullname ? $course->fullname : 'A Moodle course';
     $courselang = utils\get_course_lang($course);

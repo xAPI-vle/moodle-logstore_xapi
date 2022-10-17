@@ -26,6 +26,13 @@
 
 namespace src\transformer\utils;
 
+/**
+ * Transformer utility for retrieving user data.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $user The user object.
+ * @return array
+ */
 function get_user(array $config, \stdClass $user) {
     $fullname = get_full_name($user);
 

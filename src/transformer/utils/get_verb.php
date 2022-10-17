@@ -31,13 +31,13 @@ use src\transformer\utils as utils;
 /**
  * Return the requested verb with details.
  *
- * @param string $verb requested verb
+ * @param string $verb The requested verb.
  * @param array $config Predefined config elements.
- * @param string $lang lang string
+ * @param string $lang Language string.
  * @return array
  * @throws \coding_exception
  */
-function get_verb($verb, array $config, $lang) {
+function get_verb(string $verb, array $config, string $lang) {
 
     $output = array();
     switch ($verb) {

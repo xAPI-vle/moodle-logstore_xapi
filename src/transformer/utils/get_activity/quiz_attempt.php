@@ -28,7 +28,15 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function quiz_attempt(array $config, $attemptid, $cmid) {
+/**
+ * Transformer utility for retrieving (quiz attempt) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $attemptid The id of the attempt.
+ * @param string $cmid The id of the context.
+ * @return array
+ */
+function quiz_attempt(array $config, string $attemptid, string $cmid) {
     $lang = $config['source_lang'];
 
     return [

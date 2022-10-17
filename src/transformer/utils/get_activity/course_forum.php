@@ -28,7 +28,15 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_forum(array $config, \stdClass $course, $cmid) {
+/**
+ * Transformer utility for retrieving (course forum) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
+ * @param string $cmid The id of the context.
+ * @return array
+ */
+function course_forum(array $config, \stdClass $course, string $cmid) {
     return utils\get_activity\course_module(
         $config,
         $course,

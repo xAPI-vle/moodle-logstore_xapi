@@ -26,7 +26,14 @@
 
 namespace src\transformer\utils;
 
-function get_scorm_verb($scormscoestracks, $lang) {
+/**
+ * Transformer utility for retrieving the SCORM verb.
+ *
+ * @param array $scormscoestracks An array of the SCORM tracks
+ * @param string $lang The language of the event.
+ * @return array
+ */
+function get_scorm_verb(array $scormscoestracks, string $lang) {
     $scormstatus = null;
     foreach ($scormscoestracks as $st) {
         if ($st->element == 'cmi.core.lesson_status') {

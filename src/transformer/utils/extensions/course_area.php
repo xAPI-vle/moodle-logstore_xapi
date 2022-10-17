@@ -26,6 +26,12 @@
 
 namespace src\transformer\utils\extensions;
 
+/**
+ * Transformer utility for the course area.
+ *
+ * @param object $course The course object.
+ * @return array
+ */
 function course_area($course) {
     if ($course === null) {
         return [];

@@ -26,6 +26,14 @@
 
 namespace src\transformer\utils;
 
-function get_quiz_question_id(array $config, $coursemoduleid, $questionid) {
+/**
+ * Transformer utility for retrieving the quiz question id.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $coursemoduleid The id of the course module.
+ * @param string $questionid The question id.
+ * @return object
+ */
+function get_quiz_question_id(array $config, string $coursemoduleid, string $questionid) {
     return $config['app_url'].'/question/question.php?cmid='.$coursemoduleid.'&id='.$questionid;
 }

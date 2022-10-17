@@ -26,6 +26,12 @@
 
 namespace src\transformer\utils;
 
+/**
+ * Transformer utility for retrieving a users fullname.
+ *
+ * @param \stdClass $user The user object.
+ * @return string
+ */
 function get_full_name(\stdClass $user) {
     $hasfirstname = property_exists($user, 'firstname');
     $haslastname = property_exists($user, 'lastname');

@@ -26,6 +26,12 @@
 
 namespace src\transformer\utils\get_activity;
 
+/**
+ * Transformer utility for retrieving (source) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @return array
+ */
 function source(array $config) {
     return [
         'id' => $config['source_url'],

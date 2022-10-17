@@ -28,6 +28,13 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer utility for retrieving (forum discussion post reply) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $post The forum post object.
+ * @return string
+ */
 function forum_discussion_post_reply(array $config, \stdClass $post) {
     $repo = $config['repo'];
     $actualreply = $repo->read_record_by_id('forum_posts', $post->id);

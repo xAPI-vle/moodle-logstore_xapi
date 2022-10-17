@@ -29,6 +29,12 @@ defined('MOODLE_INTERNAL') || die();
 
 date_default_timezone_set('Europe/London');
 
+/**
+ * Transformer utility to create standard timestamp.
+ *
+ * @param string $time The timestamp of the event.
+ * @return date
+ */
 function create_timestamp($time) {
     return date('c', $time);
 }

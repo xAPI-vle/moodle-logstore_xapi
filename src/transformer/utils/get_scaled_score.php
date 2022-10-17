@@ -26,6 +26,14 @@
 
 namespace src\transformer\utils;
 
+/**
+ * Transformer utility for determining the scaled score.
+ *
+ * @param int $rawscore The rawscore of the event.
+ * @param int $minscore The minimum score of the event.
+ * @param int $maxscore The maximum score fo the event.
+ * @return int
+ */
 function get_scaled_score($rawscore, $minscore, $maxscore) {
     if ($rawscore >= 0) {
         return $rawscore / $maxscore;

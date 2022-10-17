@@ -26,6 +26,13 @@
 
 namespace src\transformer\utils;
 
-function is_enabled_config($config, $configname) {
+/**
+ * Transformer utility for retrieving config enabled settings.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $configname The name of the configuration value to search.
+ * @return bool
+ */
+function is_enabled_config(array $config, $configname) {
     return array_key_exists($configname, $config) && $config[$configname] == true;
 }

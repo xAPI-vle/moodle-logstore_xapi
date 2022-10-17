@@ -28,6 +28,14 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer utility for retrieving (forum discussion post) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $discussionid The id of the discussion.
+ * @param \stdClass $post The forum post object.
+ * @return array
+ */
 function forum_discussion_post(array $config, $discussionid, \stdClass $post) {
     $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$post->id;
 

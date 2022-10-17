@@ -28,6 +28,14 @@ namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer utility for retrieving (course feedback) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
+ * @param string The id of the context.
+ * @return array
+ */
 function course_feedback(array $config, \stdClass $course, $cmid) {
     return utils\get_activity\course_module(
         $config,

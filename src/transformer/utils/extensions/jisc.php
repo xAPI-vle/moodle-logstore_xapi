@@ -28,6 +28,14 @@ namespace src\transformer\utils\extensions;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer utility for base xAPI extensions - JISC specific.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @param object $course The course object.
+ * @return array
+ */
 function jisc(array $config, \stdClass $event, $course) {
     return array_merge(
         [

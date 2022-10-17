@@ -26,9 +26,14 @@
 
 namespace src\transformer\utils;
 
-function get_string_html_removed($string) {
+/**
+ * Transformer utility for cleaning HTML from strings.
+ *
+ * @param string $string The string to clean.
+ * @return string
+ */
+function get_string_html_removed(string $string) {
     // For some reason, newlines and &nbsp; is being added to strings,
-    // in order to remove new lines we have to ensure nbsp is also removed.
     $replacestrings = ["\n", "&nbsp;"];
     return str_replace($replacestrings, "", strip_tags($string));
 }

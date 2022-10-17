@@ -26,7 +26,13 @@
 
 namespace src\transformer\utils;
 
-function get_attempt_duration($attempt) {
+/**
+ * Transformer utility to determine the attempt duration.
+ *
+ * @param \stdClass $attempt The attempt object.
+ * @return string
+ */
+function get_attempt_duration(\stdClass $attempt) {
     if (isset($attempt->timefinish) && isset($attempt->timestart)) {
         $seconds = $attempt->timefinish - $attempt->timestart;
         if ($seconds > 0) {

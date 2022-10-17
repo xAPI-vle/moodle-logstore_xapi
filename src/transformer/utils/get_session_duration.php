@@ -26,7 +26,14 @@
 
 namespace src\transformer\utils;
 
-function get_session_duration($config, $sessionid) {
+/**
+ * Transformer utility for retrieving facetoface session duration.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $sessionid The id of the session.
+ * @return int/float
+ */
+function get_session_duration(array $config, string $sessionid) {
     $repo = $config['repo'];
     $dates = $repo->read_records('facetoface_sessions_dates', [ 'sessionid' => $sessionid ]);
     $duration = 0;
