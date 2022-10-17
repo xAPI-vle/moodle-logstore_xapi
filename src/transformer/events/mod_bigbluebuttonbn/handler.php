@@ -30,10 +30,8 @@ use src\transformer\utils as utils;
  *
  * @param array $config
  * @param \stdClass $event
- * @param $evtid                The URL of the Verb we wish to use.
- *                                  (example: 'http://activitystrea.ms/schema/1.0/leave' )
- * @param $evtdispname         The conjugated Verb so it reads better in SCORM log.
- *                                  (example: 'left' )
+ * @param string $evtid The URL of the verb to use.
+ * @param string $evtdispname The conjugated verb so that it reads better.
  * @return array
  */
 function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
