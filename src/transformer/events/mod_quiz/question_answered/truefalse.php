@@ -28,6 +28,15 @@ namespace src\transformer\events\mod_quiz\question_answered;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for quiz question (truefalse) answered event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @param \stdClass $questionattempt The questionattempt object.
+ * @param \stdClass $question The question object.
+ * @return array
+ */
 function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, \stdClass $question) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);

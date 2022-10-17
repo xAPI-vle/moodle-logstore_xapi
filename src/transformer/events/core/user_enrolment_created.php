@@ -32,7 +32,7 @@ use src\transformer\utils as utils;
  * Transformer for the user enrollment created event.
  *
  * @param array $config The transformer config settings.
- * @param object $event The event to be transformed.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function user_enrolment_created(array $config, \stdClass $event) {

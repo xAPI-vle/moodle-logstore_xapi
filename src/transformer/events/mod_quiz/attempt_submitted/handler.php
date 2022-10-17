@@ -29,6 +29,13 @@ namespace src\transformer\events\mod_quiz\attempt_submitted;
 use src\transformer\utils as utils;
 use src\transformer\events\mod_quiz\question_answered as question_answered;
 
+/**
+ * Generic handler for the attempt submitted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $quizattempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);

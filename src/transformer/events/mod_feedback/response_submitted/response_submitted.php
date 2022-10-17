@@ -28,6 +28,13 @@ namespace src\transformer\events\mod_feedback\response_submitted;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for the mod_feedback response submitted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function response_submitted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);

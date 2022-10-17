@@ -32,7 +32,7 @@ use src\transformer\utils as utils;
  * Transformer for course module completion updated event.
  *
  * @param array $config The transformer config settings.
- * @param object $event The event to be transformed.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function course_module_completion_updated(array $config, \stdClass $event) {

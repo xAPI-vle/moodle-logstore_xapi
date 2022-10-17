@@ -28,6 +28,14 @@ namespace src\transformer\events\mod_quiz\question_answered;
 
 use src\transformer\utils as utils;
 
+/**
+ * Generic handler for quiz question answered event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @param \stdClass $questionattempt The questionattempt object.
+ * @return array
+ */
 function handler(array $config, \stdClass $event, \stdClass $questionattempt) {
     $repo = $config['repo'];
     $question = $repo->read_record_by_id('question', $questionattempt->questionid);

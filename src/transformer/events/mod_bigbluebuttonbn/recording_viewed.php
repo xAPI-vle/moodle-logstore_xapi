@@ -23,13 +23,25 @@
  */
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
+
+/**
+ * Create the statement from available data in Moodle and BigBlueButton.
+ *
+ * @param array $config
+ * @param \stdClass $event
+ * @param $evtid                The URL of the Verb we wish to use.
+ *                                  (example: 'http://activitystrea.ms/schema/1.0/leave' )
+ * @param $evtdispname         The conjugated Verb so it reads better in SCORM log.
+ *                                  (example: 'left' )
+ * @return array
+ */
 use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
  * Transformer for the bigbluebutton recording viewed event.
  *
  * @param array $config The transformer config settings.
- * @param object $event The event to be transformed.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function recording_viewed(array $config, \stdClass $event) {

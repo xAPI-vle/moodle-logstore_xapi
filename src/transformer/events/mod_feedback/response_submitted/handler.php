@@ -29,6 +29,13 @@ namespace src\transformer\events\mod_feedback\response_submitted;
 use src\transformer\utils as utils;
 use src\transformer\events\mod_feedback\item_answered as item_answered;
 
+/**
+ * Generic handler for the mod_feedback response submitted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $feedbackvalues = $repo->read_records('feedback_value', [

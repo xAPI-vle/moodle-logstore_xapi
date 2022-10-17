@@ -32,7 +32,7 @@ use src\transformer\utils as utils;
  * Transformer for SCORM scoreraw submitted event.
  *
  * @param array $config The transformer config settings.
- * @param object $event The event to be transformed.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function scoreraw_submitted(array $config, \stdClass $event) {

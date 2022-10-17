@@ -26,6 +26,13 @@
 
 namespace src\transformer;
 
+/**
+ * Generic handler for the transformer.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function handler(array $config, array $events) {
     $eventfunctionmap = get_event_function_map();
     $transformedevents = array_map(function ($event) use ($config, $eventfunctionmap) {

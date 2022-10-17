@@ -32,7 +32,7 @@ use src\transformer\utils as utils;
  * Transformer for the user logged in event.
  *
  * @param array $config The transformer config settings.
- * @param object $event The event to be transformed.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function user_loggedin(array $config, \stdClass $event) {
