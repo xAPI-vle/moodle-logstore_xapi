@@ -34,11 +34,10 @@ use src\transformer\utils as utils;
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
  * @param \stdClass $chapter The chapter object.
- * @param \stdClass $event The event to be transformed.
  * @param string $cmid The id of the context.
  * @return array
  */
-function book_chapter(array $config, \stdClass $course, \stdClass $chapter, $cmid) {
+function book_chapter(array $config, \stdClass $course, \stdClass $chapter, string $cmid) {
     $courselang = utils\get_course_lang($course);
     $url = $config['app_url'].'/mod/book/view.php?id=' . $cmid . '&chapterid=' . $chapter->id;
 

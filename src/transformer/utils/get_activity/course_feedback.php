@@ -33,10 +33,10 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
- * @param string The id of the context.
+ * @param string $cmid The id of the context.
  * @return array
  */
-function course_feedback(array $config, \stdClass $course, $cmid) {
+function course_feedback(array $config, \stdClass $course, string $cmid) {
     return utils\get_activity\course_module(
         $config,
         $course,

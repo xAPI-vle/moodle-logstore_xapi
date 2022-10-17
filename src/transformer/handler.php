@@ -30,7 +30,7 @@ namespace src\transformer;
  * Generic handler for the transformer.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $event The event to be transformed.
+ * @param array $events The event to be transformed.
  * @return array
  */
 function handler(array $config, array $events) {

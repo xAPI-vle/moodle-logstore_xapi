@@ -33,11 +33,11 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
- * @param string $cmid The id of the context.
+ * @param int $cmid The id of the context.
  * @param string $xapitype The type of xAPI object.
  * @return array
  */
-function course_module(array $config, \stdClass $course, string $cmid, string $xapitype) {
+function course_module(array $config, \stdClass $course, int $cmid, string $xapitype) {
     $repo = $config['repo'];
     $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
     $module = $repo->read_record_by_id('modules', $coursemodule->module);

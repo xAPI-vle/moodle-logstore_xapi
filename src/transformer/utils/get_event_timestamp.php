@@ -30,7 +30,7 @@ namespace src\transformer\utils;
  * Transformer utility for retrieving the event timestamp.
  *
  * @param \stdClass $event The event to be transformed.
- * @return date
+ * @return string
  */
 function get_event_timestamp(\stdClass $event) {
     return create_timestamp($event->timecreated);
