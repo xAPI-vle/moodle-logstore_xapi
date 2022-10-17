@@ -28,6 +28,13 @@ namespace src\transformer\events\mod_scorm;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for SCORM SCO launched event.
+ *
+ * @param array $config The transformer config settings.
+ * @param object $event The event to be transformed.
+ * @return array
+ */
 function sco_launched(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);

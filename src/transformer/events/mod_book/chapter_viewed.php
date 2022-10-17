@@ -28,6 +28,13 @@ namespace src\transformer\events\mod_book;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for book chapter viewed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param object $event The event to be transformed.
+ * @return array
+ */
 function chapter_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
