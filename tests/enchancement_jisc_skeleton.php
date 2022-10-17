@@ -39,12 +39,12 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
     /**
      * @var int Generated history-log events numbers
      */
-    protected $generatedhistorylog = 11;
+    protected $generatedhistorylog = 12;
 
     /**
      * @var int Generated xapi-log events numbers
      */
-    protected $generatedxapilog = 1;
+    protected $generatedxapilog = 2;
 
     /**
      * @var array Form defaults.
@@ -74,11 +74,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
             return;
         }
 
-        // From Moodle 3.9 an extra event has been added.
-        if ($version >= 2020061500) {
-            $this->generatedhistorylog = 12;
-            $this->generatedxapilog = 2;
-        }
+
     }
 
     /**
