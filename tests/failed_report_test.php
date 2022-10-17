@@ -38,10 +38,10 @@ class failed_report_test extends enchancement_jisc_skeleton {
      */
     protected $simulatedsubmitteddata = [
         'id' => XAPI_REPORT_ID_ERROR,
-        'resend' => false,
-        'errortype' => 0,
+        'resend' => 0,
+        'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
         'eventnames' => ['\core\event\course_viewed'],
-        'response' => 0,
+        'response' => XAPI_REPORT_RESPONSE_DEFAULT,
         'datefrom' => 0,
         'dateto' => 0,
         'submitbutton' => 'Search'
