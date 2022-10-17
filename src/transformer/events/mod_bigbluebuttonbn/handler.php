@@ -36,7 +36,7 @@ use src\transformer\utils as utils;
  *                                  (example: 'left' )
  * @return array
  */
-function create_stmt(array $config, \stdClass $event, $evtid, $evtdispname ) {
+function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);

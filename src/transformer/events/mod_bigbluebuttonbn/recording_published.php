@@ -25,19 +25,6 @@
 namespace src\transformer\events\mod_bigbluebuttonbn;
 
 /**
- * Create the statement from available data in Moodle and BigBlueButton.
- *
- * @param array $config
- * @param \stdClass $event
- * @param $evtid                The URL of the Verb we wish to use.
- *                                  (example: 'http://activitystrea.ms/schema/1.0/leave' )
- * @param $evtdispname         The conjugated Verb so it reads better in SCORM log.
- *                                  (example: 'left' )
- * @return array
- */
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
-
-/**
  * Transformer for bigbluebutton recording published event.
  *
  * @param array $config The transformer config settings.
@@ -45,5 +32,5 @@ use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
  * @return array
  */
 function recording_published(array $config, \stdClass $event) {
-    return create_stmt( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/published', 'published' );
+    return create_statement( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/published', 'published' );
 }
