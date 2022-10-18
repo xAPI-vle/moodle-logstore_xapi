@@ -14,18 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Used to convey what actions occur during a recording.
+ *
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
 
 /**
- * Used to convey what actions occur during a recording:
+ * Transformer for bigbluebutton live session event.
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- * @param array $config
- * @param \stdClass $event
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function live_session(array $config, \stdClass $event) {
-
-    return create_stmt( $config, $event, 'http://id.tincanapi.com/verb/live', 'live' );
+    return create_statement( $config, $event, 'http://id.tincanapi.com/verb/live', 'live' );
 }

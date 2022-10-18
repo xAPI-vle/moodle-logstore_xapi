@@ -14,8 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer handler.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer;
 
+/**
+ * Generic handler for the transformer.
+ *
+ * @param array $config The transformer config settings.
+ * @param array $events The event to be transformed.
+ * @return array
+ */
 function handler(array $config, array $events) {
     $eventfunctionmap = get_event_function_map();
     $transformedevents = array_map(function ($event) use ($config, $eventfunctionmap) {

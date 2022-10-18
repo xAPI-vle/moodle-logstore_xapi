@@ -17,8 +17,11 @@
 /**
  * Privacy Subsystem implementation for logstore_xapi.
  *
- * @package    logstore_xapi
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace logstore_xapi\privacy;
@@ -43,8 +46,8 @@ class provider implements
     /**
      * Return the fields which contain personal data.
      *
-     * @param $collection collection a reference to the collection to use to store the metadata.
-     * @return $collection the updated collection of metadata items.
+     * @param collection $collection a reference to the collection to use to store the metadata.
+     * @return collection the updated collection of metadata items.
      */
     public static function get_metadata(collection $collection) : collection {
         $collection->add_database_table(

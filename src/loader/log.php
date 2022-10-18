@@ -14,10 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Log loader.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\loader\log;
 
 use src\loader\utils as utils;
 
+/**
+ * Load logs.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $transformedevents An array of transformed events.
+ * @return array
+ */
 function load(array $config, array $transformedevents) {
     $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
         $eventstatements = $transformedevent['statements'];

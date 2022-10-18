@@ -23,6 +23,8 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 /**
+ * Test case skeleton for the jisc enhancements.
+ *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
@@ -143,6 +145,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      */
     protected function prepare_log_stores_for_logging($expectedcount) {
         // Enable log stores.
+        $this->preventResetByRollback();
         set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
         set_config('buffersize', 0, 'logstore_standard');
         set_config('logguests', 1, 'logstore_standard');
@@ -176,7 +179,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
     /**
      * Validate submitted form data.
      *
-     * @param $data form's data
+     * @param object $data Form data.
      */
     protected function validate_submitted_data($data) {
         foreach ($this->simulatedsubmitteddata as $key => $value) {

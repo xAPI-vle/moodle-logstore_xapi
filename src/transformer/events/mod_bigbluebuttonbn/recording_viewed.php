@@ -14,18 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
-
 /**
  * The mod_bigbluebuttonbn recording viewed event (triggered when a recording is viewed).
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- * @param array $config
- * @param \stdClass $event
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace src\transformer\events\mod_bigbluebuttonbn;
+
+/**
+ * Transformer for the bigbluebutton recording viewed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function recording_viewed(array $config, \stdClass $event) {
-
-    return create_stmt( $config, $event, 'http://id.tincanapi.com/verb/viewed', 'viewed' );
+    return create_statement( $config, $event, 'http://id.tincanapi.com/verb/viewed', 'viewed' );
 }

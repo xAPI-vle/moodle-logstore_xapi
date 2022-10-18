@@ -18,23 +18,35 @@ namespace src\transformer\repos;
 
 use \stdClass as PhpObj;
 
+/**
+ * Generic respository.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 abstract class Repository extends PhpObj {
 
     /**
      * Reads an array of objects from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
-     * @return PhpArr
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
+     * @return array
      */
-    abstract public function read_records($type, array $query);
+    abstract public function read_records(string $type, array $query);
+
     /**
      * Reads an object from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
-    public function read_record($type, array $query) {
+    public function read_record(string $type, array $query) {
         $records = $this->read_records($type, $query);
         $record = $records[0];
         if (!$record) {
@@ -44,9 +56,10 @@ abstract class Repository extends PhpObj {
     }
 
     /**
-     * Reads an object from the store with the given id.
-     * @param String $id
-     * @param String $type
+     * Reads an object from the store with the given type and id.
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param string $id The id of the record to retrieve.
      * @return PhpObj
      * @throws \Exception
      */

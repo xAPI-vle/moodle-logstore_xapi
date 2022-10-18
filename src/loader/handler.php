@@ -14,8 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Loader handler.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\loader;
 
+/**
+ * Generic handler for the loader.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return string
+ */
 function handler(array $config, array $events) {
     $loadername = $config['loader'];
     $load = "\src\loader\\$loadername\load";

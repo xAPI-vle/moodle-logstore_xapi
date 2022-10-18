@@ -14,11 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for retrieving (course assignment) activities.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_assignment(array $config, $cmid, $name, $lang) {
+/**
+ * Transformer utility for retrieving (course assignment) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $cmid The id of the context.
+ * @param string $name The name of the assignment.
+ * @param string $lang The language of the assignment.
+ * @return array
+ */
+function course_assignment(array $config, string $cmid, string $name, string $lang) {
     $object = [
         'id' => $config['app_url'] . '/mod/assign/view.php?id=' . $cmid,
         'definition' => [

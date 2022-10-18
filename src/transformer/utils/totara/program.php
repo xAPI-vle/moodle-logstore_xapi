@@ -14,9 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for retrieving Totara program.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils\totara;
 
-function program(array $config, \stdClass $program, $lang) {
+/**
+ * Transformer utility for retrieving Totara program.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $program The Totara program object.
+ * @param string $lang The language of the program.
+ * @return array
+ */
+function program(array $config, \stdClass $program, string $lang) {
     $programname = $program->fullname ? $program->fullname : 'A Totara program';
 
     $object = [

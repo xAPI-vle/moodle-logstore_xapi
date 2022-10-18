@@ -19,6 +19,7 @@
  * @package     logstore_xapi
  * @author      Záborski László <laszlo.zaborski@learningpool.com>
  * @copyright   2020 Learning Pool Ltd (http://learningpool.com)
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 define('AJAX_SCRIPT', true);

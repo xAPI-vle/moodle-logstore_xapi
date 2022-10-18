@@ -14,11 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for cleaning HTML from strings.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils;
 
-function get_string_html_removed($string) {
-    // For some reason, newlines and &nbsp; is being added to strings,
-    // in order to remove new lines we have to ensure nbsp is also removed.
+/**
+ * Transformer utility for cleaning HTML from strings.
+ *
+ * @param string $string The string to clean.
+ * @return string
+ */
+function get_string_html_removed(string $string) {
+    // For some reason, newlines and &nbsp; is being added to strings.
     $replacestrings = ["\n", "&nbsp;"];
     return str_replace($replacestrings, "", strip_tags($string));
 }

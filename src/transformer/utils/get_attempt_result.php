@@ -14,9 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility to determine the attempt result.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils;
 
-function get_attempt_result(array $config, $attempt, $gradeitem, $attemptgrade) {
+/**
+ * Transformer utility to determine the attempt result.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $attempt The attempt object.
+ * @param \stdClass $gradeitem The grade item object.
+ * @param \stdClass $attemptgrade The attemptgrade object.
+ * @return array
+ */
+function get_attempt_result(array $config, \stdClass $attempt, \stdClass $gradeitem, \stdClass $attemptgrade) {
     $gradesum = floatval(isset($attemptgrade->rawgrade) ? $attemptgrade->rawgrade : 0);
 
     $minscore = floatval($gradeitem->grademin ?: 0);

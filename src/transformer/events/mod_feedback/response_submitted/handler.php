@@ -14,11 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Generic feedback handler for the response_submitted event.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\events\mod_feedback\response_submitted;
 
 use src\transformer\utils as utils;
 use src\transformer\events\mod_feedback\item_answered as item_answered;
 
+/**
+ * Generic handler for the mod_feedback response submitted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $feedbackvalues = $repo->read_records('feedback_value', [

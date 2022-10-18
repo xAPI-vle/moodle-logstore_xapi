@@ -17,24 +17,39 @@
 namespace src\transformer\repos;
 defined('MOODLE_INTERNAL') || die();
 
-use \stdClass as PhpObj;
-
 require_once(__DIR__.'/Repository.php');
 
+/**
+ * Test repository. Used in unit testing.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class TestRepository extends Repository {
+    /** @var object Object to store the test data within. */
     private $testdata;
 
+    /**
+     * Create the object.
+     *
+     * @param object $testdata Location to store all testing data.
+     * @return void
+     */
     public function __construct($testdata) {
         $this->testdata = $testdata;
     }
 
     /**
      * Reads an array of objects from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
-     * @return PhpArr
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
+     * @return array
      */
-    public function read_records($type, array $query) {
+    public function read_records(string $type, array $query) {
         $records = $this->testdata->$type;
         $matchingrecords = [];
 

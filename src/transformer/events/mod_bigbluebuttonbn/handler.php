@@ -14,23 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
+/**
+ * A generic statement factory.
+ *
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
+namespace src\transformer\events\mod_bigbluebuttonbn;
 use src\transformer\utils as utils;
 
 /**
- * Create a Statement for the logs.
+ * Create the statement from available data in Moodle and BigBlueButton.
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
  * @param array $config
  * @param \stdClass $event
- * @param $evtid                The URL of the Verb we wish to use.
- *                                  (example: 'http://activitystrea.ms/schema/1.0/leave' )
- * @param $evtdispname         The conjugated Verb so it reads better in SCORM log.
- *                                  (example: 'left' )
+ * @param string $evtid The URL of the verb to use.
+ * @param string $evtdispname The conjugated verb so that it reads better.
  * @return array
  */
-function create_stmt(array $config, \stdClass $event, $evtid, $evtdispname ) {
+function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);

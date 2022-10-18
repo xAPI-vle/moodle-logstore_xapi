@@ -14,9 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Adjusts the endpoint to the appropriate place.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\loader\utils;
 
-function correct_endpoint($endpoint) {
+/**
+ * Choose the correct xAPI LRS endpoint. Defaults to statements for now.
+ *
+ * @param string $endpoint The endpoint to send the request to.
+ * @return string
+ */
+function correct_endpoint(string $endpoint) {
     $endswithstatements = substr($endpoint, -11) === "/statements";
     if ($endswithstatements) {
         return substr($endpoint, 0, -11);

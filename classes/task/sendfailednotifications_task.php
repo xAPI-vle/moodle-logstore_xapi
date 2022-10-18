@@ -25,14 +25,30 @@ require_once($CFG->libdir . '/messagelib.php');
 use tool_log\log\manager;
 use logstore_xapi\log\store;
 
+/**
+ * Send failed notifications.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class sendfailednotifications_task extends \core\task\scheduled_task {
 
     /**
-     * Constants
-     * Repurpose email_to_user() to send for users with just email addresses.
+     * Default mail sender.
      */
     const DEFAULT_SENDER = -99;
+
+    /**
+     * Default mail sender name.
+     */
     const DEFAULT_SENDER_NAME = "";
+
+    /**
+     * Default mail sender email address.
+     */
     const DEFAULT_SENDER_EMAIL = "";
 
     /**
@@ -67,6 +83,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
     /**
      * Get the last id of the new notifications to send, if there are no notifications to send then return false.
      *
+     * @param  int $lastsentid id of the last failed event from the last sent notification.
      * @return int|bool
      * @throws \dml_exception
      */

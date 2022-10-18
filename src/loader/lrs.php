@@ -14,10 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Send statements to the LRS.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\loader\lrs;
 
 use src\loader\utils as utils;
 
+/**
+ * Send statements to an LRS.
+ *
+ * @param array $config An array of configuration settings.
+ * @param array $events An array of events.
+ * @return array
+ */
 function load(array $config, array $events) {
     $sendhttpstatements = function (array $config, array $statements) {
         $endpoint = $config['lrs_endpoint'];
