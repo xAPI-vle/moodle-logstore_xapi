@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir.'/formslib.php');
@@ -26,7 +28,7 @@ require_once($CFG->libdir.'/formslib.php');
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package tool_logstore_xapi
  */
-class tool_logstore_xapi_reportfilter_form extends moodleform {
+class tool_logstore_xapi_reportfilter_form extends \moodleform {
 
     /**
      * Form definition.
@@ -39,7 +41,7 @@ class tool_logstore_xapi_reportfilter_form extends moodleform {
         $eventnames = $this->_customdata['eventnames'];
 
         // Check permissions.
-        $systemcontext = context_system::instance();
+        $systemcontext = \context_system::instance();
         $canmanage = false;
 
         switch ($reportid) {

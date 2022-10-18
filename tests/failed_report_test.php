@@ -14,12 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi;
+
 defined('MOODLE_INTERNAL') || die();
 
-global $CFG; // Reuired to reportfilter_form.
+global $CFG;
 
-require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
-require_once(__DIR__ . "/../classes/form/reportfilter_form.php");
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc_skeleton.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 /**
  * @package    logstore_xapi
@@ -62,13 +64,6 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $this->assertTrue($form->is_submitted());
 
         return $form;
-    }
-
-    /**
-     * General test for checking stores are writeable and readable.
-     */
-    public function test_general() {
-        parent::test_general();
     }
 
     /**

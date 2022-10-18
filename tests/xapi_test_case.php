@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tests;
+namespace logstore_xapi;
 
-use \PHPUnit\Framework\TestCase as PhpUnitTestCase;
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/vendor/autoload.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/autoload.php');
+
 use \Locker\XApi\Statement as LockerStatement;
 
-abstract class xapi_test_case extends PhpUnitTestCase {
+abstract class xapi_test_case extends \advanced_testcase {
 
     abstract protected function get_test_dir();
 

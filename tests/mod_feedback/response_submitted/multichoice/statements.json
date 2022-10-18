@@ -22,7 +22,7 @@
                 }
             }
         },
-        "timestamp": "2015-06-10T15:31:41+01:00",
+        "timestamp": "2015-06-10T22:31:41+08:00",
         "context": {
             "platform": "Moodle",
             "language": "en",
@@ -93,7 +93,7 @@
                 "interactionType": "choice"
             }
         },
-        "timestamp": "2015-06-10T15:31:41+01:00",
+        "timestamp": "2015-06-10T22:31:41+08:00",
         "result": {
             "response": "test_choice_2",
             "completion": true,

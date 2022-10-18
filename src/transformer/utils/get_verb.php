@@ -16,8 +16,6 @@
 
 namespace src\transformer\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 use src\transformer\utils as utils;
 
 /**

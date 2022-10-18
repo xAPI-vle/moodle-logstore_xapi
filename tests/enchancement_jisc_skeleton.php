@@ -14,11 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi;
+
 use logstore_xapi\task\emit_task;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . "/../lib.php");
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 /**
  * @package    logstore_xapi
@@ -26,7 +28,7 @@ require_once(__DIR__ . "/../lib.php");
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-abstract class enchancement_jisc_skeleton extends advanced_testcase {
+abstract class enchancement_jisc_skeleton extends \advanced_testcase {
     /**
      * @var int Multiple test number.
      */
@@ -59,7 +61,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
     /**
      * This method is called before each test.
      */
-    protected function setUp() {
+    protected function setUp(): void {
         global $CFG;
 
         parent::setUp();
@@ -82,7 +84,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
      *
      * @param stdClass $counts
      */
-    protected function assert_store_tables(stdClass $counts) {
+    protected function assert_store_tables(\stdClass $counts) {
         global $DB;
 
         if (isset($counts->logstore_standard_log)) {
@@ -107,12 +109,12 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
      * @param testing_data_generator $generator
      * @return bool|int generated record id or false
      */
-    protected function add_test_log_data(testing_data_generator $generator) {
+    protected function add_test_log_data(\testing_data_generator $generator) {
         global $DB;
 
         $user = $generator->create_user();
         $course = $generator->create_course();
-        $context = context_course::instance($course->id);
+        $context = \context_course::instance($course->id);
 
         $record = (object)array(
             'eventname' => '\core\event\course_viewed',
@@ -153,17 +155,18 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $this->assertCount(1, $stores);
 
         // But both are writter.
-        $store = new logstore_standard\log\store($manager);
+        $store = new \logstore_standard\log\store($manager);
         $this->assertInstanceOf('logstore_standard\log\store', $store);
         $this->assertInstanceOf('tool_log\log\writer', $store);
         $this->assertTrue($store->is_logging());
 
-        $store = new logstore_xapi\log\store($manager);
+        $store = new \logstore_xapi\log\store($manager);
         $this->assertInstanceOf('logstore_xapi\log\store', $store);
         $this->assertInstanceOf('tool_log\log\writer', $store);
         $this->assertTrue($store->is_logging());
 
         // We don't have records in store tables.
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_standard_log = 0;
         $expectedcount->logstore_xapi_log = 0;
         $expectedcount->logstore_xapi_failed_log = 0;
@@ -208,7 +211,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
 
         $this->assertCount(0, $stores);
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 
@@ -228,7 +231,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 
@@ -261,7 +264,7 @@ abstract class enchancement_jisc_skeleton extends advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
 
         $this->prepare_log_stores_for_logging($expectedcount);
 

@@ -109,6 +109,9 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Initialisation method called by php js_call_amd()
+             * @param {Number} counts The number of events.
+             * @param {Number} notResend Whether or not to resend the events.
+             * @param {Number} Resend Appears to be unused. TODO: Remove.
              */
             init: function(counts, notResend, Resend) {
                 countedEvents = counts;
@@ -136,7 +139,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
              * Register reply an individual event listeners.
              */
             addReplyEvents: function() {
-                if($(SELECTORS.REPLAY_EVENTS).length==0) {
+                if ($(SELECTORS.REPLAY_EVENTS).length == 0) {
                     return;
                 }
                 this.generateLoadHTML();
@@ -173,6 +176,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Replay an individual event using ajax.
+             * @param {Number} eventId The event id.
              */
             doReplayEvent: function(eventId) {
                 var url = mdlcfg.wwwroot + '/admin/tool/log/store/xapi/ajax/moveback_to_log.php';
@@ -220,7 +224,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Disable resend event when select has been changed.
              */
-            registerOnChangeSelectEvents: function(){
+            registerOnChangeSelectEvents: function() {
                 var self = this;
 
                 $(SELECTORS.SELECTS).change(function() {
@@ -232,7 +236,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Register click on resend button.
              */
-            registerResendEvent: function(){
+            registerResendEvent: function() {
                 var self = this;
 
                 if (selectorChanged) {
@@ -306,6 +310,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Disable given elements.
+             * @param {Array} elements The elements to disable.
              */
             disableElements: function(elements) {
                 elements.addClass("disabled");
@@ -315,6 +320,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
 
             /**
              * Enable given elements.
+             * @param {Array} elements The elements to enable.
              */
             enableElements: function(elements) {
                 elements.removeClass("disabled");
@@ -333,7 +339,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                 var elements = $(SELECTORS.PAGE_LINKS);
 
                 this.disableElements(elements);
-                elements.bind('click', function(e){
+                elements.bind('click', function(e) {
                     e.preventDefault();
                 });
             },
@@ -457,7 +463,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate load icon.
              */
-            generateLoadHTML: function(){
+            generateLoadHTML: function() {
                 str.get_strings([
                     {
                         key: 'loadinghelp',
@@ -474,7 +480,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate done icon.
              */
-            generateDoneHTML: function(){
+            generateDoneHTML: function() {
                 str.get_strings([
                     {
                         key: 'success',
@@ -491,7 +497,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate failed icon.
              */
-            generateFailedHTML: function(){
+            generateFailedHTML: function() {
                 str.get_strings([
                     {
                         key: 'failed',
@@ -508,7 +514,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
             /**
              * Generate replay icon.
              */
-            generateReplayHTML: function(){
+            generateReplayHTML: function() {
                 str.get_strings([
                     {
                         key: 'replayevent',
@@ -518,7 +524,7 @@ define(['core/str', 'core/config', 'core/notification', 'core/templates', 'jquer
                     replayHTML = '<span aria-hidden="true"' +
                         ' class="fa fa-repeat"' +
                         ' title="' + replayStr + '"></span>' +
-                        '<span class="sr-only">' + replayStr +' </span>';
+                        '<span class="sr-only">' + replayStr + ' </span>';
                     $(SELECTORS.REPLAY_EVENTS).append(replayHTML);
                 });
             },

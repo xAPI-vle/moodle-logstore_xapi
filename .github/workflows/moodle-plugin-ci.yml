@@ -30,8 +30,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.0']
-        moodle-branch: ['MOODLE_311_STABLE']
+        php: ['7.4']
+        moodle-branch: ['MOODLE_39_STABLE']
         database: [pgsql, mariadb]
 
     steps:
@@ -57,12 +57,21 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+      - name: Install plugin dev dependencies
+        run: |
+          echo $(pwd)
+          cd plugin
+          composer install
+
       - name: Install moodle-plugin-ci
         run: |
+          moodle-plugin-ci add-plugin --branch MOODLE_34_STABLE catalyst/moodle-mod_facetoface
+          moodle-plugin-ci add-plugin --branch v3.0-stable blindsidenetworks/moodle-mod_bigbluebuttonbn
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          CODECHECKER_IGNORE_PATHS: 'vendor/'
 
       - name: PHP Lint
         if: ${{ always() }}

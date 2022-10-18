@@ -14,11 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace logstore_xapi;
+
 use logstore_xapi\log\moveback;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
+global $CFG;
+
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc_skeleton.php');
 
 /**
  * @package    logstore_xapi
@@ -27,13 +31,6 @@ require_once(__DIR__ . "/enchancement_jisc_skeleton.php");
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class moveback_failed_statements_test extends enchancement_jisc_skeleton {
-
-    /**
-     * General test for checking stores are writeable and readable.
-     */
-    public function test_general() {
-        parent::test_general();
-    }
 
     /**
      * Creating minimum a single course view event to xapi logstore.
@@ -53,7 +50,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_xapi_log = $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);
@@ -78,7 +75,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
         $mover = new moveback($keys);
         $this->assertTrue($mover->execute());
 
-        $expectedcount = new stdClass();
+        $expectedcount = new \stdClass();
         $expectedcount->logstore_xapi_log = $this->multipletestnumber * $this->generatedxapilog;
         $expectedcount->logstore_xapi_failed_log = 0;
         $this->assert_store_tables($expectedcount);

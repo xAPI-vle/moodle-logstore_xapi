@@ -48,7 +48,7 @@ function create_stmt(array $config, \stdClass $event, $evtid, $evtdispname ) {
             $config,
             $course,
             $event->contextinstanceid,
-            'http://adlnet.gov/expapi/activities/link'
+            'http://adlnet.gov/expapi/activities/meeting'
         ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
