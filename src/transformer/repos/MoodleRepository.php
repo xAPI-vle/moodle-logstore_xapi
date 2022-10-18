@@ -19,35 +19,48 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/Repository.php');
 
+/**
+ * An abstraction of the Moodle Data Manipulation API.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class MoodleRepository extends Repository {
+    /** @var object Object to abstract the data within. */
     private $store;
 
     /**
      * Constructs a new Repository.
-     * @param $store
+     *
+     * @param object $store This is the Moodle $DB object.
      */
     public function __construct($store) {
         $this->store = $store;
     }
 
     /**
-     * Reads an array of objects from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
-     * @return PhpArr
+     * Retrieve an array of objects from the store with the given type and query.
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
+     * @return array
      */
-    public function read_records($type, array $query) {
+    public function read_records(string $type, array $query) {
         return $this->store->get_records($type, $query);
     }
 
     /**
      * Reads an object from the store with the given type and query.
-     * @param String $type
-     * @param [String => Mixed] $query
+     *
+     * @param string $type The name of the table to retrieve from.
+     * @param array $query Any additional conditions to add to the query.
      * @throws \Exception if the record was not found
      * @return PhpObj
      */
-    public function read_record($type, array $query) {
+    public function read_record(string $type, array $query) {
         $record = $this->store->get_record($type, $query);
         if ($record === false) {
             throw new \Exception("$type not found.");

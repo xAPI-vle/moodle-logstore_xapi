@@ -14,18 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
-
 /**
  * The mod_bigbluebuttonbn meeting joined event (triggered by bbb_view.php when the user joins the session).
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- * @param array $config
- * @param \stdClass $event
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace src\transformer\events\mod_bigbluebuttonbn;
+
+/**
+ * Transformer for bigbluebutton meeting joined event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function meeting_joined(array $config, \stdClass $event) {
-
-    return create_stmt( $config, $event, 'http://activitystrea.ms/schema/1.0/join', 'joined' );
+    return create_statement( $config, $event, 'http://activitystrea.ms/schema/1.0/join', 'joined' );
 }

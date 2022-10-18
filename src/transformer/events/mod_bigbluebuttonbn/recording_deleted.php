@@ -14,18 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
-
 /**
  * The mod_bigbluebuttonbn recording deleted event.
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- * @param array $config
- * @param \stdClass $event
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace src\transformer\events\mod_bigbluebuttonbn;
+
+/**
+ * Transformer for bigbluebutton recording deleted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
  * @return array
  */
 function recording_deleted(array $config, \stdClass $event) {
-
-    return create_stmt( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/deleted', 'deleted' );
+    return create_statement( $config, $event, 'https://w3id.org/xapi/dod-isd/verbs/deleted', 'deleted' );
 }

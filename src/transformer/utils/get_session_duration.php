@@ -14,9 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for retrieving facetoface session duration.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils;
 
-function get_session_duration($config, $sessionid) {
+/**
+ * Transformer utility for retrieving facetoface session duration.
+ *
+ * @param array $config The transformer config settings.
+ * @param string $sessionid The id of the session.
+ * @return int/float
+ */
+function get_session_duration(array $config, string $sessionid) {
     $repo = $config['repo'];
     $dates = $repo->read_records('facetoface_sessions_dates', [ 'sessionid' => $sessionid ]);
     $duration = 0;

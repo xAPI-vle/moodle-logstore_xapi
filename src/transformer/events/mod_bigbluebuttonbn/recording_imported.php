@@ -14,19 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace src\transformer\events\mod_bigbluebuttonbn;
-use function src\transformer\events\mod_bigbluebuttonbn\create_stmt;
-
 /**
  * The mod_bigbluebuttonbn recording imported event (triggered when a recording is imported).
  *
- * @author Paul Walter (https://github.com/paulito-bandito)
- * @param array $config
- * @param \stdClass $event
- * @return array
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function recording_imported(array $config, \stdClass $event) {
+namespace src\transformer\events\mod_bigbluebuttonbn;
 
-    return create_stmt( $config, $event, 'http://adlnet.gov/expapi/verbs/imported', 'imported' );
+/**
+ * Transformer for bigbluebutton recording imported event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
+function recording_imported(array $config, \stdClass $event) {
+    return create_statement( $config, $event, 'http://adlnet.gov/expapi/verbs/imported', 'imported' );
 }

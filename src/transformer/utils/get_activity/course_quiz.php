@@ -14,11 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for retrieving (course quiz) activities.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils\get_activity;
 
 use src\transformer\utils as utils;
 
-function course_quiz(array $config, \stdClass $course, $cmid) {
+/**
+ * Transformer utility for retrieving (course quiz) activities.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
+ * @param string $cmid The id of the context.
+ * @return array
+ */
+function course_quiz(array $config, \stdClass $course, string $cmid) {
     $xapytype = 'http://adlnet.gov/expapi/activities/assessment';
 
     // JISC specific activity type.

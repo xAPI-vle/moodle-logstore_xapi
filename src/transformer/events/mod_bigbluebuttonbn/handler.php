@@ -15,27 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course viewed event.
+ * A generic statement factory.
  *
- * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
- * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     logstore_xapi
+ * @copyright   Paul Walter (https://github.com/paulito-bandito)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\core;
-
+namespace src\transformer\events\mod_bigbluebuttonbn;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for course viewed event.
+ * Create the statement from available data in Moodle and BigBlueButton.
  *
- * @param array $config The transformer config settings.
- * @param \stdClass $event The event to be transformed.
+ * @param array $config
+ * @param \stdClass $event
+ * @param string $evtid The URL of the verb to use.
+ * @param string $evtdispname The conjugated verb so that it reads better.
  * @return array
  */
-function course_viewed(array $config, \stdClass $event) {
+function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -44,12 +43,17 @@ function course_viewed(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'id' => $evtid,
             'display' => [
-                $lang => 'viewed'
+                $lang => $evtdispname
             ],
         ],
-        'object' => utils\get_activity\course($config, $course),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid,
+            'http://adlnet.gov/expapi/activities/meeting'
+        ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -57,10 +61,11 @@ function course_viewed(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
-                    utils\get_activity\site($config)
+                    utils\get_activity\site($config),
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]

@@ -24,6 +24,8 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 /**
+ * Test case for failed events in a report.
+ *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
@@ -36,10 +38,10 @@ class failed_report_test extends enchancement_jisc_skeleton {
      */
     protected $simulatedsubmitteddata = [
         'id' => XAPI_REPORT_ID_ERROR,
-        'resend' => 0,
-        'errortype' => 0,
+        'resend' => XAPI_REPORT_RESEND_FALSE,
+        'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
         'eventnames' => ['\core\event\course_viewed'],
-        'response' => 0,
+        'response' => XAPI_REPORT_RESPONSE_DEFAULT,
         'datefrom' => 0,
         'dateto' => 0,
         'submitbutton' => 'Search'
@@ -59,7 +61,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
             'responses' => logstore_xapi_get_distinct_options_from_failed_table('response')
         ];
 
-        $form = new tool_logstore_xapi_reportfilter_form('', $filterparams);
+        $form = new form\tool_logstore_xapi_reportfilter_form('', $filterparams);
         $this->assertTrue($form->is_validated());
         $this->assertTrue($form->is_submitted());
 
@@ -78,7 +80,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());
@@ -97,7 +99,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->multipletestnumber * $this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());

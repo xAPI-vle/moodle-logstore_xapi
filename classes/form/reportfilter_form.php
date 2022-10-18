@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi;
+namespace logstore_xapi\form;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -23,10 +23,10 @@ require_once($CFG->libdir.'/formslib.php');
 /**
  * The filter form for the xAPI admin reports
  *
+ * @package logstore_xapi
  * @copyright 2020 Learning Pool Ltd <https://learningpool.com/>
  * @author Stephen O'Hara <stephen.ohara@learningpool.com>
- * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package tool_logstore_xapi
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_logstore_xapi_reportfilter_form extends \moodleform {
 

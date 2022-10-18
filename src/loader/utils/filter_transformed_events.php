@@ -14,9 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Filters transformed events.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\loader\utils;
 
-function filter_transformed_events(array $events, $transformed) {
+/**
+ * Filter transformed events.
+ *
+ * @param array $events An array of events.
+ * @param bool $transformed True if events loaded. False if not.
+ * @return array
+ */
+function filter_transformed_events(array $events, bool $transformed) {
     $filteredevents = array_filter($events, function ($event) use ($transformed) {
         return $event['transformed'] === $transformed;
     });

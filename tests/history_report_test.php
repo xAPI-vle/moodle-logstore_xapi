@@ -24,6 +24,8 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilter_form.php');
 
 /**
+ * Test case for the history report.
+ *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
@@ -57,7 +59,7 @@ class history_report_test extends enchancement_jisc_skeleton {
             'eventcontexts' => logstore_xapi_get_logstore_standard_context_options()
         ];
 
-        $form = new tool_logstore_xapi_reportfilter_form('', $filterparams);
+        $form = new form\tool_logstore_xapi_reportfilter_form('', $filterparams);
         $this->assertTrue($form->is_validated());
         $this->assertTrue($form->is_submitted());
 
@@ -76,7 +78,7 @@ class history_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());
@@ -95,7 +97,7 @@ class history_report_test extends enchancement_jisc_skeleton {
         $records = $DB->get_records('logstore_xapi_failed_log');
         $this->assertCount($this->multipletestnumber * $this->generatedxapilog, $records);
 
-        tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
+        form\tool_logstore_xapi_reportfilter_form::mock_submit($this->simulatedsubmitteddata);
 
         $form = $this->get_validated_form();
         $this->validate_submitted_data($form->get_data());

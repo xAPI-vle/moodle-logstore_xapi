@@ -18,6 +18,15 @@ namespace logstore_xapi\task;
 
 use logstore_xapi\log\store;
 
+/**
+ * Emit failed records to LRS.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class failed_task extends \core\task\scheduled_task {
 
     /**

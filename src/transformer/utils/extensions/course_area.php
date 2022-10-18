@@ -14,8 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for course area xAPI extensions.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils\extensions;
 
+/**
+ * Transformer utility for the course area.
+ *
+ * @param object $course The course object.
+ * @return array
+ */
 function course_area($course) {
     if ($course === null) {
         return [];

@@ -14,6 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Reporting view.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 use core\output\notification;
 
 require_once(__DIR__ . '/../../../../../config.php');
@@ -122,7 +132,7 @@ switch ($id) {
 }
 
 $notifications = array();
-$mform = new tool_logstore_xapi_reportfilter_form($url, $filterparams);
+$mform = new logstore_xapi\form\tool_logstore_xapi_reportfilter_form($url, $filterparams);
 
 $params = [];
 $where = ['1 = 1'];

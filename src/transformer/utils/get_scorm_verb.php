@@ -14,9 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transformer utility for retrieving the SCORM verb.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\utils;
 
-function get_scorm_verb($scormscoestracks, $lang) {
+/**
+ * Transformer utility for retrieving the SCORM verb.
+ *
+ * @param array $scormscoestracks An array of the SCORM tracks
+ * @param string $lang The language of the event.
+ * @return array
+ */
+function get_scorm_verb(array $scormscoestracks, string $lang) {
     $scormstatus = null;
     foreach ($scormscoestracks as $st) {
         if ($st->element == 'cmi.core.lesson_status') {

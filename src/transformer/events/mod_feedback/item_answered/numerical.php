@@ -14,10 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Transform for the feedback item answered (numerical) event.
+ *
+ * @package   logstore_xapi
+ * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
+ *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
+ *            David Pesce <david.pesce@exputo.com>
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace src\transformer\events\mod_feedback\item_answered;
 
 use src\transformer\utils as utils;
 
+/**
+ * Transformer for the mod_feedback item answered event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @param \stdClass $feedbackvalue The value of the feedback type.
+ * @param \stdClass $feedbackitem The id of the feedback item.
+ * @return array
+ */
 function numerical(array $config, \stdClass $event, \stdClass $feedbackvalue, \stdClass $feedbackitem) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
