@@ -145,6 +145,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      */
     protected function prepare_log_stores_for_logging($expectedcount) {
         // Enable log stores.
+        $this->preventResetByRollback();
         set_config('enabled_stores', 'logstore_standard,logstore_xapi', 'tool_log');
         set_config('buffersize', 0, 'logstore_standard');
         set_config('logguests', 1, 'logstore_standard');
