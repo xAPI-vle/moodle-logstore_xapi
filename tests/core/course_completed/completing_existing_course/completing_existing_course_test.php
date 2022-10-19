@@ -48,7 +48,5 @@ class completing_existing_course_test extends \logstore_xapi\xapi_test_case {
      * @covers ::course_completed
      * @return void
      */
-    public function test_init() {
-        
-    }
+    public function test_init() {}
 }
