@@ -65,7 +65,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
      * Record number depends on $multipletestnumber.
      * Using moveback script for moving multiple elements.
      *
-     * @covers moveback
+     * @covers \log\moveback
      */
     public function test_multiple_elements() {
         global $DB;
