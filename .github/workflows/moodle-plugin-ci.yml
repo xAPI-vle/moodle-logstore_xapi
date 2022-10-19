@@ -105,16 +105,6 @@ jobs:
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
           IGNORE_PATHS: 'vendor/'
 
-      - name: Install moodle-plugin-ci (Moodle 4.0)
-        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
-        run: |
-          moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE catalyst/moodle-mod_facetoface
-          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
-        env:
-          DB: ${{ matrix.database }}
-          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
-          IGNORE_PATHS: 'vendor/'
-
       - name: PHP Lint
         if: ${{ always() }}
         run: moodle-plugin-ci phplint
