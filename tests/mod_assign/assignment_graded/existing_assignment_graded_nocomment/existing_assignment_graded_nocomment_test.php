@@ -45,6 +45,7 @@ class existing_assignment_graded_nocomment_test extends \logstore_xapi\xapi_test
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::assignment_graded
      * @return void
      */
     public function test_init() {
