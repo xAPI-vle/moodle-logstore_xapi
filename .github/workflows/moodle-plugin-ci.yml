@@ -86,24 +86,22 @@ jobs:
           composer install
 
       - name: Install moodle-plugin-ci (Moodle 3.9-3.11)
-        if: ${{ matrix.moodle-branch == 'MOODLE_39_STABLE' || 'MOODLE_310_STABLE' || 'MOODLE_311_STABLE' }}
         run: |
           moodle-plugin-ci add-plugin --branch MOODLE_34_STABLE catalyst/moodle-mod_facetoface
           moodle-plugin-ci add-plugin --branch v3.0-stable blindsidenetworks/moodle-mod_bigbluebuttonbn
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
-          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          MOODLE_BRANCH: ${{ matrix.moodle-branch == 'MOODLE_39_STABLE' || 'MOODLE_310_STABLE' || 'MOODLE_311_STABLE' }}
           IGNORE_PATHS: 'vendor/'
 
       - name: Install moodle-plugin-ci (Moodle 4.0)
-        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
         run: |
           moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE catalyst/moodle-mod_facetoface
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
-          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          MOODLE_BRANCH: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
           IGNORE_PATHS: 'vendor/'
 
       - name: PHP Lint
