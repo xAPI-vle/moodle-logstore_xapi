@@ -38,7 +38,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
      * Creating minimum a single course view event to xapi logstore.
      * Using moveback script for moving a single element
      *
-     * @covers moveback
+     * @covers \log\moveback
      */
     public function test_single_element() {
         global $DB;
