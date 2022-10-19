@@ -69,6 +69,8 @@ class history_report_test extends enchancement_jisc_skeleton {
     /**
      * Creating minimum a single course view event to xapi logstore.
      * Submit form and validate form data.
+     *
+     * @covers tool_logstore_xapi_reportfilter_form
      */
     public function test_single_element() {
         global $DB;
@@ -88,6 +90,8 @@ class history_report_test extends enchancement_jisc_skeleton {
      * Creating multiple course view events to xapi logstore.
      * Record number depends on $multipletestnumber.
      * Submit form and validate form data.
+     *
+     * @covers tool_logstore_xapi_reportfilter_form
      */
     public function test_multiple_elements() {
         global $DB;
