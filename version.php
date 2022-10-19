@@ -29,6 +29,5 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'logstore_xapi';
 $plugin->version = 2022101800;
 $plugin->requires = 2020061500;
-$plugin->supported = [39, 311, 40]; // Moodle 3.9.x, 3.11.x and 4.0.x are supported.
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '';
