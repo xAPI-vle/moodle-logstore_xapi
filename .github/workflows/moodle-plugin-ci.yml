@@ -99,7 +99,6 @@ jobs:
       - name: Install moodle-plugin-ci (Moodle 4.0)
         if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
         run: |
-          moodle-plugin-ci add-plugin --branch MOODLE_34_STABLE catalyst/moodle-mod_facetoface
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
