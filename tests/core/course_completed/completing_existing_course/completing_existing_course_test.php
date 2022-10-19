@@ -49,6 +49,6 @@ class completing_existing_course_test extends \logstore_xapi\xapi_test_case {
      * @return void
      */
     public function test_init() {
-        $this->assertEquals(2, 1 + 1);
+        
     }
 }
