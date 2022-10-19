@@ -45,9 +45,10 @@ class completing_existing_course_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers completing_existing_course
      * @return void
      */
     public function test_init() {
-        $this->assertEquals(2, 1+1);
+        $this->assertEquals(2, 1 + 1);
     }
 }

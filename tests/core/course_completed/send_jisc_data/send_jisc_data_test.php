@@ -61,6 +61,6 @@ class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
      * @return void
      */
     public function test_init() {
-        $this->assertEquals(2, 1+1);
+        $this->assertEquals(2, 1 + 1);
     }
 }
