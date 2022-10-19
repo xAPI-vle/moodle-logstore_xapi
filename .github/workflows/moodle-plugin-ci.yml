@@ -85,11 +85,20 @@ jobs:
           cd plugin
           composer install
 
-      - name: Install moodle-plugin-ci (Moodle 3.9-3.11)
+      - name: Install additional supported plugins (Moodle 3.9-3.11)
         if: ${{ matrix.moodle-branch == 'MOODLE_39_STABLE' || 'MOODLE_310_STABLE' || 'MOODLE_311_STABLE' }}
         run: |
           moodle-plugin-ci add-plugin --branch MOODLE_34_STABLE catalyst/moodle-mod_facetoface
           moodle-plugin-ci add-plugin --branch v3.0-stable blindsidenetworks/moodle-mod_bigbluebuttonbn
+
+      - name: Install additional supported plugins (Moodle 4.0)
+        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
+        run: |
+          moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE catalyst/moodle-mod_facetoface
+          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+
+      - name: Install moodle-plugin-ci
+        run: |
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
