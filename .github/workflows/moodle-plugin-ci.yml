@@ -92,7 +92,7 @@ jobs:
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
-          MOODLE_BRANCH: ${{ matrix.moodle-branch == 'MOODLE_39_STABLE' || 'MOODLE_310_STABLE' || 'MOODLE_311_STABLE' }}
+          MOODLE_BRANCH: ['MOODLE_39_STABLE','MOODLE_310_STABLE','MOODLE_311_STABLE']
           IGNORE_PATHS: 'vendor/'
 
       - name: Install moodle-plugin-ci (Moodle 4.0)
@@ -101,7 +101,7 @@ jobs:
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
-          MOODLE_BRANCH: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
+          MOODLE_BRANCH: 'MOODLE_400_STABLE'
           IGNORE_PATHS: 'vendor/'
 
       - name: PHP Lint
