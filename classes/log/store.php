@@ -154,7 +154,7 @@ class store extends php_obj implements log_writer {
      * Insert events in bulk to the database. Overrides helper_writer.
      * @param array $events raw event data
      */
-    protected function insert_event_entries(array $events) {
+    protected function insert_event_entries($events) {
         global $DB;
 
         // If in background mode, just save them in the database.

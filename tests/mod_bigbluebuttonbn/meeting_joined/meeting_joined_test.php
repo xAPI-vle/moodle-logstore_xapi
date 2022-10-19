@@ -45,6 +45,7 @@ class meeting_joined_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::meeting_joined
      * @return void
      */
     public function test_init() {

@@ -45,6 +45,7 @@ class existing_user_enrolled_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::user_enrolment_created
      * @return void
      */
     public function test_init() {

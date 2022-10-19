@@ -45,6 +45,7 @@ class existing_report_viewed_all_courses_test extends \logstore_xapi\xapi_test_c
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::user_report_viewed
      * @return void
      */
     public function test_init() {

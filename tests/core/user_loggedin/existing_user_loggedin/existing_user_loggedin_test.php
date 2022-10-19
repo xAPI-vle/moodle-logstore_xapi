@@ -45,6 +45,7 @@ class existing_user_loggedin_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::user_loggedin
      * @return void
      */
     public function test_init() {
