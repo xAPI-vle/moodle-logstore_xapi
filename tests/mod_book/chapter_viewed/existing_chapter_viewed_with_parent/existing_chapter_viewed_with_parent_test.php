@@ -45,6 +45,7 @@ class existing_chapter_viewed_with_parent_test extends \logstore_xapi\xapi_test_
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::chapter_viewed
      * @return void
      */
     public function test_init() {
