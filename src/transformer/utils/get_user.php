@@ -38,6 +38,16 @@ function get_user(array $config, \stdClass $user) {
 
     $hasvalidemail = filter_var($user->email, FILTER_VALIDATE_EMAIL);
 
+    if (array_key_exists('send_useridnumber', $config) && $config['send_useridnumber'] == true && trim($user->idnumber) != "") {
+        return [
+            'name' => $fullname,
+            'account' => [
+                'homePage' => $config['app_url'],
+                'name' => $user->idnumber,
+            ],
+        ];
+    }
+
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
         return [
             'name' => $fullname,

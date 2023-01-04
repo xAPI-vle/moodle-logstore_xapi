@@ -80,6 +80,10 @@ if ($hassiteconfig) {
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_useridnumber',
+    get_string('send_useridnumber', 'logstore_xapi'),
+    get_string('send_useridnumber_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_jisc_data',
         get_string('send_jisc_data', 'logstore_xapi'),
         get_string('send_jisc_data_desc', 'logstore_xapi'), 0));
