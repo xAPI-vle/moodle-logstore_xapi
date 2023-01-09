@@ -1,3 +1,5 @@
+### Note: This plugin is modified to pass `idNumber` field to LRS in xAPI statements.
+
 # [Moodle Logstore xAPI](https://moodle.org/plugins/view/logstore_xapi)
 > Emits [xAPI](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md) statements using the [Moodle](https://moodle.org/) Logstore.
 
