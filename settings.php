@@ -1,4 +1,4 @@
-<?php
+fps<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -63,6 +63,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/resendfailedbatches',
         get_string('resendfailedbatches', 'logstore_xapi'),
         get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/pseudo',
+        get_string('pseudo', 'logstore_xapi'),
+        get_string('pseudo_desc', 'logstore_xapi'), 0));
 
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
         get_string('mbox', 'logstore_xapi'),

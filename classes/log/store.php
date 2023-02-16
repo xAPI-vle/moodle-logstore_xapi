@@ -263,6 +263,7 @@ class store extends php_obj implements log_writer {
             'log_info' => $loginfo,
             'transformer' => [
                 'source_lang' => 'en',
+                'send_pseudo' => $this->get_config('pseudo', false),
                 'send_mbox' => $this->get_config('mbox', false),
                 'send_response_choices' => $this->get_config('sendresponsechoices', false),
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
