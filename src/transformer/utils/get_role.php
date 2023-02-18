@@ -18,10 +18,9 @@
  * Transformer utility for retrieving role data.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 namespace src\transformer\utils;
@@ -34,8 +33,8 @@ namespace src\transformer\utils;
  * @param string $lang The course lang.
  * @return array
  */
-function get_role(array $config, \stdClass $role, string $lang): array
-{
+function get_role(array $config, \stdClass $role, string $lang): array{
+
     $url_id = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
     $object_type = 'http://activitystrea.ms/schema/1.0/role';
 

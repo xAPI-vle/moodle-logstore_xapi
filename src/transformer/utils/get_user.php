@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -33,8 +34,8 @@ namespace src\transformer\utils;
  * @param \stdClass $user The user object.
  * @return array
  */
-function get_user(array $config, \stdClass $user): array
-{
+function get_user(array $config, \stdClass $user): array{
+
     $fullname = get_full_name($user);
     $username = $user->username;
     $userid = strval($user->id);

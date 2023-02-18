@@ -15,17 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# Verbs: https://help.csod.com/help/csod_0/Content/Catalog/xAPI_Package_Support/
-//xAPI_Appendix.htm?tocpath=Learning%7CContent%7CxAPI%7C_____6
-
 /**
  * Transform for role unassigned event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 namespace src\transformer\events\core;
@@ -39,8 +35,8 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function role_unassigned(array $config, \stdClass $event): array
-{
+function role_unassigned(array $config, \stdClass $event): array{
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);

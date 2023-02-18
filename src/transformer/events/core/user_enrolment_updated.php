@@ -18,10 +18,9 @@
  * Transform for user enrollment updated event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 namespace src\transformer\events\core;
@@ -35,8 +34,8 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function user_enrolment_updated(array $config, \stdClass $event): array
-{
+function user_enrolment_updated(array $config, \stdClass $event): array{
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
