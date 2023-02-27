@@ -35,7 +35,7 @@ use src\transformer\utils as utils;
  * @param int $badgetype
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array{
+function badge_listing(array $config, \stdClass $course, int $badgetype): array {
 
     $courselang = utils\get_course_lang($course);
     $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;

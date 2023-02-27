@@ -35,7 +35,7 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function role_unassigned(array $config, \stdClass $event): array{
+function role_unassigned(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
@@ -47,7 +47,7 @@ function role_unassigned(array $config, \stdClass $event): array{
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/assign', #TODO change the verb
+            'id' => 'http://activitystrea.ms/schema/1.0/assign', // TODO change the verb.
             'display' => [
                 $lang => 'has been unassigned'
             ],

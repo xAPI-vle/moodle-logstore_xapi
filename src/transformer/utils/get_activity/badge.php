@@ -33,9 +33,9 @@ namespace src\transformer\utils\get_activity;
  * @param string $lang
  * @return array
  */
-function badge(array $config, \stdClass $badge, string $badgehash, string $lang): array{
+function badge(array $config, \stdClass $badge, string $badgehash, string $lang): array {
 
-    $badgeurl = $config['app_url'].'/badges/badge.php?hash='.$badgehash;
+    $badgeurl = $config['app_url'] . '/badges/badge.php?hash=' . $badgehash;
     $badgename = property_exists($badge, 'name') ? $badge->name : 'Badge';
 
     return [

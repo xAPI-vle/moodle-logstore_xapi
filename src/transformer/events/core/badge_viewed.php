@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function badge_viewed(array $config, \stdClass $event): array{
+function badge_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -42,7 +42,6 @@ function badge_viewed(array $config, \stdClass $event): array{
     $badgehash = $other['badgehash'];
     $badgeid = $other['badgeid'];
     $badge = $repo->read_record_by_id('badge', $badgeid);
-
     $lang = $config['source_lang'];
 
     return [[

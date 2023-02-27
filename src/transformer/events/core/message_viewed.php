@@ -33,7 +33,7 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function message_viewed(array $config, \stdClass $event): array{
+function message_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -48,7 +48,7 @@ function message_viewed(array $config, \stdClass $event): array{
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\message_site($config),
+        'object' => utils\get_activity\message($config),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

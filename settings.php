@@ -139,8 +139,12 @@ if ($hassiteconfig) {
         $menuroutes[$eventname] = $eventname;
     }
 
-    $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
-        get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
+    $label = get_string('actionsdescription', 'logstore_xapi');
+    $settings->add(new admin_setting_configmultiselect('logstore_xapi/routes',
+        get_string('routes', 'logstore_xapi'), $label, (array) '', $menuroutes));
+
+    // $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
+     //   get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
 
     // The xAPI Error Log page.
     $errorreport = new admin_externalpage(
@@ -160,3 +164,6 @@ if ($hassiteconfig) {
     );
     $ADMIN->add('logging', $historicreport);
 }
+
+
+// List of all options included.

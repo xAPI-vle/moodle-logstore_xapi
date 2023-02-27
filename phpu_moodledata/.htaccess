@@ -1,0 +1,3 @@
+deny from all
+AllowOverride None
+Note: this file is broken intentionally, we do not want anybody to undo it in subdirectory!

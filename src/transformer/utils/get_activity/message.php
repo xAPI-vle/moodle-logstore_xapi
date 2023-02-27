@@ -25,26 +25,29 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
  * Transformer utility for retrieving the message.
  *
  * @param array $config The transformer config settings.
+ * @param string $lang
+ * @param \stdClass|null $chat
  * @return array
  */
-function message_site(array $config): array{
-    $repo = $config['repo'];
-    $site = $repo->read_record_by_id('course', 1);
-    $sitelang = utils\get_course_lang($site);
-    $url = $config['app_url'].'/message/index.php';
+function message(array $config, string $lang, \stdClass $chat=null): array {
+
+    if (is_null($chat)) {
+        $url = $config['app_url'].'/message/index.php';
+    } else {
+        global $CFG;
+        $url = $config['app_url'].'/mod/chat/gui_'.$CFG->chat_method.'/index.php'.$chat->id;
+    }
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/chat-message',
             'name' => [
-                $sitelang => 'Message',
+                $lang => 'Message',
             ],
         ],
     ];

@@ -66,6 +66,7 @@ $string['includecohorts'] = 'Include these cohorts in notifications';
 $string['send_additional_email_addresses'] = 'Additional email addresses';
 $string['send_additional_email_addresses_desc'] = 'Send notifications to list of email addresses. Comma separated values.';
 $string['routes'] = 'Include actions with these routes';
+$string['actionsdescription'] = 'The selection by default excludes any actions. Actions must be manually set to be included. ';
 $string['failed_events'] = 'event(s) have failed to send to the LRS.';
 $string['successful_events'] = 'event(s) have been successfully processed.';
 $string['filters'] = 'Filter logs';

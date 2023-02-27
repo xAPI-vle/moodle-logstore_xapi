@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function user_enrolment_updated(array $config, \stdClass $event): array{
+function user_enrolment_updated(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);

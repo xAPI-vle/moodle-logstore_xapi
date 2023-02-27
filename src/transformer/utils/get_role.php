@@ -33,17 +33,17 @@ namespace src\transformer\utils;
  * @param string $lang The course lang.
  * @return array
  */
-function get_role(array $config, \stdClass $role, string $lang): array{
+function get_role(array $config, \stdClass $role, string $lang): array {
 
-    $url_id = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
-    $object_type = 'http://activitystrea.ms/schema/1.0/role';
+    $urlid = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
+    $objecttype = 'http://activitystrea.ms/schema/1.0/role';
 
     return [
-        'id' => $url_id,
+        'id' => $urlid,
         'definition' => [
-            'type' => $object_type,
+            'type' => $objecttype,
             'name' => [
-                $lang => $role->shortname,
+                $lang => $role->shortname.' role',
             ],
         ],
     ];

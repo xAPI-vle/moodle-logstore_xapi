@@ -1,0 +1,1 @@
+This file prevents concurrent execution of Moodle phpunit tests

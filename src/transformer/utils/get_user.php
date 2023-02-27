@@ -21,7 +21,6 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
- *            Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,60 +33,63 @@ namespace src\transformer\utils;
  * @param \stdClass $user The user object.
  * @return array
  */
-function get_user(array $config, \stdClass $user): array{
+function get_user(array $config, \stdClass $user): array {
 
     $fullname = get_full_name($user);
-    $username = $user->username;
-    $userid = strval($user->id);
-    $email = $user->email;
-
-    $hasvalidemail = filter_var($email, FILTER_VALIDATE_EMAIL);
-
-    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
-        $fullname = sha1($fullname);
-        $username = sha1($username);
-        $userid = sha1($userid);
-        $email = sha1($email);
-    }
+    $hasvalidemail = filter_var($user->email, FILTER_VALIDATE_EMAIL);
 
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] && $hasvalidemail) {
-        if((array_key_exists('send_pseudo', $config) && $config['send_pseudo'])){
+        if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
 
             return [
-                'name' => $fullname,
-                'mbox_sha1sum' => $email,
+                'name' => sha1($fullname),
+                'mbox_sha1sum' => sha1('mailto:' . $user->email),
             ];
-
-        }
-
-        else {
+        } else {
             return [
                 'name' => $fullname,
-                'mbox' => 'mailto:' . $email,
+                'mbox' => 'mailto:' . $user->email,
             ];
         }
     }
 
-
-
     if (array_key_exists('send_username', $config) && $config['send_username']) {
+        if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+            return [
+                'name' => sha1($fullname),
+                'account' => [
+                    'homePage' => $config['app_url'],
+                    'name' => sha1($user->username),
+                ],
+            ];
 
+        } else {
+
+            return [
+                'name' => $fullname,
+                'account' => [
+                    'homePage' => $config['app_url'],
+                    'name' => $user->username,
+                ],
+            ];
+        }
+    }
+
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        return [
+            'name' => sha1($fullname),
+            'account' => [
+                'homePage' => $config['app_url'],
+                'name' => sha1(strval($user->id)),
+            ],
+        ];
+    } else {
         return [
             'name' => $fullname,
             'account' => [
                 'homePage' => $config['app_url'],
-                'name' => $username,
+                'name' => strval($user->id),
             ],
         ];
     }
-
-
-    return [
-        'name' => $fullname,
-        'account' => [
-            'homePage' => $config['app_url'],
-            'name' => $userid,
-        ],
-    ];
 }
-
