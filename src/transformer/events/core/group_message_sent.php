@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for user enrolment deleted event.
+ * Transform for group message sent event.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -28,35 +28,34 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the user enrolment deleted event.
+ * Transformer for group message sent event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function user_enrolment_deleted(array $config, \stdClass $event): array {
+function group_message_sent(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $instructor = $repo->read_record_by_id('user', $event->userid);
-    $lang = utils\get_course_lang($course);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $cmid = $event->objectid;
+    $lang = $config['source_lang'];
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/unregistered',
+            'id' => 'http://activitystrea.ms/schema/1.0/send',
             'display' => [
-                $lang => 'unenrolled from'
+                $lang => 'sent'
             ],
         ],
-        'object' => utils\get_activity\course($config, $course),
+        'object' => utils\get_activity\message($config, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
-            'instructor' => utils\get_user($config, $instructor),
+            'team' => utils\get_team($config, $cmid),
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config)

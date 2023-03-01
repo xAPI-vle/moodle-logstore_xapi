@@ -48,7 +48,7 @@ function message_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\message($config),
+        'object' => utils\get_activity\message($config, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

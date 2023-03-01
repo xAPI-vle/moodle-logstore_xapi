@@ -22,18 +22,45 @@
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\utils\event_functions\participating;
+namespace src\transformer\utils\event_functions;
 
+/**
+ * Return a list of events whose educational level is participating.
+ *
+ * @return array
+ */
 
-function modules(): array {
+function participating(): array {
 
     return [
+
+        // Core.
+        '\core\event\badge_listing_viewed' => 'core\badge_listing_viewed',
+        '\core\event\badge_viewed' => 'core\badge_viewed',
+        '\core\event\course_completed' => 'core\course_completed',
+        // '\core\event\course_completion_updated' => 'core\course_completion_updated',
+        // '\core\event\course_information_viewed' => 'core\course_information_viewed',
+        '\core\event\course_module_completion_updated' => 'core\course_module_completion_updated',
+        // '\core\event\courses_searched' => 'core\courses_searched',
+        '\core\event\course_user_report_viewed' => 'core\course_user_report_viewed',
+        '\core\event\course_viewed' => 'core\course_viewed',
+        '\core\event\dashboard_viewed' => 'core\dashboard_viewed',
+        '\core\event\dashboard_reset' => 'core\dashboard_reset',
+
+        '\core\event\role_assigned' => 'core\role_assigned',
+        '\core\event\role_unassigned' => 'core\role_unassigned',
+        '\core\event\user_created' => 'core\user_created',
+        '\core\event\user_deleted' => 'core\user_deleted',
+        '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
+        '\core\event\user_enrolment_deleted' => 'core\user_enrolment_deleted',
+        '\core\event\user_enrolment_updated' => 'core\user_enrolment_updated',
+        '\core\event\user_loggedin' => 'core\user_loggedin',
+        '\core\event\user_loggedout' => 'core\user_loggedout',
 
         // Assign.
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
-        '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed', // NEW
-        // '\mod_assign\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
+        '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed', // NEW.
 
         // Bigbluebutton.
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
@@ -55,11 +82,9 @@ function modules(): array {
         // Book.
         '\mod_book\event\course_module_viewed' => 'mod_book\course_module_viewed',
         '\mod_book\event\chapter_viewed' => 'mod_book\chapter_viewed',
-        // '\mod_book\event\course_module_instance_list_viewed' => 'mod_book\event\course_module_instance_list_viewed',
 
         // Chat.
         '\mod_chat\event\course_module_viewed' => 'mod_chat\course_module_viewed',
-        // '\mod_chat\event\course_module_instance_list_viewed' => 'mod_chat\course_module_instance_list_viewed', // TODO check.
         '\mod_chat\event\message_sent' => 'mod_chat\message_sent', // TODO check.
 
         // Checklist.
@@ -67,11 +92,9 @@ function modules(): array {
 
         // Choice.
         '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity selection.
-        // '\mod_choice\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
 
         // Database.
         '\mod_data\event\course_module_viewed' => 'mod_data\course_module_viewed', // NEW
-        // '\mod_data\event\course_module_instance_list_viewed' => 'mod_data\course_module_instance_list_viewed',
 
         // Facetoface.
         '\mod_facetoface\event\cancel_booking' => 'mod_facetoface\cancel_booking',
@@ -82,11 +105,9 @@ function modules(): array {
         // Feedback.
         '\mod_feedback\event\course_module_viewed' => 'mod_feedback\course_module_viewed',
         '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted\handler',
-        // '\mod_feedback\event\course_module_instance_list_viewed' => 'mod_feedback\course_module_instance_list_viewed'
 
         // Folder.
         '\mod_folder\event\course_module_viewed' => 'mod_folder\course_module_viewed',  // NEW
-        // '\mod_folder\event\course_module_instance_list_viewed' => 'mod_folder\course_module_instance_list_viewed',
 
         // Forum.
         '\mod_forum\event\course_module_viewed' => 'mod_forum\course_module_viewed',
@@ -94,31 +115,30 @@ function modules(): array {
         '\mod_forum\event\discussion_viewed' => 'mod_forum\discussion_viewed',
         '\mod_forum\event\post_created' => 'mod_forum\post_created',
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
-        // '\mod_forum\event\course_module_instance_list_viewed' => 'mod_forum\course_module_instance_list_viewed',
 
         // Glossary.
         '\mod_glossary\event\course_module_viewed' => 'mod_glossary\course_module_viewed', // NEW
 
         // Group choice.
-        '\mod_choicegroup\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity:
+        '\mod_choicegroup\event\course_module_viewed' => 'all\course_module_viewed',
 
         // H5P activity.
-        '\mod_h5pactivity\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity: interactive content.
+        '\mod_h5pactivity\event\course_module_viewed' => 'all\course_module_viewed',
 
         // Imscp.
-        '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity: IMS content package.
+        '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
 
         // Lesson.
         '\mod_lesson\event\course_module_viewed' => 'mod_lesson\course_module_viewed',
 
         // Lti.
-        '\mod_lti\event\course_module_viewed' => 'mod_lti\course_module_viewed', // NEW
+        '\mod_lti\event\course_module_viewed' => 'mod_lti\course_module_viewed',
 
         // Page.
         '\mod_page\event\course_module_viewed' => 'mod_page\course_module_viewed',
 
         // Questionnaire.
-        '\mod_questionnaire\event\course_module_viewed' => 'mod_questionnaire\course_module_viewed', // NEW
+        '\mod_questionnaire\event\course_module_viewed' => 'mod_questionnaire\course_module_viewed',
 
         // Quiz.
         '\mod_quiz\event\course_module_viewed' => 'mod_quiz\course_module_viewed',
@@ -147,13 +167,13 @@ function modules(): array {
         '\mod_wiki\event\course_module_viewed' => 'mod_wiki\course_module_viewed', // NEW
 
         // Wooclap.
-        '\mod_wooclap\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity: interactive tool.
+        '\mod_wooclap\event\course_module_viewed' => 'all\course_module_viewed',
 
         // Workshop.
         '\mod_workshop\event\course_module_viewed' => 'mod_workshop\course_module_viewed', // NEW.
 
         // Report_log.
-        // '\report_log\event\user_report_viewed' => '\report_log\event\user_report_viewed',
+        // '\report_log\event\user_report_viewed' => 'report_log\event\user_report_viewed',
         // http://localhost:8888/moodle39/report/log/user.php?id=4&course=2&mode=today
 
         // Totara.

@@ -36,6 +36,7 @@ use src\transformer\utils as utils;
  */
 
 function user_deleted(array $config, \stdClass $event): array {
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $instructor = $repo->read_record_by_id('user', $event->userid);

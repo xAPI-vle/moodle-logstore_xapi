@@ -31,8 +31,8 @@ use src\transformer\utils as utils;
  * Transformer utility for retrieving the badge listing.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course
- * @param int $badgetype
+ * @param \stdClass $course The coure object.
+ * @param int $badgetype The type of the badge.
  * @return array
  */
 function badge_listing(array $config, \stdClass $course, int $badgetype): array {
@@ -49,5 +49,4 @@ function badge_listing(array $config, \stdClass $course, int $badgetype): array 
             ],
         ],
     ];
-
 }

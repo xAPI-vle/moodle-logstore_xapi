@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (module instance list) activities.
+ * Transformer utility for retrieving (course user report) activities.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,29 +25,28 @@
 
 namespace src\transformer\utils\get_activity;
 
+use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the module instance list.
+ * Transformer utility for retrieving (course user report) activities.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course
- * @param string $coursemodule
- * @param string $lang
+ * @param \stdClass $user The user object.
+ * @param \stdClass $course The course object.
  * @return array
  */
-function module_instance_list(array $config, \stdClass $course, string $coursemodule, string $lang): array {
-
-    $coursemodule = explode('_', $coursemodule)[1];
-    $url = $config['app_url'].'/mod/'.$coursemodule.'index.php?id='.$course->id;
+function course_user_report(array $config, \stdClass $user, \stdClass $course): array
+{
+    $url = $config['app_url'].'/course/user.php?mode=grade&id='.$course->id.'&user='.$user->id;
+    $lang = utils\get_course_lang($course);
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://id.tincanapi.com/activitytype/user-profile',
             'name' => [
-                $lang => 'List of module instances',
+                $lang => 'Course user report',
             ],
         ],
     ];
-
 }

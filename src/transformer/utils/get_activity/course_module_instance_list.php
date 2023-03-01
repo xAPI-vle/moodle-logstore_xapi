@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving role data.
+ * Transformer utility for retrieving (module instance list) activities.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -23,27 +23,28 @@
  *
  */
 
-namespace src\transformer\utils;
+namespace src\transformer\utils\get_activity;
 
 /**
- * Transformer utility for retrieving role data.
+ * Transformer utility for retrieving the module instance list.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $role The role object.
- * @param string $lang The course lang.
+ * @param \stdClass $course The course object.
+ * @param string $coursemodule The module of the course.
+ * @param string $lang The language of the module instance.
  * @return array
  */
-function get_role(array $config, \stdClass $role, string $lang): array {
+function course_module_instance_list(array $config, \stdClass $course, string $coursemodule, string $lang): array {
 
-    $urlid = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
-    $objecttype = 'http://activitystrea.ms/schema/1.0/role';
+    $coursemodule = explode('_', $coursemodule)[1];
+    $url = $config['app_url'].'/mod/'.$coursemodule.'/index.php?id='.$course->id;
 
     return [
-        'id' => $urlid,
+        'id' => $url,
         'definition' => [
-            'type' => $objecttype,
+            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
             'name' => [
-                $lang => $role->shortname.' role',
+                $lang => 'List of module instances',
             ],
         ],
     ];

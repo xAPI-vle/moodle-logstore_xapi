@@ -35,20 +35,14 @@ use src\transformer\utils\event_functions as event_functions;
  */
 function get_event_function_map(): array {
 
-    $partecipatingmodulesgevents = event_functions\participating\modules();
-    $partecipatingcoreevents = event_functions\participating\core();
-    $teachingmodulesgevents = event_functions\teaching\modules();
-    $teachingcoreevents = event_functions\teaching\core();
-    $othermodulesgevents = event_functions\teaching\modules();
-    $othercoreevents = event_functions\teaching\core();
+    $participatingevents = event_functions\participating();
+    $teachinggevents = event_functions\teaching();
+    $otherevents = event_functions\other();
 
     $availableevents = array_merge(
-        $partecipatingmodulesgevents,
-        $partecipatingcoreevents,
-        $teachingmodulesgevents,
-        $teachingcoreevents,
-        $othermodulesgevents,
-        $othercoreevents
+        $participatingevents,
+        $teachinggevents,
+        $otherevents
     );
 
     $environmentevents = class_exists("report_eventlist_list_generator") ?

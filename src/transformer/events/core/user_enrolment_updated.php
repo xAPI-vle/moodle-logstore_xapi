@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for user enrollment updated event.
+ * Transform for user enrolment updated event.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -28,7 +28,7 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the user enrollment updated event.
+ * Transformer for the user enrolment updated event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -67,5 +67,4 @@ function user_enrolment_updated(array $config, \stdClass $event): array {
             ],
         ]
     ]];
-
 }

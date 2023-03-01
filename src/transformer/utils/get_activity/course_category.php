@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving role data.
+ * Transformer utility for retrieving category data.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -23,28 +24,29 @@
  *
  */
 
-namespace src\transformer\utils;
+namespace src\transformer\utils\get_activity;
 
 /**
- * Transformer utility for retrieving role data.
+ * Transformer utility for retrieving category data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $role The role object.
+ * @param \stdClass $core_course_category The course category object.
  * @param string $lang The course lang.
  * @return array
  */
-function get_role(array $config, \stdClass $role, string $lang): array {
+function course_category(array $config, \stdClass $core_course_category, string $lang): array {
 
-    $urlid = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
-    $objecttype = 'http://activitystrea.ms/schema/1.0/role';
+    $url = $config['app_url'] . '/course/index.php?categoryid=' . $core_course_category->id;
+    $categoryname = property_exists($core_course_category, 'name') ? $core_course_category->name : 'Category';
 
     return [
-        'id' => $urlid,
+        'id' => $url,
         'definition' => [
-            'type' => $objecttype,
+            'type' => 'http://id.tincanapi.com/activitytype/category',
             'name' => [
-                $lang => $role->shortname.' role',
+                $lang => $categoryname,
             ],
         ],
     ];
+
 }

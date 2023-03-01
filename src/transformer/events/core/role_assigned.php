@@ -69,5 +69,4 @@ function role_assigned(array $config, \stdClass $event): array {
             ],
         ]
     ]];
-
 }

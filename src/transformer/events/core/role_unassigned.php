@@ -71,5 +71,4 @@ function role_unassigned(array $config, \stdClass $event): array {
             ],
         ]
     ]];
-
 }

@@ -15,16 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * List of teaching core events.
+ * List of teaching modules events.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\utils\event_functions\teaching;
-
-function core(): array {
+namespace src\transformer\utils\event_functions;
+/**
+ * Return a list of the Moodle core events whose educational level is teaching.
+ *
+ * @return array
+ */
+function teaching(): array {
 
     return [
 

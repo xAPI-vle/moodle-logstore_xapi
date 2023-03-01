@@ -45,7 +45,7 @@ class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve transformer configuration.
      *
-     * @return string
+     * @return array|bool[]
      */
     protected function get_transformer_config() {
         $testdata = $this->get_test_data();

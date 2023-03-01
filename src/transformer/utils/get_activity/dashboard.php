@@ -30,8 +30,8 @@ use stdClass;
  * Transformer utility for retrieving (dashboard) activities.
  *
  * @param array $config The transformer config settings.
- * @param stdClass $user
- * @param string $lang
+ * @param stdClass $user The user object.
+ * @param string $lang The language of the dashboard.
  * @return array
  */
 function dashboard(array $config, stdClass $user, string $lang): array {

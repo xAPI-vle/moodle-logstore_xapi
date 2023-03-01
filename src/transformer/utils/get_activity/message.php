@@ -29,8 +29,8 @@ namespace src\transformer\utils\get_activity;
  * Transformer utility for retrieving the message.
  *
  * @param array $config The transformer config settings.
- * @param string $lang
- * @param \stdClass|null $chat
+ * @param string $lang The language of the message.
+ * @param \stdClass|null $chat The chat object.
  * @return array
  */
 function message(array $config, string $lang, \stdClass $chat=null): array {
@@ -51,5 +51,4 @@ function message(array $config, string $lang, \stdClass $chat=null): array {
             ],
         ],
     ];
-
 }

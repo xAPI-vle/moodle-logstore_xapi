@@ -29,8 +29,8 @@ namespace src\transformer\utils\get_activity;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $badge The badge object.
- * @param string $badgehash The discussion object.
- * @param string $lang
+ * @param string $badgehash The hash of the badge.
+ * @param string $lang The language of the badge.
  * @return array
  */
 function badge(array $config, \stdClass $badge, string $badgehash, string $lang): array {
