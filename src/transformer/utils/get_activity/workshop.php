@@ -15,36 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving (workshop) activities.
  *
  * @package   logstore_xapi
- * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer utility for retrieving the workshop.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
- * @param int $badgetype The type of the badge.
+ * @param \stdClass $workshop The workshop object.
+ * @param int $workshopid The id of the workshop.
+ * @param string $lang The language of the workshop.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
+function workshop(array $config, \stdClass $workshop, int $workshopid, string $lang): array {
 
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+    $workshopurl = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $workshopid; //vedi url
+    $workshopname = property_exists($workshop, 'name') ? $workshop->name : 'Workshop';
 
     return [
-        'id' => $url,
+        'id' => $workshopurl,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://vocab.xapi.fr/activities/workshop',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => $workshopname,
             ],
         ],
     ];

@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (course) activities.
+ * Transformer utility for retrieving (course info) activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,32 +27,34 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for course module viewed event.
+ * Transformer for retrieving the course info.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
  * @return array
  */
-function course(array $config, \stdClass $course) {
-    $coursename = property_exists($course, 'fullname')  ? $course->fullname : 'A Moodle course';
+function course_info(array $config, \stdClass $course) {
+
+    $coursename = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
     $courselang = utils\get_course_lang($course);
 
     $object = [
-                  'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+                  'id' => $config['app_url'].'/course/info.php?id='.$course->id,
                   'definition' => [
                       'type' => 'http://id.tincanapi.com/activitytype/lms/course',
                       'name' => [
-                          $courselang => $coursename,
+                          $courselang => $coursename . ' course info',
                       ],
                   ],
               ];
 
-    if (utils\is_enabled_config($config, 'send_short_course_id')) {
+
+    if (array_key_exists('send_short_course_id', $config)) {
         $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';
         $object['definition']['extensions'][$lmsshortid] = $course->shortname;
     }
 
-    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+    if (array_key_exists('send_course_and_module_idnumber', $config)) {
         $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
         $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
         $object['definition']['extensions'][$lmsexternalid] = $courseidnumber;

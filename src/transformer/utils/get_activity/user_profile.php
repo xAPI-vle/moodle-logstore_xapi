@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving (user profile) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,24 +27,34 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer utility for retrieving (user profile) activities.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
- * @param int $badgetype The type of the badge.
+ * @param \stdClass $user The user object.
+ * @param string $lang The language of the platform.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
+function user_profile(array $config, \stdClass $user, string $lang): array {
 
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+    $fullname = utils\get_full_name($user);
+    $userid = $user->id;
+
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $fullname = sha1($fullname);
+        $userid = sha1($userid);
+    }
+
+    $url = $config['app_url'] . '/user/profile.php?id=' . $userid;
 
     return [
-        'id' => $url,
+        'id' =>  $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://id.tincanapi.com/activitytype/user-profile',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => 'Profile of ' . $fullname,
+            ],
+            'extensions' => [
+                'https://moodle.org/xapi/extensions/user_id' => $userid,
             ],
         ],
     ];

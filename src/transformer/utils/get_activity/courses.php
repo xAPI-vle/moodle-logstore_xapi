@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving (courses) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,24 +27,21 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer for retrieving courses.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
- * @param int $badgetype The type of the badge.
+ * @param string $query The string value of the query.
+ * @param string $lang The language of the site.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
-
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+function courses(array $config, string $query, string $lang): array {
 
     return [
-        'id' => $url,
-        'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+        'id' => $config['app_url'] .'/course/search.php?q=' . $query . '&areaids=core_course-course' ,
+            'definition' => [
+            'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => 'List of courses',
             ],
         ],
     ];

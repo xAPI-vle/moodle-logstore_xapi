@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for dashboard reset event.
+ * Transform for notification viewed event.
  *
  * @package   logstore_xapi
- * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -28,27 +28,28 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the dashboard reset event.
+ * Transformer for the notification viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function dashboard_reset(array $config, \stdClass $event): array {
+function notification_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
+    $notification = $repo->read_record_by_id('notifications', $event->objectid);
     $lang = $config['source_lang'];
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://vocab.xapi.fr/verbs/reset',
+            'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'reset'
+                $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\dashboard($config, $user, $lang),
+        'object' => utils\get_activity\notification($config, $notification, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

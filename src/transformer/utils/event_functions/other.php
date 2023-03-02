@@ -18,7 +18,7 @@
  * List of other events.
  *
  * @package   logstore_xapi
- * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -36,12 +36,31 @@ function other(): array {
 
         // Core.
         '\core\event\course_category_viewed' => 'core\course_category_viewed',
+        '\core\event\course_resources_list_viewed' => 'core\course_resources_list_viewed',
+        '\core\event\dashboard_viewed' => 'core\dashboard_viewed',
+        '\core\event\dashboard_reset' => 'core\dashboard_reset',
         '\core\event\group_message_sent' => 'core\group_message_sent',
         '\core\event\message_deleted' => 'core\message_deleted',
         '\core\event\message_sent' => 'core\message_sent',
         '\core\event\message_viewed' => 'core\message_viewed',
-
-
+        '\core\event\grade_item_created' => 'core\grade_item_created',
+        '\core\event\grade_item_updated' => 'core\grade_item_updated',
+        '\core\event\notification_sent' => 'core\notification_sent',
+        '\core\event\notification_viewed' => 'core\notification_viewed',
+        '\core\event\role_assigned' => 'core\role_assigned',
+        '\core\event\role_unassigned' => 'core\role_unassigned',
+        '\core\event\role_updated' => 'core\role_updated',
+        '\core\event\search_results_viewed' => 'core\search_results_viewed',
+        '\core\event\user_created' => 'core\user_created',
+        '\core\event\user_deleted' => 'core\user_deleted',
+        '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
+        '\core\event\user_enrolment_deleted' => 'core\user_enrolment_deleted',
+        '\core\event\user_enrolment_updated' => 'core\user_enrolment_updated',
+        '\core\event\user_list_viewed' => 'core\user_list_viewed',
+        '\core\event\user_loggedin' => 'core\user_loggedin',
+        '\core\event\user_loggedout' => 'core\user_loggedout',
+        '\core\event\user_profile_viewed' => 'core\user_profile_viewed',
+        '\core\event\user_updated' => 'core\user_updated',
 
         // Assign.
         '\mod_assign\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',

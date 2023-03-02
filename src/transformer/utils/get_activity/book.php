@@ -15,36 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving (book) activities.
  *
  * @package   logstore_xapi
- * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer utility for retrieving the book.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
- * @param int $badgetype The type of the badge.
+ * @param \stdClass $book The book object.
+ * @param int $bookid The id of the book.
+ * @param string $lang The language of the book.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
+function book(array $config, \stdClass $book, int $bookid, string $lang): array {
 
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+    $bookurl = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $bookid;
+    $bookname = property_exists($book, 'name') ? $book->name : 'Book';
 
     return [
-        'id' => $url,
+        'id' => $bookurl,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://id.tincanapi.com/activitytype/book',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => $bookname,
             ],
         ],
     ];

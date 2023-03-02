@@ -41,7 +41,7 @@ function course_assignment(array $config, string $cmid, string $name, string $la
     $object = [
         'id' => $config['app_url'] . '/mod/assign/view.php?id=' . $cmid,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/assessment',
+            'type' => 'http://vocab.xapi.fr/activities/assignment',
             'name' => [
                 $lang => $name,
             ],

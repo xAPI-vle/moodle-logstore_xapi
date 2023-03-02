@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * List of participating modules events.
+ * List of participating events.
  *
  * @package   logstore_xapi
- * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,29 +38,25 @@ function participating(): array {
         '\core\event\badge_listing_viewed' => 'core\badge_listing_viewed',
         '\core\event\badge_viewed' => 'core\badge_viewed',
         '\core\event\course_completed' => 'core\course_completed',
-        // '\core\event\course_completion_updated' => 'core\course_completion_updated',
-        // '\core\event\course_information_viewed' => 'core\course_information_viewed',
+        '\core\event\course_information_viewed' => 'core\course_information_viewed',
         '\core\event\course_module_completion_updated' => 'core\course_module_completion_updated',
-        // '\core\event\courses_searched' => 'core\courses_searched',
+        '\core\event\courses_searched' => 'core\courses_searched',
         '\core\event\course_user_report_viewed' => 'core\course_user_report_viewed',
         '\core\event\course_viewed' => 'core\course_viewed',
-        '\core\event\dashboard_viewed' => 'core\dashboard_viewed',
-        '\core\event\dashboard_reset' => 'core\dashboard_reset',
-
-        '\core\event\role_assigned' => 'core\role_assigned',
-        '\core\event\role_unassigned' => 'core\role_unassigned',
-        '\core\event\user_created' => 'core\user_created',
-        '\core\event\user_deleted' => 'core\user_deleted',
-        '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
-        '\core\event\user_enrolment_deleted' => 'core\user_enrolment_deleted',
-        '\core\event\user_enrolment_updated' => 'core\user_enrolment_updated',
-        '\core\event\user_loggedin' => 'core\user_loggedin',
-        '\core\event\user_loggedout' => 'core\user_loggedout',
+        '\core\event\recent_activity_viewed' => 'core\recent_activity_viewed',
 
         // Assign.
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
-        '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed', // NEW.
+        '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed',
+
+        '\assignsubmission_file\event\assessable_uploaded' => 'mod_assign\file_uploaded',
+        //'\assignsubmission_file\event\submission_created' => 'mod_assign\submission_created',
+        //'\assignsubmission_file\event\submission_updated' => 'mod_assign\submission_updated',
+
+        //'\assignsubmission_onlinetext\event\assessable_uploaded' => 'mod_assign\assessable_uploaded',
+        //'\assignsubmission_onlinetext\event\submission_created' => 'mod_assign\submission_created',
+        //'\assignsubmission_onlinetext\event\submission_updated' => 'mod_assign\submission_updated',
 
         // Bigbluebutton.
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
@@ -82,6 +78,8 @@ function participating(): array {
         // Book.
         '\mod_book\event\course_module_viewed' => 'mod_book\course_module_viewed',
         '\mod_book\event\chapter_viewed' => 'mod_book\chapter_viewed',
+        '\booktool_print\event\book_printed' => 'mod_book\book_printed',
+        '\booktool_print\event\chapter_printed' => 'mod_book\chapter_printed',
 
         // Chat.
         '\mod_chat\event\course_module_viewed' => 'mod_chat\course_module_viewed',

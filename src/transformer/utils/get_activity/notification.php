@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving (notification) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,27 +24,27 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use stdClass;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer utility for retrieving (notification) activities.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
- * @param int $badgetype The type of the badge.
+ * @param stdClass $notification The notification object.
+ * @param string $lang The language of the notification.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
+function notification(array $config, stdClass $notification, string $lang): array {
 
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+    $url = $config['app_url'] . '/message/output/popup/notifications.php?notificationid=' . $notification->id;
+    $notificationsubject = property_exists($notification, 'subject') ? $notification->subject : 'Notification';
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://activitystrea.ms/schema/1.0/alert',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => $notificationsubject,
             ],
         ],
     ];

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for dashboard reset event.
+ * Transform for role updated event.
  *
  * @package   logstore_xapi
  * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -28,38 +28,43 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the dashboard reset event.
+ * Transformer for the role updated event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function dashboard_reset(array $config, \stdClass $event): array {
+function role_updated(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $lang = $config['source_lang'];
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $course = $repo->read_record_by_id('course', $event->courseid);
+    $role = $repo->read_record_by_id('role', $event->objectid);
+    $instructor = $repo->read_record_by_id('user', $event->userid);
+    $lang = utils\get_course_lang($course);
 
-    return [[
+    return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://vocab.xapi.fr/verbs/reset',
+            'id' => 'http://activitystrea.ms/schema/1.0/update',
             'display' => [
-                $lang => 'reset'
+                $lang => 'has been updated'
             ],
         ],
-        'object' => utils\get_activity\dashboard($config, $user, $lang),
+        'object' => utils\get_role($config, $role, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
+            'instructor' => utils\get_user($config, $instructor),
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, null),
+            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]
