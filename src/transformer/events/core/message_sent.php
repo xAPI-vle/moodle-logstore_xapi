@@ -18,7 +18,7 @@
  * Transform for message sent event.
  *
  * @package   logstore_xapi
- * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */

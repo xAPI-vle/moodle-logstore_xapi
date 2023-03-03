@@ -49,6 +49,7 @@ function participating(): array {
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
         '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed',
+        '\mod_assign\event\feedback_viewed' => 'mod_assign\feedback_viewed',
 
         '\assignsubmission_file\event\assessable_uploaded' => 'mod_assign\file_uploaded',
         //'\assignsubmission_file\event\submission_created' => 'mod_assign\submission_created',
@@ -57,6 +58,11 @@ function participating(): array {
         //'\assignsubmission_onlinetext\event\assessable_uploaded' => 'mod_assign\assessable_uploaded',
         //'\assignsubmission_onlinetext\event\submission_created' => 'mod_assign\submission_created',
         //'\assignsubmission_onlinetext\event\submission_updated' => 'mod_assign\submission_updated',
+
+
+        // Attendance.
+        '\mod_attendance\event\attendance_taken_by_student' => 'mod_attendance\attendance_taken_by_student',
+        '\mod_attendance\event\session_report_viewed' => 'mod_attendance\session_report_viewed',
 
         // Bigbluebutton.
         '\mod_bigbluebuttonbn\event\activity_viewed' => 'mod_bigbluebuttonbn\activity_viewed',
@@ -86,13 +92,17 @@ function participating(): array {
         '\mod_chat\event\message_sent' => 'mod_chat\message_sent', // TODO check.
 
         // Checklist.
-        '\mod_checklist\event\course_module_viewed' => 'mod_checklist\course_module_viewed', // NEW
+        '\mod_checklist\event\course_module_viewed' => 'mod_checklist\course_module_viewed',
+        '\mod_checklist\event\checklist_completed' => 'mod_checklist\checklist_completed',
+        '\mod_checklist\event\student_checks_updated' => 'mod_checklist\student_checks_updated',
 
         // Choice.
-        '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed', // TODO create activity selection.
+        '\mod_choice\event\course_module_viewed' => 'mod_choice\course_module_viewed',
+        '\mod_choice\event\answer_created' => 'mod_choice\answer_created',
+        '\mod_choice\event\answer_deleted' => 'mod_choice\answer_deleted',
 
         // Database.
-        '\mod_data\event\course_module_viewed' => 'mod_data\course_module_viewed', // NEW
+        '\mod_data\event\course_module_viewed' => 'mod_data\course_module_viewed',
 
         // Facetoface.
         '\mod_facetoface\event\cancel_booking' => 'mod_facetoface\cancel_booking',

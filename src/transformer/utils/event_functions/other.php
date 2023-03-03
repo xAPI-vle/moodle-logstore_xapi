@@ -64,6 +64,11 @@ function other(): array {
 
         // Assign.
         '\mod_assign\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
+        '\mod_assign\event\remove_submission_form_viewed' => 'mod_assign\remove_submission_form_viewed',
+        '\mod_assign\event\submission_confirmation_form_viewed' => 'mod_assign\submission_confirmation_form_viewed',
+        '\mod_assign\event\submission_form_viewed' => 'mod_assign\submission_form_viewed',
+        '\mod_assign\event\submission_status_viewed' => 'mod_assign\submission_status_viewed',
+        '\mod_assign\event\submission_viewed' => 'mod_assign\submission_viewed',
 
         // Attendance.
         '\mod_attendance\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
@@ -73,6 +78,7 @@ function other(): array {
 
         // Chat.
         '\mod_chat\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
+        '\mod_chat\event\sessions_viewed' => 'mod_chat\sessions_viewed',
 
         // Checklist.
         '\mod_checklist\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
