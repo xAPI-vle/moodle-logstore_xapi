@@ -45,6 +45,8 @@ function other(): array {
         '\core\event\message_viewed' => 'core\message_viewed',
         '\core\event\grade_item_created' => 'core\grade_item_created',
         '\core\event\grade_item_updated' => 'core\grade_item_updated',
+        '\core\event\group_member_added' => 'core\group_member_added',
+        '\core\event\group_member_removed' => 'core\group_member_removed',
         '\core\event\notification_sent' => 'core\notification_sent',
         '\core\event\notification_viewed' => 'core\notification_viewed',
         '\core\event\role_assigned' => 'core\role_assigned',
@@ -100,6 +102,10 @@ function other(): array {
 
         // Forum.
         '\mod_forum\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
+        '\mod_forum\event\discussion_deleted' => 'mod_forum\discussion_deleted',
+        '\mod_forum\event\post_deleted' => 'mod_forum\post_deleted',
+        '\mod_forum\event\readtracking_disabled' => 'mod_forum\readtracking_disabled',
+        '\mod_forum\event\readtracking_enabled' => 'mod_forum\readtracking_enabled',
 
         // Glossary.
         '\mod_glossary\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',

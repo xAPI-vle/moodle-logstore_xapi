@@ -59,7 +59,6 @@ function participating(): array {
         //'\assignsubmission_onlinetext\event\submission_created' => 'mod_assign\submission_created',
         //'\assignsubmission_onlinetext\event\submission_updated' => 'mod_assign\submission_updated',
 
-
         // Attendance.
         '\mod_attendance\event\attendance_taken_by_student' => 'mod_attendance\attendance_taken_by_student',
         '\mod_attendance\event\session_report_viewed' => 'mod_attendance\session_report_viewed',
@@ -101,8 +100,14 @@ function participating(): array {
         '\mod_choice\event\answer_created' => 'mod_choice\answer_created',
         '\mod_choice\event\answer_deleted' => 'mod_choice\answer_deleted',
 
+        // Choice group.
+        '\mod_choicegroup\event\choice_removed' => 'mod_choicegroup\choice_removed',
+        '\mod_choicegroup\event\choice_updated' => 'mod_choicegroup\choice_updated',
+
         // Database.
         '\mod_data\event\course_module_viewed' => 'mod_data\course_module_viewed',
+        '\mod_data\event\comment_created' => 'mod_data\comment_created',
+        '\mod_data\event\comment_deleted' => 'mod_data\comment_deleted',
 
         // Facetoface.
         '\mod_facetoface\event\cancel_booking' => 'mod_facetoface\cancel_booking',
@@ -113,19 +118,27 @@ function participating(): array {
         // Feedback.
         '\mod_feedback\event\course_module_viewed' => 'mod_feedback\course_module_viewed',
         '\mod_feedback\event\response_submitted' => 'mod_feedback\response_submitted\handler',
+        '\mod_feedback\event\response_deleted' => 'mod_feedback\response_deleted',
 
         // Folder.
-        '\mod_folder\event\course_module_viewed' => 'mod_folder\course_module_viewed',  // NEW
+        '\mod_folder\event\course_module_viewed' => 'mod_folder\course_module_viewed',
+        '\mod_folder\event\all_files_downloaded' => 'mod_folder\all_files_downloaded',
 
         // Forum.
         '\mod_forum\event\course_module_viewed' => 'mod_forum\course_module_viewed',
+        '\mod_forum\event\course_searched' => 'mod_forum\course_searched',
         '\mod_forum\event\discussion_created' => 'mod_forum\discussion_created',
         '\mod_forum\event\discussion_viewed' => 'mod_forum\discussion_viewed',
+        '\mod_forum\event\discussion_subscription_created' => 'mod_forum\discussion_subscription_created',
+        '\mod_forum\event\discussion_subscription_deleted' => 'mod_forum\discussion_subscription_deleted',
         '\mod_forum\event\post_created' => 'mod_forum\post_created',
+        '\mod_forum\event\post_updated' => 'mod_forum\post_updated',
+        '\mod_forum\event\subscription_created' => 'mod_forum\subscription_created',
+        '\mod_forum\event\subscription_deleted' => 'mod_forum\subscription_deleted',
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
 
         // Glossary.
-        '\mod_glossary\event\course_module_viewed' => 'mod_glossary\course_module_viewed', // NEW
+        '\mod_glossary\event\course_module_viewed' => 'mod_glossary\course_module_viewed',
 
         // Group choice.
         '\mod_choicegroup\event\course_module_viewed' => 'all\course_module_viewed',

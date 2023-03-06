@@ -28,7 +28,7 @@ namespace src\transformer\utils\get_activity;
  * Transformer for chat sessions report activity.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $course The course object.
+ * @param int $cmid The module id.
  * @param string $lang The language of the course.
  * @return array
  */

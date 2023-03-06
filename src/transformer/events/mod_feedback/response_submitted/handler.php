@@ -26,7 +26,6 @@
 
 namespace src\transformer\events\mod_feedback\response_submitted;
 
-use src\transformer\utils as utils;
 use src\transformer\events\mod_feedback\item_answered as item_answered;
 
 /**

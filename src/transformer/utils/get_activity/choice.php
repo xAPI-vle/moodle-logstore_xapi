@@ -28,55 +28,21 @@ namespace src\transformer\utils\get_activity;
  * Transformer utility for retrieving (choice) activities.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $choice The choice object.
+ * @param \stdClass|null $choice The choice object.
  * @param int $cmid The course module id.
- * @param \stdClass $choice_answers
- * @param \stdClass $choice_options
  * @param string $lang
  * @return array
  */
 
-//function choice(array $config, \stdClass $choice, int $cmid, \stdClass $choice_answers, \stdClass $choice_options, string $lang): array {
-function choice(array $config, \stdClass $choice, int $cmid, string $lang): array {
-    /**
-    $repo = $config['repo'];
-    $options = [];
-    foreach ($choice_options as $co) {
-    $option = $repo->read_record_by_id('choice_options', $co->id);
-    $options[] = [
-        'id' => $co->id,
-        $lang => $co->text,
-        ];
+function choice(array $config, int $cmid, string $lang, \stdClass $choice=null, \stdClass $choicegroup=null): array {
+
+    if (is_null($choice)) {
+        $choiceurl = $config['app_url'].'/mod/choicegroup/view.php?id=' . $cmid ;
+        $choicename = property_exists($choicegroup, 'name') ? $choicegroup->name : 'Choice Group';
+    } else {
+        $choiceurl = $config['app_url'] . '/mod/choice/view.php?id=' . $cmid ;
+        $choicename = property_exists($choice, 'name') ? $choice->name : 'Choice';
     }
-
-    $answers = [];
-    foreach ($choice_answers as $ca) {
-        $answer = $repo->read_record_by_id('choice_options', $ca->optionid);
-        $answers[] = $answer->text;
-    }
-
-    $choiceurl = $config['app_url'] . '/mod/choice/view.php?id=' . $cmid ;
-    $choicename = property_exists($choice, 'name') ? $choice->name : 'Choice';
-
-    return [
-        'id' => $choiceurl,
-        'definition' => [
-            'description' => [
-                $lang => $choice->intro,
-            ],
-            'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-            //'interactionType' => 'choice',
-            //'correctResponsesPattern' => implode ('[,]', $answers),
-            //'choices' => $options,
-            'name' => [
-                $lang => $choicename,
-            ],
-        ],
-    ];
-    */
-
-    $choiceurl = $config['app_url'] . '/mod/choice/view.php?id=' . $cmid ;
-    $choicename = property_exists($choice, 'name') ? $choice->name : 'Choice';
 
     return [
         'id' => $choiceurl,
@@ -87,6 +53,4 @@ function choice(array $config, \stdClass $choice, int $cmid, string $lang): arra
             ],
         ],
     ];
-
 }
-

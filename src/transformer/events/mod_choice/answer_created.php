@@ -47,9 +47,6 @@ function answer_created(array $config, \stdClass $event): array {
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
-    $choice_answers = $repo->read_records('choice_answers', ['choiceid' => $choiceid]);
-    $choice_options = $repo->read_records('choice_options', ['choiceid' => $choiceid]);
-
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -58,8 +55,7 @@ function answer_created(array $config, \stdClass $event): array {
                 $lang => 'created'
             ],
         ],
-        //'object' =>  utils\get_activity\choice($config, $choice, $cmid, $choice_answers, $choice_options, $lang),
-        'object' =>  utils\get_activity\choice($config, $choice, $cmid, $lang),
+        'object' =>  utils\get_activity\choice($config, $cmid, $lang, $choice),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $response->text,

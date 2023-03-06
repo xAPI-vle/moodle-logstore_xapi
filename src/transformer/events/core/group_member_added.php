@@ -15,51 +15,44 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum post created event.
+ * Transform for the group member added event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_forum;
+namespace src\transformer\events\core;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for forum post created event.
+ * Transformer for group member added event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function post_created(array $config, \stdClass $event): array {
+
+function group_member_added(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $postid = $event->objectid;
-    $other = unserialize($event->other);
-    $discussionid = $other['discussionid'];
-    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
+    $group = $repo->read_record_by_id('groups', $event->objectid);
 
     $lang = utils\get_course_lang($course);
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/replied',
+            'id' => 'http://activitystrea.ms/schema/1.0/add',
             'display' => [
-                $lang => 'replied to'
+                $lang => 'has been added in'
             ],
         ],
-        'object' => utils\get_activity\course_discussion($config, $course, $discussion),
+        'object' =>  utils\get_activity\group($config, $lang, $group),
         'timestamp' => utils\get_event_timestamp($event),
-        'result' => [
-            'response' => utils\get_activity\forum_discussion_post_reply($config, $postid)
-        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -68,10 +61,6 @@ function post_created(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid)
-                ],
-                'other' => [
-                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid)
                 ],
                 'category' => [
                     utils\get_activity\source($config),

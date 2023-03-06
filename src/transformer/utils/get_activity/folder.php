@@ -15,35 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (folder) activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (folder) activities.
  *
  * @param array $config The transformer config settings.
- * @param int $discussionid The id of the discussion.
- * @param int $postid The id of the post.
+ * @param string $lang The language of the group.
+ * @param \stdClass $folder The folder object.
  * @return array
  */
-function forum_discussion_post(array $config, int $discussionid, int $postid) {
 
-    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$postid;
+function folder(array $config, string $lang, \stdClass $folder, int $cmid): array {
+
+    $folderurl = $config['app_url'] . '/mod/folder/view.php?id=' . $cmid;
+    $foldername = property_exists($folder, 'name') ? $folder->name : 'Folder';
 
     return [
-        'id' => $posturl,
+        'id' => $folderurl,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
+            'type' => 'http://activitystrea.ms/schema/1.0/group',
+            'name' => [
+                $lang => $foldername,
+            ],
         ],
     ];
 }

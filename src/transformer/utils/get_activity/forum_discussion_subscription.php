@@ -15,35 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (forum discussion subscription) activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (forum discussion subscription) activities.
  *
  * @param array $config The transformer config settings.
- * @param int $discussionid The id of the discussion.
- * @param int $postid The id of the post.
+ * @param string $lang The language of the badge.
+ * @param int $forumid The id of the forum.
+ * @param \stdClass $discussion The discussion object.
  * @return array
  */
-function forum_discussion_post(array $config, int $discussionid, int $postid) {
 
-    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$postid;
+function forum_discussion_subscription(array $config, string $lang, int $forumid, \stdClass $discussion): array {
+
+    $url = $config['app_url'] . '/mod/forum/subscribe.php?id=' . $forumid . '&d=' . $discussion->id;
+    $discussionname = property_exists($discussion, 'name') ? $discussion->name : 'Discussion';
 
     return [
-        'id' => $posturl,
+        'id' => $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
+            'type' => 'http://vocab.xapi.fr/activities/registration',
+            'name' => [
+                $lang => $discussionname,
+            ],
         ],
     ];
 }

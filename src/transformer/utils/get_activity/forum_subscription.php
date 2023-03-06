@@ -15,35 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (forum subscription) activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (forum discussion post) activities.
+ * Transformer utility for retrieving (forum subscription) activities.
  *
  * @param array $config The transformer config settings.
- * @param int $discussionid The id of the discussion.
- * @param int $postid The id of the post.
+ * @param string $lang The language of the badge.
+ * @param \stdClass $forum The forum object.
  * @return array
  */
-function forum_discussion_post(array $config, int $discussionid, int $postid) {
 
-    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$postid;
+function forum_subscription(array $config, string $lang, \stdClass $forum): array {
+
+    $url = $config['app_url'] . '/mod/forum/subscribers.php?id=' . $forum->id;
+    $forumname = property_exists($forum, 'name') ? $forum->name : 'Forum';
 
     return [
-        'id' => $posturl,
+        'id' => $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
+            'type' => 'http://vocab.xapi.fr/activities/registration',
+            'name' => [
+                $lang => $forumname,
+            ],
         ],
     ];
 }
