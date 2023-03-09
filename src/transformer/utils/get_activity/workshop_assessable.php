@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (assessable) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,36 +25,39 @@
 namespace src\transformer\utils\get_activity;
 
 use Exception;
-use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (assessable) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the attendance.
+ * @param int $assessableid
+ * @param int $cmid The id of the course module.
  * @return array
  */
 
-function comment(array $config, string $lang, int $cmid): array {
+function workshop_assessable(array $config, string $lang, int $assessableid, int $cmid) {
 
     try {
         $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
+        $assessable = $repo->read_record_by_id('workshop_submissions', $assessableid);
+        $name = property_exists($assessable, 'title') ? $assessable->title : 'Submission';
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
+        $name = 'assessable id: ' . $assessableid;
     }
 
+
+    $url = $config['app_url'] . '/mod/workshop/submission.php?cmid=' . $cmid . '&id=' . $assessableid;
+
+
     return [
-        'id' =>  $config['app_url'],
+        'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/comment',
+            'type' => 'http://adlnet.gov/expapi/activities/assessment',
             'name' => [
-                $lang => $commentname,
+                $lang => $name,
             ],
         ],
     ];

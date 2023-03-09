@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (lesson content page) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,38 +24,37 @@
 
 namespace src\transformer\utils\get_activity;
 
-use Exception;
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (lesson content page) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the badge.
+ * @param int $cmid The course module id.
+ * @param \stdClass $page The object page.
+ * @param string $target The type of content page.
  * @return array
  */
+function lesson_page(array $config, string $lang, int $cmid, \stdClass $page, string $target): array {
 
-function comment(array $config, string $lang, int $cmid): array {
-
-    try {
-        $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
-
-    } catch (Exception $e) {
-        // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
+    if ($target == 'question') {
+        $pagename = 'Question: ' . property_exists($page, 'title') ? $page->title : 'Question';
+        $type = 'http://adlnet.gov/expapi/activities/question';
+    } else {
+        $pagename = 'Content page: ' . property_exists($page, 'title') ? $page->title : 'Content page';
+        $type = 'http://activitystrea.ms/schema/1.0/page';
     }
 
+    $pageurl = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '&pageid=' . $page->id;
+
     return [
-        'id' =>  $config['app_url'],
+        'id' => $pageurl,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/comment',
+            'type' => $type,
             'name' => [
-                $lang => $commentname,
+                $lang => $pagename,
             ],
         ],
     ];
 }
+
+

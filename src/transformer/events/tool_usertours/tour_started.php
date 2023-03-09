@@ -15,61 +15,52 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for chat message sent event.
+ * Transform for the tour started event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_chat;
+namespace src\transformer\events\tool_usertours;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the chat message sent event.
+ * Transformer for the tour started event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
 
-function message_sent(array $config, \stdClass $event): array {
+function tour_started(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $chatmessage = $repo->read_record_by_id('chat_messages', $event->objectid);
-    $chat = $repo->read_record_by_id('chat', $chatmessage->chatid);
-    $lang = utils\get_course_lang($course);
+    $tour = $repo->read_record_by_id('tool_usertours_tours', $event->objectid);
+    $lang = $config['source_lang'];
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/send',
+            'id' => 'http://activitystrea.ms/schema/1.0/start',
             'display' => [
-                $lang => 'sent'
+                $lang => 'started'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang, $chat),
+        'object' => utils\get_activity\tour($config, $tour, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
-                    utils\get_activity\course_module(
-                        $config,
-                        $course,
-                        $event->contextinstanceid,
-                        'http://id.tincanapi.com/activitytype/chat-channel'
-                    )
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]

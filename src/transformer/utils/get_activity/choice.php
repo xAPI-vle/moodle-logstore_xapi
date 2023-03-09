@@ -48,6 +48,7 @@ function choice(array $config, int $cmid, string $lang, \stdClass $choice=null, 
         'id' => $choiceurl,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+            'interactionType' => 'choice',
             'name' => [
                 $lang => $choicename,
             ],

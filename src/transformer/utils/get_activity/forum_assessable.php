@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (forum assessable) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,38 +24,31 @@
 
 namespace src\transformer\utils\get_activity;
 
-use Exception;
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (forum assessable) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the attendance.
+ * @param int $discussionid
+ * @param int $postid
  * @return array
  */
 
-function comment(array $config, string $lang, int $cmid): array {
+function forum_assessable(array $config, string $lang, int $discussionid, int $postid) {
 
-    try {
-        $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
-
-    } catch (Exception $e) {
-        // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
-    }
+    $url = $config['app_url'].'/mod/forum/discuss.php?d=' . $discussionid . '&parent' . $postid;
 
     return [
-        'id' =>  $config['app_url'],
+        'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/comment',
+            'type' => 'http://adlnet.gov/expapi/activities/assessment',
             'name' => [
-                $lang => $commentname,
+                $lang => 'Assessable',
             ],
         ],
     ];
 }
+
+
+
+

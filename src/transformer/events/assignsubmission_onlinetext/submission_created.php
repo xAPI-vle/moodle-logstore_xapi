@@ -22,7 +22,7 @@
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_assign;
+namespace src\transformer\events\assignsubmission_onlinetext;
 
 use src\transformer\utils as utils;
 
@@ -33,24 +33,27 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function file_uploaded(array $config, \stdClass $event) {
+
+function submission_created(array $config, \stdClass $event) {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $assignmentsubmission = $repo->read_record_by_id('assign_submission', $event->objectid);
+    $assignmentsubmission = $repo->read_record_by_id('assignsubmission_onlinetext', $event->objectid);
     $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
+    $cmid = $event->contextinstanceid;
+    $component = $event->component;
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/add',
+            'id' => 'http://activitystrea.ms/schema/1.0/create',
             'display' => [
-                $lang => 'uploaded'
+                $lang => 'created'
             ],
         ],
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => utils\get_activity\assignment_assessable($config, $lang, $cmid, $component),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -60,6 +63,7 @@ function file_uploaded(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_assignment($config, $cmid, $assignment->name, $lang)
                 ],
                 'category' => [
                     utils\get_activity\source($config)

@@ -127,6 +127,8 @@ function other(): array {
 
         // Quesionnaire.
         '\mod_questionnaire\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',
+        '\mod_questionnaire\event\all_responses_viewed' => 'mod_questionnaire\all_responses_viewed',
+        '\mod_questionnaire\event\attempt_resumed' => 'mod_questionnaire\attempt_resumed',
 
         // Quiz.
         '\mod_quiz\event\course_module_instance_list_viewed' => 'all\course_module_instance_list_viewed',

@@ -30,15 +30,15 @@ namespace src\transformer\utils\get_activity;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $lesson The lesson object.
- * @param int $lessonid The id of the lesson.
  * @param string $lang The language of the lesson.
+ * @param int $cmid The module id.
  * @return array
  */
 
-function lesson(array $config, \stdClass $lesson, int $lessonid, string $lang): array {
+function lesson(array $config, \stdClass $lesson, string $lang, int $cmid): array {
 
-    $lessonurl = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $lessonid; //vedi url
-    $lessonname = property_exists($lesson, 'name') ? $lesson->name : 'Workshop';
+    $lessonurl = $config['app_url'].'/mod/lesson/view.php?id=' . $cmid;
+    $lessonname = property_exists($lesson, 'name') ? $lesson->name : 'Lesson';
 
     return [
         'id' => $lessonurl,

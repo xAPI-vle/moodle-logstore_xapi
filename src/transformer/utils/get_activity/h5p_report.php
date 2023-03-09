@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (h5p report) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,37 +24,27 @@
 
 namespace src\transformer\utils\get_activity;
 
-use Exception;
-use src\transformer\utils as utils;
-
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (h5p report) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the badge.
+ * @param \stdClass $activity The h5p activity object.
+ * @param \stdClass $user The user object.
+ * @param int $attemptid The id of the attempt.
  * @return array
  */
+function h5p_report(array $config, string $lang, \stdClass $activity, \stdClass $user, int $attemptid): array {
 
-function comment(array $config, string $lang, int $cmid): array {
+    $url = $config['app_url'] . '/mod/h5pactivity/report.php?a=' . $activity->id . '&userid=' . $user->id. '&attemptid=' . $attemptid;
+    $name = property_exists($activity, 'name') ? $activity->name : 'Report';
 
-    try {
-        $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
-
-    } catch (Exception $e) {
-        // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
-    }
-
-    return [
-        'id' =>  $config['app_url'],
+        return [
+        'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/comment',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => $commentname,
+                $lang => 'Report for ' . $name,
             ],
         ],
     ];

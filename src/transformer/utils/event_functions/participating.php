@@ -51,13 +51,15 @@ function participating(): array {
         '\mod_assign\event\course_module_viewed' => 'mod_assign\course_module_viewed',
         '\mod_assign\event\feedback_viewed' => 'mod_assign\feedback_viewed',
 
-        '\assignsubmission_file\event\assessable_uploaded' => 'mod_assign\file_uploaded',
-        //'\assignsubmission_file\event\submission_created' => 'mod_assign\submission_created',
-        //'\assignsubmission_file\event\submission_updated' => 'mod_assign\submission_updated',
+        // Assign submission file.
+        '\assignsubmission_file\event\assessable_uploaded' => 'assignsubmission_file\assessable_uploaded',
+        '\assignsubmission_file\event\submission_created' => 'assignsubmission_file\submission_created',
+        '\assignsubmission_file\event\submission_updated' => 'assignsubmission_file\submission_updated',
 
-        //'\assignsubmission_onlinetext\event\assessable_uploaded' => 'mod_assign\assessable_uploaded',
-        //'\assignsubmission_onlinetext\event\submission_created' => 'mod_assign\submission_created',
-        //'\assignsubmission_onlinetext\event\submission_updated' => 'mod_assign\submission_updated',
+        // Assign submission online text.
+        '\assignsubmission_onlinetext\event\assessable_uploaded' => 'assignsubmission_onlinetext\assessable_uploaded',
+        '\assignsubmission_onlinetext\event\submission_created' => 'assignsubmission_onlinetext\submission_created',
+        '\assignsubmission_onlinetext\event\submission_updated' => 'assignsubmission_onlinetext\submission_updated',
 
         // Attendance.
         '\mod_attendance\event\attendance_taken_by_student' => 'mod_attendance\attendance_taken_by_student',
@@ -88,7 +90,7 @@ function participating(): array {
 
         // Chat.
         '\mod_chat\event\course_module_viewed' => 'mod_chat\course_module_viewed',
-        '\mod_chat\event\message_sent' => 'mod_chat\message_sent', // TODO check.
+        '\mod_chat\event\message_sent' => 'mod_chat\message_sent',
 
         // Checklist.
         '\mod_checklist\event\course_module_viewed' => 'mod_checklist\course_module_viewed',
@@ -125,6 +127,7 @@ function participating(): array {
         '\mod_folder\event\all_files_downloaded' => 'mod_folder\all_files_downloaded',
 
         // Forum.
+        '\mod_forum\event\assessable_uploaded' => 'mod_forum\assessable_uploaded',
         '\mod_forum\event\course_module_viewed' => 'mod_forum\course_module_viewed',
         '\mod_forum\event\course_searched' => 'mod_forum\course_searched',
         '\mod_forum\event\discussion_created' => 'mod_forum\discussion_created',
@@ -140,17 +143,30 @@ function participating(): array {
         // Glossary.
         '\mod_glossary\event\course_module_viewed' => 'mod_glossary\course_module_viewed',
 
+        // Grade report.
+        '\gradereport_overview\event\grade_report_viewed' => 'gradereport_overview\grade_report_viewed',
+        '\gradereport_user\event\grade_report_viewed' => 'gradereport_user\grade_report_viewed',
+
         // Group choice.
         '\mod_choicegroup\event\course_module_viewed' => 'all\course_module_viewed',
 
         // H5P activity.
-        '\mod_h5pactivity\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_h5pactivity\event\course_module_viewed' => 'mod_h5pactivity\course_module_viewed',
+        '\mod_h5pactivity\event\report_viewed' => 'mod_h5pactivity\report_viewed',
+        '\mod_h5pactivity\event\statement_received' => 'mod_h5pactivity\statement_received',
 
         // Imscp.
         '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
 
         // Lesson.
         '\mod_lesson\event\course_module_viewed' => 'mod_lesson\course_module_viewed',
+        '\mod_lesson\event\content_page_viewed' => 'mod_lesson\content_page_viewed',
+        '\mod_lesson\event\lesson_ended' => 'mod_lesson\lesson_ended',
+        '\mod_lesson\event\lesson_restarted' => 'mod_lesson\lesson_restarted',
+        '\mod_lesson\event\lesson_resumed' => 'mod_lesson\lesson_resumed',
+        '\mod_lesson\event\lesson_started' => 'mod_lesson\lesson_started',
+        '\mod_lesson\event\question_answered' => 'mod_lesson\question_answered',
+        '\mod_lesson\event\question_viewed' => 'mod_lesson\question_viewed',
 
         // Lti.
         '\mod_lti\event\course_module_viewed' => 'mod_lti\course_module_viewed',
@@ -160,6 +176,9 @@ function participating(): array {
 
         // Questionnaire.
         '\mod_questionnaire\event\course_module_viewed' => 'mod_questionnaire\course_module_viewed',
+        '\mod_questionnaire\event\attempt_saved' => 'mod_questionnaire\attempt_saved',
+        '\mod_questionnaire\event\attempt_submitted' => 'mod_questionnaire\attempt_submitted',
+        '\mod_questionnaire\event\response_viewed' => 'mod_questionnaire\response_viewed',
 
         // Quiz.
         '\mod_quiz\event\course_module_viewed' => 'mod_quiz\course_module_viewed',
@@ -167,6 +186,7 @@ function participating(): array {
         '\mod_quiz\event\attempt_started' => 'mod_quiz\attempt_started',
         '\mod_quiz\event\attempt_reviewed' => 'mod_quiz\attempt_reviewed',
         '\mod_quiz\event\attempt_submitted' => 'mod_quiz\attempt_submitted\handler',
+        '\mod_quiz\event\attempt_summary_viewed' => 'mod_quiz\attempt_summary_viewed',
         '\mod_quiz\event\attempt_viewed' => 'mod_quiz\attempt_viewed',
 
         // Resource (file).
@@ -180,25 +200,32 @@ function participating(): array {
 
         // Survey.
         '\mod_survey\event\course_module_viewed' => 'mod_survey\course_module_viewed',
+        '\mod_survey\event\response_submitted' => 'mod_survey\response_submitted',
+
+        // Tool user tours.
+        '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended',
+        '\tool_usertours\event\tour_started'=> 'tool_usertours\tour_started',
 
         // Url.
         '\mod_url\event\course_module_viewed' => 'mod_url\course_module_viewed',
 
         // Wiki.
-        '\mod_wiki\event\course_module_viewed' => 'mod_wiki\course_module_viewed', // NEW
+        '\mod_wiki\event\course_module_viewed' => 'mod_wiki\course_module_viewed',
 
         // Wooclap.
         '\mod_wooclap\event\course_module_viewed' => 'all\course_module_viewed',
 
         // Workshop.
-        '\mod_workshop\event\course_module_viewed' => 'mod_workshop\course_module_viewed', // NEW.
-
-        // Report_log.
-        // '\report_log\event\user_report_viewed' => 'report_log\event\user_report_viewed',
-        // http://localhost:8888/moodle39/report/log/user.php?id=4&course=2&mode=today
+        '\mod_workshop\event\course_module_viewed' => 'mod_workshop\course_module_viewed',
+        '\mod_workshop\event\assessable_uploaded' => 'mod_workshop\assessable_uploaded',
+        '\mod_workshop\event\submission_assessed' => 'mod_workshop\submission_assessed',
+        '\mod_workshop\event\submission_created' => 'mod_workshop\submission_created',
+        '\mod_workshop\event\submission_deleted' => 'mod_workshop\submission_deleted',
+        '\mod_workshop\event\submission_reassessed' => 'mod_workshop\submission_reassessed',
+        '\mod_workshop\event\submission_updated' => 'mod_workshop\submission_updated',
+        '\mod_workshop\event\submission_viewed' => 'mod_workshop\submission_viewed',
 
         // Totara.
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
-
     ];
 }

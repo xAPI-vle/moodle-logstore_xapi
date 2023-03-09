@@ -33,42 +33,20 @@ namespace src\transformer\utils\get_activity;
  * @param string $lang The language of the attendance.
  * @return array
  */
-function session_report(array $config, string $cmid, array $other, string $lang): array {
+function questionnaire_report(array $config, string $cmid, array $other, string $lang): array {
 
-    $studentid = empty($other['studentid']) ? '' : $other['studentid'];
-    $mode = empty($other['mode']) ? '' : $other['mode'];
-    $view = empty($other['view']) ? '' : $other['view'];
-    $groupby = empty($other['groupby']) ? '' : $other['groupby'];
-    $sesscourses = empty($other['sesscourses']) ? '' : $other['sesscourses'];
-    $curdate = empty($other['curdate']) ? '' : $other['curdate'];
+    $action = empty($other['action']) ? '' : $other['action'];
+    $instance = empty($other['instance']) ? '' : $other['instance'];
+    $group = empty($other['group']) ? '' : $other['group'];
 
-    $url = $config['app_url'] . '/mod/attendance/view.php?id=' . $cmid;
-
-    if ($other['studentid'] != '') {
-        $url = $url . '&studentid=' . $studentid;
-    }
-    if ($other['mode'] != '') {
-        $url = $url . '&mode=' . $mode;
-    }
-    if ($other['view'] != '') {
-        $url = $url . '&view=' . $view;
-    }
-    if ($other['groupby'] != '') {
-        $url = $url . '&groupby=' . $groupby;
-    }
-    if ($other['sesscourses'] != '') {
-        $url = $url . '&sesscourses=' . $sesscourses;
-    }
-    if ($other['curdate'] != '') {
-        $url = $url . '&curdate=' . $curdate;
-    }
+    $url = $config['app_url'] . '/mod/questionnaire/report.php?id=' . $cmid . '&action=' . $action . '&instance=' . $instance . '&group=' . $group;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Session report',
+                $lang => 'Questionnaire report',
             ],
         ],
     ];

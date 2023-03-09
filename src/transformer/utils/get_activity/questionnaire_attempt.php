@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (workshop) activities.
+ * Transformer utility for retrieving questionnaire attempt activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,27 +25,27 @@
 
 namespace src\transformer\utils\get_activity;
 
-
 /**
- * Transformer utility for retrieving the workshop.
+ * Transformer utility for retrieving the questionnaire attempt.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $workshop The workshop object.
- * @param int $workshopid The id of the workshop.
- * @param string $lang The language of the workshop.
+ * @param string $lang The language of the attempt.
+ * @param int $cmid The module id.
+ * @param \stdClass $questionnaire The questionnaire object.
  * @return array
  */
-function workshop(array $config, \stdClass $workshop, int $workshopid, string $lang): array {
 
-    $workshopurl = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $workshopid; //vedi url
-    $workshopname = property_exists($workshop, 'name') ? $workshop->name : 'Workshop';
+function questionnaire_attempt(array $config, string $lang, int $cmid, \stdClass $questionnaire): array {
+
+    $url = $config['app_url'].'/mod/questionnaire/view.php?id=' . $cmid;
+    $name = property_exists($questionnaire, 'name') ? $questionnaire->name : 'Questionnaire';
 
     return [
-        'id' => $workshopurl,
+        'id' => $url,
         'definition' => [
-            'type' => 'http://vocab.xapi.fr/activities/workshop',
+            'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [
-                $lang => $workshopname,
+                $lang => 'Attempt for ' . $name,
             ],
         ],
     ];

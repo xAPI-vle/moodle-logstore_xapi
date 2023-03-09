@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (assessable) activities.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,36 +25,36 @@
 namespace src\transformer\utils\get_activity;
 
 use Exception;
-use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving (assessable) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the attendance.
+ * @param int $assessableid
  * @return array
  */
 
-function comment(array $config, string $lang, int $cmid): array {
+function workshop_assessment(array $config, string $lang, int $assessableid) {
 
     try {
         $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
+        $assessable = $repo->read_record_by_id('workshop_assessments', $assessableid);
+        $name = property_exists($assessable, 'title') ? $assessable->title : 'Assessment';
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
+        $name = 'assessment id: ' . $assessableid;
     }
 
+    $url = $config['app_url'] . '/mod/workshop/assessment.php?asid=' . $assessableid;
+
     return [
-        'id' =>  $config['app_url'],
+        'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/comment',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => $commentname,
+                $lang => $name,
             ],
         ],
     ];

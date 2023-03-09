@@ -15,44 +15,50 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for chat message sent event.
+ * Transform for the assessable uploaded event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_chat;
+namespace src\transformer\events\mod_forum;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the chat message sent event.
+ * Transformer for assessable uploaded event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
 
-function message_sent(array $config, \stdClass $event): array {
+function assessable_uploaded(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $chatmessage = $repo->read_record_by_id('chat_messages', $event->objectid);
-    $chat = $repo->read_record_by_id('chat', $chatmessage->chatid);
+    $postid = $event->objectid;
+    $other = unserialize($event->other);
+    $discussionid = $other['discussionid'];
+    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
+
     $lang = utils\get_course_lang($course);
 
-    return [[
+    return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/send',
+            'id' => 'http://activitystrea.ms/schema/1.0/add',
             'display' => [
-                $lang => 'sent'
+                $lang => 'uploaded'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang, $chat),
+        'object' =>  utils\get_activity\forum_assessable($config, $lang, $discussionid, $postid),
         'timestamp' => utils\get_event_timestamp($event),
+        'result' => [
+            'response' => utils\get_activity\forum_discussion_post_reply($config, $postid)
+        ],
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
@@ -61,15 +67,14 @@ function message_sent(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_module(
-                        $config,
-                        $course,
-                        $event->contextinstanceid,
-                        'http://id.tincanapi.com/activitytype/chat-channel'
-                    )
+                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
+                    utils\get_activity\course_discussion($config, $course, $discussion)
+                ],
+                'other' => [
+                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid)
                 ],
                 'category' => [
-                    utils\get_activity\source($config)
+                    utils\get_activity\source($config),
                 ]
             ],
         ]

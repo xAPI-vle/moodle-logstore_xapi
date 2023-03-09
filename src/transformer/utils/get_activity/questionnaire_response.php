@@ -28,47 +28,33 @@ namespace src\transformer\utils\get_activity;
  * Transformer utility for retrieving (session report) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $cmid The id of the course module.
+ * @param int $instance The questionnaire id.
+ * @param \stdClass $user The user object.
  * @param array $other The field other of the event.
- * @param string $lang The language of the attendance.
+ * @param string $lang The language of the questionnaire.
  * @return array
  */
-function session_report(array $config, string $cmid, array $other, string $lang): array {
 
-    $studentid = empty($other['studentid']) ? '' : $other['studentid'];
-    $mode = empty($other['mode']) ? '' : $other['mode'];
-    $view = empty($other['view']) ? '' : $other['view'];
-    $groupby = empty($other['groupby']) ? '' : $other['groupby'];
-    $sesscourses = empty($other['sesscourses']) ? '' : $other['sesscourses'];
-    $curdate = empty($other['curdate']) ? '' : $other['curdate'];
+function questionnaire_response(array $config, int $instance, \stdClass $user, array $other, string $lang): array {
 
-    $url = $config['app_url'] . '/mod/attendance/view.php?id=' . $cmid;
+    $individualresponse = 1;
+    $byresponse = 1;
 
-    if ($other['studentid'] != '') {
-        $url = $url . '&studentid=' . $studentid;
-    }
-    if ($other['mode'] != '') {
-        $url = $url . '&mode=' . $mode;
-    }
-    if ($other['view'] != '') {
-        $url = $url . '&view=' . $view;
-    }
-    if ($other['groupby'] != '') {
-        $url = $url . '&groupby=' . $groupby;
-    }
-    if ($other['sesscourses'] != '') {
-        $url = $url . '&sesscourses=' . $sesscourses;
-    }
-    if ($other['curdate'] != '') {
-        $url = $url . '&curdate=' . $curdate;
-    }
+    $url = $config['app_url']
+        . '/mod/questionnaire/myreport.php?instance=' . $instance
+        . '&user=' . $user->id
+        . '&action=' . $other['action']
+        . '&byresponse=' . $byresponse
+        . '&individualresponse=' . $individualresponse
+        . '&rid=' . $other['rid']
+        . '&group=' . $other['currentgroupid'];
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/review',
+            'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $lang => 'Session report',
+                $lang => 'Response report',
             ],
         ],
     ];

@@ -15,43 +15,45 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for chat message sent event.
+ * Transform for file uploaded event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_chat;
+namespace src\transformer\events\assignsubmission_file;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the chat message sent event.
+ * Transformer for the file uploaded event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
 
-function message_sent(array $config, \stdClass $event): array {
+function submission_updated(array $config, \stdClass $event) {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $chatmessage = $repo->read_record_by_id('chat_messages', $event->objectid);
-    $chat = $repo->read_record_by_id('chat', $chatmessage->chatid);
+    $assignmentsubmission = $repo->read_record_by_id('assignsubmission_file', $event->objectid);
+    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
+    $cmid = $event->contextinstanceid;
+    $component = $event->component;
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/send',
+            'id' => 'http://activitystrea.ms/schema/1.0/update',
             'display' => [
-                $lang => 'sent'
+                $lang => 'updated'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang, $chat),
+        'object' => utils\get_activity\assignment_assessable($config, $lang, $cmid, $component),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -61,12 +63,7 @@ function message_sent(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_module(
-                        $config,
-                        $course,
-                        $event->contextinstanceid,
-                        'http://id.tincanapi.com/activitytype/chat-channel'
-                    )
+                    utils\get_activity\course_assignment($config, $cmid, $assignment->name, $lang)
                 ],
                 'category' => [
                     utils\get_activity\source($config)
