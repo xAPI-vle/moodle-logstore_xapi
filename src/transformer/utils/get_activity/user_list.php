@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (user list) activities.
+ * Transformer utility for retrieving user list data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,8 +24,10 @@
 
 namespace src\transformer\utils\get_activity;
 
+use src\transformer\utils as utils;
+
 /**
- * Transformer for user list activity.
+ * Transformer utility for retrieving user list data.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
@@ -36,13 +38,29 @@ function user_list(array $config, \stdClass $course, string $lang): array {
 
     $url = $config['app_url']. '/user/index.php?id=' . $course->id;
 
-    return [
+    $object = [
         'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $lang => 'List of users',
+                $lang => 'list of users',
+            ],
+            'description' => [
+                $lang => 'the list of users of the course ' . $course->id,
             ],
         ],
     ];
+
+    if (utils\is_enabled_config($config, 'send_short_course_id')) {
+        $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';
+        $object['definition']['extensions'][$lmsshortid] = $course->shortname;
+    }
+
+    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+        $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
+        $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
+        $object['definition']['extensions'][$lmsexternalid] = $courseidnumber;
+    }
+
+    return $object;
 }

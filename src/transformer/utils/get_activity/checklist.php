@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (checklist) activities.
+ * Transformer utility for retrieving checklist data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,27 +24,55 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (checklist) activities.
+ * Transformer utility for retrieving checklist data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $checklist The checklist object.
+ * @param int $checklistid The id of the checklist.
  * @param \stdClass $user The user object.
- * @param string $lang The language of the task.
+ * @param string $lang The language of the course.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function checklist(array $config, \stdClass $checklist, \stdClass $user, string $lang): array {
+function checklist(array $config, int $checklistid, \stdClass $user, string $lang, int $cmid): array {
 
-    $checklisturl = $config['app_url'] . '/mod/checklist/report.php?id=' . $checklist->id . '&studentid' . $user->id ;
-    $checklistname = property_exists($checklist, 'name') ? $checklist->name : 'Checklist';
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $userid = sha1(strval($user->id));
+    } else {
+        $userid = $user->id;
+    }
+
+    try {
+        $repo = $config['repo'];
+        $checklist = $repo->read_record_by_id('checklist', $checklistid);
+        $name = property_exists($checklist, 'name') ? $checklist->name : 'Checklist';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the checklist activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'checklist id ' . $checklistid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/mod/checklist/report.php?id=' . $checklistid . '&studentid' . $userid;
 
     return [
-        'id' => $checklisturl,
+        'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/checklist-item',
             'name' => [
-                $lang => $checklistname,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

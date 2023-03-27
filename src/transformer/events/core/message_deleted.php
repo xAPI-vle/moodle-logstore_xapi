@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for message deleted event.
+ * Transformer for message deleted event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -28,12 +28,13 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the message deleted event.
+ * Transformer for message deleted event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function message_deleted(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
@@ -49,7 +50,7 @@ function message_deleted(array $config, \stdClass $event): array {
                 $lang => 'deleted'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang),
+        'object' => utils\get_activity\message($config, $lang, null, null),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

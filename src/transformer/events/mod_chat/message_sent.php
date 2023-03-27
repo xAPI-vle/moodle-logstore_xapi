@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_chat;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,9 +39,13 @@ function message_sent(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $chatmessage = $repo->read_record_by_id('chat_messages', $event->objectid);
-    $chat = $repo->read_record_by_id('chat', $chatmessage->chatid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -51,7 +56,7 @@ function message_sent(array $config, \stdClass $event): array {
                 $lang => 'sent'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang, $chat),
+        'object' => utils\get_activity\message($config, $lang, $event->objectid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +69,7 @@ function message_sent(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://id.tincanapi.com/activitytype/chat-channel'
                     )
                 ],

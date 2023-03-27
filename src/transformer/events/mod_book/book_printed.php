@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the book printed event.
+ * Transform for book printed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,6 +25,7 @@
 
 namespace src\transformer\events\mod_book;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -34,13 +35,19 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function book_printed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $book = $repo->read_record_by_id('book', $event->objectid);
-    $moduleid = $event->contextinstanceid;
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $bookid = $event->objectid;
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -51,7 +58,7 @@ function book_printed(array $config, \stdClass $event): array {
                 $lang => 'print'
             ],
         ],
-        'object' => utils\get_activity\book($config, $book, $moduleid, $lang),
+        'object' => utils\get_activity\book($config, $bookid, $cmid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

@@ -28,17 +28,18 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the notification viewed event.
+ * Transformer for notification viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function notification_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $notification = $repo->read_record_by_id('notifications', $event->objectid);
+    $notificationid = $event->objectid;
     $lang = $config['source_lang'];
 
     return [[
@@ -49,7 +50,7 @@ function notification_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\notification($config, $notification, $lang),
+        'object' => utils\get_activity\notification($config, $notificationid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course module instance list viewed event.
+ * Transformer for course module instance list viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\all;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -33,12 +34,18 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function course_module_instance_list_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $course_module = strval($event->component);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $coursemodule = $event->component;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -49,7 +56,7 @@ function course_module_instance_list_viewed(array $config, \stdClass $event): ar
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_module_instance_list($config, $course, $course_module, $lang),
+        'object' => utils\get_activity\course_module_instance_list($config, $course, $coursemodule, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

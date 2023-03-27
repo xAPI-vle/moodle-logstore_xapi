@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge listing) activities.
+ * Transformer utility for retrieving badge listing data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,25 +27,42 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving the badge listing.
+ * Transformer utility for retrieving badge listing data.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
  * @param int $badgetype The type of the badge.
+ * @param string $lang The language of the course.
  * @return array
  */
-function badge_listing(array $config, \stdClass $course, int $badgetype): array {
 
-    $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'badges/view.php?type='.$badgetype.'&id='.$course->id;
+function badge_listing(array $config, \stdClass $course, int $badgetype, string $lang): array {
 
-    return [
+    $url = $config['app_url'] . 'badges/view.php?type=' . $badgetype . '&id=' . $course->id;
+
+    $object = [
         'id' => $url,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/collection-simple',
+            'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $courselang => 'List of badges',
+                $lang => 'list of badges',
+            ],
+            'description' => [
+                $lang => 'Page that lists the available badges with their description',
             ],
         ],
     ];
+
+    if (utils\is_enabled_config($config, 'send_short_course_id')) {
+        $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';
+        $object['definition']['extensions'][$lmsshortid] = $course->shortname;
+    }
+
+    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+        $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
+        $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
+        $object['definition']['extensions'][$lmsexternalid] = $courseidnumber;
+    }
+
+    return $object;
 }

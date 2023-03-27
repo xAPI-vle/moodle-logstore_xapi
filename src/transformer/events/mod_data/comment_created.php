@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the comment created event.
+ * Transformer for comment created event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_data;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -33,12 +34,18 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function comment_created(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $cmid = $event->objectid;
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -49,7 +56,7 @@ function comment_created(array $config, \stdClass $event): array {
                 $lang => 'created'
             ],
         ],
-        'object' => utils\get_activity\comment($config, $lang, $cmid),
+        'object' => utils\get_activity\comment($config, $lang, $event->objectid, $event->component, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

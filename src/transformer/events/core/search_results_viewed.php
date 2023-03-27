@@ -28,19 +28,25 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the search results viewed event.
+ * Transformer for search results viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function search_results_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $other = unserialize($event->other);
-    $query = $other['q'];
     $lang = $config['source_lang'];
+    $other = unserialize($event->other);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $query = $other->q;
+    } else {
+        $query = $other['q'];
+    }
 
     return [[
         'actor' => utils\get_user($config, $user),

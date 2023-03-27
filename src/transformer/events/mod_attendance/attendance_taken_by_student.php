@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the attendance taken by student event.
+ * Transform for attendance taken by student event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_attendance;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -33,15 +34,18 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function attendance_taken_by_student(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
-    $other = unserialize($event->other);
-    $sessionid = $other['sessionid'];
-    $grouptype = $other['grouptype'];
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -52,7 +56,7 @@ function attendance_taken_by_student(array $config, \stdClass $event): array {
                 $lang => 'took attendance'
             ]
         ],
-        'object' => utils\get_activity\attendance($config, $cmid, $sessionid, $grouptype, $lang),
+        'object' => utils\get_activity\attendance($config, $cmid, $event->other, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

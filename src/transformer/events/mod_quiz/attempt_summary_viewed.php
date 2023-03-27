@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_quiz;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -37,32 +38,34 @@ use src\transformer\utils as utils;
 function attempt_summary_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $learner = $repo->read_record_by_id('user', $event->relateduserid);
-    $instructor = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $attemptid = $event->objectid;
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
-
     $object = [
-        'id' => $config['app_url'] . '/mod/quiz/summary.php?attempt=' . $attempt->id,
+        'id' => $config['app_url'] . '/mod/quiz/summary.php?attempt=' . $attemptid,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'review summary'
+                $lang => 'attempt summary'
             ]
         ]
     ];
 
     // Set JISC specific activity type.
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $object = utils\get_activity\course_quiz($config, $course, $event->contextinstanceid);
+        $object = utils\get_activity\course_quiz($config, $course, $cmid);
     }
 
     return [[
-        'actor' => utils\get_user($config, $learner),
+        'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
@@ -72,16 +75,17 @@ function attempt_summary_viewed(array $config, \stdClass $event): array {
         'object' => $object,
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
-            'instructor' => utils\get_user($config, $instructor),
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
+                'other' => [
+                    utils\get_activity\quiz_attempt($config, $attemptid, $cmid),
+                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
+                    utils\get_activity\course_quiz($config, $course, $cmid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (search results) activities.
+ * Transformer utility for retrieving search results data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,21 +25,25 @@
 namespace src\transformer\utils\get_activity;
 
 /**
- * Transformer for retrieving search results.
+ * Transformer utility for retrieving search results data.
  *
  * @param array $config The transformer config settings.
  * @param string $query The string value of the query.
  * @param string $lang The language of the site.
  * @return array
  */
+
 function search_results(array $config, string $query, string $lang): array {
 
     return [
-        'id' => $config['app_url'] . '/search/index.php?q==' . $query,
+        'id' => $config['app_url'] . '/search/index.php?q=' . $query,
             'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $lang => 'Search results',
+                $lang => 'search results',
+            ],
+            'description' => [
+                $lang => 'the results of the searched query',
             ],
         ],
     ];

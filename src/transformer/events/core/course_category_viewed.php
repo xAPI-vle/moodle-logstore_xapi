@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course category viewed event.
+ * Transformer for course category viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -34,11 +34,11 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_category_viewed(array $config, \stdClass $event): array
-{
+
+function course_category_viewed(array $config, \stdClass $event): array {
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $category = $repo->read_record_by_id('course_categories', $event->objectid);
     $lang = $config['source_lang'];
 
     return[[
@@ -49,7 +49,7 @@ function course_category_viewed(array $config, \stdClass $event): array
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_category($config, $category, $lang),
+        'object' => utils\get_activity\course_category($config, $event->objectid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

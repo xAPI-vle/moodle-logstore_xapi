@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (badge) activities.
+ * Transformer utility for retrieving badge data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,26 +24,42 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (badge) activities.
+ * Transformer utility for retrieving badge data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $badge The badge object.
- * @param string $badgehash The hash of the badge.
- * @param string $lang The language of the badge.
+ * @param int $badgeid The id of the badge.
+ * @param int $badgehash The hash of the badge.
+ * @param string $lang The language of the course.
  * @return array
  */
-function badge(array $config, \stdClass $badge, string $badgehash, string $lang): array {
 
-    $badgeurl = $config['app_url'] . '/badges/badge.php?hash=' . $badgehash;
-    $badgename = property_exists($badge, 'name') ? $badge->name : 'Badge';
+function badge(array $config, int $badgeid, int $badgehash, string $lang): array {
+
+    try {
+        $repo = $config['repo'];
+        $badge = $repo->read_record_by_id('badge', $badgeid);
+        $name = property_exists($badge, 'name') ? $badge->name : 'Badge';
+        $description = 'the badge awarded to celebrate achievements';
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'badge id ' . $badgeid;
+        $description = 'deleted ';
+    }
+
+    $url = $config['app_url'] . '/badges/badge.php?hash=' . $badgehash;
 
     return [
-        'id' => $badgeurl,
+        'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/badge',
             'name' => [
-                $lang => $badgename,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

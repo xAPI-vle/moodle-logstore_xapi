@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the answer deleted event.
+ * Transformer for answer deleted event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_choice;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,12 +39,30 @@ function answer_deleted(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $other = unserialize($event->other);
-    $choiceid = $other['choiceid'];
-    $choice = $repo->read_record_by_id('choice', $choiceid);
-    $optionid = $other['optionid'];
-    $response = $repo->read_record_by_id('choice_options', $optionid);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $choiceid = (int)$other->choiceid;
+        $optionid = (int)$other->optionid;
+    } else {
+        $choiceid = $other['choiceid'];
+        $optionid = $other['optionid'];
+    }
+
+    try {
+        $response = $repo->read_record_by_id('choice_options', $optionid);
+        $responsetext = $response->text;
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $responsetext = 'response deleted';
+    }
+
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
@@ -55,10 +74,10 @@ function answer_deleted(array $config, \stdClass $event): array {
                 $lang => 'deleted'
             ],
         ],
-        'object' =>  utils\get_activity\choice($config, $cmid, $lang, $choice),
+        'object' => utils\get_activity\choice($config, $cmid, $lang, $choiceid, null),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $response->text,
+            'response' => $responsetext,
             ],
         'context' => [
             'platform' => $config['source_name'],
@@ -71,7 +90,7 @@ function answer_deleted(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://vocab.xapi.fr/activities/poll'
                     ),
                 ],

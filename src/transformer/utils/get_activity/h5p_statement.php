@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (h5p statement) activities.
+ * Transformer utility for retrieving h5p statement data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,28 +24,55 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (h5p statement) activities.
+ * Transformer utility for retrieving h5p statement data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the badge.
- * @param \stdClass $activity The h5p activity object.
- * @param int $cmid The module id.
+ * @param string $lang The language of the course.
+ * @param int $activityid The id of the h5p activity.
+ * @param int $cmid The course module id.
  * @param \stdClass $user The user object.
  * @return array
  */
-function h5p_statement(array $config, string $lang, \stdClass $activity, \stdClass $user, int $cmid): array {
+function h5p_statement(array $config, string $lang, int $activityid, \stdClass $user, int $cmid): array {
 
-    $url = $config['app_url'] . '/mod/h5pactivity/grade.php?id=' . $cmid . '&user=' . $user->id;
-    $name = property_exists($activity, 'name') ? $activity->name : 'H5P Activity';
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $userid = sha1(strval($user->id));
+    } else {
+        $userid = $user->id;
+    }
 
-        return [
+    try {
+        $repo = $config['repo'];
+        $activity = $repo->read_record_by_id('h5pactivity', $activityid);
+        $name = property_exists($activity, 'name') ? $activity->name : 'H5P Activity';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the statement of the h5p activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'activity id ' . $activityid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/mod/h5pactivity/grade.php?id=' . $cmid . '&user=' . $userid;
+
+    return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
+            'type' => 'http://www.tincanapi.co.uk/activitytypes/grade_classification',
             'interactionType' => 'fill-in',
             'name' => [
-                $lang => $name,
+                $lang => 'statement for ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

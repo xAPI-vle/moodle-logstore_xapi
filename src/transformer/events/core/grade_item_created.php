@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for grade item created event.
+ * Transformer for grade item created event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -33,11 +34,17 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function grade_item_created(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -48,7 +55,7 @@ function grade_item_created(array $config, \stdClass $event): array {
                 $lang => 'created'
             ],
         ],
-        'object' => utils\get_activity\grade_item($config, $course, $lang),
+        'object' => utils\get_activity\grade_item($config, $course, $lang, $event->objectid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

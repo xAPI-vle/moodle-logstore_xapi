@@ -26,34 +26,40 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the role unassigned event.
+ * Transformer for role unassigned event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function role_unassigned(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $role = $repo->read_record_by_id('role', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $roleid = $event->objectid;
     $instructor = $repo->read_record_by_id('user', $event->userid);
     $lang = utils\get_course_lang($course);
 
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/assign', // TODO change the verb.
+            'id' => 'http://id.tincanapi.com/verb/unregistered',
             'display' => [
                 $lang => 'has been unassigned'
             ],
-
         ],
-        'object' => utils\get_role($config, $role, $lang),
+        'object' => utils\get_role($config, $roleid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

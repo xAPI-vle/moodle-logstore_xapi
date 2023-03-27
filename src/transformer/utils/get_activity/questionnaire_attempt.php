@@ -25,28 +25,51 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
  * Transformer utility for retrieving the questionnaire attempt.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the attempt.
- * @param int $cmid The module id.
- * @param \stdClass $questionnaire The questionnaire object.
+ * @param string $lang The language of the course.
+ * @param int $cmid The course module id.
+ * @param int $questionnaireid The id of the questionnaire.
  * @return array
  */
 
-function questionnaire_attempt(array $config, string $lang, int $cmid, \stdClass $questionnaire): array {
+function questionnaire_attempt(array $config, string $lang, int $cmid, int $questionnaireid): array {
+
+    try {
+        $repo = $config['repo'];
+        $questionnaire = $repo->read_record_by_id('questionnaire', $questionnaireid);
+        $name = property_exists($questionnaire, 'name') ? $questionnaire->name : 'Questionnaire';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the attempt of the questionnaire';
+        } else {
+            $description = 'deletion in progress';
+        }
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'questionnaire id ' . $questionnaireid;
+        $description = 'deleted';
+    }
 
     $url = $config['app_url'].'/mod/questionnaire/view.php?id=' . $cmid;
-    $name = property_exists($questionnaire, 'name') ? $questionnaire->name : 'Questionnaire';
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [
-                $lang => 'Attempt for ' . $name,
+                $lang => 'attempt for ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
+
     ];
 }

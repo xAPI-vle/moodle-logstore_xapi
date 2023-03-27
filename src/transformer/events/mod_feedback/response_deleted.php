@@ -15,19 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the feedback response deleted event.
+ * Transformer for feedback response deleted event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_feedback\mod_feedback;
+namespace src\transformer\events\mod_feedback;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the feedback response deleted event.
+ * Transformer for feedback response deleted event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,8 +39,15 @@ function response_deleted(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
+    $responseid = $event->objectid;
+    $anonymous = $event->anonymous;
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -49,7 +57,7 @@ function response_deleted(array $config, \stdClass $event): array {
                 $lang => 'deleted'
             ],
         ],
-        'object' => utils\get_activity\course_feedback($config, $course, $event->contextinstanceid),
+        'object' => utils\get_activity\feedback_response($config, $responseid, $event->contextinstanceid, $anonymous, $user, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -59,6 +67,7 @@ function response_deleted(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_feedback($config, $course, $event->contextinstanceid)
                 ],
                 'category' => [
                     utils\get_activity\source($config),

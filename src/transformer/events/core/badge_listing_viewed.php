@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for badge listing viewed event.
+ * Transformer for badge listing viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,6 +25,7 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -34,14 +35,25 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function badge_listing_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $other = unserialize($event->other);
-    $badgetype = $other['badgetype'];
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
+    $other = unserialize($event->other);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $badgetype = (int)$other->badgetype;
+    } else {
+        $badgetype = $other['badgetype'];
+    }
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -51,7 +63,7 @@ function badge_listing_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\badge_listing($config, $course, $badgetype),
+        'object' => utils\get_activity\badge_listing($config, $course, $badgetype, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

@@ -26,6 +26,7 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -39,16 +40,13 @@ function user_report_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $relateduser = $repo->read_record_by_id('user', $event->relateduserid);
-
-    if ($event->courseid == "0") {
-        $course = (object) [
-            "id" => 0
-        ];
-        $lang = "en";
-    } else {
+    try {
         $course = $repo->read_record_by_id('course', $event->courseid);
-        $lang = utils\get_course_lang($course);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
     }
+    $lang = utils\get_course_lang($course);
 
     $statement = [
         'actor' => utils\get_user($config, $user),

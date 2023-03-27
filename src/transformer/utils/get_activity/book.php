@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (book) activities.
+ * Transformer utility for retrieving book data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,27 +25,48 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
 
 /**
- * Transformer utility for retrieving the book.
+ * Transformer utility for retrieving book data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $book The book object.
  * @param int $bookid The id of the book.
- * @param string $lang The language of the book.
+ * @param int $cmid The course module id.
+ * @param string $lang The language of the course.
  * @return array
  */
-function book(array $config, \stdClass $book, int $bookid, string $lang): array {
 
-    $bookurl = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $bookid;
-    $bookname = property_exists($book, 'name') ? $book->name : 'Book';
+function book(array $config, int $bookid, int $cmid, string $lang): array {
+
+    try {
+        $repo = $config['repo'];
+        $book = $repo->read_record_by_id('book', $bookid);
+        $name = property_exists($book, 'name') ? $book->name : 'Book';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the book activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'book id ' . $bookid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'].'/mod/book/tool/print/index.php?id=' . $cmid;
 
     return [
-        'id' => $bookurl,
+        'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/book',
             'name' => [
-                $lang => $bookname,
+                $lang => 'book ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

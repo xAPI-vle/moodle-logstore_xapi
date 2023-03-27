@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the report viewed event.
+ * Transformer for report viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_h5pactivity;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,10 +39,21 @@ function report_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $activity = $repo->read_record_by_id('h5pactivity', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $cmid = $event->contextinstanceid;
+    $activityid = $event->objectid;
     $other = unserialize($event->other);
-    $attemptid = $other['attemptid'];
+    if (!$other) {
+        $other = json_decode($event->other);
+        $attemptid = (int)$other->attemptid;
+    } else {
+        $attemptid = $other['attemptid'];
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -52,7 +64,7 @@ function report_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ]
         ],
-        'object' => utils\get_activity\h5p_report($config, $lang, $activity, $user, $attemptid),
+        'object' => utils\get_activity\h5p_report($config, $lang, $activityid, $user, $attemptid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -65,7 +77,7 @@ function report_viewed(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'https://h5p.org/x-api/h5p-local-content-id'
                     )
                 ],

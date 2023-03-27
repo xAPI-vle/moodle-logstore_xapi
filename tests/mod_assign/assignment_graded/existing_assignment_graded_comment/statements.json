@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/assign\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
+                "type": "http:\/\/vocab.xapi.fr\/activities\/assignment",
                 "name": {
                     "en": "test_name"
                 }

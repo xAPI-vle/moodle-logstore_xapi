@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving comment data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,36 +25,59 @@
 namespace src\transformer\utils\get_activity;
 
 use Exception;
-use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (comment) activities.
+ * Transformer utility for retrieving comment data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param int $cmid
+ * @param string $lang The language of the course.
+ * @param int $commentid The id of the comment.
+ * @param string $component The component type.
+ * @param int|null $cmid The course module id.
  * @return array
  */
 
-function comment(array $config, string $lang, int $cmid): array {
+function comment(array $config, string $lang, int $commentid, string $component, int $cmid=null): array {
+
+    $repo = $config['repo'];
 
     try {
-        $repo = $config['repo'];
-        $comment = $repo->read_record_by_id('comments', $cmid);
-        $commentname = utils\get_string_html_removed(property_exists($comment, 'content')) ?
-            utils\get_string_html_removed($comment->content) : 'Comment';
+        $comment = $repo->read_record_by_id('comments', $commentid);
+        $name = property_exists($comment, 'commentarea') ? $comment->commentarea : 'Comment';
+        $description = 'the comment to the activity';
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $commentname = 'comment id: ' . $cmid;
+        $name = 'comment id: ' . $commentid;
+        $description = 'deleted';
+    }
+
+    $component = explode('_', $component)[1];
+    if ($component == 'comments') {
+        $url = $config['app_url'];
+    } else {
+        $url = $config['app_url'] . '/mod/' . $component . 'view.php?id=' . $cmid;
+        try {
+            $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+            $status = $coursemodule->deletioninprogress;
+            if ($status == 1) {
+                $description = 'deletion in progress';
+            }
+        } catch (Exception $e) {
+            // OBJECT_NOT_FOUND.
+            unset($e);
+        }
     }
 
     return [
-        'id' =>  $config['app_url'],
+        'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/comment',
             'name' => [
-                $lang => $commentname,
+                $lang => 'comment in ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

@@ -26,6 +26,7 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,8 +39,14 @@ use src\transformer\utils as utils;
 function discussion_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $discussion = $repo->read_record_by_id('forum_discussions', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $discussionid = $event->objectid;
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -50,7 +57,7 @@ function discussion_viewed(array $config, \stdClass $event) {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_discussion($config, $course, $discussion),
+        'object' => utils\get_activity\course_discussion($config, $course, $discussionid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -60,7 +67,7 @@ function discussion_viewed(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
+                    utils\get_activity\course_forum($config, $course, $cmid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

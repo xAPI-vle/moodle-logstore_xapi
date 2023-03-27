@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the assessable uploaded event.
+ * Transformer for assessable uploaded event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,13 +39,22 @@ function assessable_uploaded(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $postid = $event->objectid;
-    $other = unserialize($event->other);
-    $discussionid = $other['discussionid'];
-    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
-
     $lang = utils\get_course_lang($course);
+    $cmid = $event->contextinstanceid;
+    $other = unserialize($event->other);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $discussionid = (int)$other->discussionid;
+    } else {
+        $discussionid = $other['discussionid'];
+    }
 
     return[[
         'actor' => utils\get_user($config, $user),
@@ -54,7 +64,7 @@ function assessable_uploaded(array $config, \stdClass $event): array {
                 $lang => 'uploaded'
             ],
         ],
-        'object' =>  utils\get_activity\forum_assessable($config, $lang, $discussionid, $postid),
+        'object' => utils\get_activity\forum_assessable($config, $lang, $discussionid, $postid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => utils\get_activity\forum_discussion_post_reply($config, $postid)
@@ -67,11 +77,11 @@ function assessable_uploaded(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
-                    utils\get_activity\course_discussion($config, $course, $discussion)
+                    utils\get_activity\course_forum($config, $course, $cmid),
+                    utils\get_activity\course_discussion($config, $course, $discussionid, $cmid)
                 ],
                 'other' => [
-                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid)
+                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid, $cmid, $lang)
                 ],
                 'category' => [
                     utils\get_activity\source($config),

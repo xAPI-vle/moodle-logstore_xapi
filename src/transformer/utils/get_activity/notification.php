@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (notification) activities.
+ * Transformer utility for retrieving notification data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,27 +24,40 @@
 
 namespace src\transformer\utils\get_activity;
 
-use stdClass;
+use Exception;
 
 /**
- * Transformer utility for retrieving (notification) activities.
+ * Transformer utility for retrieving notification data.
  *
  * @param array $config The transformer config settings.
- * @param stdClass $notification The notification object.
- * @param string $lang The language of the notification.
+ * @param int $notificationid The if of the notification.
+ * @param string $lang The language of the site.
  * @return array
  */
-function notification(array $config, stdClass $notification, string $lang): array {
 
-    $url = $config['app_url'] . '/message/output/popup/notifications.php?notificationid=' . $notification->id;
-    $notificationsubject = property_exists($notification, 'subject') ? $notification->subject : 'Notification';
+function notification(array $config, int $notificationid, string $lang): array {
+
+    try {
+        $repo = $config['repo'];
+        $notification = $repo->read_record_by_id('notifications', $notificationid);
+        $name = property_exists($notification, 'subject') ? $notification->subject : 'Notification';
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'notification id ' . $notificationid;
+    }
+
+    $url = $config['app_url'] . '/message/output/popup/notifications.php?notificationid=' . $notificationid;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/alert',
             'name' => [
-                $lang => $notificationsubject,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => 'the notification of an activity',
             ],
         ],
     ];

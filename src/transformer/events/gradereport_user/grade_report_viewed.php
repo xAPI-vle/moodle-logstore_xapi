@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the grade report viewed event.
+ * Transform for the grade (user) report viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,10 +24,11 @@
 
 namespace src\transformer\events\gradereport_user;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for grade report viewed event.
+ * Transformer for grade (user) report viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,7 +39,12 @@ function grade_report_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $component = $event->component;
     $lang = utils\get_course_lang($course);
 
@@ -50,7 +56,7 @@ function grade_report_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\grade_user_report($config, $user, $course, $component, $lang),
+        'object' => utils\get_activity\grade_user_report($config, $user, $component, $lang, $course),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

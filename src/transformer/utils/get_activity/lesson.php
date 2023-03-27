@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (lesson) activities.
+ * Transformer utility for retrieving lesson data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,27 +25,48 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving the lesson.
+ * Transformer utility for retrieving lesson data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $lesson The lesson object.
- * @param string $lang The language of the lesson.
- * @param int $cmid The module id.
+ * @param int $lessonid The id of the lesson.
+ * @param string $lang The language of the course.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function lesson(array $config, \stdClass $lesson, string $lang, int $cmid): array {
+function lesson(array $config, int $lessonid, string $lang, int $cmid): array {
 
-    $lessonurl = $config['app_url'].'/mod/lesson/view.php?id=' . $cmid;
-    $lessonname = property_exists($lesson, 'name') ? $lesson->name : 'Lesson';
+    try {
+        $repo = $config['repo'];
+        $lesson = $repo->read_record_by_id('lesson', $lessonid);
+        $name = property_exists($lesson, 'name') ? $lesson->name : 'Lesson';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the lesson activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'lesson id ' . $lessonid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'].'/mod/lesson/view.php?id=' . $cmid;
 
     return [
-        'id' => $lessonurl,
+        'id' => $url,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/lesson',
             'name' => [
-                $lang => $lessonname,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

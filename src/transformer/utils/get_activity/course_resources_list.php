@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (course resources list) activities.
+ * Transformer utility for retrieving course resources list data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,30 +24,30 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
- * Transformer for retrieving the course resources list.
+ * Transformer utility for retrieving course resources list data.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
+ * @param string $lang The language of the course.
  * @return array
  */
-function course_resources_list(array $config, \stdClass $course) {
+function course_resources_list(array $config, \stdClass $course, string $lang): array {
 
-    $coursename = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
-    $courselang = utils\get_course_lang($course);
+    $name = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
 
     $object = [
                   'id' => $config['app_url'].'/course/resources.php?id='.$course->id,
                   'definition' => [
                       'type' => 'http://vocab.xapi.fr/activities/resources',
                       'name' => [
-                          $courselang => $coursename . ' resource list',
+                          $lang => $name . ' resource list',
+                      ],
+                      'description' => [
+                          $lang => 'the resource list of the course',
                       ],
                   ],
               ];
-
 
     if (array_key_exists('send_short_course_id', $config)) {
         $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';

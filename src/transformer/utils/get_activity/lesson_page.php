@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (lesson content page) activities.
+ * Transformer utility for retrieving lesson content page data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,37 +24,58 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (lesson content page) activities.
+ * Transformer utility for retrieving lesson content page data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the badge.
+ * @param string $lang The language of the course.
  * @param int $cmid The course module id.
- * @param \stdClass $page The object page.
+ * @param int $pageid The id of the page.
  * @param string $target The type of content page.
  * @return array
  */
-function lesson_page(array $config, string $lang, int $cmid, \stdClass $page, string $target): array {
 
-    if ($target == 'question') {
-        $pagename = 'Question: ' . property_exists($page, 'title') ? $page->title : 'Question';
-        $type = 'http://adlnet.gov/expapi/activities/question';
-    } else {
-        $pagename = 'Content page: ' . property_exists($page, 'title') ? $page->title : 'Content page';
-        $type = 'http://activitystrea.ms/schema/1.0/page';
+function lesson_page(array $config, string $lang, int $cmid, int $pageid, string $target): array {
+
+    try {
+        $repo = $config['repo'];
+        $page = $repo->read_record_by_id('lesson_pages', $pageid);
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the page of the lesson activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+
+        if ($target == 'question') {
+            $name = 'Question: ' . property_exists($page, 'title') ? $page->title : 'Question';
+            $type = 'http://adlnet.gov/expapi/activities/question';
+        } else {
+            $name = 'Content page: ' . property_exists($page, 'title') ? $page->title : 'Content page';
+            $type = 'http://activitystrea.ms/schema/1.0/page';
+        }
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'page id ' . $pageid;
+        $description = 'deleted';
     }
 
-    $pageurl = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '&pageid=' . $page->id;
+    $url = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '&pageid=' . $pageid;
 
     return [
-        'id' => $pageurl,
+        'id' => $url,
         'definition' => [
             'type' => $type,
             'name' => [
-                $lang => $pagename,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];
 }
-
-

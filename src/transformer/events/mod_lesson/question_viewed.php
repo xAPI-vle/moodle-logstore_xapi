@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for questiona viewed event.
+ * Transformer for questiona viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_lesson;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,10 +39,15 @@ function question_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
     $cmid = $event->contextinstanceid;
-    $page = $repo->read_record_by_id('lesson_pages', $event->objectid);
+    $pageid = $event->objectid;
     $target = $event->target;
 
     return [[
@@ -52,7 +58,7 @@ function question_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\lesson_page($config, $lang, $cmid, $page, $target),
+        'object' => utils\get_activity\lesson_page($config, $lang, $cmid, $pageid, $target),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -65,7 +71,7 @@ function question_viewed(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://adlnet.gov/expapi/activities/lesson'
                     )
                 ],

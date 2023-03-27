@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving the survey response.
+ * Transformer utility for retrieving survey response data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,25 +24,44 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving the survey response
+ * Transformer utility for retrieving survey response data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the questionnaire.
- * @param int $cmid
+ * @param string $lang The language of the survey.
+ * @param int $cmid The course module id.
  * @return array
  */
 
 function survey_response(array $config, string $lang, int $cmid): array {
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'Response of the survey';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
 
     $url = $config['app_url'] . '/mod/survey/view.php?id=' . $cmid;
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/page',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Survey response',
+                $lang => 'survey response',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

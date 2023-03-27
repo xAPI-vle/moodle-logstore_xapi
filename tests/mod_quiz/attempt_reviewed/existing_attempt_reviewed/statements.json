@@ -14,7 +14,7 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/review.php?attempt=1",
+            "id": "http:\/\/www.example.org\/mod\/quiz\/review.php?attempt=1",
             "definition": {
                 "type": "http:\/\/activitystrea.ms\/schema\/1.0\/review",
                 "name": {

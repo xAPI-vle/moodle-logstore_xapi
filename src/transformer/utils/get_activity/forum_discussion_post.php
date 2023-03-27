@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use Exception;
 
 /**
  * Transformer utility for retrieving (forum discussion post) activities.
@@ -34,9 +34,26 @@ use src\transformer\utils as utils;
  * @param array $config The transformer config settings.
  * @param int $discussionid The id of the discussion.
  * @param int $postid The id of the post.
+ * @param int $cmid The course module id.
+ * @param string $lang The language of the course.
  * @return array
  */
-function forum_discussion_post(array $config, int $discussionid, int $postid) {
+
+function forum_discussion_post(array $config, int $discussionid, int $postid, int $cmid, string $lang): array {
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the forum discussion post';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
 
     $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussionid.'#p'.$postid;
 
@@ -44,6 +61,9 @@ function forum_discussion_post(array $config, int $discussionid, int $postid) {
         'id' => $posturl,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
+            'description' => [
+                $lang => $description,
+            ],
         ],
     ];
 }

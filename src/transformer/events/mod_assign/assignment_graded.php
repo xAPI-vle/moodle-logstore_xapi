@@ -26,6 +26,7 @@
 
 namespace src\transformer\events\mod_assign;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -37,15 +38,19 @@ use src\transformer\utils as utils;
  */
 function assignment_graded(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $grade = $repo->read_record_by_id($event->objecttable, $event->objectid);
-    $user = $repo->read_record_by_id('user', $grade->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
+
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $instructor = $repo->read_record_by_id('user', $event->userid);
-    $assignment = $repo->read_record_by_id('assign', $grade->assignment);
     $lang = utils\get_course_lang($course);
 
-    $gradecomment = null;
     try {
+        $grade = $repo->read_record_by_id($event->objecttable, $event->objectid);
         $gradecomment = $repo->read_record('assignfeedback_comments', [
             'assignment' => $grade->assignment,
             'grade' => $grade->id
@@ -54,26 +59,35 @@ function assignment_graded(array $config, \stdClass $event) {
         $gradecomment = null;
     }
 
-    $gradeitems = $repo->read_record('grade_items', [
-        'itemmodule' => 'assign',
-        'iteminstance' => $grade->assignment
-    ]);
+    try {
+        $grade = $repo->read_record_by_id($event->objecttable, $event->objectid);
+        $gradeitems = $repo->read_record('grade_items', [
+            'itemmodule' => 'assign',
+            'iteminstance' => $grade->assignment
+        ]);
 
-    $scoreraw = (float) ($grade->grade ?: 0);
-    $scoremin = (float) ($gradeitems->grademin ?: 0);
-    $scoremax = (float) ($gradeitems->grademax ?: 0);
-    $scorepass = (float) ($gradeitems->gradepass ?: null);
+        $scoreraw = (float) ($grade->grade ?: 0);
+        $scoremin = (float) ($gradeitems->grademin ?: 0);
+        $scoremax = (float) ($gradeitems->grademax ?: 0);
+        $scorepass = (float) ($gradeitems->gradepass ?: null);
 
-    $success = false;
+        $success = false;
 
-    if ($scoreraw >= $scorepass) {
-        $success = true;
+        if ($scoreraw >= $scorepass) {
+            $success = true;
+        }
+    } catch (\Exception $e) {
+        $scoreraw = -1.0;
+        $scoremin = -1.0;
+        $scoremax = -1.0;
+        $success = false;
     }
 
     $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_verb('scored', $config, $lang),
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => utils\get_activity\course_assignment($config, $lang, $event->contextinstanceid, $event->objectid,
+            $event->objecttable, null),
         'result' => [
             'score' => [
                 'raw' => $scoreraw

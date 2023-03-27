@@ -25,20 +25,27 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the user enrolment deleted event.
+ * Transformer for user enrolment deleted event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function user_enrolment_deleted(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $instructor = $repo->read_record_by_id('user', $event->userid);
     $lang = utils\get_course_lang($course);
 

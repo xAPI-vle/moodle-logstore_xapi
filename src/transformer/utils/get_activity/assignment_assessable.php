@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum assessable) activities.
+ * Transformer utility for retrieving assignment assessable data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,19 +24,21 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (forum assessable) activities.
+ * Transformer utility for retrieving assignment assessable data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the attendance.
- * @param int $cmid
- * @param string $component
+ * @param string $lang The language of the course.
+ * @param int $cmid The course module id.
+ * @param string $component The type of component.
  * @return array
  */
 
 function assignment_assessable(array $config, string $lang, int $cmid, string $component): array {
 
-    if ($component ==  'assignsubmission_file') {
+    if ($component == 'assignsubmission_file') {
         $type = 'http://activitystrea.ms/schema/1.0/file';
         $name = 'file';
     } else {
@@ -46,12 +48,29 @@ function assignment_assessable(array $config, string $lang, int $cmid, string $c
 
     $url = $config['app_url'] . '/mod/assign/view.php?id=' . $cmid;
 
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the assignment assessable';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted ' . $e;
+    }
+
     return [
         'id' => $url,
         'definition' => [
             'type' => $type,
             'name' => [
                 $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

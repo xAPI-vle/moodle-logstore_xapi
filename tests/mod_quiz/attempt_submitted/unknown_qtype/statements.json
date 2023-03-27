@@ -14,7 +14,7 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
             "definition": {
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                 "name": {
@@ -48,7 +48,7 @@
             "contextActivities": {
                 "other": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
+                        "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
                         "definition": {
                             "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
                             "name": {

@@ -26,7 +26,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * Unit test for user dashboard viewed event.
  *
  * @package   logstore_xapi
- * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
+ * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class existing_dashboard_viewed_test extends \logstore_xapi\xapi_test_case {

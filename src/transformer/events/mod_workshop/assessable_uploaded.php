@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_workshop;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -33,11 +34,17 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function assessable_uploaded(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the submission reassessed event.
+ * Transformer for submission reassessed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_workshop;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,7 +39,12 @@ function submission_reassessed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
@@ -50,7 +56,7 @@ function submission_reassessed(array $config, \stdClass $event): array {
                 $lang => 'reassessed'
             ],
         ],
-        'object' => utils\get_activity\workshop_assessment($config, $lang, $event->objectid),
+        'object' => utils\get_activity\workshop_assessment($config, $lang, $event->objectid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

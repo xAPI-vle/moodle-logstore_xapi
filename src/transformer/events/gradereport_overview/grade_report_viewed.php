@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum user report viewed event.
+ * Transform for grade (overview) report viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,7 +27,7 @@ namespace src\transformer\events\gradereport_overview;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for forum user report viewed event.
+ * Transform for grade (overview) report viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,9 +38,8 @@ function grade_report_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
     $component = $event->component;
-    $lang = utils\get_course_lang($course);
+    $lang = $config['source_lang'];
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -50,16 +49,15 @@ function grade_report_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\grade_user_report($config, $user, $course, $component, $lang),
+        'object' => utils\get_activity\grade_user_report($config, $user, $component, $lang, null),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

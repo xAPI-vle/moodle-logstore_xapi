@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for courses searched event.
+ * Transformer for courses searched event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -33,13 +33,19 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function courses_searched(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $other = unserialize($event->other);
-    $query = $other['query'];
     $lang = $config['source_lang'];
+    $other = unserialize($event->other);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $query = $other->query;
+    } else {
+        $query = $other['query'];
+    }
 
     return [[
         'actor' => utils\get_user($config, $user),

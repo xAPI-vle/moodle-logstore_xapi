@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving questionnaire report data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,29 +24,60 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving questionnaire report data.
  *
  * @param array $config The transformer config settings.
  * @param string $cmid The id of the course module.
- * @param array $other The field other of the event.
- * @param string $lang The language of the attendance.
+ * @param string $other The field other of the event.
+ * @param string $lang The language of the course.
+ * @param int $questionnaireid The id of the questionnaire.
  * @return array
  */
-function questionnaire_report(array $config, string $cmid, array $other, string $lang): array {
+function questionnaire_report(array $config, string $cmid, string $other, string $lang, int $questionnaireid): array {
 
-    $action = empty($other['action']) ? '' : $other['action'];
-    $instance = empty($other['instance']) ? '' : $other['instance'];
-    $group = empty($other['group']) ? '' : $other['group'];
+    $other = unserialize($other);
+    if (!$other) {
+        $action = empty($other->action) ? '' : $other->action;
+        $instance = empty($other->instance) ? '' : $other->instance;
+        $group = empty($other->group) ? '' : $other->group;
+    } else {
+        $action = empty($other['action']) ? '' : $other['action'];
+        $instance = empty($other['instance']) ? '' : $other['instance'];
+        $group = empty($other['group']) ? '' : $other['group'];
+    }
 
-    $url = $config['app_url'] . '/mod/questionnaire/report.php?id=' . $cmid . '&action=' . $action . '&instance=' . $instance . '&group=' . $group;
+    try {
+        $repo = $config['repo'];
+        $questionnaire = $repo->read_record_by_id('questionnaire', $questionnaireid);
+        $name = property_exists($questionnaire, 'name') ? $questionnaire->name : 'Questionnaire';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the report of the questionnaire';
+        } else {
+            $description = 'deletion in progress';
+        }
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'questionnaire id ' . $questionnaireid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'].'/mod/questionnaire/report.php?id='.$cmid.'&action='.$action.'&instance='.$instance.'&group='.$group;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Questionnaire report',
+                $lang => 'report on ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

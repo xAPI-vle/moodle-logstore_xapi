@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_assign;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,11 +39,20 @@ function remove_submission_form_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $cmid = $event->contextinstanceid;
     $other = unserialize($event->other);
-    $assignid = $other['assignid'];
-    $assignmentsubmission = $repo->read_record_by_id('assign_submission', $assignid);
-    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $assignid = (int)$other->assignid;
+    } else {
+        $assignid = $other['assignid'];
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -53,7 +63,7 @@ function remove_submission_form_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => utils\get_activity\course_assignment($config, $lang, $cmid, null, null, $assignid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -63,6 +73,12 @@ function remove_submission_form_viewed(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_module(
+                        $config,
+                        $course,
+                        $cmid,
+                        'http://vocab.xapi.fr/activities/assignment'
+                    )
                 ],
                 'category' => [
                     utils\get_activity\source($config)

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (folder) activities.
+ * Transformer utility for retrieving folder data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,26 +24,48 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (folder) activities.
+ * Transformer utility for retrieving folder data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param \stdClass $folder The folder object.
+ * @param string $lang The language of the course.
+ * @param int $folderid The id of the folder.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function folder(array $config, string $lang, \stdClass $folder, int $cmid): array {
+function folder(array $config, string $lang, int $folderid, int $cmid): array {
 
-    $folderurl = $config['app_url'] . '/mod/folder/view.php?id=' . $cmid;
-    $foldername = property_exists($folder, 'name') ? $folder->name : 'Folder';
+    try {
+        $repo = $config['repo'];
+        $folder = $repo->read_record_by_id('folder', $folderid);
+        $name = property_exists($folder, 'name') ? $folder->name : 'Folder';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the folder resource';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'folder id ' . $folderid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/mod/folder/view.php?id=' . $cmid;
 
     return [
-        'id' => $folderurl,
+        'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/group',
+            'type' => 'http://activitystrea.ms/schema/1.0/collection',
             'name' => [
-                $lang => $foldername,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

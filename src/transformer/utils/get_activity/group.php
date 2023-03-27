@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (group) activities.
+ * Transformer utility for retrieving group data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,26 +24,40 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (group) activities.
+ * Transformer utility for retrieving group data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the group.
- * @param \stdClass $group The object group.
+ * @param string $lang The language of the course.
+ * @param int $groupid The id of the group.
  * @return array
  */
 
-function group(array $config, string $lang, \stdClass $group): array {
+function group(array $config, string $lang, int $groupid): array {
 
-    $groupurl = $config['app_url'] . '/group/members.php?group=' . $group->id ;
-    $groupname = property_exists($group, 'name') ? $group->name : 'Group';
+    try {
+        $repo = $config['repo'];
+        $group = $repo->read_record_by_id('groups', $groupid);
+        $name = property_exists($group, 'name') ? $group->name : 'Group';
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'group id ' . $groupid;
+    }
+
+    $url = $config['app_url'] . '/group/members.php?group=' . $groupid;
 
     return [
-        'id' => $groupurl,
+        'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/group',
             'name' => [
-                $lang => $groupname,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => 'the group of users',
             ],
         ],
     ];

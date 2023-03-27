@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (courses) activities.
+ * Transformer utility for retrieving courses data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,24 +24,28 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
-
 /**
- * Transformer for retrieving courses.
+ * Transformer utility for retrieving courses data.
  *
  * @param array $config The transformer config settings.
  * @param string $query The string value of the query.
  * @param string $lang The language of the site.
  * @return array
  */
+
 function courses(array $config, string $query, string $lang): array {
 
+    $url = $config['app_url'] .'/course/search.php?q=' . $query . '&areaids=core_course-course';
+
     return [
-        'id' => $config['app_url'] .'/course/search.php?q=' . $query . '&areaids=core_course-course' ,
+        'id' => $url,
             'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
-                $lang => 'List of courses',
+                $lang => 'list of courses',
+            ],
+            'description' => [
+                $lang => 'the list of searched courses',
             ],
         ],
     ];

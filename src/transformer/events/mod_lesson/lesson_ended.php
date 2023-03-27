@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for lesson ended event.
+ * Transformer for lesson ended event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_lesson;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,20 +39,25 @@ function lesson_ended(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
-    $lesson = $repo->read_record_by_id('lesson', $event->objectid);
+    $lessonid = $event->objectid;
     $cmid = $event->contextinstanceid;
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/complete',
+            'id' => 'http://adlnet.gov/expapi/verbs/terminated',
             'display' => [
                 $lang => 'ended'
             ],
         ],
-        'object' => utils\get_activity\lesson($config, $lesson, $lang, $cmid),
+        'object' => utils\get_activity\lesson($config, $lessonid, $lang, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +70,7 @@ function lesson_ended(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://adlnet.gov/expapi/activities/lesson'
                     )
                 ],

@@ -49,7 +49,7 @@ function message_sent(array $config, \stdClass $event): array {
                 $lang => 'sent'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang),
+        'object' => utils\get_activity\message($config, $lang, null, null),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

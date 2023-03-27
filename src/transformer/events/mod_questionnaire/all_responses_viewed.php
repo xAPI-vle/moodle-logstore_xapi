@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the attempt submitted event.
+ * Transformer for all responses viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,10 +24,11 @@
 
 namespace src\transformer\events\mod_questionnaire;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for attempt submitted event.
+ * Transformer for all responses viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,9 +39,14 @@ function all_responses_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
-    $other = unserialize($event->other);
+    $questionnaireid = $event->objectid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -51,7 +57,7 @@ function all_responses_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\questionnaire_report($config, $cmid, $other, $lang),
+        'object' => utils\get_activity\questionnaire_report($config, $cmid, $event->other, $lang, $questionnaireid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

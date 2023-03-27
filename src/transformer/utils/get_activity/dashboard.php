@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (dashboard) activities.
+ * Transformer utility for retrieving dashboard data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,19 +24,24 @@
 
 namespace src\transformer\utils\get_activity;
 
-use stdClass;
-
 /**
- * Transformer utility for retrieving (dashboard) activities.
+ * Transformer utility for retrieving dashboard data.
  *
  * @param array $config The transformer config settings.
- * @param stdClass $user The user object.
- * @param string $lang The language of the dashboard.
+ * @param \stdClass $user The user object.
+ * @param string $lang The language of the site.
  * @return array
  */
-function dashboard(array $config, stdClass $user, string $lang): array {
 
-    $url = $config['app_url'] . '/my/?user=' . $user->id;
+function dashboard(array $config, \stdClass $user, string $lang): array {
+
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $userid = sha1(strval($user->id));
+    } else {
+        $userid = $user->id;
+    }
+
+    $url = $config['app_url'] . '/my/?user=' . $userid;
 
     return [
         'id' => $url,
@@ -44,6 +49,9 @@ function dashboard(array $config, stdClass $user, string $lang): array {
             'type' => 'http://activitystrea.ms/schema/1.0/page',
             'name' => [
                 $lang => 'Dashboard',
+            ],
+            'description' => [
+                $lang => 'customisable page for providing users with details of their progress and upcoming deadlines',
             ],
         ],
     ];

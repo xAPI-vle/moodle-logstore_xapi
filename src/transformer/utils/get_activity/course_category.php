@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving category data.
+ * Transformer utility for retrieving course category data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -26,27 +25,44 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving category data.
+ * Transformer utility for retrieving course category data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $core_course_category The course category object.
- * @param string $lang The course lang.
+ * @param int $categoryid The id of the core course category.
+ * @param string $lang The language of the course.
  * @return array
  */
-function course_category(array $config, \stdClass $core_course_category, string $lang): array {
+function course_category(array $config, int $categoryid, string $lang): array {
 
-    $url = $config['app_url'] . '/course/index.php?categoryid=' . $core_course_category->id;
-    $categoryname = property_exists($core_course_category, 'name') ? $core_course_category->name : 'Category';
+    try {
+        $repo = $config['repo'];
+        $category = $repo->read_record_by_id('course_categories', $categoryid);
+        $name = property_exists($category, 'name') ? $category->name : 'Category';
+        $description = property_exists($category, 'description') ? $category->description : 'description of the category';
+        if (is_null($description) ) {
+            $description = '';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'category id ' . $categoryid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/course/index.php?categoryid=' . $categoryid;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/category',
             'name' => [
-                $lang => $categoryname,
+                $lang => 'course category ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];
-
 }

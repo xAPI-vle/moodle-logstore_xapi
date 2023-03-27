@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving questionnaire response data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,37 +24,73 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving questionnaire response data.
  *
  * @param array $config The transformer config settings.
  * @param int $instance The questionnaire id.
  * @param \stdClass $user The user object.
  * @param array $other The field other of the event.
- * @param string $lang The language of the questionnaire.
+ * @param string $lang The language of the course.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function questionnaire_response(array $config, int $instance, \stdClass $user, array $other, string $lang): array {
+function questionnaire_response(array $config, int $instance, \stdClass $user, array $other, string $lang, int $cmid): array {
+
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $userid = sha1(strval($user->id));
+    } else {
+        $userid = $user->id;
+    }
+
+    if (!$other) {
+        $rid = empty($other->rid) ? '' : $other->rid;
+        $currentgroupid = empty($other->currentgroupid) ? '' : $other->currentgroupid;
+
+    } else {
+        $rid = empty($other['rid']) ? '' : $other['rid'];
+        $currentgroupid = empty($other['currentgroupid']) ? '' : $other['currentgroupid'];
+
+    }
 
     $individualresponse = 1;
     $byresponse = 1;
 
     $url = $config['app_url']
         . '/mod/questionnaire/myreport.php?instance=' . $instance
-        . '&user=' . $user->id
+        . '&user=' . $userid
         . '&action=' . $other['action']
         . '&byresponse=' . $byresponse
         . '&individualresponse=' . $individualresponse
-        . '&rid=' . $other['rid']
-        . '&group=' . $other['currentgroupid'];
+        . '&rid=' . $rid
+        . '&group=' . $currentgroupid;
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the response of the questionnaire';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/page',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
                 $lang => 'Response report',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

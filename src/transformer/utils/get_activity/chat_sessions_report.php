@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (chat sessions report) activities.
+ * Transformer utility for retrieving chat sessions report data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,24 +24,48 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer for chat sessions report activity.
+ * Transformer utility for retrieving chat sessions report data.
  *
  * @param array $config The transformer config settings.
- * @param int $cmid The module id.
+ * @param int $cmid The course module id.
  * @param string $lang The language of the course.
+ * @param int $chatid The id of the chat.
  * @return array
  */
-function chat_sessions_report(array $config, int $cmid, string $lang): array {
+
+function chat_sessions_report(array $config, int $cmid, string $lang, int $chatid): array {
+
+    try {
+        $repo = $config['repo'];
+        $chat = $repo->read_record_by_id('chat', $chatid);
+        $name = property_exists($chat, 'name') ? $chat->name : 'Chat';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the report of the chat session';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'chat id ' . $chatid;
+        $description = 'deleted';
+    }
 
     $url = $config['app_url']. '/mod/chat/report.php?id=' . $cmid;
 
     return [
         'id' => $url,
         'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/page',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Chat sessions report',
+                $lang => 'sessions report of ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

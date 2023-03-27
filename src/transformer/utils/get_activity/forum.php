@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum) activities.
+ * Transformer utility for retrieving forum data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,26 +24,48 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (forum) activities.
+ * Transformer utility for retrieving forum data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the forum.
- * @param \stdClass $forum The forum object.
+ * @param string $lang The language of the course.
+ * @param int $forumid The id of the forum.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function forum(array $config, string $lang, \stdClass $forum): array {
+function forum(array $config, string $lang, int $forumid, int $cmid): array {
 
-    $url = $config['app_url'] . '/mod/forum/view.php?id=' . $forum->id;
-    $forumname = property_exists($forum, 'name') ? $forum->name : 'Forum';
+    try {
+        $repo = $config['repo'];
+        $forum = $repo->read_record_by_id('forum', $forumid);
+        $name = property_exists($forum, 'name') ? $forum->name : 'Forum';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the forum activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'forum id ' . $forumid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/mod/forum/view.php?id=' . $forumid;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/discussion',
             'name' => [
-                $lang => $forumname,
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

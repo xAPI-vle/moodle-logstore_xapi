@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the group member removed event.
+ * Transformer for group member removed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -37,10 +38,14 @@ use src\transformer\utils as utils;
 function group_member_removed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $group = $repo->read_record_by_id('groups', $event->objectid);
-
+    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $instructor = $repo->read_record_by_id('user', $event->userid);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -51,10 +56,11 @@ function group_member_removed(array $config, \stdClass $event): array {
                 $lang => 'has been removed from'
             ],
         ],
-        'object' =>  utils\get_activity\group($config, $lang, $group),
+        'object' => utils\get_activity\group($config, $lang, $event->objectid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
+            'instructor' => utils\get_user($config, $instructor),
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

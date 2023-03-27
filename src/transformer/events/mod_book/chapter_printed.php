@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the book chapter printed event.
+ * Transformer for book chapter printed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,6 +25,7 @@
 
 namespace src\transformer\events\mod_book;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,9 +39,14 @@ function chapter_printed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $chapter = $repo->read_record_by_id('book_chapters', $event->objectid);
-    $moduleid = $event->contextinstanceid;
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $chapterid = $event->objectid;
+    $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -48,10 +54,10 @@ function chapter_printed(array $config, \stdClass $event): array {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/read',
             'display' => [
-                $lang => 'print'
+                $lang => 'printed'
             ],
         ],
-        'object' => utils\get_activity\chapter($config, $chapter, $moduleid, $lang),
+        'object' => utils\get_activity\chapter($config, $chapterid, $cmid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +70,7 @@ function chapter_printed(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://id.tincanapi.com/activitytype/book'
                     ),
                 ],

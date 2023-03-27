@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the tour started event.
+ * Transformer for tour started event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,7 +27,7 @@ namespace src\transformer\events\tool_usertours;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the tour started event.
+ * Transformer for tour started event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,7 +38,7 @@ function tour_started(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $tour = $repo->read_record_by_id('tool_usertours_tours', $event->objectid);
+    $tourid = $event->objectid;
     $lang = $config['source_lang'];
 
     return [[
@@ -49,7 +49,7 @@ function tour_started(array $config, \stdClass $event): array {
                 $lang => 'started'
             ],
         ],
-        'object' => utils\get_activity\tour($config, $tour, $lang),
+        'object' => utils\get_activity\tour($config, $tourid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

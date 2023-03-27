@@ -25,25 +25,41 @@
 
 namespace src\transformer\utils;
 
+use Exception;
+
 /**
  * Transformer utility for retrieving role data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $role The role object.
+ * @param int $roleid The role id.
  * @param string $lang The course lang.
  * @return array
  */
-function get_role(array $config, \stdClass $role, string $lang): array {
+function get_role(array $config, int $roleid, string $lang): array {
 
-    $urlid = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$role->id;
-    $objecttype = 'http://activitystrea.ms/schema/1.0/role';
+    try {
+        $repo = $config['repo'];
+        $role = $repo->read_record_by_id('role', $roleid);
+        $name = $role->shortname.' role';
+        $description = 'the role assigned to the user in the course';
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'assigned role';
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'].'/admin/roles/define.php?action=view&roleid='.$roleid;
+    $type = 'http://activitystrea.ms/schema/1.0/role';
 
     return [
-        'id' => $urlid,
+        'id' => $url,
         'definition' => [
-            'type' => $objecttype,
+            'type' => $type,
             'name' => [
-                $lang => $role->shortname.' role',
+                $lang => $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

@@ -26,6 +26,7 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -39,11 +40,21 @@ function post_created(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $postid = $event->objectid;
+    $cmid = $event->contextinstanceid;
     $other = unserialize($event->other);
-    $discussionid = $other['discussionid'];
-    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $discussionid = (int)$other->discussionid;
+    } else {
+        $discussionid = $other['discussionid'];
+    }
 
     $lang = utils\get_course_lang($course);
 
@@ -55,7 +66,7 @@ function post_created(array $config, \stdClass $event): array {
                 $lang => 'replied to'
             ],
         ],
-        'object' => utils\get_activity\course_discussion($config, $course, $discussion),
+        'object' => utils\get_activity\course_discussion($config, $course, $discussionid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => utils\get_activity\forum_discussion_post_reply($config, $postid)
@@ -68,10 +79,10 @@ function post_created(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid)
+                    utils\get_activity\course_forum($config, $course, $cmid)
                 ],
                 'other' => [
-                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid)
+                    utils\get_activity\forum_discussion_post($config, $discussionid, $postid, $cmid, $lang)
                 ],
                 'category' => [
                     utils\get_activity\source($config),

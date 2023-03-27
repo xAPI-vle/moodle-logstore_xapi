@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for file uploaded event.
+ * Transformer for submission updated event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,25 +24,27 @@
 
 namespace src\transformer\events\assignsubmission_file;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the file uploaded event.
+ * Transformer for the submission updated event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
 
-function submission_updated(array $config, \stdClass $event) {
+function submission_updated(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $assignmentsubmission = $repo->read_record_by_id('assignsubmission_file', $event->objectid);
-    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
-    $cmid = $event->contextinstanceid;
-    $component = $event->component;
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -53,7 +55,7 @@ function submission_updated(array $config, \stdClass $event) {
                 $lang => 'updated'
             ],
         ],
-        'object' => utils\get_activity\assignment_assessable($config, $lang, $cmid, $component),
+        'object' => utils\get_activity\assignment_submission($config, $lang, $event->contextinstanceid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -63,7 +65,9 @@ function submission_updated(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_assignment($config, $cmid, $assignment->name, $lang)
+                    utils\get_activity\course_assignment($config, $lang, $event->contextinstanceid, $event->objectid,
+                        $event->objecttable, null),
+                    utils\get_activity\assignment_assessable($config, $lang, $event->contextinstanceid, $event->component)
                 ],
                 'category' => [
                     utils\get_activity\source($config)

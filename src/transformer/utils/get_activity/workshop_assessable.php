@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (assessable) activities.
+ * Transformer utility for retrieving workshop assessable data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,30 +27,35 @@ namespace src\transformer\utils\get_activity;
 use Exception;
 
 /**
- * Transformer utility for retrieving (assessable) activities.
+ * Transformer utility for retrieving workshop assessable data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the attendance.
- * @param int $assessableid
+ * @param string $lang The language of the assessable.
+ * @param int $assessableid The id of the assessable.
  * @param int $cmid The id of the course module.
  * @return array
  */
 
-function workshop_assessable(array $config, string $lang, int $assessableid, int $cmid) {
+function workshop_assessable(array $config, string $lang, int $assessableid, int $cmid): array {
 
     try {
         $repo = $config['repo'];
         $assessable = $repo->read_record_by_id('workshop_submissions', $assessableid);
         $name = property_exists($assessable, 'title') ? $assessable->title : 'Submission';
-
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the workshop assessable';
+        } else {
+            $description = 'deletion in progress';
+        }
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $name = 'assessable id: ' . $assessableid;
+        $name = 'assessable id ' . $assessableid;
+        $description = 'deleted';
     }
 
-
     $url = $config['app_url'] . '/mod/workshop/submission.php?cmid=' . $cmid . '&id=' . $assessableid;
-
 
     return [
         'id' => $url,
@@ -59,6 +64,10 @@ function workshop_assessable(array $config, string $lang, int $assessableid, int
             'name' => [
                 $lang => $name,
             ],
+            'description' => [
+                $lang => $description,
+            ],
         ],
+
     ];
 }

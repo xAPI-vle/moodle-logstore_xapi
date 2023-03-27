@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for badge viewed event.
+ * Transformer for badge viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -34,14 +34,20 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function badge_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $other = unserialize($event->other);
-    $badgehash = $other['badgehash'];
-    $badgeid = $other['badgeid'];
-    $badge = $repo->read_record_by_id('badge', $badgeid);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $badgehash = (int)$other->badgehash;
+        $badgeid = (int)$other->badgeid;
+    } else {
+        $badgehash = $other['badgehash'];
+        $badgeid = $other['badgeid'];
+    }
     $lang = $config['source_lang'];
 
     return [[
@@ -52,7 +58,7 @@ function badge_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\badge($config, $badge, $badgehash, $lang),
+        'object' => utils\get_activity\badge($config, $badgeid, $badgehash, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

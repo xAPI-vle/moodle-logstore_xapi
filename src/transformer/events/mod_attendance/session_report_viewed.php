@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the session report viewed event.
+ * Transform for session report viewed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_attendance;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,9 +39,13 @@ function session_report_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
-    $other = unserialize($event->other);
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -51,7 +56,7 @@ function session_report_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ]
         ],
-        'object' => utils\get_activity\session_report($config, $cmid, $other, $lang),
+        'object' => utils\get_activity\session_report($config, $cmid, $event->other, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

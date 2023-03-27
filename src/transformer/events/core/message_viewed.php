@@ -27,12 +27,13 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the message viewed event.
+ * Transformer for message viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function message_viewed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
@@ -48,7 +49,7 @@ function message_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\message($config, $lang),
+        'object' => utils\get_activity\message($config, $lang, null, null),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

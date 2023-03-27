@@ -26,6 +26,7 @@
 
 namespace src\transformer\events\mod_scorm;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,8 +39,13 @@ use src\transformer\utils as utils;
 function sco_launched(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $scorm = $repo->read_record_by_id('scorm', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $scormid = $event->objectid;
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -50,7 +56,7 @@ function sco_launched(array $config, \stdClass $event) {
                 $lang => 'launched'
             ],
         ],
-        'object' => utils\get_activity\course_scorm($config, $event->contextinstanceid, $scorm, $lang),
+        'object' => utils\get_activity\course_scorm($config, $event->contextinstanceid, $scormid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

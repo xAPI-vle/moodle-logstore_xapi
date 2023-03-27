@@ -14,11 +14,11 @@
             }
         },
         "object": {
-            "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
+            "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
             "definition": {
-                "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
                 "name": {
-                    "en": "test_quiz_name"
+                    "en": "Attempt"
                 }
             }
         },
@@ -48,11 +48,11 @@
             "contextActivities": {
                 "other": [
                     {
-                        "id": "http:\/\/www.example.org\/mod\/quiz\/attempt.php?attempt=1&cmid=1",
+                        "id": "http:\/\/www.example.org\/mod\/quiz\/view.php?id=1",
                         "definition": {
-                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/attempt",
+                            "type": "http:\/\/adlnet.gov\/expapi\/activities\/assessment",
                             "name": {
-                                "en": "Attempt"
+                                "en": "test_quiz_name"
                             }
                         }
                     }

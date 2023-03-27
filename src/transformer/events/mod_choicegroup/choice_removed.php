@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the choice removed event.
+ * Transformer for choice removed event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_choicegroup;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,8 +39,13 @@ function choice_removed(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $choicegroup = $repo->read_record_by_id('choicegroup', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $choicegroupid = $event->objectid;
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
@@ -51,7 +57,7 @@ function choice_removed(array $config, \stdClass $event): array {
                 $lang => 'removed'
             ],
         ],
-        'object' =>  utils\get_activity\choice($config, $cmid, $lang, null, $choicegroup),
+        'object' => utils\get_activity\choice($config, $cmid, $lang, null, $choicegroupid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +70,7 @@ function choice_removed(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://vocab.xapi.fr/activities/poll'
                     ),
                 ],

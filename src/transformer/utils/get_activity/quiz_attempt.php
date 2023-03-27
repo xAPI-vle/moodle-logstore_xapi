@@ -26,25 +26,43 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use Exception;
 
 /**
  * Transformer utility for retrieving (quiz attempt) activities.
  *
  * @param array $config The transformer config settings.
- * @param string $attemptid The id of the attempt.
- * @param string $cmid The id of the context.
+ * @param int $attemptid The id of the attempt.
+ * @param int $cmid The id of the course module.
  * @return array
  */
-function quiz_attempt(array $config, string $attemptid, string $cmid) {
+function quiz_attempt(array $config, int $attemptid, int $cmid): array {
+
     $lang = $config['source_lang'];
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the attempt of the quiz';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
 
     return [
         'id' => $config['app_url'].'/mod/quiz/attempt.php?attempt='.$attemptid.'&cmid='.$cmid,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [
-                $lang => 'Attempt',
+                $lang => 'attempt',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

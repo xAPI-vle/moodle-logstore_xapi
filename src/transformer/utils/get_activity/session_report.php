@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving session report data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,23 +24,41 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (session report) activities.
+ * Transformer utility for retrieving session report data.
  *
  * @param array $config The transformer config settings.
  * @param string $cmid The id of the course module.
- * @param array $other The field other of the event.
- * @param string $lang The language of the attendance.
+ * @param string $other The field other of the event.
+ * @param string $lang The language of the course.
  * @return array
  */
-function session_report(array $config, string $cmid, array $other, string $lang): array {
 
-    $studentid = empty($other['studentid']) ? '' : $other['studentid'];
-    $mode = empty($other['mode']) ? '' : $other['mode'];
-    $view = empty($other['view']) ? '' : $other['view'];
-    $groupby = empty($other['groupby']) ? '' : $other['groupby'];
-    $sesscourses = empty($other['sesscourses']) ? '' : $other['sesscourses'];
-    $curdate = empty($other['curdate']) ? '' : $other['curdate'];
+function session_report(array $config, string $cmid, string $other, string $lang): array {
+
+    $other = unserialize($other);
+    if (!$other) {
+        $other = json_decode($other);
+        $studentid = empty($other->studentid) ? '' : $other->studentid;
+        $mode = empty($other->mode) ? '' : $other->mode;
+        $view = empty($other->view) ? '' : $other->view;
+        $groupby = empty($other->groupby) ? '' : $other->groupby;
+        $sesscourses = empty($other->sesscourses) ? '' : $other->sesscourses;
+        $curdate = empty($other->curdate) ? '' : $other->curdate;
+    } else {
+        $studentid = empty($other['studentid']) ? '' : $other['studentid'];
+        $mode = empty($other['mode']) ? '' : $other['mode'];
+        $view = empty($other['view']) ? '' : $other['view'];
+        $groupby = empty($other['groupby']) ? '' : $other['groupby'];
+        $sesscourses = empty($other['sesscourses']) ? '' : $other['sesscourses'];
+        $curdate = empty($other['curdate']) ? '' : $other['curdate'];
+    }
+
+    if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
+        $studentid = sha1(strval($studentid));
+    }
 
     $url = $config['app_url'] . '/mod/attendance/view.php?id=' . $cmid;
 
@@ -63,12 +81,29 @@ function session_report(array $config, string $cmid, array $other, string $lang)
         $url = $url . '&curdate=' . $curdate;
     }
 
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the attendance session report';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
+
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Session report',
+                $lang => 'session report',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

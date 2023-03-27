@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the all files downloaded event.
+ * Transformer for all files downloaded event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_folder;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,8 +39,12 @@ function all_files_downloaded(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $folder = $repo->read_record_by_id('folder', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
@@ -51,7 +56,7 @@ function all_files_downloaded(array $config, \stdClass $event): array {
                 $lang => 'downloaded'
             ],
         ],
-        'object' =>  utils\get_activity\folder($config, $lang, $folder, $cmid),
+        'object' => utils\get_activity\folder($config, $lang, $event->objectid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +69,7 @@ function all_files_downloaded(array $config, \stdClass $event): array {
                     utils\get_activity\course_module(
                         $config,
                         $course,
-                        $event->contextinstanceid,
+                        $cmid,
                         'http://activitystrea.ms/schema/1.0/collection'
                     )
                 ],

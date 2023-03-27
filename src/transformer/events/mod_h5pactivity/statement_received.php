@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for statement received event.
+ * Transformer for statement received event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,6 +24,7 @@
 
 namespace src\transformer\events\mod_h5pactivity;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,20 +39,25 @@ function statement_received(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $activity = $repo->read_record_by_id('h5pactivity', $event->objectid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $activityid = $event->objectid;
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
-        return [[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/answered',
+            'id' => 'http://activitystrea.ms/schema/1.0/receive',
             'display' => [
-                $lang => 'answered'
+                $lang => 'received'
             ]
         ],
-        'object' => utils\get_activity\h5p_statement($config, $lang, $activity, $user, $cmid),
+        'object' => utils\get_activity\h5p_statement($config, $lang, $activityid, $user, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

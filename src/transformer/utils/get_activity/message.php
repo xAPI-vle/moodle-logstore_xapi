@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (message) activities.
+ * Transformer utility for retrieving message data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,21 +25,42 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving the message.
+ * Transformer utility for retrieving message data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the message.
- * @param \stdClass|null $chat The chat object.
+ * @param string $lang The language of the course or site.
+ * @param int|null $messageid The id of the message.
+ * @param int|null $cmid The course module id.
  * @return array
  */
-function message(array $config, string $lang, \stdClass $chat=null): array {
 
-    if (is_null($chat)) {
+function message(array $config, string $lang, int $messageid=null, int $cmid=null): array {
+
+    if (is_null($messageid)) {
         $url = $config['app_url'].'/message/index.php';
+        $description = 'the message of the site messaging system';
     } else {
+        try {
+            $repo = $config['repo'];
+            $chatmessage = $repo->read_record_by_id('chat_messages', $messageid);
+            $chatid = $chatmessage->chatid;
+            $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+            $status = $coursemodule->deletioninprogress;
+            if ($status == 0) {
+                $description = 'the message of the chat';
+            } else {
+                $description = 'deletion in progress';
+            }
+        } catch (Exception $e) {
+            // OBJECT_NOT_FOUND.
+            $chatid = 0;
+            $description = 'deleted';
+        }
         global $CFG;
-        $url = $config['app_url'].'/mod/chat/gui_'.$CFG->chat_method.'/index.php'.$chat->id;
+        $url = $config['app_url'].'/mod/chat/gui_'.$CFG->chat_method.'/index.php?id='.$chatid;
     }
 
     return [
@@ -48,6 +69,9 @@ function message(array $config, string $lang, \stdClass $chat=null): array {
             'type' => 'http://id.tincanapi.com/activitytype/chat-message',
             'name' => [
                 $lang => 'Message',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

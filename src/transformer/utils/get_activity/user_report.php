@@ -53,13 +53,16 @@ function user_report(array $config, \stdClass $user, \stdClass $course, string $
             'name' => [
                 $courselang => 'forum posts of '.$fullname,
             ],
+            'description' => [
+                $courselang => 'The report of the posts created by the actor',
+            ],
             'extensions' => [
                 'https://moodle.org/xapi/extensions/user_id' => $userid,
             ],
         ],
     ];
 
-    if ($course->id == "0") {
+    if ($course->id == '0') {
         $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$userid;
     } else {
         $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$userid.'&course='.$course->id;

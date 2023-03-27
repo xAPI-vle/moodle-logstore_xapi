@@ -26,6 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -38,30 +39,44 @@ use src\transformer\utils as utils;
  * @return array
  */
 function course_module(array $config, \stdClass $course, int $cmid, string $xapitype) {
-    $repo = $config['repo'];
-    $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
-    $module = $repo->read_record_by_id('modules', $coursemodule->module);
-    $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
 
-    $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
     $courselang = utils\get_course_lang($course);
-    $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
-    $object = [
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $module = $repo->read_record_by_id('modules', $coursemodule->module);
+        $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
+        $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
+        $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the module ' . $module->name . ' of the course';
+        } else {
+            $description = 'deletion in progress';
+        }
+        if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
+            $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
+            $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
+            $object['definition']['extensions'][$lmsexternalid] = $moduleidnumber;
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+        $coursemoduleurl = $config['app_url'].'/mod/';
+        $instancename = 'not available';
+    }
+
+    return [
         'id' => $coursemoduleurl,
         'definition' => [
             'type' => $xapitype,
             'name' => [
                 $courselang => $instancename,
             ],
+            'description' => [
+                $courselang => $description,
+            ],
         ],
     ];
-
-    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
-        $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
-        $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
-        $object['definition']['extensions'][$lmsexternalid] = $moduleidnumber;
-    }
-
-    return $object;
 }

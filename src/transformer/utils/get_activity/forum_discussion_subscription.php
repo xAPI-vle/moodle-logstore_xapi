@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum discussion subscription) activities.
+ * Transformer utility for retrieving forum discussion subscription data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,27 +24,49 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (forum discussion subscription) activities.
+ * Transformer utility for retrieving forum discussion subscription data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the badge.
+ * @param string $lang The language of the course.
  * @param int $forumid The id of the forum.
- * @param \stdClass $discussion The discussion object.
+ * @param int $discussionid The id of the discussion.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function forum_discussion_subscription(array $config, string $lang, int $forumid, \stdClass $discussion): array {
+function forum_discussion_subscription(array $config, string $lang, int $forumid, int $discussionid, int $cmid): array {
 
-    $url = $config['app_url'] . '/mod/forum/subscribe.php?id=' . $forumid . '&d=' . $discussion->id;
-    $discussionname = property_exists($discussion, 'name') ? $discussion->name : 'Discussion';
+    try {
+        $repo = $config['repo'];
+        $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
+        $name = property_exists($discussion, 'name') ? $discussion->name : 'Discussion';
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the subscription to the forum discussion';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'discussion id ' . $discussionid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/mod/forum/subscribe.php?id=' . $forumid . '&d=' . $discussionid;
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://vocab.xapi.fr/activities/registration',
             'name' => [
-                $lang => $discussionname,
+                $lang => 'discussion ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

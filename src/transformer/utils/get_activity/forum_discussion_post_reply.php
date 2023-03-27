@@ -41,12 +41,11 @@ function forum_discussion_post_reply(array $config, int $postid): string {
     try {
         $repo = $config['repo'];
         $post = $repo->read_record_by_id('forum_posts', $postid);
-        $actualreply = $repo->read_record_by_id('forum_posts', $post->id);
 
-        return utils\get_string_html_removed($actualreply->message);
+        return utils\get_string_html_removed($post->message);
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        return 'post id: ' . $postid;
+        return 'post id ' . $postid;
     }
 }

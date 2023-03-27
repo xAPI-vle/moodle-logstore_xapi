@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (tour) activities.
+ * Transformer utility for retrieving tour data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,26 +25,42 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving tour activities.
+ * Transformer utility for retrieving tour data.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $tour
- * @param string $lang The language of the book.
+ * @param int $tourid The id of the tour.
+ * @param string $lang The language of the tour.
  * @return array
  */
 
-function tour(array $config, \stdClass $tour, string $lang): array {
+function tour(array $config, int $tourid, string $lang): array {
 
-    $url = $config['app_url'] . '/admin/tool/usertours/configure.php?id=' . $tour->id . '&action=viewtour';
-    $name = property_exists($tour, 'name') ? $tour->name : 'Tour';
+    try {
+        $repo = $config['repo'];
+        $tour = $repo->read_record_by_id('tool_usertours_tours', $tourid);
+        $name = property_exists($tour, 'name') ? $tour->name : 'Tour';
+        $description = 'step-by-step guide to various areas of Moodle';
+
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'tour id ' . $tourid;
+        $description = 'deleted';
+    }
+
+    $url = $config['app_url'] . '/admin/tool/usertours/configure.php?id=' . $tourid . '&action=viewtour';
 
     return [
         'id' => $url,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/media',
             'name' => [
-                $lang => $name . ' user tour'
+                $lang => 'tour ' . $name
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

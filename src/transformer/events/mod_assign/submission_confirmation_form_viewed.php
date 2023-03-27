@@ -24,10 +24,11 @@
 
 namespace src\transformer\events\mod_assign;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the submission confirmation form viewed event.
+ * Transformer for submission confirmation form viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -38,11 +39,19 @@ function submission_confirmation_form_viewed(array $config, \stdClass $event): a
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $other = unserialize($event->other);
-    $assignid = $other['assignid'];
-    $assignmentsubmission = $repo->read_record_by_id('assign_submission', $assignid);
-    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $assignid = (int)$other->assignid;
+    } else {
+        $assignid = $other['assignid'];
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -53,7 +62,7 @@ function submission_confirmation_form_viewed(array $config, \stdClass $event): a
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => utils\get_activity\course_assignment($config, $lang, $event->contextinstanceid, null, null, $assignid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -63,6 +72,12 @@ function submission_confirmation_form_viewed(array $config, \stdClass $event): a
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_module(
+                        $config,
+                        $course,
+                        $event->contextinstanceid,
+                        'http://vocab.xapi.fr/activities/assignment'
+                    )
                 ],
                 'category' => [
                     utils\get_activity\source($config)

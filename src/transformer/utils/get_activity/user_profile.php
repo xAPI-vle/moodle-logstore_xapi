@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (user profile) activities.
+ * Transformer utility for retrieving user profile data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,7 +27,7 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (user profile) activities.
+ * Transformer utility for retrieving user profile data.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $user The user object.
@@ -47,11 +47,14 @@ function user_profile(array $config, \stdClass $user, string $lang): array {
     $url = $config['app_url'] . '/user/profile.php?id=' . $userid;
 
     return [
-        'id' =>  $url,
+        'id' => $url,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/user-profile',
             'name' => [
-                $lang => 'Profile of ' . $fullname,
+                $lang => 'profile of ' . $fullname,
+            ],
+            'description' => [
+                $lang => 'The profile page of the actor',
             ],
             'extensions' => [
                 'https://moodle.org/xapi/extensions/user_id' => $userid,

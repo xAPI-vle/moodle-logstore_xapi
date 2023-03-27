@@ -28,40 +28,37 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the role updated event.
+ * Transformer for role updated event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function role_updated(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $role = $repo->read_record_by_id('role', $event->objectid);
-    $instructor = $repo->read_record_by_id('user', $event->userid);
-    $lang = utils\get_course_lang($course);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $roleid = $event->objectid;
+    $lang = $config['source_lang'];
 
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/update',
             'display' => [
-                $lang => 'has been updated'
+                $lang => 'updated'
             ],
         ],
-        'object' => utils\get_role($config, $role, $lang),
+        'object' => utils\get_role($config, $roleid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
-            'instructor' => utils\get_user($config, $instructor),
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (forum assessable) activities.
+ * Transformer utility for retrieving forum assessable data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,17 +24,34 @@
 
 namespace src\transformer\utils\get_activity;
 
+use Exception;
+
 /**
- * Transformer utility for retrieving (forum assessable) activities.
+ * Transformer utility for retrieving forum assessable data.
  *
  * @param array $config The transformer config settings.
- * @param string $lang The language of the attendance.
- * @param int $discussionid
- * @param int $postid
+ * @param string $lang The language of the course.
+ * @param int $discussionid The id of the discussion.
+ * @param int $postid The id of the forum post.
+ * @param int $cmid The course module id.
  * @return array
  */
 
-function forum_assessable(array $config, string $lang, int $discussionid, int $postid) {
+function forum_assessable(array $config, string $lang, int $discussionid, int $postid, int $cmid): array {
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the forum assessable';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted';
+    }
 
     $url = $config['app_url'].'/mod/forum/discuss.php?d=' . $discussionid . '&parent' . $postid;
 
@@ -45,10 +62,9 @@ function forum_assessable(array $config, string $lang, int $discussionid, int $p
             'name' => [
                 $lang => 'Assessable',
             ],
+            'description' => [
+                $lang => $description,
+            ],
         ],
     ];
 }
-
-
-
-

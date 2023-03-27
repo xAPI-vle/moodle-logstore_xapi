@@ -34,11 +34,16 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
+
 function notification_sent(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $notification = $repo->read_record_by_id('notifications', $event->objectid);
+    $userid = $event->userid;
+    if ($userid < 2) {
+        $userid = 1;
+    }
+    $user = $repo->read_record_by_id('user', $userid);
+    $notificationid = $event->objectid;
     $lang = $config['source_lang'];
 
     return [[
@@ -49,7 +54,7 @@ function notification_sent(array $config, \stdClass $event): array {
                 $lang => 'sent'
             ],
         ],
-        'object' => utils\get_activity\notification($config, $notification, $lang),
+        'object' => utils\get_activity\notification($config, $notificationid, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],

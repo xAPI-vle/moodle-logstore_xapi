@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (attendance) activities.
+ * Transformer utility for retrieving attendance data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -24,26 +24,55 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use Exception;
 
 /**
- * Transformer utility for retrieving (attendance) activities.
+ * Transformer utility for retrieving attendance data.
  *
  * @param array $config The transformer config settings.
  * @param string $cmid The id of the course module.
- * @param string $sessionid The id of the session.
- * @param string $grouptype The id of the group type.
- * @param string $lang The language of the attendance.
+ * @param string $other The field other of the event.
+ * @param string $lang The language of the course.
  * @return array
  */
-function attendance(array $config, string $cmid, string $sessionid, string $grouptype, string $lang) {
+
+function attendance(array $config, string $cmid, string $other, string $lang): array {
+
+    $other = unserialize($other);
+    if (!$other) {
+        $other = json_decode($other);
+        $sessionid = (int)$other->sessionid;
+        $grouptype = (int)$other->grouptype;
+    } else {
+        $sessionid = $other['sessionid'];
+        $grouptype = $other['grouptype'];
+    }
+
+    try {
+        $repo = $config['repo'];
+        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+        $status = $coursemodule->deletioninprogress;
+        if ($status == 0) {
+            $description = 'the attendance activity';
+        } else {
+            $description = 'deletion in progress';
+        }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $description = 'deleted ';
+    }
+
+    $url = $config['app_url'] . '/take.php?id=' . $cmid . '&sessionid=' . $sessionid . '&grouptype=' . $grouptype;
 
     return [
-        'id' => $config['app_url'] . '/take.php?id=' . $cmid . '&sessionid=' . $sessionid . '&grouptype=' . $grouptype,
+        'id' => $url,
         'definition' => [
             'type' => 'http://vocab.xapi.fr/activities/registration',
             'name' => [
                 $lang => 'Attendance',
+            ],
+            'description' => [
+                $lang => $description,
             ],
         ],
     ];

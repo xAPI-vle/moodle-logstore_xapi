@@ -25,6 +25,8 @@
 
 namespace src\transformer\utils;
 
+use Exception;
+
 /**
  * Transformer utility for retrieving team members data.
  *
@@ -34,26 +36,40 @@ namespace src\transformer\utils;
  */
 function get_team(array $config, int $cmid): array {
 
-    $repo = $config['repo'];
-    $messages = $repo->read_record_by_id('messages', $cmid);
-    $senderid = $messages->useridfrom;
-    $conversation = $repo->read_record_by_id('message_conversations', $messages->conversationid);
-    $group = $repo->read_record_by_id('groups', $conversation->itemid);
-    $members = $repo->read_records('groups_members', ['groupid' => $group->id]);
-
-    $users = [];
-    foreach ($members as $member){
-        $user = $repo->read_record_by_id('user', $member->userid);
-        if ($member->userid != $senderid) {
-            $users[] = get_user($config, $user);
+    try {
+        $repo = $config['repo'];
+        $messages = $repo->read_record_by_id('messages', $cmid);
+        $senderid = $messages->useridfrom;
+        $conversation = $repo->read_record_by_id('message_conversations', $messages->conversationid);
+        $group = $repo->read_record_by_id('groups', $conversation->itemid);
+        $members = $repo->read_records('groups_members', ['groupid' => $group->id]);
+        $name = $conversation->name;
+        $url = $config['app_url']. '/group/index.php?id=' . $group->courseid .'&group=' . $conversation->itemid;
+        $users = [];
+        foreach ($members as $member) {
+            $user = $repo->read_record_by_id('user', $member->userid);
+            if ($member->userid != $senderid) {
+                $users[] = get_user($config, $user);
+            }
         }
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $name = 'deleted group';
+        $url = $config['app_url'];
+        $users = [[
+            'name' => 'users',
+            'account' => [
+                'homePage' => $config['app_url'],
+                'name' => 'users id',
+            ]],
+        ];
     }
 
     return [
-        'name' => $conversation->name,
+        'name' => $name,
         'account' => [
-            'homePage' => 'http://localhost:8888/moodle39/group/index.php?id=' . $group->courseid .'&group=' . $conversation->itemid,
-            'name' => 'GroupAccount' ,
+            'homePage' => $url,
+            'name' => 'GroupAccount',
         ],
         'objectType' => 'Group',
         'member' => $users

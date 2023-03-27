@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,6 +24,7 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -39,11 +39,22 @@ function discussion_subscription_deleted(array $config, \stdClass $event): array
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
+    $cmid = $event->contextinstanceid;
     $other = unserialize($event->other);
-    $forumid = $other['forumid'];
-    $discussionid = $other['discussion'];
-    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $discussionid = (int)$other->discussion;
+        $forumid = (int)$other->forumid;
+    } else {
+        $discussionid = $other['discussion'];
+        $forumid = $other['forumid'];
+    }
     $lang = utils\get_course_lang($course);
 
     return [[
@@ -54,7 +65,7 @@ function discussion_subscription_deleted(array $config, \stdClass $event): array
                 $lang => 'unsubscribed from'
             ],
         ],
-        'object' => utils\get_activity\forum_discussion_subscription($config, $lang, $forumid, $discussion),
+        'object' => utils\get_activity\forum_discussion_subscription($config, $lang, $forumid, $discussionid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -64,7 +75,7 @@ function discussion_subscription_deleted(array $config, \stdClass $event): array
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
+                    utils\get_activity\course_forum($config, $course, $cmid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

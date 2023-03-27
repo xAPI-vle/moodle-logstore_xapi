@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (course info) activities.
+ * Transformer utility for retrieving course info data.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -27,34 +27,41 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for retrieving the course info.
+ * Transformer utility for retrieving course info data.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
+ * @param string $lang The language of the course.
  * @return array
  */
-function course_info(array $config, \stdClass $course) {
+function course_info(array $config, \stdClass $course, string $lang): array {
 
-    $coursename = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
-    $courselang = utils\get_course_lang($course);
+    $name = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
+    $description = property_exists($course, 'summary') ?
+        utils\get_string_html_removed($course->summary) : 'description of the course';
+    if (is_null($description) ) {
+        $description = '';
+    }
 
     $object = [
-                  'id' => $config['app_url'].'/course/info.php?id='.$course->id,
-                  'definition' => [
-                      'type' => 'http://id.tincanapi.com/activitytype/lms/course',
-                      'name' => [
-                          $courselang => $coursename . ' course info',
-                      ],
-                  ],
-              ];
+        'id' => $config['app_url'].'/course/info.php?id='.$course->id,
+        'definition' => [
+            'type' => 'http://activitystrea.ms/schema/1.0/page',
+            'name' => [
+              $lang => 'course info for the course ' . $name,
+            ],
+            'description' => [
+                $lang => $description,
+            ],
+        ],
+    ];
 
-
-    if (array_key_exists('send_short_course_id', $config)) {
+    if (utils\is_enabled_config($config, 'send_short_course_id')) {
         $lmsshortid = 'https://w3id.org/learning-analytics/learning-management-system/short-id';
         $object['definition']['extensions'][$lmsshortid] = $course->shortname;
     }
 
-    if (array_key_exists('send_course_and_module_idnumber', $config)) {
+    if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
         $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
         $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
         $object['definition']['extensions'][$lmsexternalid] = $courseidnumber;

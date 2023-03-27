@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the readtracking enableb event.
+ * Transform for the read tracking enabled event.
  *
  * @package   logstore_xapi
  * @copyright 2023 Daniela Rotelli <danielle.rotelli@gmail.com>
@@ -25,10 +24,11 @@
 
 namespace src\transformer\events\mod_forum;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for readtracking enableb event.
+ * Transformer for read tracking enabled event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
@@ -39,11 +39,21 @@ function readtracking_enabled(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $other = unserialize($event->other);
-    $forumid = $other['forumid'];
-    $forum = $repo->read_record_by_id('forum', $forumid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
+    $cmid = $event->contextinstanceid;
+    $other = unserialize($event->other);
+    if (!$other) {
+        $other = json_decode($event->other);
+        $forumid = (int)$other->forumid;
+    } else {
+        $forumid = $other['forumid'];
+    }
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -53,7 +63,7 @@ function readtracking_enabled(array $config, \stdClass $event): array {
                 $lang => 'enabled readtracking in'
             ],
         ],
-        'object' => utils\get_activity\forum($config, $lang, $forum),
+        'object' => utils\get_activity\forum($config, $lang, $forumid, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
@@ -63,7 +73,7 @@ function readtracking_enabled(array $config, \stdClass $event): array {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                    utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
+                    utils\get_activity\course_forum($config, $course, $cmid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),
@@ -72,5 +82,3 @@ function readtracking_enabled(array $config, \stdClass $event): array {
         ]
     ]];
 }
-
-

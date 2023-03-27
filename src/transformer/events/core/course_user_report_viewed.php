@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Transform for course user report viewed event.
  *
@@ -26,6 +25,7 @@
 
 namespace src\transformer\events\core;
 
+use Exception;
 use src\transformer\utils as utils;
 
 /**
@@ -35,11 +35,17 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_user_report_viewed(array $config, \stdClass $event): array
-{
+
+function course_user_report_viewed(array $config, \stdClass $event): array {
+
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
+    try {
+        $course = $repo->read_record_by_id('course', $event->courseid);
+    } catch (Exception $e) {
+        // OBJECT_NOT_FOUND.
+        $course = $repo->read_record_by_id('course', 1);
+    }
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -50,7 +56,7 @@ function course_user_report_viewed(array $config, \stdClass $event): array
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\course_user_report($config, $user, $course),
+        'object' => utils\get_activity\course_user_report($config, $user, $course, $lang),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
