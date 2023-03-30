@@ -74,7 +74,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
             'success' => $rightanswer == $responsesummary,
             'completion' => $responsesummary !== '',
             'extensions' => [
-                'http://learninglocker.net/xapi/cmi/choice/response' => utils\get_string_html_removed($responsesummary),
+                'http://learninglocker.net/xapi/cmi/choice/response' => $responsesummary,
             ],
         ],
         'context' => [

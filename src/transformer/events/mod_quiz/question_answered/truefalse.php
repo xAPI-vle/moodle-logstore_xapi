@@ -53,8 +53,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
     $attemptid = $event->objectid;
     $questionid = is_null($question->id) ? 0 : $question->id;
     $name = is_null($question->name) ? '' : $question->name;
-    $questiontext = is_null(utils\get_string_html_removed($question->questiontext)) ?
-        '' : utils\get_string_html_removed($question->questiontext);
+    $questiontext = utils\get_string_html_removed($question->questiontext);
     $responsesummary = is_null($questionattempt->responsesummary) ? '' : $questionattempt->responsesummary;
     $rightanswer = is_null($questionattempt->rightanswer) ? '' : $questionattempt->rightanswer;
 
@@ -81,7 +80,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => utils\get_string_html_removed($responsesummary),
+            'response' => $responsesummary,
             'completion' => $responsesummary !== null,
             'success' => $rightanswer === $responsesummary,
             'extensions' => [

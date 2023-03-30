@@ -57,8 +57,9 @@ function book_chapter(array $config, \stdClass $course, int $chapterid, int $cmi
         }
 
         if (property_exists($chapter, 'content')) {
+            $content = utils\get_string_html_removed($chapter->content);
             $definition['description'] = [
-                $courselang => utils\get_string_html_removed($chapter->content)
+                $courselang => $content
             ];
         }
         $coursemodule = $repo->read_record_by_id('course_modules', $cmid);

@@ -40,8 +40,7 @@ use src\transformer\utils as utils;
 function get_multichoice_definition(array $config, \stdClass $questionattempt,
     \stdClass $question, string $lang, string $interactiontype = 'choice') {
 
-    $questiontext = is_null(utils\get_string_html_removed($question->questiontext)) ? '' :
-        utils\get_string_html_removed($question->questiontext);
+    $questiontext = utils\get_string_html_removed($question->questiontext);
     $name = is_null($question->name) ? '' : $question->name;
 
     if ($config['send_response_choices']) {
@@ -50,10 +49,11 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt,
             'question' => $questionattempt->questionid
         ]);
         $choices = array_map(function ($answer) use ($lang) {
+            $response = utils\get_string_html_removed($answer->answer);
             return [
                 'id' => "$answer->id",
                 'description' => [
-                    $lang => utils\get_string_html_removed($answer->answer)
+                    $lang =>  $response
                 ]
             ];
         }, $answers);

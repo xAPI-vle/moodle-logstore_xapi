@@ -37,11 +37,7 @@ use src\transformer\utils as utils;
 function course_info(array $config, \stdClass $course, string $lang): array {
 
     $name = property_exists($course, 'fullname') ? $course->fullname : 'A Moodle course';
-    $description = property_exists($course, 'summary') ?
-        utils\get_string_html_removed($course->summary) : 'description of the course';
-    if (is_null($description) ) {
-        $description = '';
-    }
+    $description = utils\get_string_html_removed($course->summary);
 
     $object = [
         'id' => $config['app_url'].'/course/info.php?id='.$course->id,

@@ -51,8 +51,7 @@ function shortanswer(array $config, \stdClass $event, \stdClass $questionattempt
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
     $attemptid = $event->objectid;
-    $questiontext = is_null(utils\get_string_html_removed($question->questiontext)) ?
-        '' : utils\get_string_html_removed($question->questiontext);
+    $questiontext = utils\get_string_html_removed($question->questiontext);
     $responsesummary = is_null($questionattempt->responsesummary) ? '' : $questionattempt->responsesummary;
     $name = is_null($question->name) ? '' : $question->name;
     $questionid = is_null($question->id) ? 0 : $question->id;
