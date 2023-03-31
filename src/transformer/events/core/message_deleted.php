@@ -38,8 +38,18 @@ use src\transformer\utils as utils;
 function message_deleted(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $recipient = $repo->read_record_by_id('user', $event->relateduserid);
+    $userid = $event->userid;
+    if ($userid < 2) {
+        $userid = 1;
+    }
+    $user = $repo->read_record_by_id('user', $userid);
+
+    $recipientid = $event->relateduserid;
+    if ($recipientid < 2) {
+        $recipientid = 1;
+    }
+    $recipient = $repo->read_record_by_id('user', $recipientid);
+
     $lang = $config['source_lang'];
 
     return [[

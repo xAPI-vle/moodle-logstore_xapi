@@ -39,7 +39,11 @@ use src\transformer\utils as utils;
 function role_assigned(array $config, \stdClass $event): array {
 
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $userid = $event->relateduserid;
+    if ($userid < 2) {
+        $userid = 1;
+    }
+    $user = $repo->read_record_by_id('user', $userid);
     try {
         $course = $repo->read_record_by_id('course', $event->courseid);
     } catch (Exception $e) {
@@ -47,7 +51,11 @@ function role_assigned(array $config, \stdClass $event): array {
         $course = $repo->read_record_by_id('course', 1);
     }
     $roleid = $event->objectid;
-    $instructor = $repo->read_record_by_id('user', $event->userid);
+    $instructorid = $event->userid;
+    if ($instructorid < 2) {
+        $instructorid = 1;
+    }
+    $instructor = $repo->read_record_by_id('user', $instructorid);
     $lang = utils\get_course_lang($course);
 
     return[[

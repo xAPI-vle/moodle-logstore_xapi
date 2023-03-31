@@ -37,7 +37,11 @@ use src\transformer\utils as utils;
  */
 function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $userid = $event->userid;
+    if ($userid < 2) {
+        $userid = 1;
+    }
+    $user = $repo->read_record_by_id('user', $userid);
     try {
         $course = $repo->read_record_by_id('course', $event->courseid);
     } catch (Exception $e) {
