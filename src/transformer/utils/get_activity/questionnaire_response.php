@@ -32,13 +32,13 @@ use Exception;
  * @param array $config The transformer config settings.
  * @param int $instance The questionnaire id.
  * @param \stdClass $user The user object.
- * @param array $other The field other of the event.
+ * @param string $other The field other of the event.
  * @param string $lang The language of the course.
  * @param int $cmid The course module id.
  * @return array
  */
 
-function questionnaire_response(array $config, int $instance, \stdClass $user, array $other, string $lang, int $cmid): array {
+function questionnaire_response(array $config, int $instance, \stdClass $user, string $other, string $lang, int $cmid): array {
 
     if (array_key_exists('send_pseudo', $config) && $config['send_pseudo']) {
         $userid = sha1(strval($user->id));
@@ -46,6 +46,7 @@ function questionnaire_response(array $config, int $instance, \stdClass $user, a
         $userid = $user->id;
     }
 
+    $other = unserialize($other);
     if (!$other) {
         $rid = empty($other->rid) ? '' : $other->rid;
         $currentgroupid = empty($other->currentgroupid) ? '' : $other->currentgroupid;

@@ -41,7 +41,6 @@ use Exception;
 
 function wiki_page_version(array $config, int $pageid, string $other, string $lang, string $action, int $cmid): array {
 
-    $other = unserialize($other);
     try {
         $repo = $config['repo'];
         $page = $repo->read_record_by_id('wiki_pages', $pageid);
@@ -59,6 +58,7 @@ function wiki_page_version(array $config, int $pageid, string $other, string $la
         $description = 'deleted';
     }
 
+    $other = unserialize($other);
     switch ($action){
         case 'deleted':
             $url = $config['app_url'] . '/mod/wiki/admin.php?pageid=' . $pageid;

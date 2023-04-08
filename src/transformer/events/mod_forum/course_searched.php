@@ -50,7 +50,12 @@ function course_searched(array $config, \stdClass $event): array {
         $course = $repo->read_record_by_id('course', 1);
     }
     $other = unserialize($event->other);
-    $term = $other['searchterm'];
+    if (!$other) {
+        $other = json_decode($event->other);
+        $term = (int)$other->searchterm;
+    } else {
+        $term = $other['searchterm'];
+    }
     $lang = utils\get_course_lang($course);
 
     return [[

@@ -60,7 +60,7 @@ function post_updated(array $config, \stdClass $event): array {
         $discussionid = $other['discussionid'];
     }
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/update',

@@ -57,10 +57,10 @@ function user_enrolment_updated(array $config, \stdClass $event): array {
     $instructor = $repo->read_record_by_id('user', $instructorid);
     $lang = utils\get_course_lang($course);
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => ' http://activitystrea.ms/schema/1.0/update',
+            'id' => 'http://activitystrea.ms/schema/1.0/update',
             'display' => [
                 $lang => 'updated enrollment to'
             ],

@@ -40,7 +40,6 @@ use Exception;
 
 function wiki_page_diff(array $config, int $pageid, string $other, string $lang, int $cmid): array {
 
-    $other = unserialize($other);
     try {
         $repo = $config['repo'];
         $page = $repo->read_record_by_id('wiki_pages', $pageid);
@@ -58,6 +57,7 @@ function wiki_page_diff(array $config, int $pageid, string $other, string $lang,
         $description = 'deleted';
     }
 
+    $other = unserialize($other);
     if (!$other) {
         $other = json_decode($other);
         $comparewith = empty($other->comparewith) ? '' : $other->comparewith;

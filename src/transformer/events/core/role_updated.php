@@ -46,7 +46,7 @@ function role_updated(array $config, \stdClass $event): array {
     $roleid = $event->objectid;
     $lang = $config['source_lang'];
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/update',

@@ -49,7 +49,6 @@ function response_viewed(array $config, \stdClass $event): array {
         // OBJECT_NOT_FOUND.
         $course = $repo->read_record_by_id('course', 1);
     }
-    $instance = $event->objectid;
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
@@ -61,7 +60,7 @@ function response_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => utils\get_activity\questionnaire_response($config, $instance, $user, $event->other, $lang, $cmid),
+        'object' => utils\get_activity\questionnaire_response($config, $event->objectid, $user, $event->other, $lang, $cmid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
