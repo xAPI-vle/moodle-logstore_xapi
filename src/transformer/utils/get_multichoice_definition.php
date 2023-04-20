@@ -53,7 +53,7 @@ function get_multichoice_definition(array $config, \stdClass $questionattempt,
             return [
                 'id' => "$answer->id",
                 'description' => [
-                    $lang =>  $response
+                    $lang => $response
                 ]
             ];
         }, $answers);

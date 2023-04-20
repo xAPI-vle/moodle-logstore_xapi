@@ -18,9 +18,7 @@
  * Transformer utility for retrieving (quiz attempt) activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniela Rotelli <danielle.rotelli@gmail.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -33,31 +31,28 @@ use Exception;
  *
  * @param array $config The transformer config settings.
  * @param int $attemptid The id of the attempt.
- * @param int $cmid The id of the course module.
  * @return array
  */
-function quiz_attempt(array $config, int $attemptid, int $cmid): array {
+function quiz_attempt_review(array $config, int $attemptid): array {
 
     $lang = $config['source_lang'];
 
     try {
         $repo = $config['repo'];
         $attempt = $repo->read_record_by_id('quiz_attempts', $attemptid);
-        $name = 'attempt' . $attempt->state;
-        $description = 'the attempt of the quiz';
+        $description = 'review of the attempt ' . $attemptid . ' of the quiz ' . $attempt->quiz;
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $name = 'attempt';
         $description = 'deleted';
     }
 
     return [
-        'id' => $config['app_url'].'/mod/quiz/attempt.php?attempt='.$attemptid.'&cmid='.$cmid,
+        'id' => $config['app_url'] . '/mod/quiz/review.php?attempt=' . $attemptid,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [
-                $lang => $name,
+                $lang => 'attempt',
             ],
             'description' => [
                 $lang => $description,

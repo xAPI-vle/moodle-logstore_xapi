@@ -53,16 +53,6 @@ function attempt_summary_viewed(array $config, \stdClass $event): array {
     $cmid = $event->contextinstanceid;
     $lang = utils\get_course_lang($course);
 
-    $object = [
-        'id' => $config['app_url'] . '/mod/quiz/summary.php?attempt=' . $attemptid,
-        'definition' => [
-            'type' => 'http://activitystrea.ms/schema/1.0/review',
-            'name' => [
-                $lang => 'attempt summary'
-            ]
-        ]
-    ];
-
     // Set JISC specific activity type.
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
         $object = utils\get_activity\course_quiz($config, $course, $cmid);
@@ -76,20 +66,18 @@ function attempt_summary_viewed(array $config, \stdClass $event): array {
                 $lang => 'viewed'
             ],
         ],
-        'object' => $object,
+        'object' => utils\get_activity\quiz_attempt_summary($config, $attemptid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\quiz_attempt($config, $attemptid, $cmid),
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
                     utils\get_activity\course_quiz($config, $course, $cmid),
+                    utils\get_activity\quiz_attempt($config, $attemptid, $cmid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

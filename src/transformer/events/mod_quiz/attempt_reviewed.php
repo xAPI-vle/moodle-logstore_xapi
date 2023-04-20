@@ -54,16 +54,6 @@ function attempt_reviewed(array $config, \stdClass $event) {
     $attemptid = $event->objectid;
     $lang = utils\get_course_lang($course);
 
-    $object = [
-        'id' => $config['app_url'] . '/mod/quiz/review.php?attempt=' . $attemptid,
-        'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/attempt',
-            'name' => [
-                $lang => 'Attempt'
-            ]
-        ]
-    ];
-
     // Set JISC specific activity type.
     if (utils\is_enabled_config($config, 'send_jisc_data')) {
         $object = utils\get_activity\course_quiz($config, $course, $cmid);
@@ -72,7 +62,7 @@ function attempt_reviewed(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_verb('reviewed', $config, $lang),
-        'object' => $object,
+        'object' => utils\get_activity\quiz_attempt_review($config, $attemptid),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'instructor' => utils\get_user($config, $instructor),
