@@ -98,12 +98,10 @@ function attempt_submitted(array $config, \stdClass $event): array {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'other' => [
-                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
-                ],
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
+                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
                 ],
                 'category' => [
                     utils\get_activity\source($config),

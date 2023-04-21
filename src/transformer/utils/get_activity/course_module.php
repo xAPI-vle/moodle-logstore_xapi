@@ -38,23 +38,28 @@ use src\transformer\utils as utils;
  * @param string $xapitype The type of xAPI object.
  * @return array
  */
+
 function course_module(array $config, \stdClass $course, int $cmid, string $xapitype) {
 
-    $courselang = utils\get_course_lang($course);
+    $lang = utils\get_course_lang($course);
 
     try {
         $repo = $config['repo'];
         $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
         $module = $repo->read_record_by_id('modules', $coursemodule->module);
         $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
-        $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
-        $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
+        $url = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
+        $name = property_exists($instance, 'name') ? $instance->name : $module->name;
+        if (is_null($name)) {
+            $name = 'Module name';
+        }
         $status = $coursemodule->deletioninprogress;
         if ($status == 0) {
             $description = 'the module ' . $module->name . ' of the course';
         } else {
             $description = 'deletion in progress';
         }
+
         if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
             $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
             $lmsexternalid = 'https://w3id.org/learning-analytics/learning-management-system/external-id';
@@ -63,20 +68,22 @@ function course_module(array $config, \stdClass $course, int $cmid, string $xapi
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
         $description = 'deleted';
-        $coursemoduleurl = $config['app_url'].'/mod/';
-        $instancename = 'not available';
+        $url = $config['app_url'].'/mod/';
+        $name = 'not available';
     }
 
-    return [
-        'id' => $coursemoduleurl,
+    $object = [
+        'id' => $url,
         'definition' => [
             'type' => $xapitype,
             'name' => [
-                $courselang => $instancename,
+                $lang => $name,
             ],
             'description' => [
-                $courselang => $description,
+                $lang => $description,
             ],
         ],
     ];
+
+    return $object;
 }

@@ -43,12 +43,10 @@ function quiz_attempt(array $config, int $attemptid, int $cmid): array {
     try {
         $repo = $config['repo'];
         $attempt = $repo->read_record_by_id('quiz_attempts', $attemptid);
-        $name = 'attempt' . $attempt->state;
-        $description = 'the attempt of the quiz';
+        $description = 'the attempt ' . $attempt->uniqueid .' of the quiz has been ' . $attempt->state;
 
     } catch (Exception $e) {
         // OBJECT_NOT_FOUND.
-        $name = 'attempt';
         $description = 'deleted';
     }
 
@@ -57,11 +55,12 @@ function quiz_attempt(array $config, int $attemptid, int $cmid): array {
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [
-                $lang => $name,
+                $lang => 'attempt',
             ],
             'description' => [
                 $lang => $description,
             ],
         ],
     ];
+
 }
