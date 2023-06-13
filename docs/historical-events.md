@@ -20,7 +20,7 @@ WHERE L.userid IN (
   FROM mdl_enrol  AS E
          INNER JOIN mdl_user_enrolments AS UE
                     ON E.id = UE.enrolid
-  WHERE ( E.courseid = 192 OR E.courseid = 196 OR E.courseid = 200 OR E.courseid = 2080 OR E.courseid = 2314 OR E.courseid = 3985) AND L.userid>1
+  WHERE ( E.courseid = 1 OR E.courseid = 2 OR E.courseid = 3 OR E.courseid = 4 OR E.courseid = 5 OR E.courseid = 6) AND L.userid>1
     AND L.eventname IN (
                         '\\core\\event\\badge_listing_viewed',
                         '\\core\\event\\badge_viewed',
