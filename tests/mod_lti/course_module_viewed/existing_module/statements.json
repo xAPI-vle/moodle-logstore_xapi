@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/lti\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/module",
+                "type": "http:\/\/adlnet.gov\/expapi\/activities\/module",
                 "name": {
                     "en": "test_name"
                 }

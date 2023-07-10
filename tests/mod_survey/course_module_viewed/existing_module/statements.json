@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/survey\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/survey",
+                "type": "https:\/\/xapi.org.au\/contentprofile\/activitytype\/survey",
                 "name": {
                     "en": "test_name"
                 }

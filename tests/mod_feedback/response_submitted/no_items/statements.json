@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/submit",
+            "id": "https:\/\/w3id.org\/xapi\/dod-isd\/verbs\/submitted",
             "display": {
                 "en": "submitted"
             }
@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/feedback\/view.php?id=1",
             "definition": {
-                "type": "http:\/\/id.tincanapi.com\/activitytype\/survey",
+                "type": "https:\/\/xapi.org.au\/contentprofile\/activitytype\/survey",
                 "name": {
                     "en": "test_feedback_name"
                 }
