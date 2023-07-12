@@ -96,7 +96,7 @@ function get_event_function_map() {
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
     ];
-    if(PHPUNIT_TEST) {
+    if(PHPUNIT_TEST && empty($GLOBALS['PHPUNIT_XAPI_TESTCASE'])) {
         /**
          * In unit test, if test_adminroot_cache_reset test is run before core_event_deprecated_testcase
          * The report_eventlist_list_generator will load course_module_instances_list_viewed abstract class
