@@ -54,7 +54,7 @@ function load(array $config, array $events) {
 
         //don't send empty statement arrays GVM 25-01-21
         // Raise a exception since it should be logged as a failed event.
-        if(count($statements) > 0) {
+        if (count($statements) == 0) {
             throw new \Exception('The given $statements array is empty.');
         }
 

@@ -46,8 +46,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      *
      * @return void
      */
-    protected function setUp(): void
-    {
+    protected function setUp(): void {
         /**
          * In src/transformer/get_event_function_map.php we created a fix for core_event_deprecated_testcase. This causes the
          * xapi_test_case to fail. The fix for WR322566 constant is applied to non xapi_test_case tests.
@@ -63,8 +62,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      *
      * @return void
      */
-    protected function tearDown(): void
-    {
+    protected function tearDown(): void {
         unset($GLOBALS['PHPUNIT_XAPI_TESTCASE']);
     }
 

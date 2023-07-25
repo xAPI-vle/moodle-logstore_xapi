@@ -100,8 +100,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      *
      * @return void
      */
-    protected function tearDown(): void
-    {
+    protected function tearDown(): void {
         unset($GLOBALS['PHPUNIT_XAPI_TESTCASE']);
     }
 
