@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "https:\/\/w3id.org\/xapi\/dod-isd\/verbs\/submitted",
+            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/submit",
             "display": {
                 "en": "submitted"
             }
@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/mod\/feedback\/view.php?id=1",
             "definition": {
-                "type": "https:\/\/xapi.org.au\/contentprofile\/activitytype\/survey",
+                "type": "http:\/\/id.tincanapi.com\/activitytype\/survey",
                 "name": {
                     "en": "test_feedback_name"
                 }
@@ -132,7 +132,7 @@
                     {
                         "id": "http:\/\/www.example.org\/mod\/feedback\/view.php?id=1",
                         "definition": {
-                            "type": "https:\/\/xapi.org.au\/contentprofile\/activitytype\/survey",
+                            "type": "http:\/\/id.tincanapi.com\/activitytype\/survey",
                             "name": {
                                 "en": "test_feedback_name"
                             }

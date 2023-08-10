@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "https:\/\/w3id.org\/xapi\/dod-isd\/verbs\/received",
+            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/receive",
             "display": {
                 "en": "received"
             }
@@ -16,7 +16,7 @@
         "object": {
             "id": "http:\/\/www.example.org\/review.php?attempt=1",
             "definition": {
-                "type": "https:\/\/id.tincanapi.com\/verb\/reviewed",
+                "type": "http:\/\/activitystrea.ms\/schema\/1.0\/review",
                 "name": {
                     "en": "review"
                 }

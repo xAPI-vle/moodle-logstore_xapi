@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "https:\/\/xapi.org.au\/contentprofile\/verb\/commenced",
+            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/start",
             "display": {
                 "en": "started"
             }

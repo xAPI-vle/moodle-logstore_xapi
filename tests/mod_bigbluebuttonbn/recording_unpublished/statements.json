@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "https:\/\/xapi.org.au\/contentprofile\/verb\/withdrew",
+            "id": "http:\/\/activitystrea.ms\/schema\/1.0\/retract",
             "display": {
                 "en": "retracted"
             }

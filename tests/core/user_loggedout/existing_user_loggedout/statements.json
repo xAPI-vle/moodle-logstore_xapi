@@ -8,7 +8,7 @@
             }
         },
         "verb": {
-            "id": "https:\/\/w3id.org\/xapi\/adl\/verbs\/logged-out",
+            "id": "https:\/\/brindlewaye.com\/xAPITerms\/verbs\/loggedout\/",
             "display": {
                 "en": "logged out of"
             }
