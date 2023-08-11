@@ -41,7 +41,7 @@ function get_user(array $config, \stdClass $user) {
     $toReturn = [];
 
     if (PHPUNIT_TEST) {
-        // OS-1095: Send is tested and should be sent in unit tests.
+        // Send is tested and should be sent in unit tests.
         $config['send_name'] = true;
     }
 
