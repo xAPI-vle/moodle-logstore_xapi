@@ -43,6 +43,24 @@ class activity_management_viewed_test extends \logstore_xapi\xapi_test_case {
     }
 
     /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "mod";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "bigbluebuttonbn";
+    }
+
+    /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
      * @covers ::activity_management_viewed

@@ -43,6 +43,24 @@ class existing_user_enrolled_test extends \logstore_xapi\xapi_test_case {
     }
 
     /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "core";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "user";
+    }
+
+    /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
      * @covers ::user_enrolment_created
