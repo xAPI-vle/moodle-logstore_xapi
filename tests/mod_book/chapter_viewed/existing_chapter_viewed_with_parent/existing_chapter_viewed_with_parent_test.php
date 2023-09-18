@@ -43,6 +43,24 @@ class existing_chapter_viewed_with_parent_test extends \logstore_xapi\xapi_test_
     }
 
     /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "mod";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "book";
+    }
+
+    /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
      * @covers ::chapter_viewed

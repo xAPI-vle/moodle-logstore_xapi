@@ -35,4 +35,22 @@ class test extends \logstore_xapi\xapi_test_case {
     protected function get_test_dir() {
         return __DIR__;
     }
+
+    /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "totara";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "program";
+    }
 }

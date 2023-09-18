@@ -43,6 +43,24 @@ class send_jisc_data_test extends \logstore_xapi\xapi_test_case {
     }
 
     /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "core";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "jisc";
+    }
+
+    /**
      * Retrieve transformer configuration.
      *
      * @return void

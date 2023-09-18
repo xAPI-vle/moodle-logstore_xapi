@@ -43,6 +43,24 @@ class multichoiceset_withchoices_test extends \logstore_xapi\xapi_test_case {
     }
 
     /**
+     * Retrieve the plugin type being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_type() {
+        return "mod";
+    }
+
+    /**
+     * Retrieve the plugin name being tested.
+     *
+     * @return string
+     */
+    protected function get_plugin_name() {
+        return "quiz";
+    }
+
+    /**
      * Retrieve transformer configuration.
      *
      * @return string

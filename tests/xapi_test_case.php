@@ -42,6 +42,16 @@ abstract class xapi_test_case extends \advanced_testcase {
     abstract protected function get_test_dir();
 
     /**
+     * Retrieve the plugin type being tested.
+     */
+    abstract protected function get_plugin_type();
+
+    /**
+     * Retrieve the plugin name being tested.
+     */
+    abstract protected function get_plugin_name();
+
+    /**
      * Retrieve the test data from data.json.
      *
      * @return object
@@ -151,8 +161,18 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return void
      */
     private function assert_expected_statements(array $statements) {
-        $expectedstatements = $this->get_expected_statements();
-        $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);
-        $this->assertEquals($expectedstatements, $actualstatements);
+
+        // Skip the test if the plugin is not installed.
+        $pluginname = $this->get_plugin_name();
+        $plugintype = $this->get_plugin_type();
+        $plugins = \core_plugin_manager::instance()->get_installed_plugins($plugintype);
+
+        if (array_key_exists($pluginname, $plugins) || $plugintype == 'core') {
+            $expectedstatements = $this->get_expected_statements();
+            $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);
+            $this->assertEquals($expectedstatements, $actualstatements);
+        } else {
+            $this->markTestSkipped('Plugin ' . $pluginname . ' not installed, skipping');
+        }
     }
 }
