@@ -32,7 +32,7 @@ git clone git@github.com:yetanalytics/moodle-logstore.git xapi
 ```
 
 #### Clone Docker Support
-Now we are going to clone another repo, a specialized Yet version of the `moodlehq/moodle-docker` docker support repo.
+Now we are going to clone another repo, and this time it can go wherever you want. It is a specialized Yet version of the `moodlehq/moodle-docker` docker support repo.
 
 `git clone git@github.com:yetanalytics/moodle-docker.git [Docker Support Dir]`
 
@@ -55,6 +55,8 @@ bin/moodle-docker-compose up -d
 # Wait for DB to come up. This does nothing but will just run until Moodle is ready then terminate itself letting you know you are good.
 bin/moodle-docker-wait-for-db
 ```
+
+For `[Moodle Src Dir]` I would recommend using the absolute path.
 
 This starts all the associated services including the LRS. When you eventually want to shut these down, it's just:
 
@@ -90,6 +92,7 @@ Now we need to do a few things in moodle to get the xAPI Logstore running.
 - After it's enabled, click `Settings` on that row
 - Configure the following settings and click Save:
 ![](xapi-config.png)
+Make sure to uncheck "Send statements by scheduled task?" because it relies on a cron that does not seem to be running.
 
 *Note: * I disabled batching in above config so that its real-time. This is BAD for real deployments but helpful for us. Also you'll note the LRS hostname is the alias from the docker-compose in our custom moodle-docker config. It should work as-is.
 

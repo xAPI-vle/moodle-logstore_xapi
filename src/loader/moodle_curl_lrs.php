@@ -59,6 +59,7 @@ function load(array $config, array $events) {
             throw new \Exception('JSON encode error: '.json_last_error_msg());
         }
 
+        //Old Client Code
         /*$request = new \curl();
         print_r($url);
         $responsetext = $request->post($url, $postdata, [
@@ -85,9 +86,6 @@ function load(array $config, array $events) {
 
         $responsetext = curl_exec($request);
         $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
-
-        print_r($responsetext);
-        print_r($responsecode);
 
         if ($responsecode !== 200) {
             throw new \Exception($responsetext, $responsecode);
