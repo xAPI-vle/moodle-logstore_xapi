@@ -75,7 +75,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return string|false
      */
     protected function get_expected_statements() {
-        return file_get_contents($this->get_test_dir().'/statements.json');
+        return rtrim(file_get_contents($this->get_test_dir().'/statements.json'));
     }
 
     /**
