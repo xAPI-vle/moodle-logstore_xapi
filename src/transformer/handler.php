@@ -21,10 +21,13 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer;
+
+use src\transformer\utils as utils;
 
 /**
  * Generic handler for the transformer.
@@ -45,7 +48,11 @@ function handler(array $config, array $events) {
                 $eventconfig = array_merge([
                     'event_function' => $eventfunction,
                 ], $config);
-                $eventstatements = $eventfunction($eventconfig, $eventobj);
+                $eventstatements = utils\apply_global_xforms(
+                    $eventconfig,
+                    $eventobj,
+                    $eventfunction($eventconfig, $eventobj)
+                );
             } else {
                 $eventstatements = [];
             }

@@ -32,6 +32,7 @@ use \Locker\XApi\Statement as LockerStatement;
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class xapi_test_case extends \advanced_testcase {
@@ -66,7 +67,14 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return object
      */
     protected function get_event() {
-        return json_decode(file_get_contents($this->get_test_dir().'/event.json'));
+        // TODO: only pull this once
+        // get common event fields
+        global $CFG;
+        $commonEvent = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/event.json'));
+        // get this event
+        $event = json_decode(file_get_contents($this->get_test_dir().'/event.json'));
+        // merge and return
+        return $this->deepMergeObjects($event, $commonEvent);
     }
 
     /**
@@ -75,7 +83,15 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return string|false
      */
     protected function get_expected_statements() {
-        return rtrim(file_get_contents($this->get_test_dir().'/statements.json'));
+        // TODO: only pull this once
+        // Get common statement fields
+        global $CFG;
+        $commonStatement = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/statement.json'));
+        $expectedStatements = array_map(function ($statement) use ($commonStatement) {
+            // add common expectations for all statements
+            return $this->deepMergeObjects($statement, $commonStatement);
+        }, json_decode(file_get_contents($this->get_test_dir().'/statements.json')));
+        return json_encode($expectedStatements, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -174,5 +190,19 @@ abstract class xapi_test_case extends \advanced_testcase {
         } else {
             $this->markTestSkipped('Plugin ' . $pluginname . ' not installed, skipping');
         }
+    }
+    private function deepMergeObjects($obj1, $obj2) {
+        $newObject = clone $obj1; // Clone the first object
+
+        foreach ($obj2 as $property => $value) {
+            // Check if both properties are objects and merge recursively
+            if (isset($newObject->$property) && is_object($newObject->$property) && is_object($value)) {
+                $newObject->$property = $this->deepMergeObjects($newObject->$property, $value);
+            } else {
+                // Otherwise, overwrite the property
+                $newObject->$property = $value;
+            }
+        }
+        return $newObject;
     }
 }
