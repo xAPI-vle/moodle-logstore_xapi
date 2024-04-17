@@ -58,7 +58,6 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => utils\get_multichoice_definition($config, $questionattempt, $question, $lang),
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => implode ('[,]', $selections),
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,

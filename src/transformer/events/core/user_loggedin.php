@@ -44,7 +44,6 @@ function user_loggedin(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_verb('loggedin', $config, $lang),
         'object' => utils\get_activity\site($config),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,

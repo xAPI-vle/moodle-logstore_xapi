@@ -67,7 +67,6 @@ function take_attendance(array $config, \stdClass $event) {
                         $event->contextinstanceid,
                         'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion'
                     ),
-                    'timestamp' => utils\get_event_timestamp($event),
                     'result' => [
                         'duration' => "PT".(string) $sessionduration."S",
                         'completion' => $currentstatus->statuscode === 100,

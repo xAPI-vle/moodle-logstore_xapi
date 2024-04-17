@@ -55,7 +55,6 @@ function cancel_booking(array $config, \stdClass $event) {
             $event->contextinstanceid,
             'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion'
         ),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,

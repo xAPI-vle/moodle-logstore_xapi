@@ -55,7 +55,6 @@ function post_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\course_discussion($config, $course, $discussion),
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => utils\get_activity\forum_discussion_post_reply($config, $post)
         ],

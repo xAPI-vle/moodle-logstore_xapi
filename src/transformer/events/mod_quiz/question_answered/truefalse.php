@@ -63,7 +63,6 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
                 'interactionType' => 'true-false',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => utils\get_string_html_removed($questionattempt->responsesummary),
             'completion' => $questionattempt->responsesummary !== null,

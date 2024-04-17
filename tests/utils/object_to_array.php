@@ -15,32 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Apply global transformations to statements.
+ * Utility for converting nested objects to arrays.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\utils;
+namespace TestUtils;
 
 /**
- * Given the config, source event and statements, apply global transformations.
+ * Given a deeply nested object representing JSON, make it an array
  *
- * @param array $config configuration array.
- * @param \stdClass $event original event
- * @param array $statements generated xAPI statements.
+ * @param \stdClass $data the object
  * @return array
  */
-function apply_global_xforms(array $config, \stdClass $event, array $statements) {
-    return array_map(function ($statement) use ($config, $event) {
-        $defaultStatement = [
-            'context' => [
-                'registration' => stringToUuidV5($config['session_id']),
-            ],
-            'timestamp' => get_event_timestamp($event),
-        ];
-        // Merge event output into defaults
-        return deep_merge_arrays($defaultStatement, $statement);
-    }, $statements);
+function objectToArray($data) {
+    // If the data is an object, convert it into an array
+    if ($data instanceof \stdClass) {
+        $data = (array)$data;
+    }
+
+    // If the data is an array, apply the function recursively to each element
+    if (is_array($data)) {
+        foreach ($data as $key => $value) {
+            $data[$key] = objectToArray($value); // Recursive call
+        }
+    }
+    return $data;
 }

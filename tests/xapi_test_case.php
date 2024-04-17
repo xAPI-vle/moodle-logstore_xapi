@@ -23,7 +23,12 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/vendor/autoload.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/src/autoload.php');
 
+foreach (glob($CFG->dirroot . '/admin/tool/log/store/xapi/tests/utils/*.php') as $filename) {
+    require_once($filename);
+}
+
 use \Locker\XApi\Statement as LockerStatement;
+use TestUtils as utils;
 
 /**
  * Default test cases for the plugin.
@@ -74,24 +79,23 @@ abstract class xapi_test_case extends \advanced_testcase {
         // get this event
         $event = json_decode(file_get_contents($this->get_test_dir().'/event.json'));
         // merge and return
-        return $this->deepMergeObjects($event, $commonEvent);
+        return utils\deep_merge_objects($event, $commonEvent);
     }
 
     /**
      * Retrieve the expected statement from statements.json.
      *
-     * @return string|false
+     * @return array
      */
     protected function get_expected_statements() {
         // TODO: only pull this once
         // Get common statement fields
         global $CFG;
         $commonStatement = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/statement.json'));
-        $expectedStatements = array_map(function ($statement) use ($commonStatement) {
+        return array_map(function ($statement) use ($commonStatement) {
             // add common expectations for all statements
-            return $this->deepMergeObjects($statement, $commonStatement);
+            return utils\deep_merge_objects($statement, $commonStatement);
         }, json_decode(file_get_contents($this->get_test_dir().'/statements.json')));
-        return json_encode($expectedStatements, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -185,24 +189,12 @@ abstract class xapi_test_case extends \advanced_testcase {
 
         if (array_key_exists($pluginname, $plugins) || $plugintype == 'core') {
             $expectedstatements = $this->get_expected_statements();
-            $actualstatements = json_encode($statements, JSON_PRETTY_PRINT);
-            $this->assertEquals($expectedstatements, $actualstatements);
+            $this->assertEquals(
+                utils\objectToArray($expectedstatements),
+                utils\objectToArray($statements)
+            );
         } else {
             $this->markTestSkipped('Plugin ' . $pluginname . ' not installed, skipping');
         }
-    }
-    private function deepMergeObjects($obj1, $obj2) {
-        $newObject = clone $obj1; // Clone the first object
-
-        foreach ($obj2 as $property => $value) {
-            // Check if both properties are objects and merge recursively
-            if (isset($newObject->$property) && is_object($newObject->$property) && is_object($value)) {
-                $newObject->$property = $this->deepMergeObjects($newObject->$property, $value);
-            } else {
-                // Otherwise, overwrite the property
-                $newObject->$property = $value;
-            }
-        }
-        return $newObject;
     }
 }

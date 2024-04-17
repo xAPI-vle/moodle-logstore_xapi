@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for generating xAPI registration
+ * Utility for deep-merging arrays
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
@@ -24,16 +24,23 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils as utils;
-
 /**
- * Return the requested verb with details.
+ * Merge two arrays including deep assignments.
  *
- * @param array $config configuration array.
- * @param array $statement xAPI statement.
- * @return string
+ * @param array $arr1 The first array
+ * @param array $arr2 The second array
+ * @return array
  */
-function add_context_registration(array $config, array $statement) {
-    $statement['context']['registration'] = utils\stringToUuidV5($config['session_id']);
-    return $statement;
+function deep_merge_arrays($arr1, $arr2) {
+    // Merge the second array into the first one
+    foreach ($arr2 as $key => $value) {
+        // If the key exists in the first array and both values are arrays, recurse
+        if (array_key_exists($key, $arr1) && is_array($arr1[$key]) && is_array($value)) {
+            $arr1[$key] = deep_merge_arrays($arr1[$key], $value);
+        } else {
+            // Otherwise, use the second array's value (overwrites or sets new key)
+            $arr1[$key] = $value;
+        }
+    }
+    return $arr1;
 }

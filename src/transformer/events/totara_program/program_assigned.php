@@ -50,7 +50,6 @@ function program_assigned(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\totara\program($config, $program, $lang),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,

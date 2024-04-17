@@ -75,7 +75,6 @@ function matching(array $config, \stdClass $event, \stdClass $questionattempt, \
                 'interactionType' => 'matching',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== null,

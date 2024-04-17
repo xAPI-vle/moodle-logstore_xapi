@@ -62,7 +62,6 @@ function textfield(array $config, \stdClass $event, \stdClass $feedbackvalue, \s
                 'interactionType' => 'fill-in',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $feedbackvalue->value,
             'completion' => $feedbackvalue->value !== '',

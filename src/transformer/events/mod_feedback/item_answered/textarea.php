@@ -62,7 +62,6 @@ function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \st
                 'interactionType' => 'long-fill-in',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $feedbackvalue->value,
             'completion' => $feedbackvalue->value !== '',

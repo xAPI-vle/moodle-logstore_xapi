@@ -15,32 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Apply global transformations to statements.
+ * Utility for deep-merging objects
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\utils;
+namespace TestUtils;
 
 /**
- * Given the config, source event and statements, apply global transformations.
+ * Merge two objects including deep assignments.
  *
- * @param array $config configuration array.
- * @param \stdClass $event original event
- * @param array $statements generated xAPI statements.
- * @return array
+ * @param \stdClass $obj1 The first object
+ * @param \stdClass $obj2 The second object
+ * @return \stdClass
  */
-function apply_global_xforms(array $config, \stdClass $event, array $statements) {
-    return array_map(function ($statement) use ($config, $event) {
-        $defaultStatement = [
-            'context' => [
-                'registration' => stringToUuidV5($config['session_id']),
-            ],
-            'timestamp' => get_event_timestamp($event),
-        ];
-        // Merge event output into defaults
-        return deep_merge_arrays($defaultStatement, $statement);
-    }, $statements);
+function deep_merge_objects($obj1, $obj2) {
+    $newObject = clone $obj1; // Clone the first object
+
+    foreach ($obj2 as $property => $value) {
+        // Check if both properties are objects and merge recursively
+        if (isset($newObject->$property) && is_object($newObject->$property) && is_object($value)) {
+            $newObject->$property = deep_merge_objects($newObject->$property, $value);
+        } else {
+            // Otherwise, overwrite the property
+            $newObject->$property = $value;
+        }
+    }
+    return $newObject;
 }

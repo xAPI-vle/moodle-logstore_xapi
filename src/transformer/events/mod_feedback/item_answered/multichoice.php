@@ -64,7 +64,6 @@ function multichoice(array $config, \stdClass $event, \stdClass $feedbackvalue, 
                 'interactionType' => 'choice',
             ],
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $selectedchoice,
             'completion' => $feedbackvalue->value !== '',

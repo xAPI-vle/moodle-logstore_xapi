@@ -50,7 +50,6 @@ function course_module_viewed(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\course_feedback($config, $course, $event->contextinstanceid),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,

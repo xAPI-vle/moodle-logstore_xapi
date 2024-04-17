@@ -51,7 +51,6 @@ function discussion_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\course_discussion($config, $course, $discussion),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'platform' => $config['source_name'],
             'language' => $lang,
