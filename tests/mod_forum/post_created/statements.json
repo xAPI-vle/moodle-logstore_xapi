@@ -26,7 +26,6 @@
             "response": "test_response_text"
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {

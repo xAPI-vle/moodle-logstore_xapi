@@ -27,7 +27,6 @@
             "completion": true
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "instructor": {
                 "name": "test_instructor_name",

@@ -84,7 +84,6 @@ function matching(array $config, \stdClass $event, \stdClass $questionattempt, \
             ],
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

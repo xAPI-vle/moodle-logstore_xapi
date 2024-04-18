@@ -53,7 +53,6 @@ function attempt_viewed(array $config, \stdClass $event) {
         'verb' => utils\get_verb('viewed', $config, $lang),
         'object' => $object,
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

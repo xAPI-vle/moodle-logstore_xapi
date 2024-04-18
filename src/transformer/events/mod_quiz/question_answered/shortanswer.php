@@ -69,7 +69,6 @@ function shortanswer(array $config, \stdClass $event, \stdClass $questionattempt
             'completion' => $questionattempt->responsesummary !== '',
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

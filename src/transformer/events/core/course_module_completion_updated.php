@@ -59,7 +59,6 @@ function course_module_completion_updated(array $config, \stdClass $event) {
             'http://id.tincanapi.com/activitytype/lms/module'
         ),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

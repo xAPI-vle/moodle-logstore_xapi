@@ -34,7 +34,6 @@
             "duration": "PT1S"
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {
@@ -146,7 +145,6 @@
             }
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {

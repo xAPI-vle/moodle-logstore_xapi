@@ -51,7 +51,6 @@ function program_assigned(array $config, \stdClass $event) {
         ],
         'object' => utils\totara\program($config, $program, $lang),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event),
             'contextActivities' => [

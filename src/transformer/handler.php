@@ -48,7 +48,7 @@ function handler(array $config, array $events) {
                 $eventconfig = array_merge([
                     'event_function' => $eventfunction,
                 ], $config);
-                $eventstatements = utils\apply_global_xforms(
+                $eventstatements = utils\apply_statement_defaults(
                     $eventconfig,
                     $eventobj,
                     $eventfunction($eventconfig, $eventobj)

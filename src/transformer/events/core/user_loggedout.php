@@ -45,7 +45,6 @@ function user_loggedout(array $config, \stdClass $event) {
         'verb' => utils\get_verb('loggedout', $config, $lang),
         'object' => utils\get_activity\site($config),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [

@@ -72,7 +72,6 @@ function take_attendance(array $config, \stdClass $event) {
                         'completion' => $currentstatus->statuscode === 100,
                     ],
                     'context' => [
-                        'platform' => $config['source_name'],
                         'language' => $lang,
                         'instructor' => utils\get_user($config, $user),
                         'extensions' => utils\extensions\base($config, $event, $course),

@@ -27,7 +27,6 @@
             "id": "http://www.example.org/mod/forum/user.php?id=2&course=1"
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {

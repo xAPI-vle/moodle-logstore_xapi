@@ -67,7 +67,6 @@ function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \st
             'completion' => $feedbackvalue->value !== '',
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

@@ -55,7 +55,6 @@ function create_statement(array $config, \stdClass $event, $evtid, $evtdispname 
             'http://adlnet.gov/expapi/activities/meeting'
         ),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

@@ -51,7 +51,6 @@ function course_viewed(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\course($config, $course),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

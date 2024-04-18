@@ -59,7 +59,6 @@ function post_created(array $config, \stdClass $event) {
             'response' => utils\get_activity\forum_discussion_post_reply($config, $post)
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

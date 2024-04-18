@@ -49,7 +49,6 @@ function attempt_started(array $config, \stdClass $event) {
         'verb' => utils\get_verb('started', $config, $lang),
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

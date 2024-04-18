@@ -31,7 +31,6 @@
             }
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {

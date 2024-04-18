@@ -23,7 +23,6 @@
             }
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {
@@ -97,7 +96,6 @@
             "completion": true
         },
         "context": {
-            "platform": "Moodle",
             "language": "en",
             "extensions": {
                 "http://lrs.learninglocker.net/define/extensions/info": {

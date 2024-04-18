@@ -46,7 +46,6 @@ function course_module_viewed(array $config, \stdClass $event) {
         'verb' => utils\get_verb('viewed', $config, $lang),
         'object' => utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
