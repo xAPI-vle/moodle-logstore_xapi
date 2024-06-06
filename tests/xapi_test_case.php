@@ -147,6 +147,8 @@ abstract class xapi_test_case extends \advanced_testcase {
             'source_version' => '1.0.0',
             'source_lang' => 'en',
             'send_mbox' => false,
+            'send_name' => true,
+            'account_homepage' => 'http://www.example.org',
             'send_response_choices' => false,
             'send_short_course_id' => false,
             'send_course_and_module_idnumber' => false,
