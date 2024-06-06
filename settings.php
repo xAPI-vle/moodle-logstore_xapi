@@ -68,6 +68,10 @@ if ($hassiteconfig) {
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_name',
+        get_string('send_name', 'logstore_xapi'),
+        get_string('send_name_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
         get_string('shortcourseid', 'logstore_xapi'),
         get_string('shortcourseid_desc', 'logstore_xapi'), 0));

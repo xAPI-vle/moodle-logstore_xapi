@@ -264,6 +264,7 @@ class store extends php_obj implements log_writer {
             'transformer' => [
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
+                'send_name' => $this->get_config('send_name', true),
                 'send_response_choices' => $this->get_config('sendresponsechoices', false),
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_course_and_module_idnumber' => $this->get_config('sendidnumber', false),
