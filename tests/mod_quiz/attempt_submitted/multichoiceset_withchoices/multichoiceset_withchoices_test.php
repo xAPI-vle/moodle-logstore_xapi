@@ -78,6 +78,8 @@ class multichoiceset_withchoices_test extends \logstore_xapi\xapi_test_case {
             'send_short_course_id' => false,
             'send_course_and_module_idnumber' => false,
             'send_username' => false,
+            'send_name' => true,
+            'account_homepage' => 'http://www.example.org',
             'session_id' => 'test_session_id',
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
