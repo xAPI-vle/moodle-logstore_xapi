@@ -37,6 +37,7 @@ use src\transformer\utils as utils;
  * @return array
  */
 function handler(array $config, array $events) {
+
     $eventfunctionmap = get_event_function_map();
     $transformedevents = array_map(function ($event) use ($config, $eventfunctionmap) {
         $eventobj = (object) $event;
