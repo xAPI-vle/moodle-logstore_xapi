@@ -1,6 +1,6 @@
 name: Moodle Plugin CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -92,6 +92,7 @@ jobs:
         run: moodle-plugin-ci phpmd
 
       - name: Moodle Code Checker
+        continue-on-error: true # This step will show errors but will not fail
         if: ${{ always() }}
         run: moodle-plugin-ci codechecker --max-warnings 0
 

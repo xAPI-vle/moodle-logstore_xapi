@@ -74,7 +74,6 @@ function multichoicerated(array $config, \stdClass $event, \stdClass $feedbackva
                 'interactionType' => 'choice',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $selectedchoice->name,
             'completion' => $feedbackvalue->value !== '',
@@ -84,7 +83,6 @@ function multichoicerated(array $config, \stdClass $event, \stdClass $feedbackva
             ],
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

@@ -49,9 +49,7 @@ function user_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\site($config),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [

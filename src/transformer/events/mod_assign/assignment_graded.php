@@ -81,10 +81,8 @@ function assignment_graded(array $config, \stdClass $event) {
             'completion' => true,
             'success' => $success
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'instructor' => utils\get_user($config, $instructor),
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

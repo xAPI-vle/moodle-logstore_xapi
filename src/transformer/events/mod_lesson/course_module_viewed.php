@@ -55,9 +55,7 @@ function course_module_viewed(array $config, \stdClass $event) {
             $event->contextinstanceid,
             'http://adlnet.gov/expapi/activities/lesson'
         ),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

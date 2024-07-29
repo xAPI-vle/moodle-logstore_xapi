@@ -56,10 +56,8 @@ function scoreraw_submitted(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_scorm_verb($scormscoestracks, $lang),
         'object' => utils\get_activity\course_scorm($config, $event->contextinstanceid, $scorm, $lang),
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => utils\get_scorm_result($scormscoestracks, $rawscore),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

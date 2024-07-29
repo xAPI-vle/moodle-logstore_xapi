@@ -64,7 +64,6 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
                 'interactionType' => 'numeric',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
@@ -74,7 +73,6 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
             ],
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

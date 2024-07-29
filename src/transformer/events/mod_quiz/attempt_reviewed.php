@@ -64,10 +64,8 @@ function attempt_reviewed(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $learner),
         'verb' => utils\get_verb('received', $config, $lang),
         'object' => $object,
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
             'instructor' => utils\get_user($config, $instructor),
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

@@ -75,7 +75,6 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
                 'interactionType' => 'matching',
             ]
         ],
-        'timestamp' => utils\get_event_timestamp($event),
         'result' => [
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
@@ -85,7 +84,6 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             ],
         ],
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [

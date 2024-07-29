@@ -53,9 +53,7 @@ function assignment_submitted(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,
         'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
-        'timestamp' => utils\get_event_timestamp($event),
         'context' => [
-            'platform' => $config['source_name'],
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
