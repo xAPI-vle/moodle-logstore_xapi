@@ -1,6 +1,6 @@
 name: Moodle Plugin CI
 
-on: [push] # [push, pull_request] # TODO: REENABLE BEFORE PR
+on: [push]
 
 jobs:
   test:
@@ -31,8 +31,8 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.1']
-        moodle-branch: ['MOODLE_402_STABLE'] # ['MOODLE_401_STABLE', 'MOODLE_402_STABLE'] # TODO: REENABLE BEFORE PR
-        database: [pgsql] # [pgsql, mariadb] # TODO: REENABLE BEFORE PR
+        moodle-branch: ['MOODLE_401_STABLE', 'MOODLE_402_STABLE']
+        database: [pgsql, mariadb]
 
     steps:
       - name: Check out repository code
@@ -91,10 +91,10 @@ jobs:
         if: ${{ always() }}
         run: moodle-plugin-ci phpmd
 
-      # TODO: REENABLE BEFORE PR
-      # - name: Moodle Code Checker
-      #   if: ${{ always() }}
-      #   run: moodle-plugin-ci codechecker --max-warnings 0
+      - name: Moodle Code Checker
+        continue-on-error: true # This step will show errors but will not fail
+        if: ${{ always() }}
+        run: moodle-plugin-ci codechecker --max-warnings 0
 
       - name: Moodle PHPDoc Checker
         if: ${{ always() }}
