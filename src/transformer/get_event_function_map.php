@@ -33,6 +33,7 @@ namespace src\transformer;
  */
 function get_event_function_map() {
     $availableevents = [
+        '\core\event\badge_awarded' => 'core\badge_awarded',
         '\core\event\course_completed' => 'core\course_completed',
         '\core\event\course_viewed' => 'core\course_viewed',
         '\core\event\user_created' => 'core\user_created',

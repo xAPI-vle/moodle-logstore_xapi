@@ -66,7 +66,8 @@ function handler(array $config, array $events) {
             return $transformedevent;
         } catch (\Exception $e) {
             $logerror = $config['log_error'];
-            $errormessage = "Failed transform for event id #" . $eventobj->id . ": " .  $e->getMessage();
+            $id=property_exists($eventobj,'id') ? $eventobj->id : ' (id not present on event object) ';
+            $errormessage = "Failed transform for event id #" . $id . ": " .  $e->getMessage();
             $logerror($errormessage);
             $logerror($e->getTraceAsString());
             $eventobj->response = json_encode(['transfromerror' => $errormessage]);
