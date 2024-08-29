@@ -18,9 +18,7 @@
  * Transform for course viewed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniel Bell <daniel@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,10 +39,11 @@ function badge_revoked(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
     $recipient =$repo->read_record_by_id('user', $event->relateduserid);
-    $revoker = '?';
 
-    
-    $manual = $repo->read_record_by_id('badge_manual_award', $revokedid);
+
+    $revoker = '?';
+    //is there a table for "revocations"?
+    //    $manual = $repo->read_record_by_id('badge_manual_award', $revokedid);
     
     $statement = [[
         'actor' => utils\get_user($config, $recipient),
