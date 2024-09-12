@@ -43,26 +43,62 @@ function bestr(array $config, \stdClass $event, $course) {
             $user = $repo->read_record_by_id('user', $event->userid);
         }
 
-        profile_load_data($user);   // Load custom profile fields.
+        // User not loggedin.
+        if (!$user) {
+            return [];
+        }
+
         $birthdatefieldname = $config['bestr_custom_birthdate'];
         $cffieldname = $config['bestr_custom_cf'];
+        $extrafields = [];
+        $prefix = 'profile_field_';
 
-        $extrafields = array();
-        // If the field name is specified, if the user field exists and if it's full, then use it.
-        if ($birthdatefieldname && isset($user->$birthdatefieldname) && $user->$birthdatefieldname) {
-            $extrafields["actor_birthday"] = $user->$birthdatefieldname;
-        }
-        if ($cffieldname && isset($user->$cffieldname) && $user->$cffieldname) {
-            $extrafields["actor_cf"] = $user->$cffieldname;
+        // If $birthdatefieldname starts with $prefix.
+        if ($birthdatefieldname && (substr($birthdatefieldname, 0, strlen($prefix)) == $prefix)) {
+            $fieldname = substr($birthdatefieldname, strlen($prefix));
+            // Use read_records to avoid exceptions in case the element doesn't exist.
+            $tmp = $repo->read_records('user_info_field', ['shortname' => $fieldname]);
+            $userextrafield = reset($tmp);  // Take the first (and only) array element.
+            if ($userextrafield) {
+                // Use read_records to avoid exceptions in case the element doesn't exist.
+                $tmp2 = $repo->read_records('user_info_data', ['userid' => $user->id, 'fieldid' => $userextrafield->id]);
+                $extra = reset($tmp2);      // Take the first (and only) array element.
+                if ($extra && isset($extra->data) && $extra->data) {
+                    $extrafields["actor_birthday"] = $extra->data;
+                }
+            }
+        } else {
+            if ($birthdatefieldname && isset($user->$birthdatefieldname) && $user->$birthdatefieldname) {
+                $extrafields["actor_birthday"] = $user->$birthdatefieldname;
+            }
         }
 
-        return array(
-            'http://lrs.bestr.it/lrs/define/context/extensions/actor' => array_merge(array(
+        if ($cffieldname && (substr($cffieldname, 0, strlen($prefix)) == $prefix)) {  // If $cffieldname starts with $prefix.
+            $fieldname = substr($cffieldname, strlen($prefix));
+            // Use read_records to avoid exceptions in case the element doesn't exist.
+            $tmp = $repo->read_records('user_info_field', ['shortname' => $fieldname]);
+            $userextrafield = reset($tmp);  // Take the first (and only) array element.
+            if ($userextrafield) {
+                // Use read_records to avoid exceptions in case the element doesn't exist.
+                $tmp2 = $repo->read_records('user_info_data', ['userid' => $user->id, 'fieldid' => $userextrafield->id]);
+                $extra = reset($tmp2);      // Take the first (and only) array element.
+                if ($extra && isset($extra->data) && $extra->data) {
+                    $extrafields["actor_cf"] = $extra->data;
+                }
+            }
+        } else {
+            if ($cffieldname && isset($user->$cffieldname) && $user->$cffieldname) {
+                $extrafields["actor_cf"] = $user->$cffieldname;
+            }
+        }
+
+        return [
+            'http://lrs.bestr.it/lrs/define/context/extensions/actor' => array_merge([
                     "actor_name" => $user->firstname,
-                    "actor_surname" => $user->lastname
-                    ), $extrafields     // If extra fields are present, they are added here.
-                )
-            );
+                    "actor_surname" => $user->lastname,
+                    ], $extrafields     // If extra fields are present, they are added here.
+                ),
+            ];
     }
     return [];
 }
