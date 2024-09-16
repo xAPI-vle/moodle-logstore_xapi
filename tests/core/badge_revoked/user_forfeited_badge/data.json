@@ -1,0 +1,33 @@
+{
+    "user":[
+	//revoker
+	{
+	    "id": 1,
+	    "firstname": "test_awarder_firstname",
+	    "lastname": "test_awarder_lastname",
+	    "email": "awarder@test.com",
+	    "username": "awarder"
+	},
+
+	//(former) badge recipient
+	{
+	    "id": 2,
+	    "firstname": "test_recipient_firstname",
+	    "lastname": "test_recipient_lastname",
+	    "email": "recipient@test.com",
+	    "username": "recipient"
+	}
+
+    ],
+    "badge":[
+	{
+	    "id": 1,
+	    "name": "test_badgename",
+	    "description": "test badge description",
+	    "type": 2,
+	    "courseid": null,
+	    "version": "1.0",
+	    "message": "you got the test badge!"
+	}
+    ]
+}

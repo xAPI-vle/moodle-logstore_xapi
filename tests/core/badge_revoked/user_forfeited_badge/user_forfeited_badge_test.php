@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\badge_awarded\user_achieved_badge;
+namespace logstore_xapi\core\badge_revoked\user_forfeited_badge;
 
 defined('MOODLE_INTERNAL') || die();
 

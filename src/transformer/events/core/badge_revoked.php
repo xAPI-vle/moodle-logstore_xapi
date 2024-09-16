@@ -35,15 +35,13 @@ use src\transformer\utils as utils;
  */
 function badge_revoked(array $config, \stdClass $event) {
     
-    //debug
     $repo = $config['repo'];
-    $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
-    $recipient =$repo->read_record_by_id('user', $event->relateduserid);
-
-
-    $revoker = '?';
-    //is there a table for "revocations"?
-    //    $manual = $repo->read_record_by_id('badge_manual_award', $revokedid);
+    $recipient = $repo->read_record_by_id('user', $event->relateduserid);
+    $badge = $repo->read_record_by_id('badge', $event->objectid);
+    $revoker = utils\get_user($config, $repo->read_record_by_id('user', $event->userid));
+    $course = $badge->courseid ? $repo->read_record_by_id('course', $badge->courseid) : null;
+    $lang = $badge->language ?? 'en';
+    $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
     
     $statement = [[
         'actor' => utils\get_user($config, $recipient),
@@ -67,7 +65,7 @@ function badge_revoked(array $config, \stdClass $event) {
             ]
         ],
         'context' => [
-            'language'=>'?',
+            'language'=>$lang,
             'instructor' =>$revoker,
             'contextActivities'=> [
                 'category' => [
@@ -80,7 +78,7 @@ function badge_revoked(array $config, \stdClass $event) {
                 ]
             ],
             'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
-                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic')])
+                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => 'Manual'])
         ]
     ]];
 
