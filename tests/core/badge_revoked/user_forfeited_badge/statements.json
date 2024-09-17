@@ -47,6 +47,7 @@
 		       }
 		   },
 		   "extensions":{
+ "https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method": "Manual",
 		       "http://lrs.learninglocker.net/define/extensions/info": {
 			   "http://moodle.org": "1.0.0",
 			   "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
