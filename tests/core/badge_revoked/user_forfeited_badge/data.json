@@ -21,7 +21,7 @@
 	    "id": 1,
 	    "name": "test_badgename",
 	    "description": "test badge description",
-	    "type": 2,
+	    "type": 1,
 	    "courseid": null,
 	    "version": "1.0",
 	    "message": "you got the test badge!"

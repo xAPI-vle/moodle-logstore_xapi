@@ -4,13 +4,13 @@
 	    "name": "test_recipient_firstname test_recipient_lastname",
 	    "account": {
 		"homePage": "http://www.example.org",
-		"name": "1"
+		"name": "2"
 	    }
 	},
 	"verb": {
 	    "id": "https://w3id.org/xapi/tla/verbs/forfeited",
 	    "display": {
-		"en": "Achieved"
+		"en": "Forfeited"
 	    }
 	},
 	"object":{
@@ -33,12 +33,12 @@
 		       "name":"test_revoker_firstname test_revoker_lastname",
 		       "account":{
 			   "homePage":"http://www.example.org",
-			   "name":"2"
+			   "name":"1"
 		       }
 		   },
 		   "contextActivities":{
 		       "category":{
-			   "id":"http://example.org",
+			   "id":"http://www.example.org",
 			   "objectType":"Activity",
 			   "definition":{
 			       "name":{"en":"EDLM Moodle LMS"},
