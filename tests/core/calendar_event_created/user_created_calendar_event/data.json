@@ -1,0 +1,24 @@
+{
+    "user": [
+	{
+	    "id": 1,
+	    "firstname": "event_creator_firstname",
+	    "lastname": "event_creator_lastname",
+	    "email": "creator@test.com",
+	    "username": "creator"
+	}
+    ],
+    "event":[
+	{"id":1,
+	 "name":"test event"
+	}
+    ],
+    "course": [
+	{
+	    "id": 1,
+	    "fullname": "test_course_name",
+	    "lang": "en",
+	    "summary": "test_course_summary"
+	}
+    ]
+}

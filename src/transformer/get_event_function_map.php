@@ -33,9 +33,14 @@ namespace src\transformer;
  */
 function get_event_function_map() {
     $availableevents = [
-        '\core\event\badge_awarded' => 'core\badge_awarded', //'debug\debug_event',
-        '\core\event\badge_revoked' => 'core\badge_revoked', //'debug\debug_event'
+        '\core\event\badge_awarded' => 'core\badge_awarded',
+        '\core\event\badge_revoked' => 'core\badge_revoked',
         '\core\event\course_created' => 'core\course_created',
+
+        '\core\event\calendar_event_created' => 'core\calendar_event_created',
+        '\core\event\calendar_event_updated' => 'core\calendar_event_updated',
+        '\core\event\calendar_event_deleted' => 'core\calendar_event_deleted',
+
         '\core\event\course_completed' => 'core\course_completed',
         '\core\event\course_viewed' => 'core\course_viewed',
         '\core\event\user_created' => 'core\user_created',
@@ -97,10 +102,8 @@ function get_event_function_map() {
         '\mod_url\event\course_module_viewed' => 'mod_url\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
-        '\totara_program\event\program_assigned' => 'totara_program\program_assigned',
-        '\core\event\calendar_event_created' => 'core\calendar_event_created',
-        '\core\event\calendar_event_updated' => 'core\calendar_event_updated',
-        '\core\event\calendar_event_deleted' => 'core\calendar_event_deleted',
+        '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
+
     ];
 
     $environmentevents = class_exists("report_eventlist_list_generator") ?
