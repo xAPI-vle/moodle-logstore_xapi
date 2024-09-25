@@ -18,9 +18,8 @@
  * Transform for course viewed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniel Bell<daniel@yetanalytics.com>
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -84,14 +83,6 @@ function calendar_event_created(array $config, \stdClass $event) {
             ]
         ];
     }
-
-    $encoded =json_encode($statements);
-    /*    echo <<<END
-             <script type="text/javascript">
-             var s = $encoded;
-             console.log(s);
-             </script>
-             END;*/
     
     return $statements;
 }

@@ -1,50 +1,53 @@
-[{
-    "actor": {
-	"name": "event_updater_firstname event_updater_lastname",
-	"account": {
-	    "homePage": "http://www.example.org",
-	    "name": 1}
-    },
-    "verb":{
-        "id": "https://w3id.org/xapi/acrossx/verbs/edited",
-        "display": {"en": "Edited"}
-    },
-    "object":{
-	"id":"http://www.example.org/calendar/view.php?id=1",
-	"definition":{
-	    "type":"https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event",
-	    "name":{
-		"en":"test event"
+[
+    {
+	"actor": {
+	    "name": "event_updater_firstname event_updater_lastname",
+	    "account": {
+		"homePage": "http://www.example.org",
+		"name": 1
 	    }
-	}
-    },
-    "context":{
-	"contextActivities":{
-	    "parent":{
-		"id":"http://www.example.org/course/view.php?id=1",
-		"objectType":"Activity",
-		"definition":{
-		    "name":{"en":"test_course_name"},
-		    "description":{"en":"test_course_summary"},
-		    "type":"https://w3id.org/xapi/cmi5/activitytype/course"
-		}
-	    },
-	    "category":{
-		"id":"http://www.example.org",
-		"objectType":"Activity",
-		"definition":{
-		    "name":{"en":"EDLM Moodle LMS"},
-		    "type":"http://id.tincanapi.com/activitytype/lms"
+	},
+	"verb":{
+            "id": "https://w3id.org/xapi/acrossx/verbs/edited",
+            "display": {"en": "Edited"}
+	},
+	"object":{
+	    "id":"http://www.example.org/calendar/view.php?id=1",
+	    "definition":{
+		"type":"https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event",
+		"name":{
+		    "en":"test event"
 		}
 	    }
 	},
-	"extensions":{
-	    "http://lrs.learninglocker.net/define/extensions/info": {
-		"http://moodle.org": "1.0.0",
-		"https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-		"event_name": "\\core\\event\\calendar_event_updated",
-		"event_function": "\\src\\transformer\\events\\core\\calendar_event_updated"
+	"context":{
+	    "contextActivities":{
+		"parent":{
+		    "id":"http://www.example.org/course/view.php?id=1",
+		    "objectType":"Activity",
+		    "definition":{
+			"name":{"en":"test_course_name"},
+			"description":{"en":"test_course_summary"},
+			"type":"https://w3id.org/xapi/cmi5/activitytype/course"
+		    }
+		},
+		"category":{
+		    "id":"http://www.example.org",
+		    "objectType":"Activity",
+		    "definition":{
+			"name":{"en":"EDLM Moodle LMS"},
+			"type":"http://id.tincanapi.com/activitytype/lms"
+		    }
+		}
+	    },
+	    "extensions":{
+		"http://lrs.learninglocker.net/define/extensions/info": {
+		    "http://moodle.org": "1.0.0",
+		    "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
+		    "event_name": "\\core\\event\\calendar_event_updated",
+		    "event_function": "\\src\\transformer\\events\\core\\calendar_event_updated"
+		}
 	    }
 	}
     }
-}]
+]
