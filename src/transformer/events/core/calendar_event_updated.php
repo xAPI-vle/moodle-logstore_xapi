@@ -58,7 +58,7 @@ function calendar_event_updated(array $config, \stdClass $event) {
         'context' => [
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'category' => [
+                'category' => [[
                     'id' => $config['app_url'],
                     'objectType' => 'Activity',
                     'definition' => [
@@ -67,14 +67,14 @@ function calendar_event_updated(array $config, \stdClass $event) {
                         ],
                         'type' =>  'http://id.tincanapi.com/activitytype/lms'
                     ]
-                ]
+                ]]
             ]
         ]
     ]];
 
 
     if ($course){
-        $statement[0]['context']['contextActivities']['parent']= [
+        $statement[0]['context']['contextActivities']['parent']= [[
             'id'=> $config['app_url'].'/course/view.php?id='.$course->id,
             'objectType'=>'Activity',
             'definition'=>[
@@ -82,7 +82,7 @@ function calendar_event_updated(array $config, \stdClass $event) {
                 'description'=>[ $lang=> $course->summary],
                 'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
             ]
-        ];
+        ]];
     }
 
     return $statement;

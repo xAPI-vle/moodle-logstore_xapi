@@ -9,29 +9,33 @@
       },
       "context" : {
          "contextActivities" : {
-            "category" : {
-               "definition" : {
-                  "name" : {
-                     "en" : "EDLM Moodle LMS"
+            "category" : [
+               {
+                  "definition" : {
+                     "name" : {
+                        "en" : "EDLM Moodle LMS"
+                     },
+                     "type" : "http://id.tincanapi.com/activitytype/lms"
                   },
-                  "type" : "http://id.tincanapi.com/activitytype/lms"
-               },
-               "id" : "http://www.example.org",
-               "objectType" : "Activity"
-            },
-            "parent" : {
-               "definition" : {
-                  "description" : {
-                     "en" : "test_course_summary"
+                  "id" : "http://www.example.org",
+                  "objectType" : "Activity"
+               }
+            ],
+            "parent" : [
+               {
+                  "definition" : {
+                     "description" : {
+                        "en" : "test_course_summary"
+                     },
+                     "name" : {
+                        "en" : "test_course_name"
+                     },
+                     "type" : "https://w3id.org/xapi/cmi5/activitytype/course"
                   },
-                  "name" : {
-                     "en" : "test_course_name"
-                  },
-                  "type" : "https://w3id.org/xapi/cmi5/activitytype/course"
-               },
-               "id" : "http://www.example.org/course/view.php?id=1",
-               "objectType" : "Activity"
-            }
+                  "id" : "http://www.example.org/course/view.php?id=1",
+                  "objectType" : "Activity"
+               }
+            ]
          },
          "extensions" : {
             "http://lrs.learninglocker.net/define/extensions/info" : {
