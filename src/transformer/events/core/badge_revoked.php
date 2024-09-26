@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @return array
  */
 function badge_revoked(array $config, \stdClass $event) {
-    
+
     $repo = $config['repo'];
     $recipient = $repo->read_record_by_id('user', $event->relateduserid);
     $badge = $repo->read_record_by_id('badge', $event->objectid);
@@ -42,7 +42,7 @@ function badge_revoked(array $config, \stdClass $event) {
     $course = $badge->courseid ? $repo->read_record_by_id('course', $badge->courseid) : null;
     $lang = $badge->language ?? 'en';
     $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
-    
+
     $statement = [[
         'actor' => utils\get_user($config, $recipient),
         'verb' => [
@@ -60,7 +60,7 @@ function badge_revoked(array $config, \stdClass $event) {
                 'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
                 'extensions' => [
                     'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version 
+                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
                 ]
             ]
         ],
@@ -68,26 +68,29 @@ function badge_revoked(array $config, \stdClass $event) {
             'language'=>$lang,
             'instructor' =>$revoker,
             'contextActivities'=> [
-                'category' => [
+                'category' => [[
                     'id' => $config['app_url'],
                     'objectType'  => 'Activity',
                     'definition'  => [
                         'name' => ['en'=> 'EDLM Moodle LMS'],
                         'type' => 'http://id.tincanapi.com/activitytype/lms'
                     ]
-                ]
+                ]]
             ],
             'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
                 'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => 'Manual'])
         ]
     ]];
-
-    $encoded =json_encode($statement);
-    echo <<<END
-             <script type="text/javascript">
-             var s = $encoded;
-             console.log(s);
-             </script>
-             END;
+    if ($course){
+        $statement[0]['context']['contextActivities']['parent'] = [[
+            'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+            'objectType' => 'Activity',
+            'definition' => [
+                'name' => [$lang => $course->fullname],
+                'description' => [$lang => $course->summary],
+                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
+            ]
+        ]];
+    }
     return $statement;
 }

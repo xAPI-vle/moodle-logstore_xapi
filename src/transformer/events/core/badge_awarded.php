@@ -58,14 +58,14 @@ function badge_awarded(array $config, \stdClass $event) {
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
     $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
 
-    
+
     $statement = [[
         'actor' => $actor,
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
-                   'display' => [
-                       'en' => 'Achieved'
-                   ]],
+            'display' => [
+                'en' => 'Achieved'
+            ]],
         'object' => [
             'id' =>  $config['app_url'].'/badges/overview.php?id='.$event->objectid,
             'objectType' => 'Activity',
@@ -75,7 +75,7 @@ function badge_awarded(array $config, \stdClass $event) {
                 'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
                 'extensions' => [
                     'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version                             
+                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
                 ]
             ],
         ],
@@ -86,7 +86,7 @@ function badge_awarded(array $config, \stdClass $event) {
             'language' => $lang,
             'instructor' => $awarder,
             'contextActivities' =>  [
-                'category' => [
+                'category' => [[
                     'id' => $config['app_url'],
                     'objectType' => 'Activity',
                     'definition' => [
@@ -95,13 +95,13 @@ function badge_awarded(array $config, \stdClass $event) {
                         ],
                         'type' => 'http://id.tincanapi.com/activitytype/lms'
                     ]
-                ],
+                ]],
             ],
             'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
                 'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic')])
         ]]];
     if ($course){
-        $statement[0]['context']['contextActivities']['parent'] = [
+        $statement[0]['context']['contextActivities']['parent'] = [[
             'id' => $config['app_url'].'/course/view.php?id='.$course->id,
             'objectType' => 'Activity',
             'definition' => [
@@ -109,8 +109,8 @@ function badge_awarded(array $config, \stdClass $event) {
                 'description' => [$lang => $course->summary],
                 'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
             ]
-        ];
+        ]];
     }
-    
+
     return $statement;
 }
