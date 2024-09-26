@@ -3,7 +3,7 @@
       "actor" : {
          "account" : {
             "homePage" : "http://www.example.org",
-            "name" : 1
+            "name" : "1"
          },
          "name" : "event_updater_firstname event_updater_lastname"
       },
