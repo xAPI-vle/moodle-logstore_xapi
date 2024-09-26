@@ -1,7 +1,7 @@
 {
     "objecttable": "course_categories",
     "timecreated": 1433946701,
-    "objectid": 3,
+    "objectid": 2,
     "type": 0,
     "eventname": "\\core\\event\\course_category_created",
     "userid": 1
