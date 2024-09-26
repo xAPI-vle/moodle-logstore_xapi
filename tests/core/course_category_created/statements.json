@@ -1,0 +1,64 @@
+[
+  {
+    "actor": {
+      "account": {
+        "homePage": "https://idp.edlm/id",
+        "name": "048863bf-34ee-4c5f-a0e4-94f67ee1fb92"
+      }
+    },
+    "verb": {
+      "id": "http://activitystrea.ms/create",
+      "display": {
+        "en": "Created"
+      }
+    },
+    "object": {
+      "id": "https://lms.edlm/course/management.php?categoryid=2",
+      "objectType": "Activity",
+      "definition": {
+        "name": {
+          "en-US": "Test Category"
+        },
+        "description": {
+          "en-US": "<p>A test course category</p>"
+        },
+        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/course-category"
+      }
+    },
+    "context": {
+      "registration": "048863bf-34ee-4c5f-a0e4-94f67ee1fb9c",
+      "platform": "EDLM Moodle Staging Environment",
+      "contextActivities": {
+        "parent": [
+          {
+            "id": "https://lms.edlm/course/management.php?categoryid=1",
+            "objectType": "Activity",
+            "definition": {
+              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/course-category"
+            }
+          }
+        ],
+        "category": [
+          {
+            "id": "https://lms.edlm/",
+            "objectType": "Activity",
+            "definition": {
+              "name": {
+                "en-US": "EDLM Moodle LMS"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
+            }
+          }
+        ]
+      },
+      "extensions": {
+        "https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/lms-event-info": {
+          "http://moodle.org": "4.4dev+ (Build: 20240402)",
+          "https://github.com/xAPI-vle/moodle-logstore_xapi": "",
+          "event_name": "\\core\\event\\course_category_created",
+          "event_function": "\\src\\transformer\\events\\core\\course_category_created"
+        }
+      }
+    }
+  }
+]
