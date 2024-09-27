@@ -2,12 +2,10 @@
   {
     "actor": {
       "account": {
-        "name": "test_fullname",
-        "account": {
-          "homePage": "http://www.example.org",
-          "name": "1"
-        }
-      }
+        "homePage": "http://www.example.org",
+        "name": "1"
+      },
+      "name": "test_fullname"
     },
     "verb": {
       "id": "http://activitystrea.ms/create",
@@ -16,7 +14,7 @@
       }
     },
     "object": {
-      "id": "https://lms.edlm/course/management.php?categoryid=3",
+      "id": "http://www.example.org/course/management.php?categoryid=3",
       "objectType": "Activity",
       "definition": {
         "name": {
@@ -32,7 +30,7 @@
       "contextActivities": {
         "parent": [
           {
-            "id": "https://lms.edlm/course/management.php?categoryid=2",
+            "id": "http://www.example.org/course/management.php?categoryid=2",
             "objectType": "Activity",
             "definition": {
               "name": {
