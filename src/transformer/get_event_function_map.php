@@ -36,6 +36,7 @@ function get_event_function_map() {
         '\core\event\badge_awarded' => 'core\badge_awarded', //'debug\debug_event',
         '\core\event\badge_revoked' => 'core\badge_revoked', //'debug\debug_event'
         '\core\event\course_completed' => 'core\course_completed',
+        '\core\event\course_completion_updated' => 'core\course_completion_updated',
         '\core\event\course_viewed' => 'core\course_viewed',
         '\core\event\user_created' => 'core\user_created',
         '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
