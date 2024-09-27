@@ -20,8 +20,6 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
-
 /**
  * Unit test for mod_quiz attempt submitted (multichoice set with choices) event.
  *
