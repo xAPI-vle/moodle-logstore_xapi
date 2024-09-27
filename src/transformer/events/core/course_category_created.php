@@ -27,6 +27,31 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
+ * Helper for making course category objects.
+ *
+ * @param array $config The configuration object.
+ * @param \stdClass $category The course category.
+ * @return array
+ */
+
+function cc_object(array $config, \stdClass $category) {
+    $lang = $config['source_lang'];
+    return [
+        'id' => $config['app_url'] . '/course/management.php?categoryid=' . $category->id,
+        'objectType' => 'Activity',
+        'definition' => [
+            'name' => [
+                $lang => $category->name,
+            ],
+            'description' => [
+                $lang => $category->description,
+            ],
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/course-category',
+        ],
+    ];
+}
+
+/**
  * Transformer for course category created event.
  *
  * @param array $config The transformer config settings.
@@ -48,12 +73,12 @@ function course_category_created(array $config, \stdClass $event) {
                 $lang => 'Created'
             ],
         ],
-        'object' => utils\get_activity\course_category($config, $category),
+        'object' => cc_object($config, $category),
         'context' => [
             'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'parent' => [
-                    utils\get_activity\course_category($config, $parent_category),
+                    cc_object($config, $parent_category),
                 ],
                 'category' => [
                     utils\get_activity\site($config),
