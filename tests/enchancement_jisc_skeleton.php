@@ -77,7 +77,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
         // From Moodle 3.9 an extra event has been added.
         if ($version >= 2020061500) {
             $this->generatedhistorylog = 12;
-            $this->generatedxapilog = 2;
+            $this->generatedxapilog = 3;
         }
     }
 
