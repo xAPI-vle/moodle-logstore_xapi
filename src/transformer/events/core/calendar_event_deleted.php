@@ -52,7 +52,7 @@ function calendar_event_deleted(array $config, \stdClass $event) {
         'object' => [
             'id' => $config['app_url'].'/calendar/view?id='.$event->objectid,
             'definition' => [
-                'name' => [$lang => (unserialize($event->other))->name],
+                'name' => [$lang => (unserialize($event->other))['name']],
                 'type' =>  'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event'],
         ],
         'context' => [
@@ -67,5 +67,5 @@ function calendar_event_deleted(array $config, \stdClass $event) {
             $statement = utils\add_parent($config,$statement,$course);
         }
     
-    return [$statement]
+        return [$statement];
 }
