@@ -44,7 +44,8 @@ function calendar_event_deleted(array $config, \stdClass $event) {
     $user=$repo->read_record_by_id('user',$event->userid); 
     $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id("course", $event->courseid) : null;
     $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id("course",1)));
-
+    error_log('type:'.gettype($event->other));
+    error_log('data:'.print_r($event->other));
     $statement = [
         'actor' => utils\get_user($config,$user),
         'verb' => ['id' => 'http://activitystrea.ms/delete',
