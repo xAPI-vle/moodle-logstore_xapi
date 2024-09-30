@@ -44,7 +44,7 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
     /**
      * @var int Generated xapi-log events numbers
      */
-    protected $generatedxapilog = 1;
+    protected $generatedxapilog = 2;
 
     /**
      * @var array Form defaults.
