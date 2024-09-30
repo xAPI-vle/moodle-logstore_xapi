@@ -4,7 +4,7 @@
    "id" : 1,
    "objectid" : 1,
    "objecttable" : "event",
-   "other" : "a:1:{s:4:\"name\";s:4:\"test\";}",
+   "other" : "a:1:{s:4:\"name\";s:10:\"test event\";}",
    "timecreated" : 1433946701,
    "userid" : 1
 }
