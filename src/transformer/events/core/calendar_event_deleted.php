@@ -43,7 +43,7 @@ function calendar_event_deleted(array $config, \stdClass $event) {
     //all three here may not exist
     $user=$repo->read_record_by_id('user',$event->userid); 
     $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id("course", $event->courseid) : null;
-    $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id("course",1)))
+    $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id("course",1)));
 
     $statement = [
         'actor' => utils\get_user($config,$user),
