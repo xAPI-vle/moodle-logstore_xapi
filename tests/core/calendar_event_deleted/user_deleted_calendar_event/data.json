@@ -1,13 +1,11 @@
 {
    "course" : [
-      [
-         {
-            "fullname" : "test_course_name",
-            "id" : 1,
-            "lang" : "en",
-            "summary" : "test_course_summary"
-         }
-      ]
+      {
+         "fullname" : "test_course_name",
+         "id" : 1,
+         "lang" : "en",
+         "summary" : "test_course_summary"
+      }
    ],
    "event" : [],
    "user" : [
