@@ -14,7 +14,7 @@
       }
     },
     "object": {
-        "id": "https://lms.edlm/course/view.php?id=1",
+        "id": "http://www.example.org/course/view.php?id=1",
         "definition": {
             "type": "https://w3id.org/xapi/cmi5/activitytype/course",
             "name": {
