@@ -23,7 +23,7 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test for course viewed event.
+ * Unit test for course resources list viewed event.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
