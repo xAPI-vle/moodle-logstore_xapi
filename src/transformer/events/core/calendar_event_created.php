@@ -26,6 +26,7 @@
 namespace src\transformer\events\core;
 
 use src\transformer\utils as utils;
+use src\transformer\utils\get_activity as activity;
 
 /**
  * Transformer for Calendar Event Created.

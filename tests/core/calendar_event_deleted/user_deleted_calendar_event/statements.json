@@ -23,16 +23,12 @@
             "parent" : [
                {
                   "definition" : {
-                     "description" : {
-                        "en" : "test_course_summary"
-                     },
                      "name" : {
                         "en" : "test_course_name"
                      },
                      "type" : "https://w3id.org/xapi/cmi5/activitytype/course"
                   },
-                  "id" : "http://www.example.org/course/view.php?id=1",
-                  "objectType" : "Activity"
+                  "id" : "http://www.example.org/course/view.php?id=1"
                }
             ]
          },

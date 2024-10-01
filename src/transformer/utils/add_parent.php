@@ -25,6 +25,8 @@
 
 namespace src\transformer\utils;
 
+use src\transformer\utils\get_activity as get_activity;
+
 /**
  * fn that generates parent for xapi events and includes it in statement
  *
@@ -35,17 +37,7 @@ namespace src\transformer\utils;
  */
 
 function add_parent(array $config, array $statement, \stdClass $course){
-    $lang = get_course_lang($course);
-    $statement['context']['contextActivities']['parent'] = [[
-        'id' => $config['app_url'].'/course/view.php?id='.$course->id,
-        'objectType' => 'Activity',
-        'definition' => [
-            'name' => [$lang => $course->fullname],
-            'description' => [$lang => $course->summary],
-            'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
-        ]
-    ]];
-
+    $statement['context']['contextActivities']['parent']= [get_activity\course($config, $course)];
     return $statement;
 }
 
