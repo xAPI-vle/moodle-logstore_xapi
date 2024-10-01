@@ -28,8 +28,8 @@
         "http://lrs.learninglocker.net/define/extensions/info": {
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\core\\event\\course_viewed",
-          "event_function": "\\src\\transformer\\events\\core\\course_viewed"
+          "event_name": "\\core\\event\\course_resources_list_viewed",
+          "event_function": "\\src\\transformer\\events\\core\\course_resources_list_viewed"
         }
       },
       "contextActivities": {
