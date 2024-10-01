@@ -60,6 +60,9 @@ function course_resources_list_viewed(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
+                'parent' => [
+                    utils\get_activity\course($config, $course),
+                ],
                 'category' => [
                     utils\get_activity\site($config)
                 ]
