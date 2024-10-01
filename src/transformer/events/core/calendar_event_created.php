@@ -40,7 +40,7 @@ function calendar_event_created(array $config, \stdClass $event) {
     $course = $event->courseid == 0 ? null : $repo->read_record_by_id('course', $event->courseid);
     $lang = is_null($course) ? 'en' : utils\get_course_lang($course);
     $user = $repo->read_record_by_id('user', $event->userid);
-    $statements = [[
+    $statements = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
@@ -58,31 +58,14 @@ function calendar_event_created(array $config, \stdClass $event) {
         'context' => [
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'category' => [[
-                    'id' => $config['app_url'],
-                    'objectType' => 'Activity',
-                    'definition' => [
-                        'name' => [
-                            'en' => 'EDLM Moodle LMS'
-                        ],
-                        'type' => 'http://id.tincanapi.com/activitytype/lms'
-                    ]
-                ]]
+                'category' => [activity\site($config)]
             ]
         ]
-    ]];
+    ];
 
     if ($course){
-        $statements[0]['context']['contextActivities']['parent']= [[
-            'id'=> $config['app_url'].'/course/view.php?id='.$course->id,
-            'objectType'=>'Activity',
-            'definition'=>[
-                'name' => [$lang => $course->fullname],
-                'description'=>[ $lang=> $course->summary],
-                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
-            ]
-        ]];
+        $statement = utils\add_parent($config,$statements,$course);
     }
     
-    return $statements;
+    return [$statement];
 }

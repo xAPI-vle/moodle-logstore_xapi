@@ -59,7 +59,7 @@ function calendar_event_deleted(array $config, \stdClass $event) {
         'context' => [
             'language' => $lang,
             'contextActivities' =>  [
-                'category' => [activity\site($config)],
+                'category' => [activity\site($config)]
             ],
             'extensions' => utils\extensions\base($config, $event, $course)
         ]];
