@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\course_viewed\viewing_existing_course;
+namespace logstore_xapi\core\course_resources_list_viewed\existing_course_resource_list_viewed;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -26,12 +26,10 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * Unit test for course viewed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class viewing_existing_course_test extends \logstore_xapi\xapi_test_case {
+class existing_course_resource_list_viewed extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
