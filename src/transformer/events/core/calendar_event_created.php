@@ -41,7 +41,7 @@ function calendar_event_created(array $config, \stdClass $event) {
     $course = $event->courseid == 0 ? null : $repo->read_record_by_id('course', $event->courseid);
     $lang = is_null($course) ? 'en' : utils\get_course_lang($course);
     $user = $repo->read_record_by_id('user', $event->userid);
-    $statements = [
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
@@ -65,7 +65,7 @@ function calendar_event_created(array $config, \stdClass $event) {
     ];
 
     if ($course){
-        $statement = utils\add_parent($config,$statements,$course);
+        $statement = utils\add_parent($config,$statement,$course);
     }
     
     return [$statement];
