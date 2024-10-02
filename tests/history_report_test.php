@@ -71,7 +71,6 @@ class history_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
-     * @disabled
      */
     public function test_single_element() {
         global $DB;
@@ -93,7 +92,6 @@ class history_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
-     * @disabled
      */
     public function test_multiple_elements() {
         global $DB;
