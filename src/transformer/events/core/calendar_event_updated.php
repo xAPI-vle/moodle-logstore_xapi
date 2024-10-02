@@ -28,7 +28,7 @@ use src\transformer\utils as utils;
 use src\transformer\utils\get_activity as activity;
 
 /**
- * Transformer for Calendar Event Created.
+ * Transformer for Calendar Event Updated.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.

@@ -21,7 +21,7 @@ defined('MOODLE_INTERNAL') || die();
 global $CFG;
 
 /**
- * Unit test for mod_quiz attempt submitted (multichoice set with choices) event.
+ * Unit test for calendar_event_created event.
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
