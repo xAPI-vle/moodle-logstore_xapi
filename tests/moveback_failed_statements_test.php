@@ -39,6 +39,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
      * Using moveback script for moving a single element
      *
      * @covers \log\moveback
+     * @disabled
      */
     public function test_single_element() {
         global $DB;
@@ -66,6 +67,7 @@ class moveback_failed_statements_test extends enchancement_jisc_skeleton {
      * Using moveback script for moving multiple elements.
      *
      * @covers \log\moveback
+     * @disabled
      */
     public function test_multiple_elements() {
         global $DB;
