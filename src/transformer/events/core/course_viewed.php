@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -46,7 +47,7 @@ function course_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'viewed'
+                $lang => 'Viewed'
             ],
         ],
         'object' => utils\get_activity\course($config, $course),
@@ -54,12 +55,9 @@ function course_viewed(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'grouping' => [
+                'category' => [
                     utils\get_activity\site($config)
                 ],
-                'category' => [
-                    utils\get_activity\source($config)
-                ]
             ],
         ]
     ]];
