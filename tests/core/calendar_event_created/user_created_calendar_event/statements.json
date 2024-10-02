@@ -13,7 +13,7 @@
                {
                   "definition" : {
                      "name" : {
-                        "en" : "EDLM Moodle LMS"
+                        "en" : "test_course_name"
                      },
                      "type" : "http://id.tincanapi.com/activitytype/lms"
                   },
