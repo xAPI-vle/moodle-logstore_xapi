@@ -39,12 +39,12 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
     /**
      * @var int Generated history-log events numbers
      */
-    protected $generatedhistorylog = 12;
+    protected $generatedhistorylog = 27;
 
     /**
      * @var int Generated xapi-log events numbers
      */
-    protected $generatedxapilog = 3;
+    protected $generatedxapilog = 9;
 
     /**
      * @var array Form defaults.
