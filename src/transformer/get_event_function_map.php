@@ -40,10 +40,10 @@ function get_event_function_map() {
         '\core\event\calendar_event_created' => 'core\calendar_event_created',
         '\core\event\calendar_event_updated' => 'core\calendar_event_updated',
         '\core\event\calendar_event_deleted' => 'core\calendar_event_deleted',
-
         '\core\event\course_completed' => 'core\course_completed',
         '\core\event\course_completion_updated' => 'core\course_completion_updated',
         '\core\event\course_viewed' => 'core\course_viewed',
+        '\core\event\course_resources_list_viewed' => 'core\course_resources_list_viewed',
         '\core\event\group_created' => 'core\group_created',
         '\core\event\user_created' => 'core\user_created',
         '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
