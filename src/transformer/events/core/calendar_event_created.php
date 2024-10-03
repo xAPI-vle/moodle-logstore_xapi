@@ -15,50 +15,58 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course completed event.
+ * Transform for calendar event created event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
- *            Milt Reder <milt@yetanalytics.com>
+ * @copyright Daniel Bell<daniel@yetanalytics.com>
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\events\core;
 
 use src\transformer\utils as utils;
+use src\transformer\utils\get_activity as activity;
 
 /**
- * Transformer for course completed event.
+ * Transformer for Calendar Event Created.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_completed(array $config, \stdClass $event) {
+function calendar_event_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $lang = utils\get_course_lang($course);
-
-    return [[
+    $event_object = $repo->read_record_by_id('event', $event->objectid);
+    $course = $event->courseid == 0 ? null : $repo->read_record_by_id('course', $event->courseid);
+    $lang = is_null($course) ? 'en' : utils\get_course_lang($course);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
+            'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'Completed'
+                'en' => 'Created'
             ],
         ],
-        'object' => utils\get_activity\course($config, $course),
+        'object' => [
+            'id' => $config['app_url'].'/calendar/view?id='.$event->objectid,
+            'definition' => [
+                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event',
+                'name' => [$lang => $event_object->name]
+            ]
+        ],
         'context' => [
-            'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'category' => [
-                    utils\get_activity\site($config)
-                ]
-            ],
+                'category' => [activity\site($config)]
+            ]
         ]
-    ]];
+    ];
+
+    if ($course){
+        $statement = utils\add_parent($config,$statement,$course);
+    }
+    
+    return [$statement];
 }
