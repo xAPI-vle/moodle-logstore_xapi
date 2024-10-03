@@ -8,17 +8,17 @@
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "id": "http://id.tincanapi.com/verb/viewed",
       "display": {
-        "en": "Completed"
+        "en": "Viewed"
       }
     },
     "object": {
-      "id": "http://www.example.org/course/view.php?id=1",
+      "id": "http://www.example.org/course/resources.php?id=1",
       "definition": {
-        "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+        "type": "https://w3id.org/xapi/acrossx/activities/webpage",
         "name": {
-          "en": "test_name"
+          "en": "test_name Resources"
         }
       }
     },
@@ -28,17 +28,22 @@
         "http://lrs.learninglocker.net/define/extensions/info": {
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\core\\event\\course_completed",
-          "event_function": "\\src\\transformer\\events\\core\\course_completed"
-        },
-        "http://xapi.jisc.ac.uk/sessionId": "test_session_id",
-        "http://id.tincanapi.com/extension/ip-address": "127.0.0.1",
-        "http://xapi.jisc.ac.uk/statementCat": "VLE",
-        "http://xapi.jisc.ac.uk/courseArea": {
-          "http://xapi.jisc.ac.uk/vle_mod_id": "test_course_short_name"
+          "event_name": "\\core\\event\\course_resources_list_viewed",
+          "event_function": "\\src\\transformer\\events\\core\\course_resources_list_viewed"
         }
       },
       "contextActivities": {
+        "parent": [
+          {
+            "id": "http://www.example.org/course/view.php?id=1",
+            "definition": {
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+              "name": {
+                "en": "test_name"
+              }
+            }
+          }
+        ],
         "category": [
           {
             "id": "http://www.example.org",

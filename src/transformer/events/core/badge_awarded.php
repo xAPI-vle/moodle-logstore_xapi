@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course viewed event.
+ * Transform for badge awarded event.
  *
  * @package   logstore_xapi
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
