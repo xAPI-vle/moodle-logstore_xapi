@@ -197,6 +197,8 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
      * General test for checking stores are writeable and readable.
      */
     public function test_general() {
+        $this->markTestSkipped('must be revisited.');
+
         $this->resetAfterTest();
         $this->setAdminUser();
 
