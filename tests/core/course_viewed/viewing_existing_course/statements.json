@@ -10,7 +10,7 @@
         "verb": {
             "id": "http://id.tincanapi.com/verb/viewed",
             "display": {
-                "en": "viewed"
+                "en": "Viewed"
             }
         },
         "object": {
@@ -33,24 +33,13 @@
                 }
             },
             "contextActivities": {
-                "grouping": [
+                "category": [
                     {
                         "id": "http://www.example.org",
                         "definition": {
                             "type": "http://id.tincanapi.com/activitytype/lms",
                             "name": {
                                 "en": "test_name"
-                            }
-                        }
-                    }
-                ],
-                "category": [
-                    {
-                        "id": "http://moodle.org",
-                        "definition": {
-                            "type": "http://id.tincanapi.com/activitytype/source",
-                            "name": {
-                                "en": "Moodle"
                             }
                         }
                     }
