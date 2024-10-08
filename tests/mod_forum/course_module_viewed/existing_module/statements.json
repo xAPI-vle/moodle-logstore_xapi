@@ -16,7 +16,7 @@
         "object": {
             "id": "http://www.example.org/mod/forum/view.php?id=1",
             "definition": {
-                "type": "http://id.tincanapi.com/activitytype/forum-topic",
+                "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/forum",
                 "name": {
                     "en": "test_name"
                 }
