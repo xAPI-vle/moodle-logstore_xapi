@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
  * @param int $cmid The id of the context.
- * @param string $xapitype The type of xAPI object.
+ * @param string $xapitype The type of xAPI object. (IGNORED)
  * @return array
  */
 function course_module(array $config, \stdClass $course, int $cmid, string $xapitype) {
@@ -47,10 +47,12 @@ function course_module(array $config, \stdClass $course, int $cmid, string $xapi
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
+    $activitytype = utils\get_module_activity_type($module->name);
+
     $object = [
         'id' => $coursemoduleurl,
         'definition' => [
-            'type' => $xapitype,
+            'type' => $activitytype,
             'name' => [
                 $courselang => $instancename,
             ],
