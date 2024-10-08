@@ -37,7 +37,7 @@ use src\transformer\utils as utils;
  * @param ?string $xapitype The type of xAPI object.
  * @return array
  */
-function course_module(array $config, \stdClass $course, int $cmid, ?string $xapitype) {
+function course_module(array $config, \stdClass $course, int $cmid, ?string $xapitype = null) {
     $repo = $config['repo'];
     $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
     $module = $repo->read_record_by_id('modules', $coursemodule->module);
