@@ -131,7 +131,7 @@
           {
             "id": "http://www.example.org/mod/feedback/view.php?id=1",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/survey",
+              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/feedback",
               "name": {
                 "en": "test_feedback_name"
               }
