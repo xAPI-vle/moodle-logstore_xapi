@@ -8,7 +8,7 @@
       }
     },
     "verb": {
-        "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted",
+      "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted",
       "display": {
         "en": "Uncompleted"
       }
