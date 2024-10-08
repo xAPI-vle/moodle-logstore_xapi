@@ -8,9 +8,9 @@
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/completed",
+        "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted",
       "display": {
-        "en": "Completed"
+        "en": "Uncompleted"
       }
     },
     "object": {

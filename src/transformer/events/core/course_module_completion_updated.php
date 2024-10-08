@@ -54,13 +54,12 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         ];
     } else {
         $verb = [
-            'id' => 'http://adlnet.gov/expapi/verbs/incompleted',
+            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
             'display' => [
-                $lang => 'Incompleted'
+                $lang => 'Uncompleted'
             ],
         ];
     }
-
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -68,8 +67,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         'object' => utils\get_activity\course_module(
             $config,
             $course,
-            $event->contextinstanceid,
-            'http://id.tincanapi.com/activitytype/lms/module'
+            $event->contextinstanceid
         ),
         'context' => [
             'language' => $lang,

@@ -34,10 +34,10 @@ use src\transformer\utils as utils;
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
  * @param int $cmid The id of the context.
- * @param string $xapitype The type of xAPI object. (IGNORED)
+ * @param ?string $xapitype The type of xAPI object.
  * @return array
  */
-function course_module(array $config, \stdClass $course, int $cmid, string $xapitype) {
+function course_module(array $config, \stdClass $course, int $cmid, ?string $xapitype) {
     $repo = $config['repo'];
     $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
     $module = $repo->read_record_by_id('modules', $coursemodule->module);
@@ -47,7 +47,11 @@ function course_module(array $config, \stdClass $course, int $cmid, string $xapi
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
-    $activitytype = utils\get_module_activity_type($module->name);
+    if ($xapitype === null) {
+        $activitytype = utils\get_module_activity_type($module->name);
+    } else {
+        $activitytype = $xapitype;
+    }
 
     $object = [
         'id' => $coursemoduleurl,
