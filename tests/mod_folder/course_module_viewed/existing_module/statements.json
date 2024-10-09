@@ -16,7 +16,7 @@
         "object": {
             "id": "http://www.example.org/mod/folder/view.php?id=1",
             "definition": {
-                "type": "http://id.tincanapi.com/activitytype/lms/module",
+                "type": "http://activitystrea.ms/collection",
                 "name": {
                     "en": "test_name"
                 }

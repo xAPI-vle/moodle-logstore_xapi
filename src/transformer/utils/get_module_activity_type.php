@@ -39,6 +39,7 @@ function get_module_activity_type_mapping() {
         'chat'            => 'http://id.tincanapi.com/activitytype/chat-channel',
         'choice'          => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'data'            => 'http://xapi.org.au/contentprofile/activitytype/database',
+        'facetoface'      => 'https://w3id.org/xapi/acrossx/activities/face-to-face-discussion',
         'feedback'        => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/feedback',
         'folder'          => 'http://activitystrea.ms/collection',
         'forum'           => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/forum',
