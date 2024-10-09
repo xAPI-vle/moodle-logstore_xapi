@@ -47,11 +47,7 @@ function course_module(array $config, \stdClass $course, int $cmid) {
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
-    if ($xapitype === null) {
-        $activitytype = utils\get_module_activity_type($module->name);
-    } else {
-        $activitytype = $xapitype;
-    }
+    $activitytype = utils\get_module_activity_type($module->name);
 
     // TODO: Some objects (like mod_choice CMI interactions) will need more
     // dispatch and add those here
