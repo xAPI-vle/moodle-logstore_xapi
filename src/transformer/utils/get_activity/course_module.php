@@ -53,6 +53,8 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         $activitytype = $xapitype;
     }
 
+    // TODO: Some objects (like mod_choice CMI interactions) will need more
+    // dispatch and add those here
     $object = [
         'id' => $coursemoduleurl,
         'definition' => [
