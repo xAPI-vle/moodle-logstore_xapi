@@ -14,13 +14,13 @@
       }
     },
     "object": {
-        "id": "http://www.example.org/course/view.php?id=1",
-        "definition": {
-            "type": "https://w3id.org/xapi/cmi5/activitytype/course",
-            "name": {
-                "en": "test_name"
-            }
+      "id": "http://www.example.org/course/view.php?id=1",
+      "definition": {
+        "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+        "name": {
+          "en": "test_name"
         }
+      }
     },
     "context": {
       "contextActivities": {

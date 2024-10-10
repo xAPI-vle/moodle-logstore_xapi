@@ -1,28 +1,28 @@
 {
-    "user": [
-        {
-            "id": 1,
-            "firstname": "test_fullname",
-            "email": "test@test.com"
-        }
-    ],
-    "course": [
-        {
-            "id": 1,
-            "fullname": "test_name",
-            "lang": "en"
-        }
-    ],
-    "scorm": [
-        {
-            "id": 1,
-            "name": "test_name"
-        }
-    ],
-    "scorm_scoes": [
-        {
-            "id": 1,
-            "scorm": 1
-        }
-    ]
+  "user": [
+    {
+      "id": 1,
+      "firstname": "test_fullname",
+      "email": "test@test.com"
+    }
+  ],
+  "course": [
+    {
+      "id": 1,
+      "fullname": "test_name",
+      "lang": "en"
+    }
+  ],
+  "scorm": [
+    {
+      "id": 1,
+      "name": "test_name"
+    }
+  ],
+  "scorm_scoes": [
+    {
+      "id": 1,
+      "scorm": 1
+    }
+  ]
 }

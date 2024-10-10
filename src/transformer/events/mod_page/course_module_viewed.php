@@ -52,8 +52,7 @@ function course_module_viewed(array $config, \stdClass $event) {
         'object' => utils\get_activity\course_module(
             $config,
             $course,
-            $event->contextinstanceid,
-            'https://w3id.org/xapi/acrossx/activities/page'
+            $event->contextinstanceid
         ),
         'context' => [
             'language' => $lang,
