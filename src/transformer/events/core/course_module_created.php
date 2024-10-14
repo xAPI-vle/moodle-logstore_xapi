@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the course section created event.
+ * Transform for the course module created event.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
@@ -27,13 +27,13 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for course section created event.
+ * Transformer for course module created event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_section_created(array $config, \stdClass $event) {
+function course_module_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -44,16 +44,21 @@ function course_section_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'Created',
+                $lang => 'Created'
             ],
         ],
-        'object' => utils\get_activity\course_section($config, $course, $event->objectid),
+        'object' => utils\get_activity\course_module(
+            $config,
+            $course,
+            $event->contextinstanceid
+        ),
         'context' => [
             'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
-                'parent' => [
-                    utils\get_activity\course($config, $course),
-                ],
+                'parent' => utils\context_activities\get_parent(
+                    $config,
+                    $event->contextinstanceid
+                ),
                 'category' => [
                     utils\get_activity\site($config),
                 ],
