@@ -1,0 +1,25 @@
+{
+   "course" : [
+      {
+         "fullname" : "test_course_name",
+         "id" : 1,
+         "lang" : "en",
+         "summary" : "test_course_summary"
+      }
+   ],
+   "messages" : [
+      {
+         "id" : 1,
+         "smallmessage" : "hi there!(messagetext)",
+         "subject" : "hi there(subject)"
+      }
+   ],
+   "user" : [
+      {
+         "email" : "viewer@test.com",
+         "firstname" : "message_viewer_firstname",
+         "id" : 1,
+         "lastname" : "message_viewer_lastname"
+      }
+   ]
+}
