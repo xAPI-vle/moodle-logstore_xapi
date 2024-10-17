@@ -15,6 +15,7 @@
     },
     "object": {
       "id": "http://www.example.org/group/index.php?id=1",
+      "objectType": "Activity",
       "definition": {
         "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group",
         "name": {

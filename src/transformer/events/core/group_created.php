@@ -52,6 +52,9 @@ function group_created(array $config, \stdClass $event) {
         'context' => [
             'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
+                'parent' => [
+                    utils\get_activity\course($config, $course),
+                ],
                 'category' => [
                     utils\get_activity\site($config),
                 ],

@@ -13,8 +13,10 @@
       "email": "test@test.com"
     }
   ],
-  "groups": {
-    "id": 1,
-    "name": "test_name"
-  }
+  "groups": [
+    {
+      "id": 1,
+      "name": "test_name"
+    }
+  ]
 }
