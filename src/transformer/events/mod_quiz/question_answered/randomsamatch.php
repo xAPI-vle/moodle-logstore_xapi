@@ -87,14 +87,18 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
-                    utils\get_activity\course_quiz($config, $course, $event->contextinstanceid),
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
-                ],
+                'parent' => array_merge(
+                    [
+                        utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
+                    ],
+                    utils\context_activities\get_parent(
+                        $config,
+                        $event->contextinstanceid,
+                        true
+                    ),
+                ),
                 'category' => [
-                    utils\get_activity\source($config),
+                    utils\get_activity\site($config),
                 ]
             ],
         ]

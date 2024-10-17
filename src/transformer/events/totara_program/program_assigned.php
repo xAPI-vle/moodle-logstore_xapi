@@ -54,12 +54,9 @@ function program_assigned(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event),
             'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\site($config)
-                ],
                 'category' => [
-                    utils\get_activity\source($config)
-                ]
+                    utils\get_activity\site($config),
+                ],
             ],
         ]
     ]];

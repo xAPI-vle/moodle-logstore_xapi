@@ -39,9 +39,6 @@ function course_module_completion_updated(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
-    $moduletype = $repo->read_record_by_id('modules', $coursemodule->module);
-    $module = $repo->read_record_by_id($moduletype->name, $coursemodule->instance);
     $lang = utils\get_course_lang($course);
     $completionstate = unserialize($event->other)['completionstate'];
 
@@ -73,12 +70,13 @@ function course_module_completion_updated(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'parent' => [
-                    utils\get_activity\course($config, $course),
-                ],
+                'parent' => utils\context_activities\get_parent(
+                    $config,
+                    $event->contextinstanceid
+                ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
         ]
     ]];

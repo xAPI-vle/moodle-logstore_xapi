@@ -63,18 +63,18 @@ function user_report_viewed(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\site($config),
-                ],
                 'category' => [
-                    utils\get_activity\source($config),
+                    utils\get_activity\site($config),
                 ]
             ],
         ]
     ];
 
     if ($event->courseid != "0") {
-        array_push($statement['context']['contextActivities']['grouping'], utils\get_activity\course($config, $course));
+        $statement['context']['contextActivities']['parent'] = [
+            utils\get_activity\course($config, $course)
+        ];
+
     }
 
     return[$statement];

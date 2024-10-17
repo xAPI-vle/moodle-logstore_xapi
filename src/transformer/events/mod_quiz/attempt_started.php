@@ -52,15 +52,15 @@ function attempt_started(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
+                'parent' => utils\context_activities\get_parent(
+                    $config,
+                    $event->contextinstanceid
+                ),
                 'other' => [
-                    utils\get_activity\quiz_attempt($config, $attempt->id, $event->contextinstanceid),
-                ],
-                'grouping' => [
-                    utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
+                    utils\get_activity\quiz_attempt($config, $attempt->id, $coursemodule->id),
                 ],
                 'category' => [
-                    utils\get_activity\source($config),
+                    utils\get_activity\site($config),
                 ]
             ],
         ]

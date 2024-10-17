@@ -28,17 +28,5 @@
       "instance": 1,
       "section": 1
     }
-  ],
-  "modules": [
-    {
-      "id": 1,
-      "name": "book"
-    }
-  ],
-  "book": [
-    {
-      "id": 1,
-      "name": "test_book_name"
-    }
   ]
 }
