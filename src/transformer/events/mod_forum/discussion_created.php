@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -45,9 +46,9 @@ function discussion_created(array $config, \stdClass $event) {
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://activitystrea.ms/schema/1.0/create',
+            'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'created'
+                $lang => 'Created'
             ],
         ],
         'object' => utils\get_activity\course_discussion($config, $course, $discussion),

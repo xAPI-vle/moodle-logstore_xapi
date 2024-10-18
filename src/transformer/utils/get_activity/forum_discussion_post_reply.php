@@ -32,12 +32,25 @@ use src\transformer\utils as utils;
  * Transformer utility for retrieving (forum discussion post reply) activities.
  *
  * @param array $config The transformer config settings.
+ * @param \stdClass $course The course object.
  * @param \stdClass $post The forum post object.
  * @return string
  */
-function forum_discussion_post_reply(array $config, \stdClass $post) {
-    $repo = $config['repo'];
-    $actualreply = $repo->read_record_by_id('forum_posts', $post->id);
+function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass $post) {
+    $lang = utils\get_course_lang($course);
+    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id;
+    $postname = property_exists($post, 'name') ? $post->subject : 'RE: Discussion';
 
-    return utils\get_string_html_removed($actualreply->message);
+    return [
+        'id' => $posturl,
+        'definition' => [
+            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
+            'name' => [
+                $lang => $postname,
+            ],
+            'description' => [
+                $lang => utils\get_string_html_removed($post->message),
+            ]
+        ],
+    ];
 }
