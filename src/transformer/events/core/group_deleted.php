@@ -15,54 +15,51 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Generic Debug Transform
+ * Transform for the group deleted event.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
- *            Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\debug;
+namespace src\transformer\events\core;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for Any Event to emit debug xAPI statements.
- * Only used in development.
+ * Transformer for group deleted event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function debug_event(array $config, \stdClass $event) {
-    //debug
+function group_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    if (isset($event->objecttable) && isset($event->objectid) && $event->action !== 'deleted') {
-        $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
-    } else {
-        $event_object = array();
-    }
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $course = $repo->read_record_by_id('course', $event->courseid);
+    $lang = utils\get_course_lang($course);
+    $group = new \stdClass();
+    $group->id = $event->objectid;
 
     return [[
-        'object' => [
-            'id' => 'http://www.yetanalytics.com/test_events/debug' . utils\reverseBackslashes($event->eventname)
-        ],
-        'actor' => [
-            'mbox' => 'mailto:tester@example.com'
-        ],
+        'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://www.yetanalytics.com/debug',
+            'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                'en-US' => 'debug'
+                $lang => 'Deleted'
             ],
         ],
+        'object' => utils\get_activity\course_group($config, $course, $group),
         'context' => [
-            'extensions' => [
-                'http://www.yetanalytics.com/debug_objects/event' => $event,
-                'http://www.yetanalytics.com/debug_objects/event_other' => unserialize($event->other),
-                'http://www.yetanalytics.com/debug_objects/event_object' => $event_object
-            ]
+            'extensions' => utils\extensions\base($config, $event, null),
+            'contextActivities' => [
+                'parent' => [
+                    utils\get_activity\course($config, $course),
+                ],
+                'category' => [
+                    utils\get_activity\site($config),
+                ],
+            ],
         ]
     ]];
 }
