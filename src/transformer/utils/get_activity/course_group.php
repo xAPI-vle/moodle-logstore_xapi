@@ -38,14 +38,20 @@ function course_group(array $config, \stdClass $course, \stdClass $group) {
     $coursename = $course->fullname ? $course->fullname : 'A Moodle course';
     $courselang = utils\get_course_lang($course);
 
-    return [
+    $activity = [
         'id' => $config['app_url'] . '/group/index.php?id=' . $group->id,
         'objectType' => 'Activity',
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group',
-            'name' => [
-                $courselang => $group->name,
-            ],
         ],
     ];
+
+    // moodle groups only have names when they aren't deleted
+    if (isset($group->name)) {
+        $activity['definition']['name'] = [
+            $courselang => $group->name,
+        ];
+    }
+
+    return $activity;
 }
