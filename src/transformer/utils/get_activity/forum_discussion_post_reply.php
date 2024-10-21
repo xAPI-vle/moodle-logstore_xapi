@@ -38,19 +38,26 @@ use src\transformer\utils as utils;
  */
 function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass $post) {
     $lang = utils\get_course_lang($course);
-    $posturl = $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id;
-    $postname = property_exists($post, 'name') ? $post->subject : 'RE: Discussion';
 
-    return [
-        'id' => $posturl,
+    $activity = [
+        'id' => $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
-            'name' => [
-                $lang => $postname,
-            ],
-            'description' => [
-                $lang => utils\get_string_html_removed($post->message),
-            ]
+            'type' => 'http://id.tincanapi.com/activitytype/forum-reply'
         ],
     ];
+
+    // moodle groups only have names when they aren't deleted
+    if (isset($post->subject)) {
+        $activity['definition']['name'] = [
+            $lang => $post->subject
+        ];
+    }
+
+    if (isset($post->message)) {
+        $activity['definition']['description'] = [
+            $lang => utils\get_string_html_removed($post->message),
+        ];
+    }
+
+    return $activity;
 }
