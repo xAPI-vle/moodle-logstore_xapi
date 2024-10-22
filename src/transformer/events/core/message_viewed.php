@@ -45,9 +45,15 @@ function message_viewed(array $config, \stdClass $event) {
         $event_object = array();
     }
 
-    $user=$repo->read_record_by_id('user',$event->userid); 
-    $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id('course', $event->courseid) : null;
-    $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id("course",1)));
+    $user=$repo->read_record_by_id('user',$event->userid);
+    $recipient=$user;
+    $sender=$repo->read_record_by_id('user',$event->relateduserid);
+    $course = (isset($event->courseid) && $event->courseid != 0)
+        ? $repo->read_record_by_id('course', $event->courseid)
+        : null;
+    $lang = utils\get_course_lang(($course
+                                   ? $course
+                                   : $repo->read_record_by_id("course",1)));
 
     $statement = [
         'actor' => utils\get_user($config,$user),
@@ -67,7 +73,12 @@ function message_viewed(array $config, \stdClass $event) {
             'contextActivities' =>  [
                 'category' => [activity\site($config)],
             ],
-            'extensions' => utils\extensions\base($config, $event, $course)
+            'extensions' =>
+              array_merge(
+                utils\extensions\base($config, $event, $course), [
+                  "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config,$recipient),
+                  "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" => utils\get_user($config,$sender)
+                ])
         ]];
 
     if ($course){

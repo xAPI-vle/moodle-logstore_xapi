@@ -45,31 +45,43 @@ function message_sent(array $config, \stdClass $event) {
         $event_object = array();
     }
     
-    $user=$repo->read_record_by_id('user',$event->userid); 
+    $user = $repo->read_record_by_id('user',$event->userid); 
+    $sender = $user;
+    $recipient = $repo->read_record_by_id('user',$event->relateduserid); 
+    
+    $course = (isset($event->courseid) && $event->courseid != 0)
+        ? $repo->read_record_by_id('course', $event->courseid)
+        : null;
 
-    $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id('course', $event->courseid) : null;
-
-    $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id('course',1)));
+    $lang = utils\get_course_lang(($course
+                                   ? $course
+                                   : $repo->read_record_by_id('course',1)));
     
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://activitystrea.ms/send',
-                   'display' => ['en' => 'Sent']],
-        'object' => [
-            'id' => $config['app_url'].'/course/view.php?id='.$event->objectid,
-            'definition' => [
-                'type' => "http://id.tincanapi.com/activitytype/chat-message",
-                'name' => [$lang => $event_object->subject ?? 'no subject'],
-                'description' => [$lang => $event_object->smallmessage],
-            ],
+      'actor' => utils\get_user($config,$user),
+      'verb' => ['id' => 'http://activitystrea.ms/send',
+                 'display' => ['en' => 'Sent']],
+      'object' => [
+        'id' => $config['app_url'].'/course/view.php?id='.$event->objectid,
+        'definition' => [
+          'type' => "http://id.tincanapi.com/activitytype/chat-message",
+          'name' => [$lang => $event_object->subject ?? 'no subject'],
+          'description' => [$lang => $event_object->smallmessage],
         ],
-        'context' => [
-            'language' => $lang,
-            'contextActivities' => [
-                'category' => [activity\site($config)],
-            ],
-            'extensions' => utils\extensions\base($config, $event, $course)
-        ]];
+      ],
+      'context' => [
+        'language' => $lang,
+        'contextActivities' => [
+          'category' => [activity\site($config)],
+        ],
+        'extensions' =>
+
+          array_merge(
+            utils\extensions\base($config, $event, $course), [
+              "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config,$recipient),
+              "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" => utils\get_user($config,$sender)
+            ])
+      ]];
     
         if ($course){
             $statement = utils\add_parent($config,$statement,$course);

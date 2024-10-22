@@ -1,25 +1,23 @@
 {
-   "course" : [
-      {
-         "fullname" : "test_course_name",
-         "id" : 1,
-         "lang" : "en",
-         "summary" : "test_course_summary"
-      }
-   ],
-   "messages" : [
-      {
-         "id" : 1,
-         "smallmessage" : "hi there!(messagetext)",
-         "subject" : "hi there(subject)"
-      }
-   ],
-   "user" : [
-      {
-         "email" : "sender@test.com",
-         "firstname" : "message_sender_firstname",
-         "id" : 1,
-         "lastname" : "message_sender_lastname"
-      }
-   ]
+  "user":[
+    {"id": 1,
+     "firstname":"sender",
+     "lastname":"senderson",
+     "email":"sender@example.com",
+     "username":"sender"
+    },
+    {"id": 2,
+     "firstname":"receiver",
+     "lastname":"receiverson",
+     "email":"receiver@example.com",
+     "username":"receiver"
+    }
+  ],
+  "messages" : [
+    {
+      "id" : 1,
+      "smallmessage" : "hi there!(messagetext)",
+      "subject" : "hi there(subject)"
+    }
+  ]
 }
