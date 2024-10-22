@@ -89,6 +89,7 @@ function get_event_function_map() {
         '\mod_forum\event\post_created' => 'mod_forum\post_created',
 
         '\mod_forum\event\post_deleted' => 'mod_forum\post_deleted',
+        '\mod_forum\event\post_updated' => 'mod_forum\post_updated',
 
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
         '\mod_glossary\event\course_module_viewed' => 'all\course_module_viewed',
