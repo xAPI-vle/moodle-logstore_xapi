@@ -46,7 +46,7 @@ function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass
         ],
     ];
 
-    // moodle groups only have names when they aren't deleted
+    // forum activities only have names when they aren't deleted
     if (isset($post->subject)) {
         $activity['definition']['name'] = [
             $lang => $post->subject
