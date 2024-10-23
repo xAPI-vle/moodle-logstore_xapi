@@ -65,8 +65,8 @@ function message_sent(array $config, \stdClass $event) {
         'id' => $config['app_url'].'/course/view.php?id='.$event->objectid,
         'definition' => [
           'type' => "http://id.tincanapi.com/activitytype/chat-message",
-          'name' => [$lang => $event_object->subject ?? 'no subject'],
-          'description' => [$lang => $event_object->smallmessage],
+          'name' => [$lang =>  utils\get_string_html_removed($event_object->subject)],
+          'description' => [$lang => utils\get_string_html_removed($event_object->smallmessage)],
         ],
       ],
       'context' => [
