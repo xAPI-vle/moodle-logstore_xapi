@@ -45,6 +45,7 @@ function post_deleted(array $config, \stdClass $event) {
     
     $other = unserialize($event->other);
     $discussionid = $other['discussionid'];
+    $post->discussion = $discussionid;
     $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
 
     return [[
@@ -52,7 +53,7 @@ function post_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                'en-US' => 'Deleted'
+                $lang => 'Deleted'
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
