@@ -58,7 +58,8 @@ function discussion_subscription_deleted(array $config, \stdClass $event) {
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
-                    $event->contextinstanceid
+                    $event->contextinstanceid,
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),
