@@ -27,7 +27,7 @@
         "raw": 50,
         "min": 0,
         "max": 100,
-        "scaled": 0.5
+        "scaled": 0.0
       },
       "completion": true,
       "success": true,
