@@ -23,7 +23,7 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test for mod_forum discussion created event.
+ * Unit test for mod_forum discussion unsubscribed event.
  *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>

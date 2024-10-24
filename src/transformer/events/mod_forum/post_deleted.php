@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum post created event.
+ * Transform for the forum post deleted event.
  *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>

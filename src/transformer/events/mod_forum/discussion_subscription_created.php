@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum discussion viewed event.
+ * Transform for the forum discussion subscribed event.
  *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>

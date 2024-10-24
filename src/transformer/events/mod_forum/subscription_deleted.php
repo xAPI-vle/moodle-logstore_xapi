@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum discussion viewed event.
+ * Transform for the forum unsubscribed event.
  *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>
@@ -27,7 +27,7 @@ namespace src\transformer\events\mod_forum;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for forum unsubscribed.
+ * Transformer for forum unsubscribed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
