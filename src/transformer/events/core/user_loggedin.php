@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -39,19 +40,27 @@ function user_loggedin(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $lang = $config['source_lang'];
+    $ctx_extensions = utils\extensions\base($config, $event, null);
+
+    if (!is_null($event->relateduserid)) {
+        $asuser = $repo->read_record_by_id('user', $event->relateduserid);
+        $ctx_extensions[
+            'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/as'
+        ] = utils\get_user($config, $asuser);
+    }
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => utils\get_verb('loggedin', $config, $lang),
+        'verb' => [
+            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/login',
+            'display' => [
+                $lang => 'Logged In',
+            ],
+        ],
         'object' => utils\get_activity\site($config),
         'context' => [
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, null),
-            'contextActivities' => [
-                'category' => [
-                    utils\get_activity\source($config)
-                ]
-            ],
+            'extensions' => $ctx_extensions,
         ]
     ]];
 }

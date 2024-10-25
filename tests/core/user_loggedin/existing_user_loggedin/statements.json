@@ -8,9 +8,9 @@
       }
     },
     "verb": {
-      "id": "https://brindlewaye.com/xAPITerms/verbs/loggedin/",
+      "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/login",
       "display": {
-        "en": "logged into"
+        "en": "Logged In"
       }
     },
     "object": {
@@ -31,19 +31,6 @@
           "event_name": "\\core\\event\\user_loggedin",
           "event_function": "\\src\\transformer\\events\\core\\user_loggedin"
         }
-      },
-      "contextActivities": {
-        "category": [
-          {
-            "id": "http://moodle.org",
-            "definition": {
-              "type": "http://id.tincanapi.com/activitytype/source",
-              "name": {
-                "en": "Moodle"
-              }
-            }
-          }
-        ]
       }
     }
   }
