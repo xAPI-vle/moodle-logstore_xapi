@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_forum\post_created;
+namespace logstore_xapi\mod_forum\discussion_created;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -23,16 +23,13 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test for mod_forum post created event.
+ * Unit test for mod_forum discussion unsubscribed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
- *            Cliff Casey <cliff@yetanalytics.com>
+ * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class post_created_test extends \logstore_xapi\xapi_test_case {
+class discussion_subscription_deleted_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -64,7 +61,7 @@ class post_created_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::post_created
+     * @covers ::discussion_created
      * @return void
      */
     public function test_init() {

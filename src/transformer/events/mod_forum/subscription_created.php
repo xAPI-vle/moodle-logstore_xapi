@@ -15,13 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the forum post created event.
+ * Transform for the forum subscribed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
- *            Cliff Casey <cliff@yetanalytics.com>
+ * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,38 +27,35 @@ namespace src\transformer\events\mod_forum;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for forum post created event.
+ * Transformer for forum subscribed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function post_created(array $config, \stdClass $event) {
+function subscription_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $post = $repo->read_record_by_id('forum_posts', $event->objectid);
-    $other = unserialize($event->other);
-    $discussionid = $other['discussionid'];
-    $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
-
+    
     $lang = utils\get_course_lang($course);
+
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/replied',
+            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/subscribed',
             'display' => [
-                $lang => 'Replied'
+                $lang => 'Subscribed'
             ],
         ],
-        'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
+        'object' => utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
-                'parent' => array_merge(
-                    [utils\get_activity\course_discussion($config, $course, $discussion)], 
-                    utils\context_activities\get_parent($config, $event->contextinstanceid, true)
+                'parent' => utils\context_activities\get_parent(
+                    $config,
+                    $event->contextinstanceid
                 ),
                 'category' => [
                     utils\get_activity\site($config),

@@ -10,20 +10,20 @@
     "verb": {
       "id": "http://id.tincanapi.com/verb/replied",
       "display": {
-        "en": "replied to"
+        "en": "Replied"
       }
     },
     "object": {
-      "id": "http://www.example.org/mod/forum/discuss.php?d=1",
+      "id": "http://www.example.org/mod/forum/discuss.php?d=1#p1",
       "definition": {
-        "type": "http://id.tincanapi.com/activitytype/discussion",
+        "type": "http://id.tincanapi.com/activitytype/forum-reply",
         "name": {
-          "en": "test_forum_discussion_name"
+          "en": "Re: test_forum_discussion_name"
+        },
+        "description": {
+          "en": "test_response_text"
         }
       }
-    },
-    "result": {
-      "response": "test_response_text"
     },
     "context": {
       "language": "en",
@@ -37,6 +37,15 @@
       },
       "contextActivities": {
         "parent": [
+          {
+            "id": "http://www.example.org/mod/forum/discuss.php?d=1",
+            "definition": {
+              "type": "http://id.tincanapi.com/activitytype/discussion",
+              "name": {
+                "en": "test_forum_discussion_name"
+              }
+            }
+          },
           {
             "id": "http://www.example.org/mod/forum/view.php?id=1",
             "definition": {
@@ -63,14 +72,6 @@
               "name": {
                 "en": "test_name"
               }
-            }
-          }
-        ],
-        "other": [
-          {
-            "id": "http://www.example.org/mod/forum/discuss.php?d=1#p1",
-            "definition": {
-              "type": "http://id.tincanapi.com/activitytype/forum-reply"
             }
           }
         ],
