@@ -109,6 +109,9 @@
       "definition": {
         "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
         "name": {
+          "en": "test_name"
+        },
+        "description": {
           "en": "Example Random short-answer matching question"
         },
         "interactionType": "matching"

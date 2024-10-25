@@ -27,6 +27,7 @@
 namespace src\transformer\events\mod_quiz\question_answered;
 
 use src\transformer\utils as utils;
+use src\transformer\utils\get_activity\definition\question as question;
 
 /**
  * Transformer for quiz question (randomsamatch) answered event.
@@ -67,13 +68,7 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
         ],
         'object' => [
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => utils\get_string_html_removed($question->questiontext)
-                ],
-                'interactionType' => 'matching',
-            ]
+            'definition' => question\get_match_definition($config, $question, $lang)
         ],
         'result' => [
             'response' => $questionattempt->responsesummary,

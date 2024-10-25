@@ -49,6 +49,7 @@
     {
       "id": 1,
       "qtype": "essay",
+      "name": "test_name",
       "questiontext": "test_question"
     }
   ],

@@ -8,9 +8,9 @@
       }
     },
     "verb": {
-      "id": "https://brindlewaye.com/xAPITerms/verbs/loggedout/",
+      "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/logout",
       "display": {
-        "en": "logged out of"
+        "en": "Logged Out"
       }
     },
     "object": {
@@ -31,19 +31,6 @@
           "event_name": "\\core\\event\\user_loggedout",
           "event_function": "\\src\\transformer\\events\\core\\user_loggedout"
         }
-      },
-      "contextActivities": {
-        "category": [
-          {
-            "id": "http://moodle.org",
-            "definition": {
-              "type": "http://id.tincanapi.com/activitytype/source",
-              "name": {
-                "en": "Moodle"
-              }
-            }
-          }
-        ]
       }
     }
   }

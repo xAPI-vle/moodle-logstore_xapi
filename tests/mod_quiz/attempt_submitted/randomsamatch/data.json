@@ -50,6 +50,7 @@
     {
       "id": 1,
       "qtype": "randomsamatch",
+      "name": "test_name",
       "questiontext": "<p>Example Random short-answer matching question<br></p>"
     }
   ],

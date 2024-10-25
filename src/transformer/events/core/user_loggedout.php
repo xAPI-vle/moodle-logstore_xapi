@@ -42,16 +42,16 @@ function user_loggedout(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => utils\get_verb('loggedout', $config, $lang),
+        'verb' => [
+            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/logout',
+            'display' => [
+                $lang => 'Logged Out',
+            ],
+        ],
         'object' => utils\get_activity\site($config),
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, null),
-            'contextActivities' => [
-                'category' => [
-                    utils\get_activity\source($config)
-                ]
-            ],
         ]
     ]];
 }

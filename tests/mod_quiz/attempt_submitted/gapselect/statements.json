@@ -109,6 +109,9 @@
       "definition": {
         "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
         "name": {
+          "en": "test_name"
+        },
+        "description": {
           "en": "Example [[1]] missing [[2]] words [[3]]"
         },
         "interactionType": "sequencing"

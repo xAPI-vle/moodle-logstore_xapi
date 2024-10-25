@@ -1,16 +1,16 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
+      "name": "test_fullname2",
       "account": {
         "homePage": "http://www.example.org",
-        "name": "1"
+        "name": "2"
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/registered",
+      "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/enrolled",
       "display": {
-        "en": "enrolled to"
+        "en": "Enrolled"
       }
     },
     "object": {
@@ -23,8 +23,16 @@
       }
     },
     "context": {
+      "instructor": {
+        "name": "test_fullname1",
+        "account": {
+          "homePage": "http://www.example.org",
+          "name": "1"
+        }
+      },
       "language": "en",
       "extensions": {
+        "https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/enrolment-type": "manual",
         "http://lrs.learninglocker.net/define/extensions/info": {
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
@@ -33,24 +41,13 @@
         }
       },
       "contextActivities": {
-        "grouping": [
+        "category": [
           {
             "id": "http://www.example.org",
             "definition": {
               "type": "http://id.tincanapi.com/activitytype/lms",
               "name": {
                 "en": "test_name"
-              }
-            }
-          }
-        ],
-        "category": [
-          {
-            "id": "http://moodle.org",
-            "definition": {
-              "type": "http://id.tincanapi.com/activitytype/source",
-              "name": {
-                "en": "Moodle"
               }
             }
           }

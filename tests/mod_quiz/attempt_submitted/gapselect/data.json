@@ -50,6 +50,7 @@
     {
       "id": 1,
       "qtype": "gapselect",
+      "name": "test_name",
       "questiontext": "<p>Example [[1]] missing [[2]] words [[3]]</p>"
     }
   ],

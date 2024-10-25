@@ -109,6 +109,9 @@
       "definition": {
         "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
         "name": {
+          "en": "test_name"
+        },
+        "description": {
           "en": "test_question"
         },
         "interactionType": "fill-in"

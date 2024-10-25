@@ -1,6 +1,7 @@
 {
   "id": 1,
   "userid": 1,
+  "relateduserid": null,
   "courseid": 1,
   "timecreated": 1433946701,
   "objecttable": "course",
