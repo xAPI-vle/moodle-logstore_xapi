@@ -50,6 +50,7 @@
     {
       "id": 1,
       "qtype": "truefalse",
+      "name": "test_name",
       "questiontext": "test_question"
     }
   ],

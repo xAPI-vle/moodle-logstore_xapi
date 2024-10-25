@@ -1,0 +1,10 @@
+{
+  "question": [
+    {
+      "id": 1,
+      "qtype": "truefalse",
+      "name": "True or False?",
+      "questiontext": "<p>Is the sky blue?</p>"
+    }
+  ]
+}
