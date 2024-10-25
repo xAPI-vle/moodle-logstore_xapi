@@ -35,5 +35,11 @@
       "grademax": 2,
       "gradepass": 1
     }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "assign"
+    }
   ]
 }
