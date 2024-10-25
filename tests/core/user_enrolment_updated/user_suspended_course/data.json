@@ -10,5 +10,11 @@
       "firstname": "test_fullname2",
       "email": "test@test.com"
     }
+  ],
+  "user_enrolments": [
+    {
+      "id": 1,
+      "status": 1
+    }
   ]
 }

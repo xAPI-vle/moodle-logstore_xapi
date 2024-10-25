@@ -53,6 +53,8 @@ function get_event_function_map() {
         '\core\event\group_member_removed' => 'core\group_member_removed',
         '\core\event\user_created' => 'core\user_created',
         '\core\event\user_enrolment_created' => 'core\user_enrolment_created',
+        '\core\event\user_enrolment_deleted' => 'core\user_enrolment_deleted',
+        '\core\event\user_enrolment_updated' => 'core\user_enrolment_updated',
         '\core\event\user_loggedin' => 'core\user_loggedin',
         '\core\event\user_loggedout' => 'core\user_loggedout',
         '\core\event\course_module_created' => 'core\course_module_created',
