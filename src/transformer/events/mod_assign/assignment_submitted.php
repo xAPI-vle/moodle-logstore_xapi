@@ -52,14 +52,27 @@ function assignment_submitted(array $config, \stdClass $event) {
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,
-        'object' => utils\get_activity\course_assignment($config, $event->contextinstanceid, $assignment->name, $lang),
+        'object' => [
+            'id' => $config['app_url']
+                . '/mod/assign/view.php?id='
+                . $event->contextinstanceid
+                . '#submission',
+            'objectType' => 'Activity',
+            'definition' => [
+                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/submission',
+                'name' => [
+                    $lang => $assignment->name . ' Submission',
+                ]
+            ]
+        ],
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
-                    $event->contextinstanceid
+                    $event->contextinstanceid,
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),
