@@ -107,6 +107,7 @@ function get_event_function_map() {
         '\mod_forum\event\discussion_subscription_deleted' => 'mod_forum\discussion_subscription_deleted',
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
         '\mod_glossary\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_glossary\event\entry_viewed' => 'mod_glossary\entry_viewed',
         '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lesson\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lti\event\course_module_viewed' => 'all\course_module_viewed',
