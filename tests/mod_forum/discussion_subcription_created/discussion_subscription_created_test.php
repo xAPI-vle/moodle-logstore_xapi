@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_forum\discussion_created;
+namespace logstore_xapi\mod_forum;
 
 defined('MOODLE_INTERNAL') || die();
 
