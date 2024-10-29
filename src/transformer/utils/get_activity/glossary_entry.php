@@ -31,7 +31,7 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $course The course object.
- * @param \stdClass $discussion The discussion object.
+ * @param \stdClass $entry The glossary entry object.
  * @return array
  */
 function glossary_entry(array $config, \stdClass $course, \stdClass $entry) {
