@@ -61,7 +61,7 @@ class discussion_subscription_deleted_test extends \logstore_xapi\xapi_test_case
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::discussion_created
+     * @covers ::discussion_subscription_deleted
      * @return void
      */
     public function test_init() {
