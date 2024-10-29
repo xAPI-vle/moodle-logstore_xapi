@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_forum\post_created;
+namespace logstore_xapi\mod_forum;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -62,7 +62,7 @@ class post_updated_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::post_created
+     * @covers ::post_updated
      * @return void
      */
     public function test_init() {
