@@ -1,23 +1,25 @@
 {
-  "user":[
-    {"id": 1,
-     "firstname":"sender",
-     "lastname":"senderson",
-     "email":"sender@example.com",
-     "username":"sender"
+  "user": [
+    {
+      "id": 1,
+      "firstname": "sender",
+      "lastname": "senderson",
+      "email": "sender@example.com",
+      "username": "sender"
     },
-    {"id": 2,
-     "firstname":"receiver",
-     "lastname":"receiverson",
-     "email":"receiver@example.com",
-     "username":"receiver"
+    {
+      "id": 2,
+      "firstname": "receiver",
+      "lastname": "receiverson",
+      "email": "receiver@example.com",
+      "username": "receiver"
     }
   ],
-  "messages" : [
+  "messages": [
     {
-      "id" : 1,
-      "smallmessage" : "hi there!(messagetext)",
-      "subject" : "hi there(subject)"
+      "id": 1,
+      "smallmessage": "hi there!(messagetext)",
+      "subject": "hi there(subject)"
     }
   ]
 }
