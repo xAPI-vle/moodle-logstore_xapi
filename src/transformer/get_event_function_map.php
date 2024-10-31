@@ -85,6 +85,7 @@ function get_event_function_map() {
         '\mod_bigbluebuttonbn\event\recording_viewed' => 'mod_bigbluebuttonbn\recording_viewed',
         '\mod_book\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_book\event\chapter_viewed' => 'mod_book\chapter_viewed',
+        '\mod_book\event\chapter_created' => 'mod_book\chapter_created',
         '\mod_chat\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_data\event\course_module_viewed' => 'all\course_module_viewed',

@@ -15,12 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the book chapter viewed event.
+ * Transformer fn for chapter created event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,28 +28,31 @@ namespace src\transformer\events\mod_book;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for book chapter viewed event.
+ * Transformer fn for chapter created event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function chapter_viewed(array $config, \stdClass $event) {
+
+function chapter_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $chapter = $repo->read_record_by_id('book_chapters', $event->objectid);
     $lang = utils\get_course_lang($course);
 
-    $statement = [
+    return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'Viewed'
-            ]
+                $lang => 'Created'
+            ],
         ],
-        'object' => utils\get_activity\book_chapter($config, $course, $chapter, $event->contextinstanceid),
+        'object' => utils\get_activity\book_chapter(
+            $config, $course, $chapter, $event->contextinstanceid
+        ),
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
@@ -63,25 +65,7 @@ function chapter_viewed(array $config, \stdClass $event) {
                 'category' => [
                     utils\get_activity\site($config),
                 ],
-            ]
+            ],
         ]
-    ];
-
-    if ($chapter->subchapter != '0') {
-        $parentchapter = $repo->read_record_by_id('book_chapters', $chapter->subchapter);
-        $statement['context']['contextActivities']['parent'] =
-            array_merge(
-                [
-                    utils\get_activity\book_chapter(
-                        $config,
-                        $course,
-                        $parentchapter,
-                        $event->contextinstanceid
-                    ),
-                ],
-                $statement['context']['contextActivities']['parent']
-            );
-    }
-
-    return [$statement];
+    ]];
 }
