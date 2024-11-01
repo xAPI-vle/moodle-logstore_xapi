@@ -9,7 +9,7 @@
     {
       "id": 1,
       "feedback": 1,
-      "anonymous_response": 0
+      "anonymous_response": 1
     }
   ],
   "feedback": [
@@ -23,8 +23,7 @@
       "id": 1,
       "feedback": 1,
       "name": "test_feedback_item",
-      "typ": "multichoice",
-      "presentation": "r>>>>>test_choice_1\n|test_choice_2\n|test_choice_3"
+      "typ": "textarea"
     }
   ],
   "feedback_value": [
@@ -32,7 +31,7 @@
       "id": 1,
       "item": 1,
       "completed": 1,
-      "value": "2"
+      "value": "test_long_text_answer"
     }
   ]
 }

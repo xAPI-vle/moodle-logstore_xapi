@@ -1,10 +1,10 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
+      "name": "Anonymous Course Participant",
       "account": {
         "homePage": "http://www.example.org",
-        "name": "1"
+        "name": "anonymous"
       }
     },
     "verb": {
@@ -70,10 +70,10 @@
   },
   {
     "actor": {
-      "name": "test_fullname",
+      "name": "Anonymous Course Participant",
       "account": {
         "homePage": "http://www.example.org",
-        "name": "1"
+        "name": "anonymous"
       }
     },
     "verb": {
@@ -89,15 +89,12 @@
         "name": {
           "en": "test_feedback_item"
         },
-        "interactionType": "numeric"
+        "interactionType": "long-fill-in"
       }
     },
     "result": {
-      "response": "3",
-      "completion": true,
-      "extensions": {
-        "http://learninglocker.net/xapi/cmi/numeric/response": 3
-      }
+      "response": "test_long_text_answer",
+      "completion": true
     },
     "context": {
       "language": "en",

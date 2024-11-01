@@ -35,11 +35,17 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @param \stdClass $feedbackvalue The value of the feedback type.
  * @param \stdClass $feedbackitem The id of the feedback item.
+ * @param array $actor The xAPI Actor.
  * @return array
  */
-function multichoicerated(array $config, \stdClass $event, \stdClass $feedbackvalue, \stdClass $feedbackitem) {
+function multichoicerated(
+    array $config,
+    \stdClass $event,
+    \stdClass $feedbackvalue,
+    \stdClass $feedbackitem,
+    array $actor
+) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $feedback = $repo->read_record_by_id('feedback', $feedbackitem->feedback);
     $lang = utils\get_course_lang($course);
@@ -57,11 +63,11 @@ function multichoicerated(array $config, \stdClass $event, \stdClass $feedbackva
     $selectedchoice = $choices[intval($feedbackvalue->value) - 1];
 
     return [[
-        'actor' => utils\get_user($config, $user),
+        'actor' => $actor,
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'answered'
+                $lang => 'Answered'
             ],
         ],
         'object' => [
