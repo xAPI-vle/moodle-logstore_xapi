@@ -95,19 +95,19 @@
         ],
         "choices": [
           {
-            "id": "testchoice1",
+            "id": "test-choice-1",
             "description": {
               "en": "test_choice_1"
             }
           },
           {
-            "id": "testchoice2",
+            "id": "test-choice-2",
             "description": {
               "en": "test_choice_2"
             }
           },
           {
-            "id": "testchoice3",
+            "id": "test-choice-3",
             "description": {
               "en": "test_choice_3"
             }

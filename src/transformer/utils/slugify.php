@@ -35,8 +35,8 @@ function slugify($string) {
     // Convert the string to lowercase
     $string = strtolower($string);
 
-    // Replace spaces and consecutive whitespace with a single dash
-    $string = preg_replace('/\s+/', '-', $string);
+    // Replace spaces, underscores and consecutive whitespace with a single dash
+    $string = preg_replace('/[\s_]+/', '-', $string);
 
     // Remove any non-alphanumeric characters except dashes
     $string = preg_replace('/[^a-z0-9-]/', '', $string);
