@@ -1,17 +1,17 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
       "account": {
         "homePage": "http://www.example.org",
         "name": "1"
-      }
+      },
+      "name": "test_fullname"
     },
     "verb": {
-      "id": "http://id.tincanapi.com/verb/viewed",
       "display": {
-        "en": "viewed"
-      }
+        "en": "Answered"
+      },
+      "id": "http://adlnet.gov/expapi/verbs/answered"
     },
     "object": {
       "id": "http://www.example.org/mod/choice/view.php?id=1",
@@ -43,17 +43,22 @@
         ]
       }
     },
+    "result": {
+      "response": "To be"
+    },
     "context": {
-      "language": "en",
-      "extensions": {
-        "http://lrs.learninglocker.net/define/extensions/info": {
-          "http://moodle.org": "1.0.0",
-          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\mod_choice\\event\\course_module_viewed",
-          "event_function": "\\src\\transformer\\events\\all\\course_module_viewed"
-        }
-      },
       "contextActivities": {
+        "category": [
+          {
+            "id": "http://www.example.org",
+            "definition": {
+              "type": "http://id.tincanapi.com/activitytype/lms",
+              "name": {
+                "en": "test_name"
+              }
+            }
+          }
+        ],
         "parent": [
           {
             "id": "http://www.example.org/course/section.php?id=1",
@@ -74,19 +79,17 @@
               }
             }
           }
-        ],
-        "category": [
-          {
-            "id": "http://www.example.org",
-            "definition": {
-              "type": "http://id.tincanapi.com/activitytype/lms",
-              "name": {
-                "en": "test_name"
-              }
-            }
-          }
         ]
-      }
+      },
+      "extensions": {
+        "http://lrs.learninglocker.net/define/extensions/info": {
+          "event_function": "\\src\\transformer\\events\\mod_choice\\answer_created",
+          "event_name": "\\mod_choice\\event\\answer_created",
+          "http://moodle.org": "1.0.0",
+          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
+        }
+      },
+      "language": "en"
     }
   }
 ]

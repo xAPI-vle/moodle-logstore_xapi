@@ -52,16 +52,26 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         utils\is_enabled_config($config, 'send_jisc_data')
     );
 
-    // TODO: Some objects (like mod_choice CMI interactions) will need more
-    // dispatch and add those here
+    // default definition
+    $def = [
+        'type' => $activitytype,
+        'name' => [
+            $courselang => $instancename,
+        ],
+    ];
+
+    // process special cases
+
+    // Choice
+    if ($module->name === 'choice') {
+        $def = utils\get_activity\definition\choice\get_choice_definition(
+            $config, $instance, $courselang
+        );
+    }
+
     $object = [
         'id' => $coursemoduleurl,
-        'definition' => [
-            'type' => $activitytype,
-            'name' => [
-                $courselang => $instancename,
-            ],
-        ],
+        'definition' => $def,
     ];
 
     if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
