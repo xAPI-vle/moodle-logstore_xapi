@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utilities for creating Choice xAPI Activity object definitions.
+ * Transformer utilities for creating Moodle Choice xAPI Activity object definitions.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
@@ -43,39 +43,16 @@ function get_choice_definition(
         'choice_options', ['choiceid' => $choice->id], 'id ASC'
     );
 
-    return [
-        'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-        'name' => [
-            $lang => $choice->name,
-        ],
-        'description' => [
-            $lang => utils\get_string_html_removed($choice->intro),
-        ],
-        'interactionType' => 'choice',
-        'correctResponsesPattern' => [
-            implode(
-                '[,]',
-                array_map(
-                    function($option) {
-                        return $option->text;
-                    },
-                    $options
-                )
-            ),
-        ],
-        // use array values because this sometimes comes out associative
-        'choices' => array_values(
-            array_map(
-                function($option) use ($lang) {
-                    return [
-                        'id' => utils\slugify($option->text),
-                        'description' => [
-                            $lang => $option->text,
-                        ],
-                    ];
-                },
-                $options
-            )
-        )
-    ];
+    return utils\get_activity\definition\cmi\choice(
+        $config,
+        $choice->name,
+        utils\get_string_html_removed($choice->intro),
+        array_map(
+            function($option) {
+                return $option->text;
+            },
+            $options
+        ),
+        $lang
+    );
 }
