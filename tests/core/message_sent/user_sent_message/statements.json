@@ -63,13 +63,6 @@
             "name": "2"
           },
           "name": "receiver receiverson"
-        },
-        "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from": {
-          "account": {
-            "homePage": "http://www.example.org",
-            "name": "1"
-          },
-          "name": "sender senderson"
         }
       },
       "language": "en"

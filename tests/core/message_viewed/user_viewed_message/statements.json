@@ -39,13 +39,6 @@
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
         },
-        "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to": {
-          "account": {
-            "homePage": "http://www.example.org",
-            "name": "2"
-          },
-          "name": "receiver receiverson"
-        },
         "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from": {
           "account": {
             "homePage": "http://www.example.org",

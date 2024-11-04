@@ -52,10 +52,8 @@ function message_sent(array $config, \stdClass $event) {
     $course = (isset($event->courseid) && $event->courseid != 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
-
-    $lang = utils\get_course_lang(($course
-                                   ? $course
-                                   : $repo->read_record_by_id('course',1)));
+    $lang = $config['source_lang'];
+              
     
     $statement = [
       'actor' => utils\get_user($config,$user),
@@ -78,8 +76,7 @@ function message_sent(array $config, \stdClass $event) {
 
           array_merge(
             utils\extensions\base($config, $event, $course), [
-              "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config,$recipient),
-              "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" => utils\get_user($config,$sender)
+              "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config,$recipient)
             ])
       ]];
     
