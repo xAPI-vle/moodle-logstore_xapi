@@ -31,14 +31,14 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config settings.
  * @param string $name The activity name.
- * @param string $description The activity description.
+ * @param ?string $description The activity description.
  * @param array $choices The choices available.
  * @param string $lang The language.
  */
 function choice(
     array $config,
     string $name,
-    string $description,
+    ?string $description,
     array $choices,
     string $lang
 ) {

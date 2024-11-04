@@ -62,13 +62,13 @@ function multichoice(
         ],
         'object' => [
             'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $feedbackitem->name,
-                ],
-                'interactionType' => 'choice',
-            ],
+            'definition' => utils\get_activity\definition\cmi\choice(
+                $config,
+                $feedbackitem->name,
+                null,
+                $choices,
+                $lang
+            ),
         ],
         'result' => [
             'response' => $selectedchoice,

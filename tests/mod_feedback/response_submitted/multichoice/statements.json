@@ -89,7 +89,30 @@
         "name": {
           "en": "test_feedback_item"
         },
-        "interactionType": "choice"
+        "interactionType": "choice",
+        "correctResponsesPattern": [
+          "test_choice_1[,]test_choice_2[,]test_choice_3"
+        ],
+        "choices": [
+          {
+            "id": "testchoice1",
+            "description": {
+              "en": "test_choice_1"
+            }
+          },
+          {
+            "id": "testchoice2",
+            "description": {
+              "en": "test_choice_2"
+            }
+          },
+          {
+            "id": "testchoice3",
+            "description": {
+              "en": "test_choice_3"
+            }
+          }
+        ]
       }
     },
     "result": {
