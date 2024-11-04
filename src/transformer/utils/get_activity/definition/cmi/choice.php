@@ -38,10 +38,22 @@ use src\transformer\utils as utils;
 function choice(
     array $config,
     string $name,
-    ?string $description,
+        ?string $description,
     array $choices,
     string $lang
 ) {
+    $cmichoices = array_map(
+        function($choice) use ($lang) {
+            return [
+                'id' => utils\slugify($choice),
+                'description' => [
+                    $lang => $choice,
+                ],
+            ];
+        },
+        $choices
+    );
+
     return [
         'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
         'name' => [
@@ -49,25 +61,21 @@ function choice(
         ],
         ...(
             $description !== null
-            ? ['description' => [$lang => $description]]
-            : []
+                ? ['description' => [$lang => $description]]
+                : []
         ),
         'interactionType' => 'choice',
         'correctResponsesPattern' => [
-            implode('[,]', $choices),
+            implode(
+                '[,]',
+                array_map(
+                    function($cmichoice) {
+                        return $cmichoice['id'];
+                    },
+                    $cmichoices
+                )
+            ),
         ],
-        'choices' => array_values(
-            array_map(
-                function($choice) use ($lang) {
-                    return [
-                        'id' => utils\slugify($choice),
-                        'description' => [
-                            $lang => $choice,
-                        ],
-                    ];
-                },
-                $choices
-            )
-        )
+        'choices' => $cmichoices
     ];
 }

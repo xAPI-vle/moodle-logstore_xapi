@@ -91,7 +91,7 @@
         },
         "interactionType": "choice",
         "correctResponsesPattern": [
-          "test_choice_1[,]test_choice_2[,]test_choice_3"
+          "test-choice-1[,]test-choice-2[,]test-choice-3"
         ],
         "choices": [
           {
