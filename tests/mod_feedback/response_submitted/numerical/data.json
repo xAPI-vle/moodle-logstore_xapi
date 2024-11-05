@@ -23,7 +23,8 @@
       "id": 1,
       "feedback": 1,
       "name": "test_feedback_item",
-      "typ": "numeric"
+      "typ": "numeric",
+      "presentation": "0|10"
     }
   ],
   "feedback_value": [

@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -60,13 +61,12 @@ function textarea(
         ],
         'object' => [
             'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $feedbackitem->name,
-                ],
-                'interactionType' => 'long-fill-in',
-            ]
+            'definition' => utils\get_activity\definition\cmi\long_fill_in(
+                $config,
+                $feedbackitem->name,
+                null,
+                $lang
+            ),
         ],
         'result' => [
             'response' => $feedbackvalue->value,

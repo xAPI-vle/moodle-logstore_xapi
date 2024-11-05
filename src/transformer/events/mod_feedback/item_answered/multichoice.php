@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +35,7 @@ use src\transformer\utils as utils;
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @param \stdClass $feedbackvalue The value of the feedback type.
- * @param \stdClass $feedbackitem The id of the feedback item.
+ * @param \stdClass $feedbackitem The feedback item.
  * @param array $actor The xAPI Actor.
  * @return array
  */

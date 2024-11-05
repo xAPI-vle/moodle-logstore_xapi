@@ -89,7 +89,10 @@
         "name": {
           "en": "test_feedback_item"
         },
-        "interactionType": "numeric"
+        "interactionType": "numeric",
+        "correctResponsesPattern": [
+          "0[:]10"
+        ]
       }
     },
     "result": {
