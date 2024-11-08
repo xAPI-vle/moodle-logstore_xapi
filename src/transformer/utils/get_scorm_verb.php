@@ -46,21 +46,21 @@ function get_scorm_verb(array $scormscoestracks, string $lang) {
             return [
                 'id' => 'http://adlnet.gov/expapi/verbs/failed',
                 'display' => [
-                    $lang => 'failed'
+                    $lang => 'Failed'
                 ],
             ];
         case 'passed':
             return [
                 'id' => 'http://adlnet.gov/expapi/verbs/passed',
                 'display' => [
-                    $lang => 'passed'
+                    $lang => 'Passed'
                 ],
             ];
         default:
             return [
                 'id' => 'http://adlnet.gov/expapi/verbs/completed',
                 'display' => [
-                    $lang => 'completed'
+                    $lang => 'Completed'
                 ],
             ];
     }

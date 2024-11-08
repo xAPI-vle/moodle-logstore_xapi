@@ -46,7 +46,7 @@ function course_module_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'viewed'
+                $lang => 'Viewed'
             ],
         ],
         'object' => utils\get_activity\course_module(

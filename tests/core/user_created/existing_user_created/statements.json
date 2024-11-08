@@ -10,7 +10,7 @@
     "verb": {
       "id": "http://adlnet.gov/expapi/verbs/registered",
       "display": {
-        "en": "registered to"
+        "en": "Registered"
       }
     },
     "object": {
@@ -35,11 +35,11 @@
       "contextActivities": {
         "category": [
           {
-            "id": "http://moodle.org",
+            "id": "http://www.example.org",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/source",
+              "type": "http://id.tincanapi.com/activitytype/lms",
               "name": {
-                "en": "Moodle"
+                "en": "test_name"
               }
             }
           }

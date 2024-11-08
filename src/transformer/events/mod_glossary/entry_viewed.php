@@ -48,7 +48,7 @@ function entry_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                $lang => 'viewed'
+                $lang => 'Viewed'
             ],
         ],
         'object' => utils\get_activity\glossary_entry($config, $course, $entry),

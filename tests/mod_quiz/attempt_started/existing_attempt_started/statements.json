@@ -10,7 +10,7 @@
     "verb": {
       "id": "http://activitystrea.ms/schema/1.0/start",
       "display": {
-        "en": "started"
+        "en": "Started"
       }
     },
     "object": {

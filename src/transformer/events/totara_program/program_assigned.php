@@ -46,7 +46,7 @@ function program_assigned(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/assign',
             'display' => [
-                $lang => 'assigned'
+                $lang => 'Assigned'
             ],
         ],
         'object' => utils\totara\program($config, $program, $lang),

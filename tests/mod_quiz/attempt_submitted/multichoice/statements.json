@@ -10,7 +10,7 @@
     "verb": {
       "id": "http://adlnet.gov/expapi/verbs/completed",
       "display": {
-        "en": "completed"
+        "en": "Completed"
       }
     },
     "object": {
@@ -101,7 +101,7 @@
     "verb": {
       "id": "http://adlnet.gov/expapi/verbs/answered",
       "display": {
-        "en": "answered"
+        "en": "Answered"
       }
     },
     "object": {

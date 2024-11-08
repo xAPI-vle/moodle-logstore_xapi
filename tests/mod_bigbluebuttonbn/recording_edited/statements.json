@@ -10,7 +10,7 @@
     "verb": {
       "id": "https://w3id.org/xapi/dod-isd/verbs/deleted",
       "display": {
-        "en": "deleted"
+        "en": "Deleted"
       }
     },
     "object": {

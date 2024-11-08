@@ -10,7 +10,7 @@
     "verb": {
       "id": "http://adlnet.gov/expapi/verbs/attended",
       "display": {
-        "en": "attended"
+        "en": "Attended"
       }
     },
     "object": {
