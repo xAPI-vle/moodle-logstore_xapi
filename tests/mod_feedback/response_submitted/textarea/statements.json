@@ -10,7 +10,7 @@
     "verb": {
       "id": "http://activitystrea.ms/schema/1.0/submit",
       "display": {
-        "en": "submitted"
+        "en": "Submitted"
       }
     },
     "object": {
@@ -79,7 +79,7 @@
     "verb": {
       "id": "http://adlnet.gov/expapi/verbs/answered",
       "display": {
-        "en": "answered"
+        "en": "Answered"
       }
     },
     "object": {

@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -35,32 +36,37 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @param \stdClass $feedbackvalue The value of the feedback type.
  * @param \stdClass $feedbackitem The id of the feedback item.
+ * @param array $actor The xAPI Actor.
  * @return array
  */
-function textfield(array $config, \stdClass $event, \stdClass $feedbackvalue, \stdClass $feedbackitem) {
+function textfield(
+    array $config,
+    \stdClass $event,
+    \stdClass $feedbackvalue,
+    \stdClass $feedbackitem,
+    array $actor
+) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $feedback = $repo->read_record_by_id('feedback', $feedbackitem->feedback);
     $lang = utils\get_course_lang($course);
 
     return [[
-        'actor' => utils\get_user($config, $user),
+        'actor' => $actor,
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'answered'
+                $lang => 'Answered'
             ],
         ],
         'object' => [
             'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
-            'definition' => [
-                'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-                'name' => [
-                    $lang => $feedbackitem->name,
-                ],
-                'interactionType' => 'fill-in',
-            ]
+            'definition' => utils\get_activity\definition\cmi\fill_in(
+                $config,
+                $feedbackitem->name,
+                null,
+                $lang
+            ),
         ],
         'result' => [
             'response' => $feedbackvalue->value,

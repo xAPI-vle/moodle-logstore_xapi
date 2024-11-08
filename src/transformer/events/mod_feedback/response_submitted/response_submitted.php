@@ -33,9 +33,10 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
+ * @param array $actor The xAPI Actor to use.
  * @return array
  */
-function response_submitted(array $config, \stdClass $event) {
+function response_submitted(array $config, \stdClass $event, array $actor) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -44,14 +45,16 @@ function response_submitted(array $config, \stdClass $event) {
     $feedback = $repo->read_record_by_id('feedback', $feedbackcompleted->feedback);
 
     return [[
-        'actor' => utils\get_user($config, $user),
+        'actor' => $actor,
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/submit',
             'display' => [
-                $lang => 'submitted'
+                $lang => 'Submitted'
             ],
         ],
-        'object' => utils\get_activity\course_feedback($config, $course, $event->contextinstanceid),
+        'object' => utils\get_activity\course_module(
+            $config, $course, $event->contextinstanceid
+        ),
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),

@@ -25,7 +25,7 @@
         },
         "interactionType": "choice",
         "correctResponsesPattern": [
-          "To be[,]Not to be"
+          "to-be[,]not-to-be"
         ],
         "choices": [
           {

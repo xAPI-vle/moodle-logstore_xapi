@@ -15,44 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utilities for creating Moodle Choice xAPI Activity object definitions.
+ * Transformer utilities for creating CMI numeric xAPI Activity object definitions.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\utils\get_activity\definition\choice;
+namespace src\transformer\utils\get_activity\definition\cmi;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer util for creating choice definitions
+ * Transformer util for creating numeric definitions
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $choice The choice object.
+ * @param string $name The activity name.
+ * @param ?string $description The activity description.
+ * @param ?string $min The minimum numeric value.
+ * @param ?string $max The maximum numeric value.
  * @param string $lang The language.
  */
-function get_choice_definition(
+function numeric(
     array $config,
-    \stdClass $choice,
+    string $name,
+        ?string $description,
+        ?string $min,
+        ?string $max,
     string $lang
 ) {
-    $repo = $config['repo'];
-    $options = $repo->read_records(
-        'choice_options', ['choiceid' => $choice->id], 'id ASC'
-    );
-
-    return utils\get_activity\definition\cmi\choice(
-        $config,
-        $choice->name,
-        utils\get_string_html_removed($choice->intro),
-        array_map(
-            function($option) {
-                return $option->text;
-            },
-            $options
-        ),
-        $lang
-    );
+    return [
+        ...common($config, $name, $description, $lang),
+        'interactionType' => 'numeric',
+        'correctResponsesPattern' => [
+            $min . '[:]' . $max,
+        ],
+    ];
 }
