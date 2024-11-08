@@ -114,7 +114,10 @@
         "description": {
           "en": "test_question"
         },
-        "interactionType": "numeric"
+        "interactionType": "numeric",
+        "correctResponsesPattern": [
+          "5[:]15"
+        ]
       }
     },
     "result": {

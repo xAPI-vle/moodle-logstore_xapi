@@ -116,23 +116,23 @@
         },
         "interactionType": "choice",
         "correctResponsesPattern": [
-          "answer 1[,]answer 2"
+          "answer-1[,]answer-2"
         ],
         "choices": [
           {
-            "id": "1",
+            "id": "answer-1",
             "description": {
               "en": "answer 1"
             }
           },
           {
-            "id": "2",
+            "id": "answer-2",
             "description": {
               "en": "answer 2"
             }
           },
           {
-            "id": "3",
+            "id": "answer-3",
             "description": {
               "en": "answer 3"
             }

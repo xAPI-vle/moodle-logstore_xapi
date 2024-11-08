@@ -54,6 +54,26 @@
       "questiontext": "<p>Example [[1]] missing [[2]] words [[3]]</p>"
     }
   ],
+  "question_answers": [
+    {
+      "id": 1,
+      "fraction": 1.0,
+      "answer": "spicy",
+      "question": 1
+    },
+    {
+      "id": 2,
+      "fraction": 1.0,
+      "answer": "mango",
+      "question": 1
+    },
+    {
+      "id": 3,
+      "fraction": 1.0,
+      "answer": "milkshake",
+      "question": 1
+    }
+  ],
   "grade_grades": [
     {
       "itemid": 1,

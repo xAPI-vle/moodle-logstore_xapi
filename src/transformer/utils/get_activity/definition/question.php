@@ -28,25 +28,7 @@
 namespace src\transformer\utils\get_activity\definition\question;
 
 use src\transformer\utils as utils;
-
-/**
- * Helper for getting basic interaction activity def data.
- *
- * @param array $config The transformer config settings.
- * @param \stdClass $question The question object.
- * @param string $lang The language.
- */
-function get_def_base(array $config, \stdClass $question, string $lang) {
-    return [
-        'type' => 'http://adlnet.gov/expapi/activities/cmi.interaction',
-        'name' => [
-            $lang => $question->name,
-        ],
-        'description' => [
-            $lang => utils\get_string_html_removed($question->questiontext),
-        ],
-    ];
-}
+use src\transformer\utils\get_activity\definition\cmi as cmi;
 
 /**
  * Transformer util for creating essay definitions
@@ -56,11 +38,11 @@ function get_def_base(array $config, \stdClass $question, string $lang) {
  * @param string $lang The language.
  */
 function get_essay_definition(array $config, \stdClass $question, string $lang) {
-    return array_merge(
-        get_def_base($config, $question, $lang),
-        [
-            'interactionType' => 'long-fill-in',
-        ]
+    return cmi\long_fill_in(
+        $config,
+        $question->name,
+        utils\get_string_html_removed($question->questiontext),
+        $lang
     );
 }
 
@@ -81,61 +63,45 @@ function get_multichoice_definition(
         ?string $interactiontype = 'choice',
         ?string $rightanswer = null
 ) {
-    if ($config['send_response_choices']) {
-        $repo = $config['repo'];
-        $answers = $repo->read_records('question_answers', [
-            'question' => $question->id
-        ]);
-        $choices = array_map(function ($answer) use ($lang) {
-            return [
-                "id" => "$answer->id",
-                "description" => [
-                    $lang => utils\get_string_html_removed($answer->answer)
-                ]
-            ];
-        }, $answers);
+    $repo = $config['repo'];
+    $answers = $repo->read_records('question_answers', [
+        'question' => $question->id
+    ]);
 
-        $correctresponsepattern;
+    $choices = array_values(
+        array_map(
+            function($answer) {
+                return utils\get_string_html_removed($answer->answer);
+            },
+            $answers
+        )
+    );
 
-        if (!is_null($rightanswer)) {
-            switch ($interactiontype) {
-            case 'sequencing':
-                $selections = explode('} {', rtrim(ltrim($rightanswer, '{'), '}'));
-                $correctresponsepattern = implode ('[,]', $selections);
-                break;
-            default:
-                $selections = explode('; ', utils\get_string_html_removed($rightanswer));
-                $correctresponsepattern = implode ('[,]', $selections);
-                break;
-            }
-        }
-
-        $def = array_merge(
-            get_def_base($config, $question, $lang),
-            [
-                'interactionType' => $interactiontype,
-                'correctResponsesPattern' => [$correctresponsepattern],
-                // Need to pull out id's that are appended during array_map so json parses it correctly as an array.
-                'choices' => array_values($choices)
-            ]
+    if ($interactiontype === 'sequencing') {
+        return cmi\sequencing(
+            $config,
+            $question->name,
+            utils\get_string_html_removed($question->questiontext),
+            $choices,
+            $lang,
+            (!is_null($rightanswer))
+                ? explode('} {', trim($rightanswer, '{}'))
+                : null
         );
-
-        if (!is_null($correctresponsepattern)) {
-            $def['correctResponsesPattern'] = [$correctresponsepattern];
-        }
-
-        return $def;
     } else {
-        return array_merge(
-            get_def_base($config, $question, $lang),
-            [
-                'interactionType' => $interactiontype
-            ]
+        return cmi\choice(
+            $config,
+            $question->name,
+            utils\get_string_html_removed($question->questiontext),
+            $choices,
+            $lang,
+            (!is_null($rightanswer))
+                ? explode('; ', utils\get_string_html_removed($rightanswer))
+                : null
         );
     }
-
-
 }
+
 
 /**
  * Transformer util for creating match definitions
@@ -145,11 +111,26 @@ function get_multichoice_definition(
  * @param string $lang The language.
  */
 function get_match_definition(array $config, \stdClass $question, string $lang) {
-    return array_merge(
-        get_def_base($config, $question, $lang),
-        [
-            'interactionType' => 'matching',
-        ]
+    $repo = $config['repo'];
+    $subqs = $repo->read_records('qtype_match_subquestions', [
+        'question' => $question->id
+    ]);
+
+    $source = [];
+    $target = [];
+
+    foreach ($subqs as $subq) {
+        $source[] = utils\get_string_html_removed($subq->questiontext);
+        $target[] = $subq->answertext;
+    }
+
+    return cmi\matching(
+        $config,
+        $question->name,
+        utils\get_string_html_removed($question->questiontext),
+        $source,
+        $target,
+        $lang
     );
 }
 
@@ -161,11 +142,26 @@ function get_match_definition(array $config, \stdClass $question, string $lang) 
  * @param string $lang The language.
  */
 function get_numerical_definition(array $config, \stdClass $question, string $lang) {
-    return array_merge(
-        get_def_base($config, $question, $lang),
-        [
-            'interactionType' => 'numeric',
-        ]
+    $repo = $config['repo'];
+    $answers = $repo->read_records('question_answers', [
+        'question' => $question->id
+    ]);
+    // We only support the answer with the highest fraction
+    usort($answers, function ($a, $b) {
+        return $b->fraction <=> $a->fraction;
+    });
+    $answer = reset($answers);
+    $answernum = $repo->read_record_by_id('question_numerical', $answer->id);
+    $min = (int) $answer->answer - (int) $answernum->tolerance;
+    $max = (int) $answer->answer + (int) $answernum->tolerance;
+
+    return cmi\numeric(
+        $config,
+        $question->name,
+        utils\get_string_html_removed($question->questiontext),
+        $min,
+        $max,
+        $lang
     );
 }
 
@@ -177,11 +173,11 @@ function get_numerical_definition(array $config, \stdClass $question, string $la
  * @param string $lang The language.
  */
 function get_shortanswer_definition(array $config, \stdClass $question, string $lang) {
-    return array_merge(
-        get_def_base($config, $question, $lang),
-        [
-            'interactionType' => 'fill-in',
-        ]
+    return cmi\fill_in(
+        $config,
+        $question->name,
+        utils\get_string_html_removed($question->questiontext),
+        $lang
     );
 }
 
@@ -193,11 +189,30 @@ function get_shortanswer_definition(array $config, \stdClass $question, string $
  * @param string $lang The language.
  */
 function get_true_false_definition(array $config, \stdClass $question, string $lang) {
-    return array_merge(
-        get_def_base($config, $question, $lang),
-        [
-            'interactionType' => 'true-false',
-        ]
+    $repo = $config['repo'];
+    $answers = $repo->read_records('question_answers', [
+        'question' => $question->id
+    ]);
+    $correctanswerobjarr = array_filter(
+        $answers,
+        function ($answer) {
+            return $answer->fraction === 1.0;
+        }
+    );
+    $correctanswerobj = reset(
+        $correctanswerobjarr
+    );
+
+    $correctanswer = ($correctanswerobj->answer === 'True')
+        ? true
+        : false;
+
+    return cmi\true_false(
+        $config,
+        $question->name,
+        utils\get_string_html_removed($question->questiontext),
+        $lang,
+        $correctanswer
     );
 }
 

@@ -114,7 +114,50 @@
         "description": {
           "en": "test_question"
         },
-        "interactionType": "matching"
+        "interactionType": "matching",
+        "correctResponsesPattern": [
+          "red[.]green[,]blue[.]orange[,]black[.]white"
+        ],
+        "source": [
+          {
+            "id": "red",
+            "description": {
+              "en": "Red"
+            }
+          },
+          {
+            "id": "blue",
+            "description": {
+              "en": "Blue"
+            }
+          },
+          {
+            "id": "black",
+            "description": {
+              "en": "Black"
+            }
+          }
+        ],
+        "target": [
+          {
+            "id": "green",
+            "description": {
+              "en": "Green"
+            }
+          },
+          {
+            "id": "orange",
+            "description": {
+              "en": "Orange"
+            }
+          },
+          {
+            "id": "white",
+            "description": {
+              "en": "White"
+            }
+          }
+        ]
       }
     },
     "result": {

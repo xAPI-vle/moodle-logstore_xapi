@@ -114,7 +114,10 @@
         "description": {
           "en": "test_question"
         },
-        "interactionType": "true-false"
+        "interactionType": "true-false",
+        "correctResponsesPattern": [
+          "true"
+        ]
       }
     },
     "result": {

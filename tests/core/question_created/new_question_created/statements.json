@@ -24,6 +24,9 @@
         },
         "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
         "interactionType": "true-false",
+        "correctResponsesPattern": [
+          "true"
+        ],
         "extensions": {
           "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/moodle-question-type": "truefalse"
         }

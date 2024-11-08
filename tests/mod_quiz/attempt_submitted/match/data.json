@@ -54,6 +54,26 @@
       "questiontext": "test_question"
     }
   ],
+  "qtype_match_subquestions": [
+    {
+      "id": 1,
+      "question": 1,
+      "questiontext": "<p>Red</bar>",
+      "answertext": "Green"
+    },
+    {
+      "id": 2,
+      "question": 1,
+      "questiontext": "<p>Blue</bar>",
+      "answertext": "Orange"
+    },
+    {
+      "id": 3,
+      "question": 1,
+      "questiontext": "<p>Black</bar>",
+      "answertext": "White"
+    }
+  ],
   "grade_grades": [
     {
       "itemid": 1,

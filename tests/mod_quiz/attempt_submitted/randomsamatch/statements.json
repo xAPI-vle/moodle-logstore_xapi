@@ -114,7 +114,38 @@
         "description": {
           "en": "Example Random short-answer matching question"
         },
-        "interactionType": "matching"
+        "interactionType": "matching",
+        "correctResponsesPattern": [
+          "example-short-answer-question[.]orange[,]testing-testing[.]purple"
+        ],
+        "source": [
+          {
+            "id": "example-short-answer-question",
+            "description": {
+              "en": "Example short answer question"
+            }
+          },
+          {
+            "id": "testing-testing",
+            "description": {
+              "en": "Testing testing"
+            }
+          }
+        ],
+        "target": [
+          {
+            "id": "orange",
+            "description": {
+              "en": "orange"
+            }
+          },
+          {
+            "id": "purple",
+            "description": {
+              "en": "Purple"
+            }
+          }
+        ]
       }
     },
     "result": {
