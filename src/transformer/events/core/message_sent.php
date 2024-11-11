@@ -52,8 +52,7 @@ function message_sent(array $config, \stdClass $event) {
     $course = (isset($event->courseid) && $event->courseid != 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
-    $lang = $config['source_lang'];
-              
+    $lang = is_null ($course) ? $config['source_lang'] : utils\get_course_lang($course);
     
     $statement = [
       'actor' => utils\get_user($config,$user),
