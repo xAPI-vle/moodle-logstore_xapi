@@ -48,7 +48,7 @@ function message_viewed(array $config, \stdClass $event) {
     $user=$repo->read_record_by_id('user',$event->userid);
     $recipient=$user;
     $sender=$repo->read_record_by_id('user',$event->relateduserid);
-    $course = (isset($event->courseid) && $event->courseid != 0)
+    $course = (isset($event->courseid) && $event->courseid !== 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
     $lang = is_null ($course) ? $config['source_lang'] : utils\get_course_lang($course);
