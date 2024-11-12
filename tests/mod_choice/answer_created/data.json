@@ -14,14 +14,14 @@
   ],
   "choice_options": [
     {
-      "id": 1,
-      "choiceid": 1,
-      "text": "To be"
-    },
-    {
       "id": 2,
       "choiceid": 1,
       "text": "Not to be"
+    },
+    {
+      "id": 1,
+      "choiceid": 1,
+      "text": "To be"
     }
   ],
   "choice_answers": [
