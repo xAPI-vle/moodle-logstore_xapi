@@ -15,7 +15,6 @@
     },
     "object": {
       "id": "http://www.example.org/badges/overview.php?id=1",
-      "objectType": "Activity",
       "definition": {
         "name": {
           "en": "test_badgename"

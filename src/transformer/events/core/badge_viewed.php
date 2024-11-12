@@ -19,7 +19,6 @@
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
- *            
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -40,7 +39,6 @@ function badge_viewed(array $config, \stdClass $event) {
     global $CFG;
     $repo = $config['repo'];
     $badge = $repo->read_record_by_id('badge', $event->objectid);
-    $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
 
     //all three here may not exist
     $user=$repo->read_record_by_id('user',$event->userid); 
@@ -54,18 +52,7 @@ function badge_viewed(array $config, \stdClass $event) {
         'verb' => ['id' => 'http://id.tincanapi.com/verb/viewed',
                    'display' => ['en' => 'Viewed']
         ],
-        'object' => [
-          'id' => $config['app_url'].'/badges/overview.php?id='.$badge->id,
-          'definition' => [
-            'name' => [$lang =>$badge->name],
-            'description' => [$lang => $badge->description],
-            'type' =>   'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
-            'extensions' => [
-              'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-              'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
-            ]
-          ],
-        ],
+        'object' => utils\badge_object($config, $lang, $badge),
         'context' => [
             'language' => $lang,
             'contextActivities' =>  [

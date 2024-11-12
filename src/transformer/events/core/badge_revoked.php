@@ -41,7 +41,6 @@ function badge_revoked(array $config, \stdClass $event) {
     $revoker = utils\get_user($config, $repo->read_record_by_id('user', $event->userid));
     $course = $badge->courseid ? $repo->read_record_by_id('course', $badge->courseid) : null;
     $lang = $badge->language ?? 'en';
-    $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
 
     $statement = [[
         'actor' => utils\get_user($config, $recipient),
@@ -51,19 +50,7 @@ function badge_revoked(array $config, \stdClass $event) {
                 'en' => 'Forfeited'
             ],
         ],
-        'object' => [
-            'id' => $config['app_url'].'/badges/overview.php?id='.$event->objectid,
-            'objectType' => 'Activity',
-            'definition' => [
-                'name' => [$lang => $badge->name],
-                'description' => [$lang => $badge->description],
-                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
-                'extensions' => [
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
-                ]
-            ]
-        ],
+        'object' => utils\badge_object($config, $lang, $badge),
         'context' => [
             'language'=>$lang,
             'instructor' =>$revoker,

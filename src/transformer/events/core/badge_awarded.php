@@ -18,14 +18,11 @@
  * Transform for badge awarded event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Daniel Bell <daniel@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\events\core;
-
 use src\transformer\utils as utils;
 
 /**
@@ -56,8 +53,6 @@ function badge_awarded(array $config, \stdClass $event) {
 
     $manual = $repo->read_record_by_id('badge_manual_award', $issuedid);
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
-    $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
-
 
     $statement = [[
         'actor' => $actor,
@@ -66,19 +61,7 @@ function badge_awarded(array $config, \stdClass $event) {
             'display' => [
                 'en' => 'Achieved'
             ]],
-        'object' => [
-            'id' =>  $config['app_url'].'/badges/overview.php?id='.$event->objectid,
-            'objectType' => 'Activity',
-            'definition' => [
-                'name' => [$lang => $badge->name],
-                'description' => [$lang => $badge->description],
-                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
-                'extensions' => [
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
-                ]
-            ],
-        ],
+        'object' => utils\badge_object($config, $lang, $badge),
         'result' => [
             'response' => $badge->message
         ],
