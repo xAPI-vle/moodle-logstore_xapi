@@ -55,7 +55,7 @@ function get_module_activity_type_mapping(bool $send_jisc) {
             ? 'http://xapi.jisc.ac.uk/activities/quiz'
             : 'http://adlnet.gov/expapi/activities/assessment',
         'resource'        => 'http://id.tincanapi.com/activitytype/resource',
-        'scorm'           => 'http://id.tincanapi.com/activitytype/legacy-learning-standard',
+        'scorm'           => 'http://adlnet.gov/expapi/activities/module',
         'url'             => 'http://adlnet.gov/expapi/activities/link',
         'wiki'            => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/wiki',
         'workshop'        => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/workshop',
