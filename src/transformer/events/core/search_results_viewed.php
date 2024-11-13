@@ -46,7 +46,7 @@ function search_results_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/searched',
             'display' => [
-                $lang => 'Searched'
+                'en' => 'Searched'
             ],
         ],
         'object' => [

@@ -48,7 +48,7 @@ function user_enrolment_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/enrolled',
             'display' => [
-                $lang => 'Enrolled',
+                'en' => 'Enrolled',
             ],
         ],
         'object' => utils\get_activity\course($config, $course),

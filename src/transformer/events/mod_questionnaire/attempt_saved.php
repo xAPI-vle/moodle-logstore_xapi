@@ -45,7 +45,7 @@ function attempt_saved(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/suspended',
             'display' => [
-                $lang => 'Suspended'
+                'en' => 'Suspended'
             ],
         ],
         'object' => utils\get_activity\course_module(

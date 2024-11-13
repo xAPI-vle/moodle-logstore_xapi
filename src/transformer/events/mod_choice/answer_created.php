@@ -48,7 +48,7 @@ function answer_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'Answered'
+                'en' => 'Answered'
             ],
         ],
         'object' => utils\get_activity\course_module(

@@ -44,7 +44,7 @@ function course_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'Created'
+                'en' => 'Created'
             ],
         ],
         'object' => utils\get_activity\course($config, $course),

@@ -63,7 +63,7 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'Answered'
+                'en' => 'Answered'
             ],
         ],
         'object' => [

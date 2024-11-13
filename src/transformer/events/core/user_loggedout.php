@@ -45,7 +45,7 @@ function user_loggedout(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/logout',
             'display' => [
-                $lang => 'Logged Out',
+                'en' => 'Logged Out',
             ],
         ],
         'object' => utils\get_activity\site($config),

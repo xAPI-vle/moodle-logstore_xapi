@@ -52,7 +52,7 @@ function group_message_sent(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/send',
             'display' => [
-                $lang => 'Sent'
+                'en' => 'Sent'
             ],
         ],
         'object' => utils\get_activity\message($config, $lang, $message),

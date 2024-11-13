@@ -48,7 +48,7 @@ function sco_launched(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/launched',
             'display' => [
-                $lang => 'Launched'
+                'en' => 'Launched'
             ],
         ],
         'object' => utils\get_activity\course_module(

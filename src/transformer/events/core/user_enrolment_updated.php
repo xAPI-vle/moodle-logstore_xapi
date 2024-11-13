@@ -45,14 +45,14 @@ function user_enrolment_updated(array $config, \stdClass $event) {
         $verb = [
             'id' => 'https://w3id.org/xapi/tla/verbs/suspended',
             'display' => [
-                $lang => 'Suspended',
+                'en' => 'Suspended',
             ],
         ];
     } else {
         $verb = [
             'id' => 'https://w3id.org/xapi/tla/verbs/resumed',
             'display' => [
-                $lang => 'Resumed',
+                'en' => 'Resumed',
             ],
         ];
     }

@@ -39,10 +39,10 @@ function post_deleted(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
-    
+
     $post = new \stdClass();
     $post->id = $event->objectid;
-    
+
     $other = unserialize($event->other);
     $discussionid = $other['discussionid'];
     $post->discussion = $discussionid;
@@ -53,7 +53,7 @@ function post_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                $lang => 'Deleted'
+                'en' => 'Deleted'
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
@@ -62,7 +62,7 @@ function post_deleted(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => array_merge(
-                    [utils\get_activity\course_discussion($config, $course, $discussion)], 
+                    [utils\get_activity\course_discussion($config, $course, $discussion)],
                     utils\context_activities\get_parent($config, $event->contextinstanceid, true)
                 ),
                 'category' => [

@@ -43,7 +43,7 @@ function comment_deleted(array $config, \stdClass $event) {
     $comment = new \stdClass();
     $comment->id = $event->objectid;
     $comment->itemid = $other['itemid'];
-    
+
     $entry = $repo->read_record_by_id('glossary_entries', $comment->itemid);
 
     return[[
@@ -51,7 +51,7 @@ function comment_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                $lang => 'Deleted'
+                'en' => 'Deleted'
             ],
         ],
         'object' => utils\get_activity\glossary_comment($config, $course, $comment),
@@ -60,7 +60,7 @@ function comment_deleted(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => array_merge(
-                    [utils\get_activity\glossary_entry($config, $course, $entry)], 
+                    [utils\get_activity\glossary_entry($config, $course, $entry)],
                     utils\context_activities\get_parent($config, $event->contextinstanceid, true)
                 ),
                 'category' => [

@@ -47,7 +47,7 @@ function user_enrolment_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/leave',
             'display' => [
-                $lang => 'Left',
+                'en' => 'Left',
             ],
         ],
         'object' => utils\get_activity\course($config, $course),

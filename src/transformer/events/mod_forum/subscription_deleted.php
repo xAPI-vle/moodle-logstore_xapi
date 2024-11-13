@@ -37,7 +37,7 @@ function subscription_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    
+
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -45,7 +45,7 @@ function subscription_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/unsubscribed',
             'display' => [
-                $lang => 'Unsubscribed'
+                'en' => 'Unsubscribed'
             ],
         ],
         'object' => utils\get_activity\course_forum($config, $course, $event->contextinstanceid),

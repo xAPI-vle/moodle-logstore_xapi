@@ -46,14 +46,14 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         $verb = [
             'id' => 'http://adlnet.gov/expapi/verbs/completed',
             'display' => [
-                $lang => 'Completed'
+                'en' => 'Completed'
             ],
         ];
     } else {
         $verb = [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
             'display' => [
-                $lang => 'Uncompleted'
+                'en' => 'Uncompleted'
             ],
         ];
     }
