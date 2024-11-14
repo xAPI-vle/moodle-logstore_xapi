@@ -46,7 +46,7 @@ function lesson_started(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/start',
             'display' => [
-                $lang => 'Started'
+                'en' => 'Started'
             ],
         ],
         'object' => utils\get_activity\lesson(

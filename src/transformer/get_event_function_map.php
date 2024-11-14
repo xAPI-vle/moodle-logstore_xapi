@@ -119,8 +119,7 @@ function get_event_function_map() {
         '\mod_lesson\event\lesson_started' => 'mod_lesson\lesson_started',
         '\mod_lesson\event\lesson_resumed' => 'mod_lesson\lesson_resumed',
         '\mod_lesson\event\lesson_restarted' => 'mod_lesson\lesson_restarted',
-
-        '\mod_lesson\event\lesson_ended' => 'mod_lesson\lesson_ended', #db for score stuff
+        '\mod_lesson\event\lesson_ended' => 'mod_lesson\lesson_ended',
         
         '\mod_lesson\event\essay_assessed' => 'debug\debug_event', #works
         '\mod_lesson\event\question_answered' => 'debug\debug_event', #works

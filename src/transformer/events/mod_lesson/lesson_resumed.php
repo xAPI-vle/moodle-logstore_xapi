@@ -46,7 +46,7 @@ function lesson_resumed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/resumed',
             'display' => [
-                $lang => 'Resumed'
+                'en' => 'Resumed'
             ],
         ],
         'object' => utils\get_activity\lesson(

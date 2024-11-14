@@ -46,7 +46,7 @@ function lesson_ended(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/completed',
             'display' => [
-                $lang => 'Completed'
+                'en' => 'Completed'
             ],
         ],
         'result' => utils\get_lesson_result(
