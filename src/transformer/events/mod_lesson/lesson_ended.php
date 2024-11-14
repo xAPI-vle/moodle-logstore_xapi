@@ -39,21 +39,8 @@ function lesson_ended(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
-    
     $lesson = $repo->read_record_by_id('lesson', $event->objectid);
-    $lessongrades = $repo->read_record('lesson_grade',
-        [
-            'lessonid' => $lesson->id,
-            'userid' => $event->userid
-        ],
-        'completed DESC');
-    $lessongrade = $lesson_grades[0];
     
-    // RAW score is not stored in db. lesson_grade.grade is normalized to 100, but max score (lesson.grade) might be less than 100;
-    // Get raw score by multiplying (score/100) by lesson.grade
-    $scaled   = ($lesson_grade->grade / 100);
-    $rawscore = $scaled * $lesson->grade;
-
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -62,15 +49,16 @@ function lesson_ended(array $config, \stdClass $event) {
                 $lang => 'Completed'
             ],
         ],
-        'result' => [
-            'min' => 0,
-            'max' => $lesson->grade,
-            'raw' => $rawscore,
-            'scaled' => $scaled
-        ],
-        'object' => utils\get_activity\course_module(
+        'result' => utils\get_lesson_result(
+            $config,
+            $lesson,
+            $event->userid,
+            $event->contextinstanceid
+        ),
+        'object' => utils\get_activity\lesson(
             $config,
             $course,
+            $lesson,
             $event->contextinstanceid
         ),
         'context' => [
@@ -80,7 +68,7 @@ function lesson_ended(array $config, \stdClass $event) {
                 'parent' => utils\context_activities\get_parent(
                     $config,
                     $event->contextinstanceid,
-                    false
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),

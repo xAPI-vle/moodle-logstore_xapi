@@ -42,6 +42,8 @@ function course_module_completion_updated(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
     $completionstate = unserialize($event->other)['completionstate'];
 
+    $result = [];
+
     if ($completionstate) {
         $verb = [
             'id' => 'http://adlnet.gov/expapi/verbs/completed',
@@ -49,6 +51,13 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 $lang => 'Completed'
             ],
         ];
+        
+        // completionstate: 1=completion, 2=pass, 3=fail
+        $result['completion'] = true;
+        if ($completionstate > 1) {
+            $result['success'] = ($completionstate == 2);
+        }
+
     } else {
         $verb = [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
@@ -58,7 +67,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         ];
     }
 
-    return [[
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,
         'object' => utils\get_activity\course_module(
@@ -79,5 +88,11 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 ],
             ],
         ]
-    ]];
+    ];
+
+    if (!empty($result)) {
+        $statement['result'] = $result;
+    }
+
+    return [$statement];
 }

@@ -38,6 +38,7 @@ function lesson_started(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $lesson = $repo->read_record_by_id('lesson', $event->objectid);
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -48,9 +49,10 @@ function lesson_started(array $config, \stdClass $event) {
                 $lang => 'Started'
             ],
         ],
-        'object' => utils\get_activity\course_module(
+        'object' => utils\get_activity\lesson(
             $config,
             $course,
+            $lesson,
             $event->contextinstanceid
         ),
         'context' => [
@@ -60,7 +62,7 @@ function lesson_started(array $config, \stdClass $event) {
                 'parent' => utils\context_activities\get_parent(
                     $config,
                     $event->contextinstanceid,
-                    false
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),

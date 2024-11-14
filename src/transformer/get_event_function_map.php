@@ -61,9 +61,7 @@ function get_event_function_map() {
         '\core\event\user_loggedinas' => 'core\user_loggedin',
         '\core\event\user_loggedout' => 'core\user_loggedout',
         '\core\event\course_module_created' => 'core\course_module_created',
-
-        '\core\event\course_module_completion_updated' => 'debug\debug_event',
-        
+        '\core\event\course_module_completion_updated' => 'core\course_module_completion_updated',
         '\core_h5p\event\h5p_viewed' => 'all\course_module_viewed',
         '\core\event\search_results_viewed' => 'core\search_results_viewed',
         '\core\event\questions_imported' => 'core\questions_imported',
@@ -121,8 +119,8 @@ function get_event_function_map() {
         '\mod_lesson\event\lesson_started' => 'mod_lesson\lesson_started',
         '\mod_lesson\event\lesson_resumed' => 'mod_lesson\lesson_resumed',
         '\mod_lesson\event\lesson_restarted' => 'mod_lesson\lesson_restarted',
-        
-        '\mod_lesson\event\lesson_ended' => 'debug\debug_event', #'mod_lesson\lesson_ended', #db for score stuff
+
+        '\mod_lesson\event\lesson_ended' => 'mod_lesson\lesson_ended', #db for score stuff
         
         '\mod_lesson\event\essay_assessed' => 'debug\debug_event', #works
         '\mod_lesson\event\question_answered' => 'debug\debug_event', #works
