@@ -44,9 +44,14 @@ function badge_awarded(array $config, \stdClass $event) {
 
     $recipient = $repo->read_record_by_id('user', $event->relateduserid);
     $actor = utils\get_user($config, $recipient);
+
     $badge = $repo->read_record_by_id('badge', $event->objectid);
-    $lang = $badge->language ?? 'en';
     $course = $badge->courseid ? $repo->read_record_by_id('course', $badge->courseid) : null;
+
+    $lang = $badge->language ??
+      ((!(is_null($course))) ?
+       utils\get_course_lang($course) :
+       $config['source_lang']);
 
     $other = unserialize($event->other);
     $issuedid = $other['badgeissuedid'];

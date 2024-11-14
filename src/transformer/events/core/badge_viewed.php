@@ -45,7 +45,11 @@ function badge_viewed(array $config, \stdClass $event) {
     $course = (isset($event->courseid) && $event->courseid != 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
-    $lang = is_null($course) ? $config['source_lang'] : utils\get_course_lang($course);
+
+    $lang = $badge->language ??
+      ((!(is_null($course))) ?
+       utils\get_course_lang($course) :
+       $config['source_lang']);
 
     $statement = [
         'actor' => utils\get_user($config,$user),

@@ -40,7 +40,11 @@ function badge_revoked(array $config, \stdClass $event) {
     $badge = $repo->read_record_by_id('badge', $event->objectid);
     $revoker = utils\get_user($config, $repo->read_record_by_id('user', $event->userid));
     $course = $badge->courseid ? $repo->read_record_by_id('course', $badge->courseid) : null;
-    $lang = $badge->language ?? 'en';
+
+    $lang = $badge->language ??
+      ((!(is_null($course))) ?
+       utils\get_course_lang($course) :
+       $config['source_lang']);
 
     $statement = [[
         'actor' => utils\get_user($config, $recipient),
