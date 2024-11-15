@@ -30,10 +30,9 @@ namespace src\transformer\utils;
  * @param array $config The transformer config settings.
  * @param \stdClass $lesson The lesson object.
  * @param int $userid User ID who completed the lesson
- * @param int $cmid Course Module ID.
  * @return object
  */
-function get_lesson_result(array $config, \stdClass $lesson, int $userid, int $cmid) {
+function get_lesson_result(array $config, \stdClass $lesson, int $userid) {
     
     $repo = $config['repo'];
     $result = [
@@ -56,13 +55,8 @@ function get_lesson_result(array $config, \stdClass $lesson, int $userid, int $c
             $grade = reset($grades);
             $min = floatval($grade->rawgrademin ?: 0);
             $max = floatval($grade->rawgrademax ?: 0);
-            $raw = floatval($grade->rawgrade ?: 0);
+            $raw = cap_raw_score(floatval($grade->rawgrade ?: 0), $min, $max);
             $pass = floatval($gradeitem->gradepass ?: 0);
-
-            // For xAPI validity safety, because it is somehow possible to 
-            // configure a scale with raw score less than the min, this check 
-            // must happen or scaled score may be less than -1
-            $raw = ($raw < $min) ? $min : $raw;
 
             $result['score'] = [
                 'min' => $min,

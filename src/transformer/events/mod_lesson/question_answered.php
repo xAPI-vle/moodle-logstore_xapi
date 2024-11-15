@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer for lesson ended event.
+ * Transformer for lesson question answered event.
  *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>
@@ -27,38 +27,41 @@ namespace src\transformer\events\mod_lesson;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for lesson ended event.
+ * Transformer for lesson question answered event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function lesson_ended(array $config, \stdClass $event) {
+function question_answered(array $config, \stdClass $event) {
 
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $lesson_page = $repo->read_record_by_id('lesson_pages', $event->objectid);
+    $lesson = $repo->read_record_by_id('lesson', $lesson_page->lessonid);
     $lang = utils\get_course_lang($course);
-    $lesson = $repo->read_record_by_id('lesson', $event->objectid);
-    
+
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Completed'
+                'en' => 'Answered'
             ],
         ],
-        'result' => utils\get_lesson_result(
-            $config,
-            $lesson,
-            $event->userid
-        ),
-        'object' => utils\get_activity\lesson(
+        'object' => utils\get_activity\lesson_question_page(
             $config,
             $course,
             $lesson,
+            $lesson_page,
             $event->contextinstanceid
+        ),
+        'result' => utils\get_lesson_question_result(
+            $config,
+            $lesson,
+            $lesson_page,
+            $event->userid
         ),
         'context' => [
             'language' => $lang,
