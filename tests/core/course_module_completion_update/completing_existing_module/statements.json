@@ -22,6 +22,10 @@
         }
       }
     },
+    "result": {
+      "completion": true,
+      "success": true
+    },
     "context": {
       "language": "en",
       "extensions": {
