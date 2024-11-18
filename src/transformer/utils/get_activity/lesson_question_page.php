@@ -46,14 +46,26 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
     $activity = [ 'id' => $entryurl ];
 
     $answers = $repo->read_records('lesson_answers', ['pageid' => $page->id]);
+    $correct_answers = array_filter($answers, function($a){return ($a->score > 0);});
+
+    error_log("got here 2");
 
     switch ($page->qtype) {
         case LESSON_PAGE_SHORTANSWER:
+            $correct_responses = array_values(
+                array_map(
+                    function($answer) {
+                        return utils\get_string_html_removed($answer->response);
+                    },
+                    $correct_answers
+                )
+            );
             $activity['definition'] = utils\get_activity\definition\cmi\fill_in(
                 $config,
                 $page->title,
                 utils\get_string_html_removed($page->contents),
-                $courselang
+                $courselang,
+                $correct_responses
             );
             break;
         case LESSON_PAGE_ESSAY:
@@ -66,7 +78,6 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
             break;
         case LESSON_PAGE_TRUEFALSE:
         case LESSON_PAGE_MULTICHOICE:
-            $correct_answers = array_filter($answers, function($a){return ($a->score > 0);});
             $choices = array_values(
                 array_map(
                     function($answer) {
@@ -113,13 +124,18 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
             );
             break;
         case LESSON_PAGE_NUMERICAL:
+            // xAPI Numerical can only have one discrete correct response, or a
+            // range but lessons do not support ranges, so taking first correct
+            // answer to cover most cases.
+            $c_choice = reset($correct_answers);
             $activity['definition'] = utils\get_activity\definition\cmi\numeric(
                 $config,
                 $page->title,
                 utils\get_string_html_removed($page->contents),
                 null,
                 null,
-                $courselang
+                $courselang,
+                utils\get_string_html_removed($c_choice->response)
             );
             break;
     }

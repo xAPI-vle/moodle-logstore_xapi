@@ -119,14 +119,10 @@ function get_event_function_map() {
         '\mod_lesson\event\lesson_resumed' => 'mod_lesson\lesson_resumed',
         '\mod_lesson\event\lesson_restarted' => 'mod_lesson\lesson_restarted',
         '\mod_lesson\event\lesson_ended' => 'mod_lesson\lesson_ended',
-        
         '\mod_lesson\event\question_viewed' => 'mod_lesson\question_viewed',       
         '\mod_lesson\event\content_page_viewed' => 'mod_lesson\content_page_viewed',
         '\mod_lesson\event\question_answered' => 'mod_lesson\question_answered',
-
-        '\mod_lesson\event\essay_assessed' => 'debug\debug_event', #works
-        
-
+        '\mod_lesson\event\essay_assessed' => 'mod_lesson\essay_assessed',
         '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lesson\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lti\event\course_module_viewed' => 'all\course_module_viewed',
