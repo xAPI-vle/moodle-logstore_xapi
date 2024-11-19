@@ -34,7 +34,6 @@ use src\transformer\utils as utils;
  * @param \stdClass $lesson The lesson object.
  * @param \stdClass $page The lesson page object.
  * @param int $cmid course module id
- * @param bool $q whether or not it's a question page. 
  * @return array
  */
 function lesson_question_page(array $config, \stdClass $course, \stdClass $lesson, \stdClass $page, int $cmid) {
