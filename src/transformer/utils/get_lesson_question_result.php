@@ -39,7 +39,6 @@ function get_lesson_question_result(array $config, \stdClass $lesson, \stdClass 
     
     $repo = $config['repo'];
     $result = [];
-
     // response and success if true
     $attempts = $repo->read_records('lesson_attempts', [
         'lessonid' => $lesson->id,
@@ -52,6 +51,27 @@ function get_lesson_question_result(array $config, \stdClass $lesson, \stdClass 
             // essay is graded later, and is also serialized into an object
             $essay = unserialize($attempt->useranswer);
             $result['response'] = get_string_html_removed($essay->answer);
+        } elseif ($page->qtype == LESSON_PAGE_MATCHING) {
+            //Matching is the tricky one because the stored response is
+            //nothing like the xapi expectation. We need to merge the answers
+            //with the responses.
+            $answers = $repo->read_records('lesson_answers', [
+                'pageid' => $page->id
+            ], 'id ASC');
+
+            $useranswers = explode(",", $attempt->useranswer);
+
+            $responses = [];
+            foreach($answers as $ans){
+                if (!is_null($ans->response)){
+                    array_push($responses, 
+                        slugify(get_string_html_removed($ans->answer)).
+                        "[.]".
+                        slugify(array_shift($useranswers)));
+                }
+            }
+            $result['success'] = ($attempt->correct == 1);
+            $result['response'] = implode("[,]", $responses); 
         } else {
             //other questions know if they are correct or not immediately
             $result['success'] = ($attempt->correct == 1);

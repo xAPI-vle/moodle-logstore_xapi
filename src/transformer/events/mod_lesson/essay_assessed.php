@@ -41,12 +41,11 @@ function essay_assessed(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
     
     $other = unserialize($event->other);
-    $lesson = $repo->read_record_by_id('lesson', $other['lessonid']);
+    $lesson = $repo->read_record_by_id('lesson', (int)$other['lessonid']);
     $attempt = $repo->read_record_by_id('lesson_attempts', $other['attemptid']);
     $page = $repo->read_record_by_id('lesson_pages', $attempt->pageid);
     $learner = $repo->read_record_by_id('user', $attempt->userid);
     $answer = $repo->read_record('lesson_answers', [
-        'lessonid' => $lesson->id,
         'pageid' => $page->id
     ]);
     

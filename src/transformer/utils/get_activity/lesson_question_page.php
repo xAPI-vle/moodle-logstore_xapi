@@ -48,8 +48,6 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
     $answers = $repo->read_records('lesson_answers', ['pageid' => $page->id]);
     $correct_answers = array_filter($answers, function($a){return ($a->score > 0);});
 
-    error_log("got here 2");
-
     switch ($page->qtype) {
         case LESSON_PAGE_SHORTANSWER:
             $correct_responses = array_values(
@@ -94,8 +92,6 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
                     $correct_answers
                 )
             );
-            error_log(implode(",", $choices));
-            error_log(implode(",", $correct_choices));
             $activity['definition'] = utils\get_activity\definition\cmi\choice(
                 $config,
                 $page->title,
