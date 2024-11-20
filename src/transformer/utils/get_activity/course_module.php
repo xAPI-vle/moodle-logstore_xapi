@@ -69,6 +69,19 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         );
     }
 
+    // Survey
+    if ($module->name === 'survey') {
+        $def = [
+            'type' => $activitytype,
+            'name' => [
+                $courselang => $instancename,
+            ],
+            'description' => [
+                $courselang => utils\get_string_html_removed($instance->intro),
+            ],
+        ];
+    }
+
     $object = [
         'id' => $coursemoduleurl,
         'definition' => $def,

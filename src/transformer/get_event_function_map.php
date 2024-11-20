@@ -135,6 +135,8 @@ function get_event_function_map() {
         '\mod_scorm\event\scoreraw_submitted' => 'mod_scorm\scoreraw_submitted',
         '\mod_scorm\event\status_submitted' => 'mod_scorm\status_submitted',
         '\mod_survey\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_survey\event\report_viewed' => 'mod_survey\report_viewed',
+        '\mod_survey\event\response_submitted' => 'mod_survey\response_submitted',
         '\mod_url\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
