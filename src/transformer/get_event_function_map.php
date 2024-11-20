@@ -140,8 +140,8 @@ function get_event_function_map() {
         '\mod_url\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
-        '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
-
+        '\totara_program\event\program_assigned' => 'totara_program\program_assigned',
+        '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended'
     ];
 
     $environmentevents = class_exists("report_eventlist_list_generator") ?
