@@ -69,8 +69,8 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         );
     }
 
-    // Survey
-    if ($module->name === 'survey') {
+    // Survey & Wiki use "intro"
+    if ($module->name === 'survey' || $module->name === 'wiki') {
         $def = [
             'type' => $activitytype,
             'name' => [
