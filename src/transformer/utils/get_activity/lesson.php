@@ -42,7 +42,7 @@ function lesson(array $config, \stdClass $course, \stdClass $entry, int $cmid) {
     $activity = [
         'id' => $entryurl,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/lesson'
+            'type' => 'http://adlnet.gov/expapi/activities/lesson-session'
         ],
     ];
 
