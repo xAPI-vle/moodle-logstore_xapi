@@ -8,23 +8,30 @@
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "id": "http://adlnet.gov/expapi/verbs/answered",
       "display": {
-        "en": "Completed"
+        "en": "Answered"
       }
     },
     "object": {
-      "id": "http://www.example.org/mod/book/view.php?id=1",
+      "id": "http://www.example.org/mod/lesson/view.php?id=1&pageid=1",
       "definition": {
-        "type": "http://id.tincanapi.com/activitytype/book",
+        "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
         "name": {
-          "en": "test_book_name"
-        }
+          "en": "lesson_question_page_title"
+        },
+        "description": {
+          "en": "lesson_question_page_contents"
+        },
+        "interactionType": "fill-in",
+        "correctResponsesPattern": [
+          "Thing"
+        ]
       }
     },
     "result": {
-      "completion": true,
-      "success": true
+      "success": true,
+      "response": "Thing"
     },
     "context": {
       "language": "en",
@@ -32,12 +39,21 @@
         "http://lrs.learninglocker.net/define/extensions/info": {
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\core\\event\\course_module_completion_updated",
-          "event_function": "\\src\\transformer\\events\\core\\course_module_completion_updated"
+          "event_name": "\\mod_lesson\\event\\question_answered",
+          "event_function": "\\src\\transformer\\events\\mod_lesson\\question_answered"
         }
       },
       "contextActivities": {
         "parent": [
+          {
+            "id": "http://www.example.org/mod/lesson/view.php?id=1",
+            "definition": {
+              "type": "http://adlnet.gov/expapi/activities/lesson",
+              "name": {
+                "en": "test_lesson"
+              }
+            }
+          },
           {
             "id": "http://www.example.org/course/section.php?id=1",
             "objectType": "Activity",

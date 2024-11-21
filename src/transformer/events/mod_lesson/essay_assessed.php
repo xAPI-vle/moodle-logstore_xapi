@@ -15,84 +15,77 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course module completion updated event.
+ * Transformer for lesson essay assessed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\core;
+namespace src\transformer\events\mod_lesson;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for course module completion updated event.
+ * Transformer for lesson essay assessed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_module_completion_updated(array $config, \stdClass $event) {
+function essay_assessed(array $config, \stdClass $event) {
+
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
-    $completionstate = unserialize($event->other)['completionstate'];
-
-    $result = [];
-
-    if ($completionstate) {
-        $verb = [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
-            'display' => [
-                'en' => 'Completed'
-            ],
-        ];
-        
-        // completionstate: 1=completion, 2=pass, 3=fail
-        $result['completion'] = true;
-        if ($completionstate > 1) {
-            $result['success'] = ($completionstate == 2);
-        }
-
-    } else {
-        $verb = [
-            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
-            'display' => [
-                'en' => 'Uncompleted'
-            ],
-        ];
-    }
-
-    $statement = [
+    
+    $other = unserialize($event->other);
+    $lesson = $repo->read_record_by_id('lesson', (int)$other['lessonid']);
+    $attempt = $repo->read_record_by_id('lesson_attempts', $other['attemptid']);
+    $page = $repo->read_record_by_id('lesson_pages', $attempt->pageid);
+    $learner = $repo->read_record_by_id('user', $attempt->userid);
+    $answer = $repo->read_record('lesson_answers', [
+        'pageid' => $page->id
+    ]);
+    
+    return[[
         'actor' => utils\get_user($config, $user),
-        'verb' => $verb,
-        'object' => utils\get_activity\course_module(
+        'verb' => [
+            'id' => 'https://w3id.org/xapi/dod-isd/verbs/assessed',
+            'display' => [
+                'en' => 'Assessed'
+            ],
+        ],
+        'result' => utils\get_lesson_essay_result(
+            $config,
+            $lesson,
+            $answer,
+            $attempt
+        ),
+        'object' => utils\get_activity\lesson_question_page(
             $config,
             $course,
+            $lesson,
+            $page,
             $event->contextinstanceid
         ),
         'context' => [
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => array_merge(
+                ['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' => utils\get_user($config, $learner)], 
+                utils\extensions\base($config, $event, $course)
+            ),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
-                    $event->contextinstanceid
+                    $event->contextinstanceid,
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),
                 ],
             ],
         ]
-    ];
-
-    if (!empty($result)) {
-        $statement['result'] = $result;
-    }
-
-    return [$statement];
+    ]];
 }

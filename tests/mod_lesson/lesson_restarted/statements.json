@@ -8,23 +8,22 @@
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/restarted",
       "display": {
-        "en": "Completed"
+        "en": "Restarted"
       }
     },
     "object": {
-      "id": "http://www.example.org/mod/book/view.php?id=1",
+      "id": "http://www.example.org/mod/lesson/view.php?id=1#lesson",
       "definition": {
-        "type": "http://id.tincanapi.com/activitytype/book",
+        "type": "http://adlnet.gov/expapi/activities/lesson-session",
         "name": {
-          "en": "test_book_name"
+          "en": "test_lesson"
+        },
+        "description": {
+          "en": "test_lesson_intro"
         }
       }
-    },
-    "result": {
-      "completion": true,
-      "success": true
     },
     "context": {
       "language": "en",
@@ -32,12 +31,21 @@
         "http://lrs.learninglocker.net/define/extensions/info": {
           "http://moodle.org": "1.0.0",
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\core\\event\\course_module_completion_updated",
-          "event_function": "\\src\\transformer\\events\\core\\course_module_completion_updated"
+          "event_name": "\\mod_lesson\\event\\lesson_restarted",
+          "event_function": "\\src\\transformer\\events\\mod_lesson\\lesson_restarted"
         }
       },
       "contextActivities": {
         "parent": [
+          {
+            "id": "http://www.example.org/mod/lesson/view.php?id=1",
+            "definition": {
+              "type": "http://adlnet.gov/expapi/activities/lesson",
+              "name": {
+                "en": "test_lesson"
+              }
+            }
+          },
           {
             "id": "http://www.example.org/course/section.php?id=1",
             "objectType": "Activity",

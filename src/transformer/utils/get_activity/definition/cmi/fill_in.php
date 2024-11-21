@@ -33,15 +33,26 @@ use src\transformer\utils as utils;
  * @param string $name The activity name.
  * @param ?string $description The activity description.
  * @param string $lang The language.
+ * @param ?array $correctanswers Optional array of correct string answers.
  */
 function fill_in(
     array $config,
     string $name,
         ?string $description,
-    string $lang
+    string $lang,
+        ?array $correctanswers = null
 ) {
     return [
         ...common($config, $name, $description, $lang),
         'interactionType' => 'fill-in',
+        ...(
+            !is_null($correctanswers)
+                ? [
+                    'correctResponsesPattern' => [
+                        implode('[,]', $correctanswers)
+                    ]
+                ]
+                : []
+        ),
     ];
 }

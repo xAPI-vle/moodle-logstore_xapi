@@ -15,65 +15,53 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for course module completion updated event.
+ * Transformer for lesson question answered event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\core;
+namespace src\transformer\events\mod_lesson;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for course module completion updated event.
+ * Transformer for lesson question answered event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function course_module_completion_updated(array $config, \stdClass $event) {
+function question_answered(array $config, \stdClass $event) {
+
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
+    $lesson_page = $repo->read_record_by_id('lesson_pages', $event->objectid);
+    $lesson = $repo->read_record_by_id('lesson', $lesson_page->lessonid);
     $lang = utils\get_course_lang($course);
-    $completionstate = unserialize($event->other)['completionstate'];
 
-    $result = [];
-
-    if ($completionstate) {
-        $verb = [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
-            'display' => [
-                'en' => 'Completed'
-            ],
-        ];
-        
-        // completionstate: 1=completion, 2=pass, 3=fail
-        $result['completion'] = true;
-        if ($completionstate > 1) {
-            $result['success'] = ($completionstate == 2);
-        }
-
-    } else {
-        $verb = [
-            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
-            'display' => [
-                'en' => 'Uncompleted'
-            ],
-        ];
-    }
-
-    $statement = [
+    return[[
         'actor' => utils\get_user($config, $user),
-        'verb' => $verb,
-        'object' => utils\get_activity\course_module(
+        'verb' => [
+            'id' => 'http://adlnet.gov/expapi/verbs/answered',
+            'display' => [
+                'en' => 'Answered'
+            ],
+        ],
+        'object' => utils\get_activity\lesson_question_page(
             $config,
             $course,
+            $lesson,
+            $lesson_page,
             $event->contextinstanceid
+        ),
+        'result' => utils\get_lesson_question_result(
+            $config,
+            $lesson,
+            $lesson_page,
+            $event->userid
         ),
         'context' => [
             'language' => $lang,
@@ -81,18 +69,13 @@ function course_module_completion_updated(array $config, \stdClass $event) {
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
-                    $event->contextinstanceid
+                    $event->contextinstanceid,
+                    true
                 ),
                 'category' => [
                     utils\get_activity\site($config),
                 ],
             ],
         ]
-    ];
-
-    if (!empty($result)) {
-        $statement['result'] = $result;
-    }
-
-    return [$statement];
+    ]];
 }

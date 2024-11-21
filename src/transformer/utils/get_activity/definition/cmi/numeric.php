@@ -35,6 +35,7 @@ use src\transformer\utils as utils;
  * @param ?string $min The minimum numeric value.
  * @param ?string $max The maximum numeric value.
  * @param string $lang The language.
+ * @param ?string $exact Override for a single correct numeric answer
  */
 function numeric(
     array $config,
@@ -42,13 +43,14 @@ function numeric(
         ?string $description,
         ?string $min,
         ?string $max,
-    string $lang
+    string $lang,
+        ?string $exact = null
 ) {
     return [
         ...common($config, $name, $description, $lang),
         'interactionType' => 'numeric',
         'correctResponsesPattern' => [
-            $min . '[:]' . $max,
+            !is_null($exact) ? $exact : $min . '[:]' . $max
         ],
     ];
 }
