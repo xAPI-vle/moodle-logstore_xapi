@@ -54,7 +54,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'Answered'
+                'en' => 'Answered'
             ],
         ],
         'object' => [

@@ -48,7 +48,7 @@ function post_updated(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => [
-                $lang => 'Edited'
+                'en' => 'Edited'
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
@@ -57,7 +57,7 @@ function post_updated(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => array_merge(
-                    [utils\get_activity\course_discussion($config, $course, $discussion)], 
+                    [utils\get_activity\course_discussion($config, $course, $discussion)],
                     utils\context_activities\get_parent($config, $event->contextinstanceid, true)
                 ),
                 'category' => [

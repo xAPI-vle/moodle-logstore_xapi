@@ -19,6 +19,9 @@
         "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/wiki",
         "name": {
           "en": "test_name"
+        },
+        "description": {
+          "en": "test_intro"
         }
       }
     },

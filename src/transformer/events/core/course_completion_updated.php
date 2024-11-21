@@ -44,7 +44,7 @@ function course_completion_updated(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => [
-                $lang => 'Edited'
+                'en' => 'Edited'
             ],
         ],
         'object' => [

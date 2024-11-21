@@ -46,7 +46,7 @@ function group_member_removed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/leave',
             'display' => [
-                $lang => 'Left'
+                'en' => 'Left'
             ],
         ],
         'object' => utils\get_activity\course_group($config, $course, $group),

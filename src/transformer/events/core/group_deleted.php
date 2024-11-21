@@ -46,7 +46,7 @@ function group_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                $lang => 'Deleted'
+                'en' => 'Deleted'
             ],
         ],
         'object' => utils\get_activity\course_group($config, $course, $group),

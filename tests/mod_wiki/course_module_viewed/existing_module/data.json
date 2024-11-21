@@ -8,7 +8,8 @@
   "wiki": [
     {
       "id": 1,
-      "name": "test_name"
+      "name": "test_name",
+      "intro": "<p>test_intro</p>"
     }
   ]
 }

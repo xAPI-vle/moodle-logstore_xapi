@@ -82,7 +82,7 @@ function assignment_graded(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/scored',
             'display' => [
-                $lang => 'Scored',
+                'en' => 'Scored',
             ],
         ],
         'object' => [

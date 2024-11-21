@@ -48,7 +48,7 @@ function questions_imported(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/imported',
             'display' => [
-                $lang => 'Imported'
+                'en' => 'Imported'
             ],
         ],
         'object' => [

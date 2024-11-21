@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (SCORM) activities.
+ * Transformer utility for retrieving wiki page activity objects.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,24 +27,30 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (SCORM) activities.
+ * Transformer utility for retrieving wiki page activity objects.
  *
  * @param array $config The transformer config settings.
- * @param string $cmid The id of the context.
- * @param \stdClass $scorm The SCORM object.
- * @param string $lang The language of the SCORM activity.
+ * @param \stdClass $course The course object.
+ * @param \stdClass $wikipage The wiki page object.
  * @return array
  */
-function course_scorm(array $config, string $cmid, \stdClass $scorm, string $lang) {
-    $scormname = property_exists($scorm, 'name') ? $scorm->name : 'Scorm';
+function wiki_page(
+    array $config,
+    \stdClass $course,
+    \stdClass $wikipage
+) {
+    $lang = utils\get_course_lang($course);
 
     return [
-        'id' => $config['app_url'].'/mod/scorm/view.php?id='.$cmid,
+        'id' => $config['app_url'] . '/mod/wiki/view.php?pageid=' . $wikipage->id,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/legacy-learning-standard',
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/wiki-page',
             'name' => [
-                $lang => $scormname,
+                $lang => $wikipage->title,
             ],
+            'description' => [
+                $lang => utils\get_string_html_removed($wikipage->cachedcontent),
+            ]
         ],
     ];
 }

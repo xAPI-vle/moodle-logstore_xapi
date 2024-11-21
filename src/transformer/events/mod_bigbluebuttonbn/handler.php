@@ -45,7 +45,7 @@ function create_statement(array $config, \stdClass $event, $evtid, $evtdispname 
         'verb' => [
             'id' => $evtid,
             'display' => [
-                $lang => $evtdispname
+                'en' => $evtdispname
             ],
         ],
         'object' => utils\get_activity\course_module(

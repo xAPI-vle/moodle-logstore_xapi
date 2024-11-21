@@ -58,7 +58,7 @@ function take_attendance(array $config, \stdClass $event) {
                     'verb' => [
                         'id' => 'http://adlnet.gov/expapi/verbs/attended',
                         'display' => [
-                            $lang => 'Attended'
+                            'en' => 'Attended'
                         ],
                     ],
                     'object' => utils\get_activity\course_module(

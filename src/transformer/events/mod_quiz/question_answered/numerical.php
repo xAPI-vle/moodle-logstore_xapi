@@ -52,7 +52,7 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                $lang => 'Answered'
+                'en' => 'Answered'
             ],
         ],
         'object' => [

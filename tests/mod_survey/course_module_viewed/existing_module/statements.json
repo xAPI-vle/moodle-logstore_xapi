@@ -19,6 +19,9 @@
         "type": "http://id.tincanapi.com/activitytype/survey",
         "name": {
           "en": "test_name"
+        },
+        "description": {
+          "en": "test_intro"
         }
       }
     },

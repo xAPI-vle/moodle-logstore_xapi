@@ -51,7 +51,7 @@ function post_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/replied',
             'display' => [
-                $lang => 'Replied'
+                'en' => 'Replied'
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
@@ -60,7 +60,7 @@ function post_created(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => array_merge(
-                    [utils\get_activity\course_discussion($config, $course, $discussion)], 
+                    [utils\get_activity\course_discussion($config, $course, $discussion)],
                     utils\context_activities\get_parent($config, $event->contextinstanceid, true)
                 ),
                 'category' => [

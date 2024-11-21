@@ -52,7 +52,7 @@ function question_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                $lang => 'Created'
+                'en' => 'Created'
             ],
         ],
         'object' => [

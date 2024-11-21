@@ -144,11 +144,17 @@ function get_event_function_map() {
         '\mod_scorm\event\scoreraw_submitted' => 'mod_scorm\scoreraw_submitted',
         '\mod_scorm\event\status_submitted' => 'mod_scorm\status_submitted',
         '\mod_survey\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_survey\event\report_viewed' => 'mod_survey\report_viewed',
+        '\mod_survey\event\response_submitted' => 'mod_survey\response_submitted',
         '\mod_url\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_wiki\event\comment_created' => 'mod_wiki\comment_created',
+        '\mod_wiki\event\comment_deleted' => 'mod_wiki\comment_deleted',
+        '\mod_wiki\event\comments_viewed' => 'mod_wiki\comments_viewed',
+        '\mod_wiki\event\page_viewed' => 'mod_wiki\page_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
-        '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
-
+        '\totara_program\event\program_assigned' => 'totara_program\program_assigned',
+        '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended'
     ];
 
     $environmentevents = class_exists("report_eventlist_list_generator") ?

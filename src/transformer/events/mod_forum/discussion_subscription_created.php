@@ -40,7 +40,7 @@ function discussion_subscription_created(array $config, \stdClass $event) {
     $other = unserialize($event->other);
     $discussionid = $other['discussion'];
     $discussion = $repo->read_record_by_id('forum_discussions', $discussionid);
-    
+
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -48,7 +48,7 @@ function discussion_subscription_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/subscribed',
             'display' => [
-                $lang => 'Subscribed'
+                'en' => 'Subscribed'
             ],
         ],
         'object' => utils\get_activity\course_discussion($config, $course, $discussion),

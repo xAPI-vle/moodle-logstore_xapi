@@ -48,7 +48,7 @@ function comment_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/commented',
             'display' => [
-                $lang => 'Commented'
+                'en' => 'Commented'
             ],
         ],
         'object' => utils\get_activity\glossary_comment($config, $course, $comment),
@@ -57,7 +57,7 @@ function comment_created(array $config, \stdClass $event) {
             'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => array_merge(
-                    [utils\get_activity\glossary_entry($config, $course, $entry)], 
+                    [utils\get_activity\glossary_entry($config, $course, $entry)],
                     utils\context_activities\get_parent($config, $event->contextinstanceid, true)
                 ),
                 'category' => [

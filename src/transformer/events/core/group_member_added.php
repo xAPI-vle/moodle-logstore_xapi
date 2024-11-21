@@ -46,7 +46,7 @@ function group_member_added(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/join',
             'display' => [
-                $lang => 'Joined'
+                'en' => 'Joined'
             ],
         ],
         'object' => utils\get_activity\course_group($config, $course, $group),
