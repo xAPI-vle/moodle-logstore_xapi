@@ -67,7 +67,10 @@ function gapselect(array $config, \stdClass $event, \stdClass $questionattempt, 
             ),
         ],
         'result' => [
-            'response' => implode ('[,]', $selections),
+            'response' => implode ('[,]', array_map(
+                function($selection) {
+                    return utils\slugify($selection);
+                }, $selections)),
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [

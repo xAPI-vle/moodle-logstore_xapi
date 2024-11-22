@@ -66,7 +66,10 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
             ),
         ],
         'result' => [
-            'response' => implode ('[,]', $selections),
+            'response' => implode ('[,]', array_map(
+                function($selection) {
+                    return utils\slugify($selection);
+                }, $selections)),
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [

@@ -113,7 +113,7 @@ function get_multichoice_definition(
 function get_match_definition(array $config, \stdClass $question, string $lang) {
     $repo = $config['repo'];
     $subqs = $repo->read_records('qtype_match_subquestions', [
-        'question' => $question->id
+        'questionid' => $question->id
     ]);
 
     $source = [];
@@ -142,18 +142,11 @@ function get_match_definition(array $config, \stdClass $question, string $lang) 
  * @param string $lang The language.
  */
 function get_numerical_definition(array $config, \stdClass $question, string $lang) {
-    $repo = $config['repo'];
-    $answers = $repo->read_records('question_answers', [
-        'question' => $question->id
-    ]);
-    // We only support the answer with the highest fraction
-    usort($answers, function ($a, $b) {
-        return $b->fraction <=> $a->fraction;
-    });
-    $answer = reset($answers);
-    $answernum = $repo->read_record_by_id('question_numerical', $answer->id);
-    $min = (int) $answer->answer - (int) $answernum->tolerance;
-    $max = (int) $answer->answer + (int) $answernum->tolerance;
+    [
+        'min' => $min,
+        'max' => $max,
+        'target' => $target
+    ] = utils\quiz_question\get_numerical_answer($config, $question->id);
 
     return cmi\numeric(
         $config,
@@ -161,7 +154,11 @@ function get_numerical_definition(array $config, \stdClass $question, string $la
         utils\get_string_html_removed($question->questiontext),
         $min,
         $max,
-        $lang
+        $lang,
+        // if we have an exact match, send that
+        ($min === $target && $max === $target)
+            ? $target
+            : null
     );
 }
 
@@ -196,8 +193,9 @@ function get_true_false_definition(array $config, \stdClass $question, string $l
     $correctanswerobjarr = array_filter(
         $answers,
         function ($answer) {
-            return $answer->fraction === 1.0;
+            return $answer->fraction == 1.0;
         }
+
     );
     $correctanswerobj = reset(
         $correctanswerobjarr

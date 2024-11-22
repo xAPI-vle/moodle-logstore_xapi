@@ -15,50 +15,39 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for the quiz attempt submitted event.
+ * Transform for the quiz attempt becameoverdue event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace src\transformer\events\mod_quiz\attempt_submitted;
+namespace src\transformer\events\mod_quiz;
 
 use src\transformer\utils as utils;
 
 /**
- * Transformer for quiz attempt submitted event.
+ * Transform for the quiz attempt becameoverdue event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function attempt_submitted(array $config, \stdClass $event) {
+function attempt_becameoverdue(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $attempt = $repo->read_record_by_id('quiz_attempts', $event->objectid);
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
-    $gradeitem = $repo->read_record('grade_items', [
-        'itemmodule' => 'quiz',
-        'iteminstance' => $quiz->id,
-    ]);
-    $attemptgrade = $repo->read_record('grade_grades', [
-        'itemid' => $gradeitem->id,
-        'userid' => $event->relateduserid
-    ]);
     $lang = utils\get_course_lang($course);
 
     return [[
         'actor' => utils\get_user($config, $user),
-        'verb' => utils\get_verb('completed', $config, $lang),
-        'object' => utils\get_activity\quiz_attempt(
-            $config, $event->objectid, $event->contextinstanceid
-        ),
-        'result' => utils\get_attempt_result($config, $attempt, $gradeitem, $attemptgrade),
+        'verb' => [
+            'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/exceeded',
+            'display' => [
+                'en' => 'Exceeded',
+            ],
+        ],
+        'object' => utils\get_activity\quiz_attempt($config, $event->objectid, $event->contextinstanceid),
         'context' => [
             'language' => $lang,
             'extensions' => utils\extensions\base($config, $event, $course),
@@ -70,7 +59,7 @@ function attempt_submitted(array $config, \stdClass $event) {
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ],
+                ]
             ],
         ]
     ]];

@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving (quiz attempt) activities.
+ * Transformer utility for retrieving quiz review activities.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,26 +27,22 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Transformer utility for retrieving (quiz attempt) activities.
+ * Transformer utility for retrieving quiz review activities.
  *
  * @param array $config The transformer config settings.
- * @param int $attemptid The id of the attempt.
- * @param string $cmid The id of the context.
+ * @param string $attemptid The id of the attempt.
  * @return array
  */
-function quiz_attempt(array $config, int $attemptid, string $cmid) {
+function quiz_review(array $config, string $attemptid) {
     $lang = $config['source_lang'];
-    $repo = $config['repo'];
-    $attempt = $repo->read_record_by_id('quiz_attempts', $attemptid);
-    $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
 
     return [
-        'id' => $config['app_url'].'/mod/quiz/attempt.php?attempt='.$attemptid.'&cmid='.$cmid,
+        'id' => $config['app_url'] . '/review.php?attempt=' . $attemptid,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/attempt',
+            'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => $quiz->name . ' Attempt ' . $attemptid,
-            ],
-        ],
+                $lang => 'Review'
+            ]
+        ]
     ];
 }

@@ -59,7 +59,9 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'definition' => question\get_true_false_definition($config, $question, $lang)
         ],
         'result' => [
-            'response' => utils\get_string_html_removed($questionattempt->responsesummary),
+            'response' => utils\slugify(
+                utils\get_string_html_removed($questionattempt->responsesummary)
+            ),
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [

@@ -71,7 +71,11 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
             'definition' => question\get_match_definition($config, $question, $lang)
         ],
         'result' => [
-            'response' => $questionattempt->responsesummary,
+            'response' => utils\result\get_matching_response(
+                $config,
+                $questionattempt,
+                $lang
+            ),
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [

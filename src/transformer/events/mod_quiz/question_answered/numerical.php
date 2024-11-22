@@ -46,6 +46,11 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
     $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
     $lang = utils\get_course_lang($course);
+    [
+        'min' => $min,
+        'max' => $max,
+    ] = utils\quiz_question\get_numerical_answer($config, $question->id);
+    $numanswer = $questionattempt->responsesummary;
 
     return [[
         'actor' => utils\get_user($config, $user),
@@ -62,7 +67,7 @@ function numerical(array $config, \stdClass $event, \stdClass $questionattempt, 
         'result' => [
             'response' => $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
-            'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
+            'success' => ($min <= $numanswer && $numanswer <= $max),
             'extensions' => [
                 'http://learninglocker.net/xapi/cmi/numeric/response' => floatval($questionattempt->responsesummary),
             ],

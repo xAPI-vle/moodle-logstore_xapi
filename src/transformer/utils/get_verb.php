@@ -89,7 +89,7 @@ function get_verb(string $verb, array $config, string $lang) {
 
         case 'scored':
             $output = [
-                'id' => 'http://adlnet.gov/expapi/verbs/scored',
+                'id' => 'https://w3id.org/xapi/tla/verbs/scored',
                 'display' => [
                     'en' => 'Scored'
                 ],

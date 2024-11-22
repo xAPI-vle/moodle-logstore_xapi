@@ -57,13 +57,13 @@
   "qtype_match_subquestions": [
     {
       "id": 1,
-      "question": 1,
+      "questionid": 1,
       "questiontext": "<p>Example short answer question</bar>",
       "answertext": "orange"
     },
     {
       "id": 2,
-      "question": 1,
+      "questionid": 1,
       "questiontext": "<p>Testing testing</bar>",
       "answertext": "Purple"
     }

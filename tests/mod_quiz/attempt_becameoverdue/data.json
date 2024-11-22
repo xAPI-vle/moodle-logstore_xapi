@@ -10,7 +10,7 @@
       "id": 1,
       "quiz": 1,
       "sumgrades": 50,
-      "state": "finished",
+      "state": "overdue",
       "timefinish": 1,
       "timestart": 0
     }
