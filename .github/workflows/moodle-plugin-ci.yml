@@ -68,6 +68,8 @@ jobs:
         if: ${{ matrix.moodle-branch == 'MOODLE_401_STABLE' || matrix.moodle-branch == 'MOODLE_402_STABLE' }}
         run: |
           moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE catalyst/moodle-mod_facetoface
+          moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE moodleworkplace/moodle-tool_certificate
+
 
       - name: Install the plugin.
         run: |

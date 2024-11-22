@@ -155,6 +155,9 @@ function get_event_function_map() {
         '\mod_wiki\event\page_viewed' => 'mod_wiki\page_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned',
+        '\tool_certificate\event\certificate_issued' => 'tool_certificate\certificate_issued',
+        '\tool_certificate\event\certificate_verified' => 'tool_certificate\certificate_verified',
+        '\tool_certificate\event\certificate_revoked' => 'tool_certificate\certificate_revoked',
         '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended'
     ];
 
