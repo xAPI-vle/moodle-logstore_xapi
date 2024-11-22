@@ -15,13 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transform for assignment submitted event.
+ * Transformer fn for assignment submission viewed event.
  *
  * @package   logstore_xapi
- * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
- *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
- *            David Pesce <david.pesce@exputo.com>
- *            Milt Reder <milt@yetanalytics.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,35 +28,38 @@ namespace src\transformer\events\mod_assign;
 use src\transformer\utils as utils;
 
 /**
- * Transformer for the assignment submitted event.
+ * Transformer fn for assignment submission viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-function assignment_submitted(array $config, \stdClass $event) {
+
+function submission_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
+    $instructor = $repo->read_record_by_id('user', $event->userid);
+    $learner = $repo->read_record_by_id('user', $event->relateduserid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $assignmentsubmission = $repo->read_record_by_id('assign_submission', $event->objectid);
-    $assignment = $repo->read_record_by_id('assign', $assignmentsubmission->assignment);
     $lang = utils\get_course_lang($course);
 
-    $verb = utils\get_verb('submitted', $config, $lang);
-
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $verb = utils\get_verb('completed', $config, $lang);
-    }
-
     return [[
-        'actor' => utils\get_user($config, $user),
-        'verb' => $verb,
+        'actor' => utils\get_user($config, $instructor),
+        'verb' =>  [
+            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'display' => [
+                'en' => 'Viewed'
+            ],
+        ],
         'object' => utils\get_activity\assign_submission(
             $config, $event->contextinstanceid, $lang
         ),
         'context' => [
             'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            'extensions' => [
+                'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for'
+                    => utils\get_user($config, $learner),
+                ...utils\extensions\base($config, $event, $course),
+            ],
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
@@ -69,6 +70,6 @@ function assignment_submitted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

@@ -21,6 +21,7 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -43,11 +44,6 @@ function assignment_graded(array $config, \stdClass $event) {
     $instructor = $repo->read_record_by_id('user', $event->userid);
     $assignment = $repo->read_record_by_id('assign', $grade->assignment);
     $lang = utils\get_course_lang($course);
-
-    $coursemodule = $repo->read_record_by_id('course_modules', $event->contextinstanceid);
-    $module = $repo->read_record_by_id('modules', $coursemodule->module);
-    $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
-    $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
     $gradecomment = null;
     try {
@@ -85,19 +81,9 @@ function assignment_graded(array $config, \stdClass $event) {
                 'en' => 'Scored',
             ],
         ],
-        'object' => [
-            'id' => $config['app_url']
-                . '/mod/assign/view.php?id='
-                . $event->contextinstanceid
-                . '#submission',
-            'objectType' => 'Activity',
-            'definition' => [
-                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/submission',
-                'name' => [
-                    $lang => $instancename . ' Submission'
-                ]
-            ]
-        ],
+        'object' => utils\get_activity\assign_submission(
+            $config, $event->contextinstanceid, $lang
+        ),
         'result' => [
             'success' => $success
         ],
