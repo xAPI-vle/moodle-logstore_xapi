@@ -14,11 +14,11 @@
       }
     },
     "object": {
-      "id": "http://www.example.org/mod/scorm/view.php?id=1",
+      "id": "http://www.example.org/mod/scorm/view.php?id=1#sco",
       "definition": {
-        "type": "http://adlnet.gov/expapi/activities/module",
+        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/scorm-content-object",
         "name": {
-          "en": "test_name"
+          "en": "test_name Content"
         }
       }
     },
@@ -42,6 +42,15 @@
       },
       "contextActivities": {
         "parent": [
+          {
+            "id": "http://www.example.org/mod/scorm/view.php?id=1",
+            "definition": {
+              "type": "http://adlnet.gov/expapi/activities/module",
+              "name": {
+                "en": "test_name"
+              }
+            }
+          },
           {
             "id": "http://www.example.org/course/section.php?id=1",
             "objectType": "Activity",

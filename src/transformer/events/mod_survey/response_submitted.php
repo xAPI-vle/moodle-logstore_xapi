@@ -42,9 +42,9 @@ function response_submitted(array $config, \stdClass $event) {
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
-            'id' => 'http://adlnet.gov/expapi/verbs/completed',
+            'id' => 'http://activitystrea.ms/submit',
             'display' => [
-                'en' => 'Completed'
+                'en' => 'Submitted'
             ],
         ],
         'object' => utils\get_activity\course_module(

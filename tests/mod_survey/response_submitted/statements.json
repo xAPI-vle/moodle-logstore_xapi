@@ -8,9 +8,9 @@
       }
     },
     "verb": {
-      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "id": "http://activitystrea.ms/submit",
       "display": {
-        "en": "Completed"
+        "en": "Submitted"
       }
     },
     "object": {
