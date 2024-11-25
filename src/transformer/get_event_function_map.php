@@ -35,6 +35,7 @@ function get_event_function_map() {
     $availableevents = [
         '\core\event\course_category_created' => 'core\course_category_created',
         '\core\event\badge_awarded' => 'core\badge_awarded',
+        '\core\event\badge_updated' => 'core\badge_updated',
         '\core\event\badge_revoked' => 'core\badge_revoked',
         '\core\event\badge_viewed' => 'core\badge_viewed',
         '\core\event\message_sent' =>  'core\message_sent',
