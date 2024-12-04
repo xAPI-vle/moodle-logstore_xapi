@@ -61,7 +61,7 @@ function submission_locked(array $config, \stdClass $event) {
             $config, $event->contextinstanceid, $lang
         ),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'extensions' => [
                 'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for'
                     => utils\get_user($config, $learner),

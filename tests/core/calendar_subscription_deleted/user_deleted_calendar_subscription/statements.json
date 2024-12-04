@@ -17,7 +17,8 @@
       "id": "http://www.example.org/calendar/subscription?id=1",
       "definition": {
         "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-subscription"
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
@@ -29,7 +30,8 @@
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
-            "id": "http://www.example.org"
+            "id": "http://www.example.org",
+            "objectType": "Activity"
           }
         ],
         "parent": [
@@ -40,7 +42,8 @@
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
-            "id": "http://www.example.org/course/view.php?id=1"
+            "id": "http://www.example.org/course/view.php?id=1",
+            "objectType": "Activity"
           }
         ]
       },

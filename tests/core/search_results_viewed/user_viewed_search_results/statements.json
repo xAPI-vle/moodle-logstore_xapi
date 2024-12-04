@@ -36,7 +36,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       },

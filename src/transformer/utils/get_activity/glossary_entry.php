@@ -39,6 +39,7 @@ function glossary_entry(array $config, \stdClass $course, \stdClass $entry) {
     $entryurl = $config['app_url'].'/mod/glossary/showentry.php?eid='.$entry->id;
 
     $activity = [
+        ...base(),
         'id' => $entryurl,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/glossary-entry'

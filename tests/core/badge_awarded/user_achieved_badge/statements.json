@@ -27,7 +27,8 @@
           "https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type": "Course",
           "https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version": "1.0"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "result": {
       "response": "you got the test badge!"

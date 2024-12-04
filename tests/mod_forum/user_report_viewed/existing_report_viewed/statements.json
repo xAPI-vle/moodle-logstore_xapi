@@ -24,7 +24,8 @@
           "https://moodle.org/xapi/extensions/course_id": 1
         }
       },
-      "id": "http://www.example.org/mod/forum/user.php?id=2&course=1"
+      "id": "http://www.example.org/mod/forum/user.php?id=2&course=1",
+      "objectType": "Activity"
     },
     "context": {
       "language": "en",
@@ -45,7 +46,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -56,7 +58,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

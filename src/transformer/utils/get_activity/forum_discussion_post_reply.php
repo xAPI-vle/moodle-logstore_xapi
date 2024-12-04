@@ -40,6 +40,7 @@ function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass
     $lang = utils\get_course_lang($course);
 
     $activity = [
+        ...base(),
         'id' => $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/forum-reply'

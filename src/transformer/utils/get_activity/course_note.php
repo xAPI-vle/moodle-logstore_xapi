@@ -36,17 +36,18 @@ use src\transformer\utils as utils;
  * @return object
  */
 function course_note($config, $lang, $subject, $note) {
-  return [
-    'id' => $config['app_url'].'/notes/view.php?id='.$note->id,
-    'definition' => [
-      'name' => [$lang => utils\get_string_html_removed($note->subject)],
-      'type' =>  'http://activitystrea.ms/note',
-      'description' => [$lang => utils\get_string_html_removed($note->content)],
-      'extensions' => [
-        "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-type" => "course",
-        "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject" =>
-          utils\get_user($config,$subject)
-      ]
-    ]
-  ];
+    return [
+        ...base(),
+        'id' => $config['app_url'].'/notes/view.php?id='.$note->id,
+        'definition' => [
+            'name' => [$lang => utils\get_string_html_removed($note->subject)],
+            'type' =>  'http://activitystrea.ms/note',
+            'description' => [$lang => utils\get_string_html_removed($note->content)],
+            'extensions' => [
+                "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-type" => "course",
+                "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject" =>
+                    utils\get_user($config,$subject)
+            ]
+        ]
+    ];
 }

@@ -40,6 +40,7 @@ function lesson(array $config, \stdClass $course, \stdClass $entry, int $cmid) {
     $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'#lesson';
 
     $activity = [
+        ...base(),
         'id' => $entryurl,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/lesson-session'

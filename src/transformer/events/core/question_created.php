@@ -56,11 +56,12 @@ function question_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => [
+            ...utils\get_activity\base(),
             'id' => $config['app_url'] . '/question?id=' . $question->id,
             'definition' => $definition,
         ],
         'context' => [
-            'extensions' => utils\extensions\base($config, $event, null),
+            ...utils\get_context_base($config, $event, $lang, null),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\course($config, $course)

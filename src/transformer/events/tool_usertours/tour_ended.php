@@ -51,8 +51,7 @@ function tour_ended(array $config, \stdClass $event) {
             'objectType' => 'Activity',
         ],
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, null),
+            ...utils\get_context_base($config, $event, $lang),
             'contextActivities' => [
                 'category' => [
                     utils\get_activity\site($config),

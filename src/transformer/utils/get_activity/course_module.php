@@ -83,6 +83,7 @@ function course_module(array $config, \stdClass $course, int $cmid) {
     }
 
     $object = [
+        ...base(),
         'id' => $coursemoduleurl,
         'definition' => $def,
     ];

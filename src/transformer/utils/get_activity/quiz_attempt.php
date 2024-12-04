@@ -43,6 +43,7 @@ function quiz_attempt(array $config, int $attemptid, string $cmid) {
     $quiz = $repo->read_record_by_id('quiz', $attempt->quiz);
 
     return [
+        ...base(),
         'id' => $config['app_url'].'/mod/quiz/attempt.php?attempt='.$attemptid.'&cmid='.$cmid,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',

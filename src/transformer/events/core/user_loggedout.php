@@ -49,9 +49,6 @@ function user_loggedout(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\site($config),
-        'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, null),
-        ]
+        'context' => utils\get_context_base($config, $event, $lang)
     ]];
 }

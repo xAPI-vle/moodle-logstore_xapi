@@ -37,6 +37,7 @@ function quiz_review(array $config, string $attemptid) {
     $lang = $config['source_lang'];
 
     return [
+        ...base(),
         'id' => $config['app_url'] . '/review.php?attempt=' . $attemptid,
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',

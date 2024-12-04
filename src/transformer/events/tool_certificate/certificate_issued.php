@@ -58,9 +58,8 @@ function certificate_issued(array $config, \stdClass $event) {
             $issue->code
         ),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => utils\get_user($config, $issuer),
-            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 ...(
                     is_null($course)

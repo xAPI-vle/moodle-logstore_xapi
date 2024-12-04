@@ -47,17 +47,14 @@ function calendar_event_updated(array $config, \stdClass $event) {
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => ['en'=> 'Edited']
         ],
-        'object' => [
-            'id'=> $config['app_url'].'/calendar/view.php?id='.$event->objectid,
-            'definition' => [
-                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event',
-                'name' => [
-                    $lang => $event_object->name
-                ]
-            ]
-        ],
+        'object' => activity\calendar_event(
+            $config,
+            $lang,
+            $event->objectid,
+            $event_object->name
+        ),
         'context' => [
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'category' => [activity\site($config)]
             ]
@@ -66,7 +63,7 @@ function calendar_event_updated(array $config, \stdClass $event) {
 
 
     if ($course){
-        $statement = utils\add_parent($config,$statement,$course);        
+        $statement = utils\add_parent($config,$statement,$course);
     }
 
     return [$statement];

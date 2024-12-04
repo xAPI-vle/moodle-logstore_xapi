@@ -52,8 +52,8 @@ function questions_imported(array $config, \stdClass $event) {
             ],
         ],
         'object' => [
+            ...utils\get_activity\base(),
             'id' => $config['app_url'] . '/question/bank/importquestions/import.php',
-            'objectType' => 'Activity',
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/file',
                 'name' => [
@@ -62,7 +62,7 @@ function questions_imported(array $config, \stdClass $event) {
             ],
         ],
         'context' => [
-            'extensions' => utils\extensions\base($config, $event, null),
+            ...utils\get_context_base($config, $event, $lang),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\course($config, $course),

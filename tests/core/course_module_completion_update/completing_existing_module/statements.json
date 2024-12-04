@@ -20,7 +20,8 @@
         "name": {
           "en": "test_book_name"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "result": {
       "completion": true,
@@ -55,7 +56,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -66,7 +68,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

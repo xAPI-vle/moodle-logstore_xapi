@@ -42,6 +42,7 @@ function wiki_discussion(
     $lang = utils\get_course_lang($course);
 
     return [
+        ...base(),
         'id' => $config['app_url'] . '/mod/wiki/comments.php?pageid=' . $wikipage->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/discussion',

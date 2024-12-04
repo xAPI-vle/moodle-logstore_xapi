@@ -42,6 +42,7 @@ function wiki_page(
     $lang = utils\get_course_lang($course);
 
     return [
+        ...base(),
         'id' => $config['app_url'] . '/mod/wiki/view.php?pageid=' . $wikipage->id,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/wiki-page',

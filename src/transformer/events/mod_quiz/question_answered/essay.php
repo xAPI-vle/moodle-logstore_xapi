@@ -58,6 +58,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
             ],
         ],
         'object' => [
+            ...utils\get_activity\base(),
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => question\get_essay_definition(
                 $config, $question, $lang
@@ -68,8 +69,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
             'completion' => $responsesummary !== '',
         ],
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => array_merge(
                     [

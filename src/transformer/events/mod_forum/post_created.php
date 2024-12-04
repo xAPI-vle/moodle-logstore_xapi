@@ -56,8 +56,7 @@ function post_created(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => array_merge(
                     [utils\get_activity\course_discussion($config, $course, $discussion)],

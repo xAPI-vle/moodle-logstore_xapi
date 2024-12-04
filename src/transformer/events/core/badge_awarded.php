@@ -66,12 +66,12 @@ function badge_awarded(array $config, \stdClass $event) {
             'display' => [
                 'en' => 'Achieved'
             ]],
-        'object' => utils\badge_object($config, $lang, $badge),
+        'object' => utils\get_activity\badge($config, $lang, $badge),
         'result' => [
             'response' => $badge->message
         ],
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => $awarder,
             'contextActivities' =>  [
                 'category' => [[

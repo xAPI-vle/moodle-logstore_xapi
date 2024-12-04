@@ -38,8 +38,8 @@ use src\transformer\utils as utils;
 function course_category(array $config, \stdClass $category) {
     $lang = $config['source_lang'];
     return [
+        ...base(),
         'id' => $config['app_url'] . '/course/management.php?categoryid=' . $category->id,
-        'objectType' => 'Activity',
         'definition' => [
             'name' => [
                 $lang => $category->name,

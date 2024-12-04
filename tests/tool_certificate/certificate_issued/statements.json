@@ -41,7 +41,8 @@
                 "en": "test_name"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       },

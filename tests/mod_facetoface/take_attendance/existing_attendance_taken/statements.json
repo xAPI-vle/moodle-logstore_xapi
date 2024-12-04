@@ -20,7 +20,8 @@
         "name": {
           "en": "test_facetoface_name"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "result": {
       "duration": "PT0S",
@@ -62,7 +63,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -73,7 +75,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

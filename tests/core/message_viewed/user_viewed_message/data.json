@@ -18,7 +18,7 @@
   "messages": [
     {
       "id": 1,
-      "smallmessage": "hi there!(messagetext)",
+      "fullmessage": "hi there!(messagetext)",
       "subject": "hi there(subject)"
     }
   ]

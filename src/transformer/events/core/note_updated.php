@@ -57,13 +57,12 @@ function note_updated(array $config, \stdClass $event) {
         ],
         'object' => activity\course_note($config, $lang, $subject, $note),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' =>  [
                 'category' => [
                     activity\site($config)
                 ],
             ],
-            'extensions' => utils\extensions\base($config, $event, $course)
         ]];
 
     if ($course){

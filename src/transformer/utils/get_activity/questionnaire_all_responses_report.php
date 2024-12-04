@@ -39,6 +39,7 @@ function questionnaire_all_responses_report(array $config, \stdClass $course, \s
     $reporturl = $config['app_url'].'/mod/questionnaire/report.php?instance='.$questionnaire->id.'&group=0';
 
     $activity = [
+        ...base(),
         'id' => $reporturl,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/report'

@@ -20,7 +20,8 @@
         "name": {
           "en": "test_name"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "language": "en",
@@ -47,7 +48,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

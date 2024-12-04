@@ -12,7 +12,7 @@
       "display": {
         "en": "Toured"
       }
-      ,
+    },
     "object": {
       "id": "http://www.example.org/course/view.php?id=1",
       "objectType": "Activity"

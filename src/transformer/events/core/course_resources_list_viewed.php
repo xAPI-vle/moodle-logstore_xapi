@@ -47,18 +47,9 @@ function course_resources_list_viewed(array $config, \stdClass $event) {
                 'en' => 'Viewed'
             ],
         ],
-        'object' => [
-            'id' => $config['app_url'] . '/course/resources.php?id=' . $event->courseid,
-            'definition' => [
-                'type' => 'https://w3id.org/xapi/acrossx/activities/webpage',
-                'name' => [
-                    $lang => $course->fullname . ' Resources'
-                ],
-            ],
-        ],
+        'object' => utils\get_activity\course_resources_list($config, $course),
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\course($config, $course),

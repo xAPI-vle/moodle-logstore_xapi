@@ -23,7 +23,8 @@
           "https://moodle.org/xapi/extensions/user_id": 2
         }
       },
-      "id": "http://www.example.org/mod/forum/user.php?id=2"
+      "id": "http://www.example.org/mod/forum/user.php?id=2",
+      "objectType": "Activity"
     },
     "context": {
       "language": "en",
@@ -44,7 +45,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

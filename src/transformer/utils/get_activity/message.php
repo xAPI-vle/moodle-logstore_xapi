@@ -36,8 +36,8 @@ use src\transformer\utils as utils;
  */
 function message(array $config, string $lang, \stdClass $message) {
     return [
+        ...base(),
         'id' => $config['app_url'] . '/message?id=' . $message->id,
-        'objectType' => 'Activity',
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/chat-message',
             'name' => [

@@ -62,6 +62,7 @@ function multichoice(
             ],
         ],
         'object' => [
+            ...utils\get_activity\base(),
             'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
             'definition' => utils\get_activity\definition\cmi\choice(
                 $config,
@@ -79,8 +80,7 @@ function multichoice(
             ],
         ],
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,

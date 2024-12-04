@@ -51,8 +51,8 @@ function group_member_added(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\course_group($config, $course, $group),
         'context' => [
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => utils\get_user($config, $user),
-            'extensions' => utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\course($config, $course),

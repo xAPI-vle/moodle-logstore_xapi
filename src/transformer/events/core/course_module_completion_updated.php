@@ -51,7 +51,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 'en' => 'Completed'
             ],
         ];
-        
+
         // completionstate: 1=completion, 2=pass, 3=fail
         $result['completion'] = true;
         if ($completionstate > 1) {
@@ -76,8 +76,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
             $event->contextinstanceid
         ),
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,

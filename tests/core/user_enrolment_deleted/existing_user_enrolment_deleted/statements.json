@@ -20,7 +20,8 @@
         "name": {
           "en": "test_name"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "instructor": {
@@ -49,7 +50,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

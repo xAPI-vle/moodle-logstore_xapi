@@ -57,6 +57,7 @@ function notes_viewed(array $config, \stdClass $event) {
                    ]
         ],
         'object' => [
+            ...activity\base(),
             'id' => $config['app_url'].'/notes/index.php',
             'definition' => [
                 'name' => [
@@ -70,7 +71,7 @@ function notes_viewed(array $config, \stdClass $event) {
             ],
         ],
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' =>  [
                 'category' => [
                     activity\site($config)

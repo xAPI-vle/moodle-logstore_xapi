@@ -23,7 +23,8 @@
         "description": {
           "en": "test_lesson_intro"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "result": {
       "completion": true,
@@ -54,7 +55,8 @@
               "name": {
                 "en": "test_lesson"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/course/section.php?id=1",
@@ -73,7 +75,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -84,7 +87,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

@@ -40,8 +40,9 @@ function lesson_content_page(array $config, \stdClass $course, \stdClass $lesson
     $repo = $config['repo'];
     $courselang = utils\get_course_lang($course);
     $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'&pageid='.$page->id;
-    
+
     $activity = [
+        ...base(),
         'id' => $entryurl,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/lesson-content-page'

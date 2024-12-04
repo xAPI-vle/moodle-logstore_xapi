@@ -51,7 +51,7 @@ function group_deleted(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\course_group($config, $course, $group),
         'context' => [
-            'extensions' => utils\extensions\base($config, $event, null),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\course($config, $course),

@@ -42,97 +42,100 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
 
     $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'&pageid='.$page->id;
 
-    $activity = [ 'id' => $entryurl ];
+    $activity = [
+        ...base(),
+        'id' => $entryurl,
+    ];
 
     $answers = $repo->read_records('lesson_answers', ['pageid' => $page->id]);
     $correct_answers = array_filter($answers, function($a){return ($a->score > 0);});
 
     switch ($page->qtype) {
-        case LESSON_PAGE_SHORTANSWER:
-            $correct_responses = array_values(
-                array_map(
-                    function($answer) {
-                        return utils\get_string_html_removed($answer->response);
-                    },
-                    $correct_answers
-                )
-            );
-            $activity['definition'] = utils\get_activity\definition\cmi\fill_in(
-                $config,
-                $page->title,
-                utils\get_string_html_removed($page->contents),
-                $courselang,
-                $correct_responses
-            );
-            break;
-        case LESSON_PAGE_ESSAY:
-            $activity['definition'] = utils\get_activity\definition\cmi\long_fill_in(
-                $config,
-                $page->title,
-                utils\get_string_html_removed($page->contents),
-                $courselang
-            );
-            break;
-        case LESSON_PAGE_TRUEFALSE:
-        case LESSON_PAGE_MULTICHOICE:
-            $choices = array_values(
-                array_map(
-                    function($answer) {
-                        return utils\get_string_html_removed($answer->response);
-                    },
-                    $answers
-                )
-            );
-            $correct_choices = array_values(
-                array_map(
-                    function($answer) {
-                        return utils\get_string_html_removed($answer->response);
-                    },
-                    $correct_answers
-                )
-            );
-            $activity['definition'] = utils\get_activity\definition\cmi\choice(
-                $config,
-                $page->title,
-                utils\get_string_html_removed($page->contents),
-                $choices,
-                $courselang,
-                $correct_choices
-            );
-            break;
-        case LESSON_PAGE_MATCHING:
-            $source = [];
-            $target = [];
-            foreach ($answers as $a) {
-                if (!empty($a->answer)){
-                    $source[] = utils\get_string_html_removed($a->answer);
-                    $target[] = utils\get_string_html_removed($a->response);
-                }
+    case LESSON_PAGE_SHORTANSWER:
+        $correct_responses = array_values(
+            array_map(
+                function($answer) {
+                    return utils\get_string_html_removed($answer->response);
+                },
+                $correct_answers
+            )
+        );
+        $activity['definition'] = utils\get_activity\definition\cmi\fill_in(
+            $config,
+            $page->title,
+            utils\get_string_html_removed($page->contents),
+            $courselang,
+            $correct_responses
+        );
+        break;
+    case LESSON_PAGE_ESSAY:
+        $activity['definition'] = utils\get_activity\definition\cmi\long_fill_in(
+            $config,
+            $page->title,
+            utils\get_string_html_removed($page->contents),
+            $courselang
+        );
+        break;
+    case LESSON_PAGE_TRUEFALSE:
+    case LESSON_PAGE_MULTICHOICE:
+        $choices = array_values(
+            array_map(
+                function($answer) {
+                    return utils\get_string_html_removed($answer->response);
+                },
+                $answers
+            )
+        );
+        $correct_choices = array_values(
+            array_map(
+                function($answer) {
+                    return utils\get_string_html_removed($answer->response);
+                },
+                $correct_answers
+            )
+        );
+        $activity['definition'] = utils\get_activity\definition\cmi\choice(
+            $config,
+            $page->title,
+            utils\get_string_html_removed($page->contents),
+            $choices,
+            $courselang,
+            $correct_choices
+        );
+        break;
+    case LESSON_PAGE_MATCHING:
+        $source = [];
+        $target = [];
+        foreach ($answers as $a) {
+            if (!empty($a->answer)){
+                $source[] = utils\get_string_html_removed($a->answer);
+                $target[] = utils\get_string_html_removed($a->response);
             }
-            $activity['definition'] = utils\get_activity\definition\cmi\matching(
-                $config,
-                $page->title,
-                utils\get_string_html_removed($page->contents),
-                $source,
-                $target,
-                $courselang
-            );
-            break;
-        case LESSON_PAGE_NUMERICAL:
-            // xAPI Numerical can only have one discrete correct response, or a
-            // range but lessons do not support ranges, so taking first correct
-            // answer to cover most cases.
-            $c_choice = reset($correct_answers);
-            $activity['definition'] = utils\get_activity\definition\cmi\numeric(
-                $config,
-                $page->title,
-                utils\get_string_html_removed($page->contents),
-                null,
-                null,
-                $courselang,
-                utils\get_string_html_removed($c_choice->response)
-            );
-            break;
+        }
+        $activity['definition'] = utils\get_activity\definition\cmi\matching(
+            $config,
+            $page->title,
+            utils\get_string_html_removed($page->contents),
+            $source,
+            $target,
+            $courselang
+        );
+        break;
+    case LESSON_PAGE_NUMERICAL:
+        // xAPI Numerical can only have one discrete correct response, or a
+        // range but lessons do not support ranges, so taking first correct
+        // answer to cover most cases.
+        $c_choice = reset($correct_answers);
+        $activity['definition'] = utils\get_activity\definition\cmi\numeric(
+            $config,
+            $page->title,
+            utils\get_string_html_removed($page->contents),
+            null,
+            null,
+            $courselang,
+            utils\get_string_html_removed($c_choice->response)
+        );
+        break;
     }
     return $activity;
 }

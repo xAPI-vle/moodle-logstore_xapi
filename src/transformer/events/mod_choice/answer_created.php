@@ -58,8 +58,7 @@ function answer_created(array $config, \stdClass $event) {
             'response' => $option->text,
         ],
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, null),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,

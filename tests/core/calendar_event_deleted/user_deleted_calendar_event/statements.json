@@ -17,7 +17,8 @@
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
-            "id": "http://www.example.org"
+            "id": "http://www.example.org",
+            "objectType": "Activity"
           }
         ],
         "parent": [
@@ -28,7 +29,8 @@
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
-            "id": "http://www.example.org/course/view.php?id=1"
+            "id": "http://www.example.org/course/view.php?id=1",
+            "objectType": "Activity"
           }
         ]
       },
@@ -49,7 +51,8 @@
         },
         "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event"
       },
-      "id": "http://www.example.org/calendar/view?id=1"
+      "id": "http://www.example.org/calendar/view.php?id=1",
+      "objectType": "Activity"
     },
     "verb": {
       "display": {

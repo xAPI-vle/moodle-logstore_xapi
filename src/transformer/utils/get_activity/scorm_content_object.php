@@ -54,6 +54,7 @@ function scorm_content_object(array $config, \stdClass $course, int $cmid) {
     ];
 
     $object = [
+        ...base(),
         'id' => $coursemoduleurl . '#sco',
         'definition' => $def,
     ];

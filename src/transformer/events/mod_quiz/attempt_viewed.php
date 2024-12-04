@@ -46,8 +46,7 @@ function attempt_viewed(array $config, \stdClass $event) {
         'verb' => utils\get_verb('viewed', $config, $lang),
         'object' => utils\get_activity\quiz_attempt($config, $event->id, $event->contextinstanceid),
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,

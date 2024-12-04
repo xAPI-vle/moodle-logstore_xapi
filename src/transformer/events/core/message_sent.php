@@ -19,7 +19,7 @@
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
- *            
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -37,37 +37,24 @@ use src\transformer\utils\get_activity as activity;
  */
 
 function message_sent(array $config, \stdClass $event) {
-    global $CFG;
     $repo = $config['repo'];
-    if (isset($event->objecttable) && isset($event->objectid)) {
-        $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
-    } else {
-        $event_object = array();
-    }
-    
-    $user = $repo->read_record_by_id('user',$event->userid); 
+    $message = $repo->read_record_by_id('messages', $event->objectid);
+    $user = $repo->read_record_by_id('user',$event->userid);
     $sender = $user;
-    $recipient = $repo->read_record_by_id('user',$event->relateduserid); 
-    
+    $recipient = $repo->read_record_by_id('user',$event->relateduserid);
+
     $course = (isset($event->courseid) && $event->courseid !== 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
     $lang = is_null ($course) ? $config['source_lang'] : utils\get_course_lang($course);
-    
+
     $statement = [
       'actor' => utils\get_user($config,$user),
       'verb' => ['id' => 'http://activitystrea.ms/send',
                  'display' => ['en' => 'Sent']],
-      'object' => [
-        'id' => $config['app_url'].'/course/view.php?id='.$event->objectid,
-        'definition' => [
-          'type' => "http://id.tincanapi.com/activitytype/chat-message",
-          'name' => [$lang =>  utils\get_string_html_removed($event_object->subject)],
-          'description' => [$lang => utils\get_string_html_removed($event_object->smallmessage)],
-        ],
-      ],
+      'object' => activity\message($config, $lang, $message),
       'context' => [
-        'language' => $lang,
+          ...utils\get_context_base($config, $event, $lang, $course),
         'contextActivities' => [
           'category' => [activity\site($config)],
         ],
@@ -78,7 +65,7 @@ function message_sent(array $config, \stdClass $event) {
               "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config,$recipient)
             ])
       ]];
-    
+
         if ($course){
             $statement = utils\add_parent($config,$statement,$course);
         }

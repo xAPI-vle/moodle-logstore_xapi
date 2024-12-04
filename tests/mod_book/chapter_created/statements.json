@@ -23,7 +23,8 @@
         "description": {
           "en": "test_book_chapter_content"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
@@ -35,7 +36,8 @@
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
-            "id": "http://www.example.org"
+            "id": "http://www.example.org",
+            "objectType": "Activity"
           }
         ],
         "parent": [
@@ -46,7 +48,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/course/section.php?id=1",
@@ -65,7 +68,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       },

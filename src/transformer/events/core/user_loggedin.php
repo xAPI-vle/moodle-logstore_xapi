@@ -59,7 +59,7 @@ function user_loggedin(array $config, \stdClass $event) {
         ],
         'object' => utils\get_activity\site($config),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang),
             'extensions' => $ctx_extensions,
         ]
     ]];

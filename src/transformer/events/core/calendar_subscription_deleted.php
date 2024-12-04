@@ -52,11 +52,10 @@ function calendar_subscription_deleted(array $config, \stdClass $event) {
             $config, $event->objectid, $lang
         ),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' =>  [
                 'category' => [activity\site($config)],
             ],
-            'extensions' => utils\extensions\base($config, $event, $course)
         ]];
 
         if ($course){

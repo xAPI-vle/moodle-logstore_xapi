@@ -42,11 +42,11 @@ function assign_submission(array $config, int $cmid, string $lang) {
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
     return [
+        ...base(),
         'id' => $config['app_url']
             . '/mod/assign/view.php?id='
             . $cmid
             . '#submission',
-        'objectType' => 'Activity',
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/submission',
             'name' => [

@@ -37,11 +37,12 @@ use src\transformer\utils as utils;
 function glossary_comment(array $config, \stdClass $course, \stdClass $comment) {
     $repo = $config['repo'];
     $entry = $repo->read_record_by_id('glossary_entries', $comment->itemid);
-    
+
     $courselang = utils\get_course_lang($course);
     $commenturl = $config['app_url'].'/mod/glossary/showentry.php?eid='.$entry->id.'#c'.$comment->id;
 
     $activity = [
+        ...base(),
         'id' => $commenturl,
         'definition' => [
             'type' => 'http://activitystrea.ms/comment'

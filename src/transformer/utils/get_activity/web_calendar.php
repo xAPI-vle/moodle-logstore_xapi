@@ -34,6 +34,7 @@ use src\transformer\utils as utils;
  */
 function web_calendar(string $url) {
     return [
+        ...base(),
         'id' => $url,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar',

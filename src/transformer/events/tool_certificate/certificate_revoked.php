@@ -58,9 +58,8 @@ function certificate_revoked(array $config, \stdClass $event) {
             $code
         ),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => utils\get_user($config, $revoker),
-            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 ...(
                     is_null($course)

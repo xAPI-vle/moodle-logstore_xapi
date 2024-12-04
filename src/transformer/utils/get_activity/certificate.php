@@ -38,8 +38,8 @@ function certificate(
     string $code
 ) {
     return [
+        ...base(),
         'id' => $config['app_url'] . '/admin/tool/certificate/index.php?code=' . $code,
-        'objectType' => 'Activity',
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/certificate',
             'name' => [

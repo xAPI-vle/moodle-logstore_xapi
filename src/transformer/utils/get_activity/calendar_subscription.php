@@ -42,6 +42,7 @@ function calendar_subscription(
     string $name = null,
 ) {
     return [
+        ...base(),
         'id' => $config['app_url'].'/calendar/subscription?id='.$subid,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-subscription',

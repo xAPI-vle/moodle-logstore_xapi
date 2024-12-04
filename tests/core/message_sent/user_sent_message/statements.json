@@ -14,7 +14,7 @@
       }
     },
     "object": {
-      "id": "http://www.example.org/course/view.php?id=1",
+      "id": "http://www.example.org/message?id=1",
       "definition": {
         "description": {
           "en": "hi there!(messagetext)"
@@ -23,7 +23,8 @@
           "en": "hi there(subject)"
         },
         "type": "http://id.tincanapi.com/activitytype/chat-message"
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
@@ -35,7 +36,8 @@
                 "en": "test_name"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "parent": [
@@ -46,7 +48,8 @@
                 "en": "test_name"
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       },

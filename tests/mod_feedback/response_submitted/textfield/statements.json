@@ -20,7 +20,8 @@
         "name": {
           "en": "test_feedback_name"
         }
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "language": "en",
@@ -51,7 +52,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -62,7 +64,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }
@@ -90,7 +93,8 @@
           "en": "test_feedback_item"
         },
         "interactionType": "fill-in"
-      }
+      },
+      "objectType": "Activity"
     },
     "result": {
       "response": "test_short_text_answer",
@@ -115,7 +119,8 @@
               "name": {
                 "en": "test_feedback_name"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/course/section.php?id=1",
@@ -134,7 +139,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -145,7 +151,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

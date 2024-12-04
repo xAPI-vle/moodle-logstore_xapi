@@ -39,8 +39,8 @@ function course_group(array $config, \stdClass $course, \stdClass $group) {
     $courselang = utils\get_course_lang($course);
 
     $activity = [
+        ...base(),
         'id' => $config['app_url'] . '/group/index.php?id=' . $group->id,
-        'objectType' => 'Activity',
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group',
         ],

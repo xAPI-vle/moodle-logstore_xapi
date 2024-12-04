@@ -42,7 +42,8 @@
               "name": {
                 "en": "test_page_title Discussion"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/mod/wiki/view.php?pageid=1",
@@ -54,7 +55,8 @@
               "description": {
                 "en": "test_content"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/mod/wiki/view.php?id=1",
@@ -66,7 +68,8 @@
               "description": {
                 "en": "test_intro"
               }
-            }
+            },
+            "objectType": "Activity"
           },
           {
             "id": "http://www.example.org/course/section.php?id=1",
@@ -85,7 +88,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ],
         "category": [
@@ -96,7 +100,8 @@
               "name": {
                 "en": "test_name"
               }
-            }
+            },
+            "objectType": "Activity"
           }
         ]
       }

@@ -19,7 +19,7 @@
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
- *            
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -58,16 +58,9 @@ function message_viewed(array $config, \stdClass $event) {
         'verb' => ['id' => 'http://id.tincanapi.com/verb/viewed',
                    'display' =>  ['en' => 'Viewed']
         ],
-        'object' => [
-            'id' =>  $config['app_url'].'/course/view.php?id='.$event->objectid,
-            'definition' => [
-                'type' =>  "http://id.tincanapi.com/activitytype/chat-message",
-                'name' => [$lang => utils\get_string_html_removed($event_object->subject)],
-                'description' => [$lang => utils\get_string_html_removed($event_object->smallmessage)],
-            ],
-        ],
+        'object' => activity\message($config, $lang, $event_object),
         'context' => [
-            'language' => $lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' =>  [
                 'category' => [activity\site($config)],
             ],
@@ -81,6 +74,6 @@ function message_viewed(array $config, \stdClass $event) {
     if ($course){
         $statement = utils\add_parent($config,$statement,$course);
     }
-    
+
     return [$statement];
 }

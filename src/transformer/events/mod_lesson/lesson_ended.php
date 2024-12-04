@@ -40,7 +40,7 @@ function lesson_ended(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
     $lesson = $repo->read_record_by_id('lesson', $event->objectid);
-    
+
     return[[
         'actor' => utils\get_user($config, $user),
         'verb' => [
@@ -61,8 +61,7 @@ function lesson_ended(array $config, \stdClass $event) {
             $event->contextinstanceid
         ),
         'context' => [
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,

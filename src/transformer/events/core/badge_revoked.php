@@ -54,9 +54,9 @@ function badge_revoked(array $config, \stdClass $event) {
                 'en' => 'Forfeited'
             ],
         ],
-        'object' => utils\badge_object($config, $lang, $badge),
+        'object' => utils\get_activity\badge($config, $lang, $badge),
         'context' => [
-            'language'=>$lang,
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' =>$revoker,
             'contextActivities'=> [
                 'category' => [[

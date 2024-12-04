@@ -49,15 +49,14 @@ function calendar_event_created(array $config, \stdClass $event) {
                 'en' => 'Created'
             ],
         ],
-        'object' => [
-            'id' => $config['app_url'].'/calendar/view?id='.$event->objectid,
-            'definition' => [
-                'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event',
-                'name' => [$lang => $event_object->name]
-            ]
-        ],
+        'object' => activity\calendar_event(
+            $config,
+            $lang,
+            $event->objectid,
+            $event_object->name
+        ),
         'context' => [
-            'extensions' => utils\extensions\base($config, $event, $course),
+            ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'category' => [activity\site($config)]
             ]
@@ -67,6 +66,6 @@ function calendar_event_created(array $config, \stdClass $event) {
     if ($course){
         $statement = utils\add_parent($config,$statement,$course);
     }
-    
+
     return [$statement];
 }

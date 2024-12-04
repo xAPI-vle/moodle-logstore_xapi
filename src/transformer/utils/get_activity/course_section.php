@@ -40,8 +40,8 @@ function course_section(array $config, \stdClass $course, int $csid) {
     $section = $repo->read_record_by_id('course_sections', $csid);
 
     return [
+        ...base(),
         'id' => $config['app_url'] . '/course/section.php?id=' . $section->id,
-        'objectType' => 'Activity',
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/section',
             'name' => [

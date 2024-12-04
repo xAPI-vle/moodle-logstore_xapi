@@ -47,9 +47,8 @@ function attempt_reviewed(array $config, \stdClass $event) {
         'verb' => utils\get_verb('received', $config, $lang),
         'object' => utils\get_activity\quiz_review($config, $event->objectid),
         'context' => [
+            ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => utils\get_user($config, $instructor),
-            'language' => $lang,
-            'extensions' => utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\quiz_attempt(
