@@ -16,7 +16,7 @@
     "object": {
       "id": "http://www.example.org/mod/lesson/view.php?id=1#lesson",
       "definition": {
-        "type": "http://adlnet.gov/expapi/activities/lesson-session",
+        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/lesson-session",
         "name": {
           "en": "test_lesson"
         },

@@ -43,7 +43,7 @@ function lesson(array $config, \stdClass $course, \stdClass $entry, int $cmid) {
         ...base(),
         'id' => $entryurl,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/lesson-session'
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/lesson-session'
         ],
     ];
 
