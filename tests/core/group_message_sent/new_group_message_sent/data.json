@@ -19,5 +19,11 @@
       "id": 1,
       "itemid": 1
     }
+  ],
+  "groups_members": [
+    {
+      "groupid": 1,
+      "userid": 1
+    }
   ]
 }

@@ -47,28 +47,32 @@ function group_message_sent(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $group->courseid);
     $lang = utils\get_course_lang($course);
 
-    return [[
-        'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://activitystrea.ms/send',
-            'display' => [
-                'en' => 'Sent'
-            ],
+    $statement = [
+      'actor' => utils\get_user($config, $user),
+      'verb' => [
+        'id' => 'http://activitystrea.ms/send',
+        'display' => [
+          'en' => 'Sent'
         ],
-        'object' => utils\get_activity\message($config, $lang, $message),
-        'context' => [
-            ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\course_group($config, $course, $group)
-                ],
-                'parent' => [
-                    utils\get_activity\course($config, $course),
-                ],
-                'category' => [
-                    utils\get_activity\site($config),
-                ],
-            ],
-        ]
-    ]];
+      ],
+      'object' => utils\get_activity\message($config, $lang, $message),
+      'context' => [
+        ...utils\get_context_base($config, $event, $lang, $course),
+        'contextActivities' => [
+          'grouping' => [
+            utils\get_activity\course_group($config, $course, $group)
+          ],
+          'parent' => [
+            utils\get_activity\course($config, $course),
+          ],
+          'category' => [
+            utils\get_activity\site($config),
+          ],
+        ],
+      ]
+    ];
+    $statement['context']['extensions']['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to'] = utils\get_group($config, $group);
+    return [
+      $statement
+    ];
 }
