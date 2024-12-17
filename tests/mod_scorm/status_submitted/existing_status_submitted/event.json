@@ -5,6 +5,6 @@
   "timecreated": 1433946701,
   "objectid": 1,
   "eventname": "\\mod_scorm\\event\\status_submitted",
-  "other": "a:1:{s:9:\"attemptid\";i:1;} ",
+  "other": "a:1:{s:9:\"attemptid\";i:1;}",
   "contextinstanceid": 1
 }
