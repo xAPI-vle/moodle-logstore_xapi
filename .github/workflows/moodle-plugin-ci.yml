@@ -30,9 +30,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.1']
-        moodle-branch: ['MOODLE_401_STABLE', 'MOODLE_402_STABLE']
+        php: ['8.1', '8.2', '8.3']
+        moodle-branch: ['MOODLE_401_STABLE', 'MOODLE_402_STABLE', 'MOODLE_403_STABLE', 'MOODLE_404_STABLE', 'MOODLE_405_STABLE']
         database: [pgsql, mariadb]
+        exclude:
+          - php: '8.2'
+            moodle-branch: 'MOODLE_401_STABLE'
+          - php: '8.3'
+            moodle-branch: 'MOODLE_401_STABLE'
+          - php: '8.3'
+            moodle-branch: 'MOODLE_402_STABLE'
+          - php: '8.3'
+            moodle-branch: 'MOODLE_403_STABLE'
 
     steps:
       - name: Check out repository code
@@ -64,8 +73,7 @@ jobs:
           cd plugin
           composer install
 
-      - name: Install additional supported plugins (Moodle 4.0)
-        if: ${{ matrix.moodle-branch == 'MOODLE_401_STABLE' || matrix.moodle-branch == 'MOODLE_402_STABLE' }}
+      - name: Install additional supported plugins
         run: |
           moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE catalyst/moodle-mod_facetoface
           moodle-plugin-ci add-plugin --branch MOODLE_400_STABLE moodleworkplace/moodle-tool_certificate
