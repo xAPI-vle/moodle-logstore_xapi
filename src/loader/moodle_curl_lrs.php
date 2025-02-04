@@ -53,25 +53,9 @@ function load(array $config, array $events) {
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
 
-
-
         if ($postdata === false) {
             throw new \Exception('JSON encode error: '.json_last_error_msg());
         }
-
-        //Old Client Code
-        /*$request = new \curl();
-        print_r($url);
-        $responsetext = $request->post($url, $postdata, [
-            'CURLOPT_HTTPHEADER' => [
-                'Authorization: Basic '.$auth,
-                'X-Experience-API-Version: 1.0.3',
-                'Content-Type: application/json',
-            ],
-        ]);
-        print_r($responsetext);
-        print_r($request);
-        $responsecode = $request->info['http_code'];*/
 
         $request = curl_init();
         curl_setopt($request, CURLOPT_URL, $url);
