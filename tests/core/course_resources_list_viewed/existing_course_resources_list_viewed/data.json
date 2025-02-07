@@ -5,12 +5,5 @@
       "firstname": "test_fullname",
       "email": "test@test.com"
     }
-  ],
-  "course": [
-    {
-      "id": 1,
-      "fullname": "test_name",
-      "lang": "en"
-    }
   ]
 }

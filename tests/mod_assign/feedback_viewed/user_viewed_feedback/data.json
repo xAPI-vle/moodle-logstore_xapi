@@ -1,8 +1,20 @@
 {
+  "assign": [
+    {
+      "id": 1,
+      "name": "test_name"
+    }
+  ],
   "assign_grades": [
     {
       "id": 1,
       "grader": 2
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "assign"
     }
   ],
   "user": [
@@ -15,18 +27,6 @@
       "id": 2,
       "firstname": "test_fullname2",
       "email": "test2@test.com"
-    }
-  ],
-  "modules": [
-    {
-      "id": 1,
-      "name": "assign"
-    }
-  ],
-  "assign": [
-    {
-      "id": 1,
-      "name": "test_name"
     }
   ]
 }

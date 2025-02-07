@@ -33,7 +33,7 @@
             "id": "http://www.example.org",
             "definition": {
               "name": {
-                "en": "test_name"
+                "en": "test_site_fullname"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
@@ -42,7 +42,7 @@
         ],
         "parent": [
           {
-            "id": "http://www.example.org/course/view.php?id=1",
+            "id": "http://www.example.org/course/view.php?id=2",
             "definition": {
               "name": {
                 "en": "test_name"

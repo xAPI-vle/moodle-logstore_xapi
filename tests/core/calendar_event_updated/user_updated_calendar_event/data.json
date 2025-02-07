@@ -1,10 +1,15 @@
 {
   "course": [
     {
-      "fullname": "test_course_name",
       "id": 1,
+      "fullname": "test_site_fullname",
+      "lang": "en"
+    },
+    {
+      "id": 2,
+      "fullname": "test_name",
       "lang": "en",
-      "summary": "test_course_summary"
+      "summary": "test_summary"
     }
   ],
   "event": [
@@ -15,11 +20,11 @@
   ],
   "user": [
     {
-      "email": "updater@test.com",
-      "firstname": "event_updater_firstname",
       "id": 1,
+      "firstname": "event_updater_firstname",
       "lastname": "event_updater_lastname",
-      "username": "updater"
+      "username": "updater",
+      "email": "updater@test.com"
     }
   ]
 }

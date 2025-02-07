@@ -1,11 +1,11 @@
 {
+  "contextinstanceid": 1,
+  "courseid": 2,
   "id": 1,
+  "objectid": 1,
   "userid": 1,
-  "courseid": 1,
-  "timecreated": 1433946701,
+  "eventname": "\\mod_lesson\\event\\essay_assessed",
   "objecttable": "lesson_pages",
   "other": "a:2:{s:8:\"lessonid\";s:1:\"1\";s:9:\"attemptid\";i:1;}",
-  "objectid": 1,
-  "contextinstanceid": 1,
-  "eventname": "\\mod_lesson\\event\\essay_assessed"
+  "timecreated": 1433946701
 }

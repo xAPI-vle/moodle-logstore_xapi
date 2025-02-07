@@ -1,14 +1,14 @@
 {
-  "assign_submission": [
-    {
-      "id": 1,
-      "assignment": 1
-    }
-  ],
   "assign": [
     {
       "id": 1,
       "name": "test_name"
+    }
+  ],
+  "assign_submission": [
+    {
+      "id": 1,
+      "assignment": 1
     }
   ],
   "modules": [

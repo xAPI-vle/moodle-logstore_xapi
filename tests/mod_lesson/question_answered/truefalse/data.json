@@ -1,24 +1,9 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "lesson"
-    }
-  ],
   "lesson": [
     {
       "id": 1,
       "name": "test_lesson",
       "intro": "test_lesson_intro"
-    }
-  ],
-  "lesson_pages": [
-    {
-      "id": 1,
-      "lessonid": 1,
-      "qtype": 2,
-      "title": "lesson_question_page_title",
-      "contents": "lesson_question_page_contents"
     }
   ],
   "lesson_answers": [
@@ -39,8 +24,23 @@
       "pageid": 1,
       "userid": 1,
       "correct": 1,
-      "useranswer": "true",
-      "timeseen": "1731972680"
+      "timeseen": "1731972680",
+      "useranswer": "true"
+    }
+  ],
+  "lesson_pages": [
+    {
+      "id": 1,
+      "lessonid": 1,
+      "contents": "lesson_question_page_contents",
+      "qtype": 2,
+      "title": "lesson_question_page_title"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "lesson"
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "id": 1,
-  "eventname": "\\core\\event\\badge_revoked",
-  "relateduserid": 2,
-  "timecreated": 1433946701,
   "objectid": 1,
+  "relateduserid": 2,
   "userid": 1,
-  "objecttable": "badge"
+  "eventname": "\\core\\event\\badge_revoked",
+  "objecttable": "badge",
+  "timecreated": 1433946701
 }

@@ -25,39 +25,39 @@
     },
     "context": {
       "contextActivities": {
-        "other": [
+        "category": [
           {
-            "id": "http://example-cal.com/HASH",
+            "id": "http://www.example.org",
             "definition": {
-              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar",
               "name": {
-                "en": "Web Calendar"
-              }
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
             },
             "objectType": "Activity"
           }
         ],
-        "category": [
+        "other": [
           {
+            "id": "http://example-cal.com/HASH",
             "definition": {
               "name": {
-                "en": "test_name"
+                "en": "Web Calendar"
               },
-              "type": "http://id.tincanapi.com/activitytype/lms"
+              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar"
             },
-            "id": "http://www.example.org",
             "objectType": "Activity"
           }
         ],
         "parent": [
           {
+            "id": "http://www.example.org/course/view.php?id=2",
             "definition": {
               "name": {
                 "en": "test_name"
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
-            "id": "http://www.example.org/course/view.php?id=1",
             "objectType": "Activity"
           }
         ]

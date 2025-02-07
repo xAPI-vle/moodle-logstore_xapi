@@ -7,29 +7,45 @@
       },
       "name": "event_creator_firstname event_creator_lastname"
     },
+    "verb": {
+      "id": "http://activitystrea.ms/create",
+      "display": {
+        "en": "Created"
+      }
+    },
+    "object": {
+      "id": "http://www.example.org/calendar/view.php?id=1",
+      "definition": {
+        "name": {
+          "en": "test event"
+        },
+        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event"
+      },
+      "objectType": "Activity"
+    },
     "context": {
       "contextActivities": {
         "category": [
           {
+            "id": "http://www.example.org",
             "definition": {
               "name": {
-                "en": "test_course_name"
+                "en": "test_site_fullname"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
-            "id": "http://www.example.org",
             "objectType": "Activity"
           }
         ],
         "parent": [
           {
+            "id": "http://www.example.org/course/view.php?id=2",
             "definition": {
               "name": {
-                "en": "test_course_name"
+                "en": "test_name"
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
-            "id": "http://www.example.org/course/view.php?id=1",
             "objectType": "Activity"
           }
         ]
@@ -42,22 +58,6 @@
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
         }
       }
-    },
-    "object": {
-      "definition": {
-        "name": {
-          "en": "test event"
-        },
-        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event"
-      },
-      "id": "http://www.example.org/calendar/view.php?id=1",
-      "objectType": "Activity"
-    },
-    "verb": {
-      "display": {
-        "en": "Created"
-      },
-      "id": "http://activitystrea.ms/create"
     }
   }
 ]

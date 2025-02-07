@@ -1,10 +1,4 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "lesson"
-    }
-  ],
   "lesson": [
     {
       "id": 1,
@@ -17,6 +11,12 @@
       "id": 1,
       "lessonid": 1,
       "title": "lesson_content_page_title"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "lesson"
     }
   ]
 }

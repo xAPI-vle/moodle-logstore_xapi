@@ -6,19 +6,19 @@
       "lang": "en"
     }
   ],
+  "course_sections": [
+    {
+      "id": 1,
+      "name": null,
+      "course": 2,
+      "section": 5
+    }
+  ],
   "user": [
     {
       "id": 1,
       "firstname": "test_fullname",
       "email": "test@test.com"
-    }
-  ],
-  "course_sections": [
-    {
-      "id": 1,
-      "course": 1,
-      "section": 5,
-      "name": null
     }
   ]
 }

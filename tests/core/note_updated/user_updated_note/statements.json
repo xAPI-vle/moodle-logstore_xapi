@@ -16,23 +16,23 @@
     "object": {
       "id": "http://www.example.org/notes/view.php?id=1",
       "definition": {
-        "name": {
-          "en": "a note title"
-        },
-        "type": "http://activitystrea.ms/note",
         "description": {
           "en": "contents of a note"
         },
         "extensions": {
-          "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-type": "course",
           "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject": {
             "account": {
               "homePage": "http://www.example.org",
               "name": "2"
             },
             "name": "note_subject_firstname note_subject_lastname"
-          }
-        }
+          },
+          "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-type": "course"
+        },
+        "name": {
+          "en": "a note title"
+        },
+        "type": "http://activitystrea.ms/note"
       },
       "objectType": "Activity"
     },
@@ -40,25 +40,25 @@
       "contextActivities": {
         "category": [
           {
+            "id": "http://www.example.org",
             "definition": {
               "name": {
-                "en": "test_name"
+                "en": "test_site_fullname"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
-            "id": "http://www.example.org",
             "objectType": "Activity"
           }
         ],
         "parent": [
           {
+            "id": "http://www.example.org/course/view.php?id=2",
             "definition": {
               "name": {
                 "en": "test_name"
               },
               "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
-            "id": "http://www.example.org/course/view.php?id=1",
             "objectType": "Activity"
           }
         ]

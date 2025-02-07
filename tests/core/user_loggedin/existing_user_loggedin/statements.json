@@ -1,11 +1,11 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
       "account": {
         "homePage": "http://www.example.org",
         "name": "1"
-      }
+      },
+      "name": "test_fullname"
     },
     "verb": {
       "id": "https://xapi.edlm/profiles/edlm-lms/concepts/verbs/login",
@@ -16,23 +16,23 @@
     "object": {
       "id": "http://www.example.org",
       "definition": {
-        "type": "http://id.tincanapi.com/activitytype/lms",
         "name": {
-          "en": "test_name"
-        }
+          "en": "test_site_fullname"
+        },
+        "type": "http://id.tincanapi.com/activitytype/lms"
       },
       "objectType": "Activity"
     },
     "context": {
-      "language": "en",
       "extensions": {
         "http://lrs.learninglocker.net/define/extensions/info": {
-          "http://moodle.org": "1.0.0",
-          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
+          "event_function": "\\src\\transformer\\events\\core\\user_loggedin",
           "event_name": "\\core\\event\\user_loggedin",
-          "event_function": "\\src\\transformer\\events\\core\\user_loggedin"
+          "http://moodle.org": "1.0.0",
+          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
         }
-      }
+      },
+      "language": "en"
     }
   }
 ]

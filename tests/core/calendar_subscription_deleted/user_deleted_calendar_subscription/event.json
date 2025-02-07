@@ -1,10 +1,10 @@
 {
-  "courseid": 1,
-  "eventname": "\\core\\event\\calendar_subscription_deleted",
+  "courseid": 2,
   "id": 1,
   "objectid": 1,
-  "objecttable": "event_subscriptions",
-  "timecreated": 1433946701,
   "userid": 1,
-  "action": "deleted"
+  "eventname": "\\core\\event\\calendar_subscription_deleted",
+  "action": "deleted",
+  "objecttable": "event_subscriptions",
+  "timecreated": 1433946701
 }

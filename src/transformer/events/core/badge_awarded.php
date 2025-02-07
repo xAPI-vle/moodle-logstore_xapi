@@ -74,16 +74,9 @@ function badge_awarded(array $config, \stdClass $event) {
             ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => $awarder,
             'contextActivities' =>  [
-                'category' => [[
-                    'id' => $config['app_url'],
-                    'objectType' => 'Activity',
-                    'definition' => [
-                        'name' => [
-                            'en' => 'EDLM Moodle LMS'
-                        ],
-                        'type' => 'http://id.tincanapi.com/activitytype/lms'
-                    ]
-                ]],
+                'category' => [
+                  utils\get_activity\site($config),
+                ],
             ],
             'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
                 'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic')])

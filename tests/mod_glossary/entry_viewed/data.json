@@ -1,10 +1,4 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "glossary"
-    }
-  ],
   "glossary": [
     {
       "id": 1,
@@ -13,10 +7,16 @@
   ],
   "glossary_entries": [
     {
+      "glossaryid": 1,
       "id": 1,
       "concept": "test_glossary_entry_name",
-      "glossaryid": 1,
       "definition": "test_glossary_entry_description"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "glossary"
     }
   ]
 }

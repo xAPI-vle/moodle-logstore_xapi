@@ -1,10 +1,4 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "choice"
-    }
-  ],
   "choice": [
     {
       "id": 1,
@@ -12,23 +6,29 @@
       "intro": "<p>That is the question.</p>"
     }
   ],
+  "choice_answers": [
+    {
+      "choiceid": 1,
+      "id": 1,
+      "optionid": 1
+    }
+  ],
   "choice_options": [
     {
-      "id": 2,
       "choiceid": 1,
+      "id": 2,
       "text": "Not to be"
     },
     {
-      "id": 1,
       "choiceid": 1,
+      "id": 1,
       "text": "To be"
     }
   ],
-  "choice_answers": [
+  "modules": [
     {
       "id": 1,
-      "choiceid": 1,
-      "optionid": 1
+      "name": "choice"
     }
   ]
 }

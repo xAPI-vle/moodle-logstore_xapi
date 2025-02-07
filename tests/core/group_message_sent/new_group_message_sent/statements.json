@@ -8,58 +8,58 @@
       "name": "test_fullname"
     },
     "verb": {
+      "id": "http://activitystrea.ms/send",
       "display": {
         "en": "Sent"
-      },
-      "id": "http://activitystrea.ms/send"
+      }
     },
     "object": {
       "id": "http://www.example.org/message?id=1",
-      "objectType": "Activity",
       "definition": {
-        "name": {
-          "en": "test_message_subject"
-        },
         "description": {
           "en": "test_message_body"
         },
+        "name": {
+          "en": "test_message_subject"
+        },
         "type": "http://id.tincanapi.com/activitytype/chat-message"
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
-        "grouping": [
-          {
-            "id": "http://www.example.org/group/index.php?id=1",
-            "objectType": "Activity",
-            "definition": {
-              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group",
-              "name": {
-                "en": "test_name"
-              }
-            }
-          }
-        ],
-        "parent": [
-          {
-            "id": "http://www.example.org/course/view.php?id=1",
-            "definition": {
-              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
-              "name": {
-                "en": "test_name"
-              }
-            },
-            "objectType": "Activity"
-          }
-        ],
         "category": [
           {
             "id": "http://www.example.org",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/lms",
+              "name": {
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
+            },
+            "objectType": "Activity"
+          }
+        ],
+        "grouping": [
+          {
+            "id": "http://www.example.org/group/index.php?id=1",
+            "definition": {
               "name": {
                 "en": "test_name"
-              }
+              },
+              "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group"
+            },
+            "objectType": "Activity"
+          }
+        ],
+        "parent": [
+          {
+            "id": "http://www.example.org/course/view.php?id=2",
+            "definition": {
+              "name": {
+                "en": "test_name"
+              },
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
             "objectType": "Activity"
           }
@@ -73,8 +73,6 @@
           "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
         },
         "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to": {
-          "name": "test_name",
-          "objectType": "Group",
           "member": [
             {
               "account": {
@@ -83,7 +81,9 @@
               },
               "name": "test_fullname"
             }
-          ]
+          ],
+          "name": "test_name",
+          "objectType": "Group"
         }
       }
     }

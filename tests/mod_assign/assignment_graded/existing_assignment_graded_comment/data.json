@@ -1,20 +1,16 @@
 {
-  "user": [
-    {
-      "id": 1,
-      "firstname": "test_fullname",
-      "email": "test@test.com"
-    },
-    {
-      "id": 2,
-      "firstname": "test2_fullname",
-      "email": "test2@test.com"
-    }
-  ],
   "assign": [
     {
       "id": 1,
       "name": "test_name"
+    }
+  ],
+  "assignfeedback_comments": [
+    {
+      "id": 1,
+      "assignment": 1,
+      "commenttext": "test_comment_text",
+      "grade": 1
     }
   ],
   "grade": [
@@ -25,28 +21,32 @@
       "grade": 1
     }
   ],
-  "assignfeedback_comments": [
-    {
-      "id": 1,
-      "assignment": 1,
-      "grade": 1,
-      "commenttext": "test_comment_text"
-    }
-  ],
   "grade_items": [
     {
       "id": 1,
-      "itemmodule": "assign",
-      "iteminstance": 1,
-      "grademin": 0,
       "grademax": 2,
-      "gradepass": 1
+      "grademin": 0,
+      "gradepass": 1,
+      "iteminstance": 1,
+      "itemmodule": "assign"
     }
   ],
   "modules": [
     {
       "id": 1,
       "name": "assign"
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "firstname": "test_fullname",
+      "email": "test@test.com"
+    },
+    {
+      "id": 2,
+      "firstname": "test2_fullname",
+      "email": "test2@test.com"
     }
   ]
 }

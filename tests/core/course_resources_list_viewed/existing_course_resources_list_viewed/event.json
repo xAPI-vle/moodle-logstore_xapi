@@ -1,9 +1,9 @@
 {
+  "courseid": 2,
   "id": 1,
-  "userid": 1,
-  "courseid": 1,
-  "timecreated": 1433946701,
-  "objecttable": null,
   "objectid": null,
-  "eventname": "\\core\\event\\course_resources_list_viewed"
+  "userid": 1,
+  "eventname": "\\core\\event\\course_resources_list_viewed",
+  "objecttable": null,
+  "timecreated": 1433946701
 }

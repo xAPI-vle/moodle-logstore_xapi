@@ -1,8 +1,20 @@
 {
-  "modules": [
+  "grade_grades": [
+    {
+      "itemid": 1,
+      "userid": 1,
+      "rawgrade": 75,
+      "rawgrademax": 100,
+      "rawgrademin": 0,
+      "timemodified": 1731595610
+    }
+  ],
+  "grade_items": [
     {
       "id": 1,
-      "name": "lesson"
+      "gradepass": 50,
+      "iteminstance": 1,
+      "itemmodule": "lesson"
     }
   ],
   "lesson": [
@@ -12,22 +24,10 @@
       "intro": "test_lesson_intro"
     }
   ],
-  "grade_items": [
+  "modules": [
     {
       "id": 1,
-      "itemmodule": "lesson",
-      "iteminstance": 1,
-      "gradepass": 50
-    }
-  ],
-  "grade_grades": [
-    {
-      "itemid": 1,
-      "userid": 1,
-      "timemodified": 1731595610,
-      "rawgrademin": 0,
-      "rawgrademax": 100,
-      "rawgrade": 75
+      "name": "lesson"
     }
   ]
 }

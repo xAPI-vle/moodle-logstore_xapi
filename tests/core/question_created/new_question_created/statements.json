@@ -1,60 +1,60 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
       "account": {
         "homePage": "http://www.example.org",
         "name": "1"
-      }
+      },
+      "name": "test_fullname"
     },
     "verb": {
+      "id": "http://activitystrea.ms/create",
       "display": {
         "en": "Created"
-      },
-      "id": "http://activitystrea.ms/create"
+      }
     },
     "object": {
       "id": "http://www.example.org/question?id=1",
       "definition": {
-        "name": {
-          "en": "True or False?"
-        },
-        "description": {
-          "en": "Is the sky blue?"
-        },
-        "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
-        "interactionType": "true-false",
         "correctResponsesPattern": [
           "true"
         ],
+        "description": {
+          "en": "Is the sky blue?"
+        },
         "extensions": {
           "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/moodle-question-type": "truefalse"
-        }
+        },
+        "interactionType": "true-false",
+        "name": {
+          "en": "True or False?"
+        },
+        "type": "http://adlnet.gov/expapi/activities/cmi.interaction"
       },
       "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
-        "parent": [
-          {
-            "id": "http://www.example.org/course/view.php?id=1",
-            "definition": {
-              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
-              "name": {
-                "en": "test_name"
-              }
-            },
-            "objectType": "Activity"
-          }
-        ],
         "category": [
           {
             "id": "http://www.example.org",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/lms",
+              "name": {
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
+            },
+            "objectType": "Activity"
+          }
+        ],
+        "parent": [
+          {
+            "id": "http://www.example.org/course/view.php?id=2",
+            "definition": {
               "name": {
                 "en": "test_name"
-              }
+              },
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
             "objectType": "Activity"
           }

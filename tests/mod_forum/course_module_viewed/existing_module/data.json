@@ -1,14 +1,14 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "forum"
-    }
-  ],
   "forum": [
     {
       "id": 1,
       "name": "test_name"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "forum"
     }
   ]
 }

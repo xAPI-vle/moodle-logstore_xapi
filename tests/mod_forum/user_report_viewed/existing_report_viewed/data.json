@@ -10,12 +10,5 @@
       "firstname": "viewed_user_firstname",
       "email": "test2@test.com"
     }
-  ],
-  "course": [
-    {
-      "id": 1,
-      "fullname": "test_name",
-      "lang": "en"
-    }
   ]
 }

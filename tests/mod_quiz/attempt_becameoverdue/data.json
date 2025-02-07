@@ -5,20 +5,20 @@
       "name": "quiz"
     }
   ],
-  "quiz_attempts": [
-    {
-      "id": 1,
-      "quiz": 1,
-      "sumgrades": 50,
-      "state": "overdue",
-      "timefinish": 1,
-      "timestart": 0
-    }
-  ],
   "quiz": [
     {
       "id": 1,
       "name": "test_quiz_name"
+    }
+  ],
+  "quiz_attempts": [
+    {
+      "id": 1,
+      "quiz": 1,
+      "state": "overdue",
+      "sumgrades": 50,
+      "timefinish": 1,
+      "timestart": 0
     }
   ]
 }

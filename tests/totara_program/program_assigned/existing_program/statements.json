@@ -1,11 +1,11 @@
 [
   {
     "actor": {
-      "name": "test_fullname",
       "account": {
         "homePage": "http://www.example.org",
         "name": "1"
-      }
+      },
+      "name": "test_fullname"
     },
     "verb": {
       "id": "http://activitystrea.ms/schema/1.0/assign",
@@ -16,37 +16,37 @@
     "object": {
       "id": "http://www.example.org/totara/program/view.php?id=1",
       "definition": {
-        "type": "http://id.tincanapi.com/activitytype/lms/program",
         "name": {
           "en": "test_name"
-        }
+        },
+        "type": "http://id.tincanapi.com/activitytype/lms/program"
       },
       "objectType": "Activity"
     },
     "context": {
-      "language": "en",
-      "extensions": {
-        "http://lrs.learninglocker.net/define/extensions/info": {
-          "http://moodle.org": "1.0.0",
-          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development",
-          "event_name": "\\totara_program\\event\\program_assigned",
-          "event_function": "\\src\\transformer\\events\\totara_program\\program_assigned"
-        }
-      },
       "contextActivities": {
         "category": [
           {
             "id": "http://www.example.org",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/lms",
               "name": {
-                "en": "test_name"
-              }
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
             },
             "objectType": "Activity"
           }
         ]
-      }
+      },
+      "extensions": {
+        "http://lrs.learninglocker.net/define/extensions/info": {
+          "event_function": "\\src\\transformer\\events\\totara_program\\program_assigned",
+          "event_name": "\\totara_program\\event\\program_assigned",
+          "http://moodle.org": "1.0.0",
+          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
+        }
+      },
+      "language": "en"
     }
   }
 ]

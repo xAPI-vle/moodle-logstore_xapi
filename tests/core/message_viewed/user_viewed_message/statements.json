@@ -7,6 +7,25 @@
       },
       "name": "receiver receiverson"
     },
+    "verb": {
+      "id": "http://id.tincanapi.com/verb/viewed",
+      "display": {
+        "en": "Viewed"
+      }
+    },
+    "object": {
+      "id": "http://www.example.org/message?id=1",
+      "definition": {
+        "description": {
+          "en": "hi there!(messagetext)"
+        },
+        "name": {
+          "en": "hi there(subject)"
+        },
+        "type": "http://id.tincanapi.com/activitytype/chat-message"
+      },
+      "objectType": "Activity"
+    },
     "context": {
       "contextActivities": {
         "category": [
@@ -14,7 +33,7 @@
             "id": "http://www.example.org",
             "definition": {
               "name": {
-                "en": "test_name"
+                "en": "test_site_fullname"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             },
@@ -23,7 +42,7 @@
         ],
         "parent": [
           {
-            "id": "http://www.example.org/course/view.php?id=1",
+            "id": "http://www.example.org/course/view.php?id=2",
             "definition": {
               "name": {
                 "en": "test_name"
@@ -50,25 +69,6 @@
         }
       },
       "language": "en"
-    },
-    "object": {
-      "id": "http://www.example.org/message?id=1",
-      "definition": {
-        "description": {
-          "en": "hi there!(messagetext)"
-        },
-        "name": {
-          "en": "hi there(subject)"
-        },
-        "type": "http://id.tincanapi.com/activitytype/chat-message"
-      },
-      "objectType": "Activity"
-    },
-    "verb": {
-      "id": "http://id.tincanapi.com/verb/viewed",
-      "display": {
-        "en": "Viewed"
-      }
     }
   }
 ]

@@ -1,8 +1,9 @@
 {
-  "modules": [
+  "comments": [
     {
       "id": 1,
-      "name": "glossary"
+      "itemid": 1,
+      "content": "test_glossary_entry_comment_content"
     }
   ],
   "glossary": [
@@ -13,17 +14,16 @@
   ],
   "glossary_entries": [
     {
+      "glossaryid": 1,
       "id": 1,
       "concept": "test_glossary_entry_name",
-      "glossaryid": 1,
       "definition": "test_glossary_entry_description"
     }
   ],
-  "comments": [
+  "modules": [
     {
       "id": 1,
-      "content": "test_glossary_entry_comment_content",
-      "itemid": 1
+      "name": "glossary"
     }
   ]
 }

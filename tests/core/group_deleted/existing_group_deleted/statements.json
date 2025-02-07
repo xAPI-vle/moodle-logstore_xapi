@@ -15,33 +15,33 @@
     },
     "object": {
       "id": "http://www.example.org/group/index.php?id=1",
-      "objectType": "Activity",
       "definition": {
         "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/group"
-      }
+      },
+      "objectType": "Activity"
     },
     "context": {
       "contextActivities": {
-        "parent": [
-          {
-            "id": "http://www.example.org/course/view.php?id=1",
-            "definition": {
-              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
-              "name": {
-                "en": "test_name"
-              }
-            },
-            "objectType": "Activity"
-          }
-        ],
         "category": [
           {
             "id": "http://www.example.org",
             "definition": {
-              "type": "http://id.tincanapi.com/activitytype/lms",
+              "name": {
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
+            },
+            "objectType": "Activity"
+          }
+        ],
+        "parent": [
+          {
+            "id": "http://www.example.org/course/view.php?id=2",
+            "definition": {
               "name": {
                 "en": "test_name"
-              }
+              },
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course"
             },
             "objectType": "Activity"
           }

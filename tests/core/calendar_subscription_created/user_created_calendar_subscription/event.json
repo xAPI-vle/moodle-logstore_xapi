@@ -1,9 +1,9 @@
 {
-   "courseid" : 1,
-   "eventname" : "\\core\\event\\calendar_subscription_created",
-   "id" : 1,
-   "objectid" : 1,
-   "objecttable" : "event_subscriptions",
-   "timecreated" : 1433946701,
-   "userid" : 1
+  "courseid": 2,
+  "id": 1,
+  "objectid": 1,
+  "userid": 1,
+  "eventname": "\\core\\event\\calendar_subscription_created",
+  "objecttable": "event_subscriptions",
+  "timecreated": 1433946701
 }
