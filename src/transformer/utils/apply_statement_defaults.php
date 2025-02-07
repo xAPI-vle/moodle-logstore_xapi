@@ -36,7 +36,7 @@ function apply_statement_defaults(array $config, \stdClass $event, array $statem
     return array_map(function ($statement) use ($config, $event) {
         $defaultStatement = [
             'context' => [
-                'platform' => $config['source_name'] ?? 'Moodle',
+                'platform' => $config['context_platform'] ?? 'Moodle',
                 'registration' => stringToUuidV5($config['session_id']),
             ],
             'timestamp' => get_event_timestamp($event),

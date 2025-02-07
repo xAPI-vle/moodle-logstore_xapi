@@ -88,6 +88,10 @@ if ($hassiteconfig) {
         get_string('account_homepage', 'logstore_xapi'),
         get_string('account_homepage_desc', 'logstore_xapi'), $CFG->wwwroot, PARAM_TEXT));
 
+    $settings->add(new admin_setting_configtext('logstore_xapi/context_platform',
+        get_string('context_platform', 'logstore_xapi'),
+        get_string('context_platform_desc', 'logstore_xapi'), 'Moodle', PARAM_TEXT));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_jisc_data',
         get_string('send_jisc_data', 'logstore_xapi'),
         get_string('send_jisc_data_desc', 'logstore_xapi'), 0));
