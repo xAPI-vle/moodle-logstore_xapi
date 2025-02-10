@@ -1,0 +1,67 @@
+[
+  {
+    "actor": {
+      "account": {
+        "homePage": "http://www.example.org",
+        "name": "2"
+      },
+      "name": "test_recipient_firstname test_recipient_lastname"
+    },
+    "verb": {
+      "id": "https://w3id.org/xapi/tla/verbs/forfeited",
+      "display": {
+        "en": "Forfeited"
+      }
+    },
+    "object": {
+      "id": "http://www.example.org/badges/overview.php?id=1",
+      "definition": {
+        "description": {
+          "en": "test badge description"
+        },
+        "extensions": {
+          "https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type": "Global",
+          "https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version": "1.0"
+        },
+        "name": {
+          "en": "test_badgename"
+        },
+        "type": "https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge"
+      },
+      "objectType": "Activity"
+    },
+    "context": {
+      "contextActivities": {
+        "category": [
+          {
+            "id": "http://www.example.org",
+            "definition": {
+              "name": {
+                "en": "test_site_fullname"
+              },
+              "type": "http://id.tincanapi.com/activitytype/lms"
+            },
+            "objectType": "Activity"
+          }
+        ]
+      },
+      "extensions": {
+        "http://lrs.learninglocker.net/define/extensions/info": {
+          "event_function": "\\src\\transformer\\events\\core\\badge_revoked",
+          "event_name": "\\core\\event\\badge_revoked",
+          "http://moodle.org": "1.0.0",
+          "https://github.com/xAPI-vle/moodle-logstore_xapi": "0.0.0-development"
+        },
+        "https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method": "Manual"
+      },
+      "instructor": {
+        "account": {
+          "homePage": "http://www.example.org",
+          "name": "1"
+        },
+        "name": "test_revoker_firstname test_revoker_lastname"
+      },
+      "language": "en"
+    }
+  }
+]

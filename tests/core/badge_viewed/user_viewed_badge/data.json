@@ -1,0 +1,11 @@
+{
+  "badge": [
+    {
+      "id": 1,
+      "name": "testbadge",
+      "description": "badge description",
+      "type": 1,
+      "version": "1.0"
+    }
+  ]
+}

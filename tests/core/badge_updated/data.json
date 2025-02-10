@@ -1,0 +1,19 @@
+{
+  "badge": [
+    {
+      "courseid": 2,
+      "id": 1,
+      "name": "test_badgename",
+      "description": "test badge description",
+      "message": "you got the test badge!",
+      "type": 2,
+      "version": "1.0"
+    }
+  ],
+  "badge_manual_award": [
+    {
+      "id": 2,
+      "issuerid": 2
+    }
+  ]
+}
