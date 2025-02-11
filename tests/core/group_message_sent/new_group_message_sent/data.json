@@ -1,0 +1,29 @@
+{
+  "groups": [
+    {
+      "courseid": 2,
+      "id": 1,
+      "name": "test_name"
+    }
+  ],
+  "groups_members": [
+    {
+      "groupid": 1,
+      "userid": 1
+    }
+  ],
+  "message_conversations": [
+    {
+      "id": 1,
+      "itemid": 1
+    }
+  ],
+  "messages": [
+    {
+      "conversationid": 1,
+      "id": 1,
+      "fullmessage": "test_message_body",
+      "subject": "test_message_subject"
+    }
+  ]
+}

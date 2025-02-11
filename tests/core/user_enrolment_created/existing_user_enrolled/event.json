@@ -1,9 +1,11 @@
 {
-    "id": 1,
-    "relateduserid": 1,
-    "courseid": 1,
-    "timecreated": 1433946701,
-    "objecttable": "user",
-    "objectid": 1,
-    "eventname": "\\core\\event\\user_enrolment_created"
+  "courseid": 2,
+  "id": 1,
+  "objectid": 1,
+  "relateduserid": 2,
+  "userid": 1,
+  "eventname": "\\core\\event\\user_enrolment_created",
+  "objecttable": "user_enrolments",
+  "other": "a:1:{s:5:\"enrol\";s:6:\"manual\";}",
+  "timecreated": 1433946701
 }

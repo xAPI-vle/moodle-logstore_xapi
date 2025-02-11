@@ -1,0 +1,16 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "firstname": "notes_viewer_firstname",
+      "lastname": "notes_viewer_lastname",
+      "email": "viewer@test.com"
+    },
+    {
+      "id": 2,
+      "firstname": "notes_subject_firstname",
+      "lastname": "notes_subject_lastname",
+      "email": "subject@test.com"
+    }
+  ]
+}

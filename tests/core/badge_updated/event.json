@@ -1,0 +1,10 @@
+{
+  "courseid": 2,
+  "id": 1,
+  "objectid": 1,
+  "relateduserid": 1,
+  "userid": 1,
+  "eventname": "\\core\\event\\badge_updated",
+  "objecttable": "badge",
+  "timecreated": 1433946701
+}
