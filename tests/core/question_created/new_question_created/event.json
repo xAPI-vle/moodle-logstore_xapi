@@ -1,9 +1,0 @@
-{
-  "courseid": 2,
-  "id": 1,
-  "objectid": 1,
-  "userid": 1,
-  "eventname": "\\core\\event\\question_created",
-  "objecttable": "question",
-  "timecreated": 1433946701
-}
