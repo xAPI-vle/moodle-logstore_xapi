@@ -1,4 +1,4 @@
-name: Moodle PHPCS
+name: Moodle PHPCS Check
 
 on:
   push:
@@ -21,14 +21,38 @@ jobs:
         with:
           php-version: '8.1'
 
+      - name: Install Composer globally
+        run: sudo apt-get install -y composer
+
       - name: Install PHP_CodeSniffer
         run: composer global require squizlabs/php_codesniffer
 
-      - name: Install Moodle coding standard
+      - name: Install Moodle Coding Standard
         run: |
           git clone https://github.com/moodlehq/moodle-cs.git ~/moodle-cs
-          ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/moodle-cs
-          ~/.composer/vendor/bin/phpcs -i
+
+      - name: Install PHPCS dependency standards
+        run: |
+          composer global require dealerdirect/phpcodesniffer-composer-installer
+          composer global require phpcompatibility/php-compatibility
+          composer global require sirbrillig/phpcs-normalized-arrays
+          composer global require object-calisthenics/phpcs-calisthenics-rules
+
+      - name: Configure installed_paths for PHPCS
+        run: |
+          ~/.composer/vendor/bin/phpcs --config-set installed_paths \
+            ~/moodle-cs,\
+            ~/.composer/vendor/phpcompatibility/php-compatibility,\
+            ~/.composer/vendor/sirbrillig/phpcs-normalized-arrays,\
+            ~/.composer/vendor/object-calisthenics/phpcs-calisthenics-rules
+
+      - name: Show available standards
+        run: ~/.composer/vendor/bin/phpcs -i
 
       - name: Run PHPCS
-        run: ~/.composer/vendor/bin/phpcs --standard=moodle --extensions=php --ignore=vendor/ .
+        run: |
+          ~/.composer/vendor/bin/phpcs \
+            --standard=moodle \
+            --extensions=php \
+            --ignore=vendor/ \
+            .

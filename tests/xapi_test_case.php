@@ -198,8 +198,8 @@ abstract class xapi_test_case extends \advanced_testcase {
         if (array_key_exists($pluginname, $plugins) || $plugintype == 'core') {
             $expectedstatements = $this->get_expected_statements();
             $this->assertEquals(
-                utils\objectToArray($expectedstatements),
-                utils\objectToArray($statements)
+                utils\object_to_array($expectedstatements),
+                utils\object_to_array($statements)
             );
         } else {
             $this->markTestSkipped('Plugin ' . $pluginname . ' not installed, skipping');
