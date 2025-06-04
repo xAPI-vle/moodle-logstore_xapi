@@ -1,0 +1,9 @@
+{
+  "courseid": 2,
+  "id": 1,
+  "objectid": null,
+  "userid": 1,
+  "eventname": "\\core\\event\\course_completion_updated",
+  "objecttable": null,
+  "timecreated": 1433946701
+}
