@@ -70,4 +70,3 @@ function calendar_subscription_deleted(array $config, \stdClass $event) {
 
     return [$statement];
 }
-}
