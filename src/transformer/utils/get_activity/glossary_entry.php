@@ -42,14 +42,14 @@ function glossary_entry(array $config, \stdClass $course, \stdClass $entry) {
         ...base(),
         'id' => $entryurl,
         'definition' => [
-            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/glossary-entry'
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/glossary-entry',
         ],
     ];
 
-    // entries only have names when they aren't deleted
+    // Entries only have names when they aren't deleted.
     if (isset($entry->concept)) {
         $activity['definition']['name'] = [
-            $courselang => $entry->concept
+            $courselang => $entry->concept,
         ];
     }
     if (isset($entry->definition)) {

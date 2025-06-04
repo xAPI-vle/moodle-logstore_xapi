@@ -46,7 +46,7 @@ function all_responses_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\questionnaire_all_responses_report(
@@ -66,6 +66,6 @@ function all_responses_viewed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

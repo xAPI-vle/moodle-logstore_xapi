@@ -28,13 +28,12 @@ namespace src\transformer\events\mod_book;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for chapter created event.
+ * Transformer for chapter_created event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function chapter_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -42,12 +41,12 @@ function chapter_created(array $config, \stdClass $event) {
     $chapter = $repo->read_record_by_id('book_chapters', $event->objectid);
     $lang = utils\get_course_lang($course);
 
-    return[[
+    return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
+                'en' => 'Created',
             ],
         ],
         'object' => utils\get_activity\book_chapter(
@@ -65,6 +64,6 @@ function chapter_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

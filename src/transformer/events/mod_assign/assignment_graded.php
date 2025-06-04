@@ -49,7 +49,7 @@ function assignment_graded(array $config, \stdClass $event) {
     try {
         $gradecomment = $repo->read_record('assignfeedback_comments', [
             'assignment' => $grade->assignment,
-            'grade' => $grade->id
+            'grade' => $grade->id,
         ])->commenttext;
     } catch (\Exception $e) {
         $gradecomment = null;
@@ -57,7 +57,7 @@ function assignment_graded(array $config, \stdClass $event) {
 
     $gradeitems = $repo->read_record('grade_items', [
         'itemmodule' => 'assign',
-        'iteminstance' => $grade->assignment
+        'iteminstance' => $grade->assignment,
     ]);
 
     $scoreraw = (float) ($grade->grade ?: 0);
@@ -85,7 +85,7 @@ function assignment_graded(array $config, \stdClass $event) {
             $config, $event->contextinstanceid, $lang
         ),
         'result' => [
-            'success' => $success
+            'success' => $success,
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
@@ -100,14 +100,14 @@ function assignment_graded(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ];
 
     if (!is_null($gradecomment)) {
         $statement['result']['response'] = $gradecomment;
     }
 
-    // only write a score if valid
+    // Only write a score if valid.
     if ($validscore) {
         $statement['result']['score'] = [
             'raw' => $scoreraw,

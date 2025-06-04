@@ -49,7 +49,7 @@ function certificate_verified(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/verified',
             'display' => [
-                'en' => 'Verified'
+                'en' => 'Verified',
             ],
         ],
         'object' => utils\get_activity\certificate(

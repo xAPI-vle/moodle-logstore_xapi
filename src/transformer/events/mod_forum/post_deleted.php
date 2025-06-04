@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @return array
  */
 function post_deleted(array $config, \stdClass $event) {
-    //debug
+    // Debug.
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
@@ -53,7 +53,7 @@ function post_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                'en' => 'Deleted'
+                'en' => 'Deleted',
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
@@ -68,6 +68,6 @@ function post_deleted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

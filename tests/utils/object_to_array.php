@@ -30,16 +30,16 @@ namespace TestUtils;
  * @param \stdClass $data the object
  * @return array
  */
-function objectToArray($data) {
-    // If the data is an object, convert it into an array
+function object_to_array($data) {
+    // If the data is an object, convert it into an array.
     if ($data instanceof \stdClass) {
         $data = (array)$data;
     }
 
-    // If the data is an array, apply the function recursively to each element
+    // If the data is an array, apply the function recursively to each element.
     if (is_array($data)) {
         foreach ($data as $key => $value) {
-            $data[$key] = objectToArray($value); // Recursive call
+            $data[$key] = object_to_array($value); // Recursive call.
         }
     }
     return $data;

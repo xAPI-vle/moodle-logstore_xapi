@@ -51,7 +51,7 @@ function post_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/replied',
             'display' => [
-                'en' => 'Replied'
+                'en' => 'Replied',
             ],
         ],
         'object' => utils\get_activity\forum_discussion_post_reply($config, $course, $post),
@@ -66,6 +66,6 @@ function post_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

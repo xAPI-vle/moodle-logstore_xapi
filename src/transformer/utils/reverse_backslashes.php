@@ -30,6 +30,6 @@ namespace src\transformer\utils;
  * @param string $string The input string containing backslashes.
  * @return string The modified string with backslashes replaced by forward slashes.
  */
-function reverseBackslashes($string) {
+function reversebackslashes($string) {
     return str_replace('\\', '/', $string);
 }

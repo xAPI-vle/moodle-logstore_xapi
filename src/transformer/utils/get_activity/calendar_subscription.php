@@ -39,7 +39,7 @@ function calendar_subscription(
     array $config,
     int $subid,
     string $lang,
-    string $name = null,
+    ?string $name = null,
 ) {
     return [
         ...base(),

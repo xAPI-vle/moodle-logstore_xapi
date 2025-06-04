@@ -57,7 +57,7 @@ function numerical(
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -91,6 +91,6 @@ function numerical(
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

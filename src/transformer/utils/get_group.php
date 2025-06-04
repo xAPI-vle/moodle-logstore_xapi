@@ -32,35 +32,35 @@ namespace src\transformer\utils;
  * @return array
  */
 function get_group(array $config, \stdClass $group) {
-  $repo = $config['repo'];
-  $members = $repo->read_records(
-    'groups_members',
-    ['groupid' => $group->id]
-  );
-  $users =
-    array_values(
-      array_map(
-        function($member) use ($repo) {
-          return $repo->read_record_by_id('user', $member->userid);
-        },
-        $members
-      )
+    $repo = $config['repo'];
+    $members = $repo->read_records(
+        'groups_members',
+        ['groupid' => $group->id]
     );
+    $users =
+        array_values(
+            array_map(
+                function($member) use ($repo) {
+                    return $repo->read_record_by_id('user', $member->userid);
+                },
+                $members
+            )
+        );
 
-  return [
-    'objectType' => 'Group',
-    ...((isset($group->name))
-        ? [
-          'name' => $group->name
-        ]
-        : []),
-    'member' => array_values(
-      array_map(
-        function($user) use ($config) {
-          return get_user($config, $user);
-        },
-        $users
-      )
-    ),
-  ];
+    return [
+        'objectType' => 'Group',
+        ...((isset($group->name))
+            ? [
+                'name' => $group->name,
+            ]
+            : []),
+        'member' => array_values(
+            array_map(
+                function($user) use ($config) {
+                    return get_user($config, $user);
+                },
+                $users
+            )
+        ),
+    ];
 }

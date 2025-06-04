@@ -31,17 +31,23 @@ namespace src\transformer\utils;
  * @return string The URL-friendly slug created from the input string.
  */
 
+/**
+ * Convert a string into a URL-friendly slug.
+ *
+ * @param string $string The input string to be converted into a slug.
+ * @return string The URL-friendly slug created from the input string.
+ */
 function slugify($string) {
-    // Convert the string to lowercase
+    // Convert the string to lowercase.
     $string = strtolower($string);
 
-    // Replace spaces, underscores and consecutive whitespace with a single dash
+    // Replace spaces, underscores and consecutive whitespace with a single dash.
     $string = preg_replace('/[\s_]+/', '-', $string);
 
-    // Remove any non-alphanumeric characters except dashes
+    // Remove any non-alphanumeric characters except dashes.
     $string = preg_replace('/[^a-z0-9-]/', '', $string);
 
-    // Trim any trailing or leading dashes
+    // Trim any trailing or leading dashes.
     $string = trim($string, '-');
 
     return $string;

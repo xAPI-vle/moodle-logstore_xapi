@@ -68,6 +68,6 @@ function assignment_submitted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

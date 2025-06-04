@@ -43,13 +43,13 @@ function lesson(array $config, \stdClass $course, \stdClass $entry, int $cmid) {
         ...base(),
         'id' => $entryurl,
         'definition' => [
-            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/lesson-session'
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/lesson-session',
         ],
     ];
 
     if (isset($entry->name)) {
         $activity['definition']['name'] = [
-            $courselang => $entry->name
+            $courselang => $entry->name,
         ];
     }
     if (isset($entry->intro)) {

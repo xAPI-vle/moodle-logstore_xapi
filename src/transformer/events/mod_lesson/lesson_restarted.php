@@ -46,7 +46,7 @@ function lesson_restarted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/restarted',
             'display' => [
-                'en' => 'Restarted'
+                'en' => 'Restarted',
             ],
         ],
         'object' => utils\get_activity\lesson(
@@ -67,6 +67,6 @@ function lesson_restarted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

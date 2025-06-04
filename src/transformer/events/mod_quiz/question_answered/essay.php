@@ -54,7 +54,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -83,8 +83,8 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

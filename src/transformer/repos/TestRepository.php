@@ -62,23 +62,23 @@ class TestRepository extends Repository {
             }
         }
 
-        //Must account for lack of SQL and implement multidimensional sort with SQL syntax
-        if ($sort != ''){
-            //Split by commas for each field argument
+        // Must account for lack of SQL and implement multidimensional sort with SQL syntax.
+        if ($sort != '') {
+            // Split by commas for each field argument.
             $fields = explode(',', $sort);
 
-            $sortargs = array();
-            foreach ($fields as $field_declaration){
-                //Remove (and record) direction, trim
-                $desc = str_contains(strtolower($field_declaration), 'desc');
-                $field = preg_replace('/(DESC|ASC|\s)/i', '', $field_declaration);
-                
+            $sortargs = [];
+            foreach ($fields as $fielddeclaration) {
+                // Remove (and record) direction, trim.
+                $desc = str_contains(strtolower($fielddeclaration), 'desc');
+                $field = preg_replace('/(DESC|ASC|\s)/i', '', $fielddeclaration);
+
                 array_push($sortargs, array_column($matchingrecords, $field), ($desc) ? SORT_DESC : SORT_ASC);
             }
             $sortargs[] = &$matchingrecords;
             array_multisort(...$sortargs);
         }
-        
+
         return $matchingrecords;
     }
 }

@@ -62,8 +62,8 @@ function attempt_reviewed(array $config, \stdClass $event) {
                 ],
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

@@ -43,14 +43,14 @@ function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass
         ...base(),
         'id' => $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/forum-reply'
+            'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
         ],
     ];
 
-    // forum activities only have names when they aren't deleted
+    // Forum activities only have names when they aren't deleted.
     if (isset($post->subject)) {
         $activity['definition']['name'] = [
-            $lang => $post->subject
+            $lang => $post->subject,
         ];
     }
 

@@ -45,7 +45,7 @@ function subscription_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/subscribed',
             'display' => [
-                'en' => 'Subscribed'
+                'en' => 'Subscribed',
             ],
         ],
         'object' => utils\get_activity\course_forum($config, $course, $event->contextinstanceid),
@@ -60,6 +60,6 @@ function subscription_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

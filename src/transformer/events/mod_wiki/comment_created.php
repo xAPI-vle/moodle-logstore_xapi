@@ -35,6 +35,13 @@ use src\transformer\utils as utils;
  * @return array
  */
 
+/**
+ * Transformer for wiki discussion comment created event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function comment_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -48,7 +55,7 @@ function comment_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/commented',
             'display' => [
-                'en' => 'Commented'
+                'en' => 'Commented',
             ],
         ],
         'object' => utils\get_activity\wiki_discussion(
@@ -76,6 +83,6 @@ function comment_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

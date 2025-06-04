@@ -45,20 +45,20 @@ function glossary_comment(array $config, \stdClass $course, \stdClass $comment) 
         ...base(),
         'id' => $commenturl,
         'definition' => [
-            'type' => 'http://activitystrea.ms/comment'
+            'type' => 'http://activitystrea.ms/comment',
         ],
     ];
 
     if (isset($entry->concept)) {
         $activity['definition']['name'] = [
-            $courselang => 'RE: '.$entry->concept
+            $courselang => 'RE: '.$entry->concept,
         ];
     }
 
-    // comments only have descriptions when they aren't deleted
+    // Comments only have descriptions when they aren't deleted.
     if (isset($comment->content)) {
         $activity['definition']['description'] = [
-            $courselang => utils\get_string_html_removed($comment->content)
+            $courselang => utils\get_string_html_removed($comment->content),
         ];
     }
 

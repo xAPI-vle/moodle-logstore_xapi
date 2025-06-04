@@ -35,6 +35,13 @@ use src\transformer\utils as utils;
  * @return array
  */
 
+/**
+ * Transformer for wiki discussion comment deleted event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function comment_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -50,7 +57,7 @@ function comment_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                'en' => 'Deleted'
+                'en' => 'Deleted',
             ],
         ],
         'object' => [
@@ -89,6 +96,6 @@ function comment_deleted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

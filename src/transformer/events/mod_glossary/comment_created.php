@@ -48,7 +48,7 @@ function comment_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/commented',
             'display' => [
-                'en' => 'Commented'
+                'en' => 'Commented',
             ],
         ],
         'object' => utils\get_activity\glossary_comment($config, $course, $comment),
@@ -63,6 +63,6 @@ function comment_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

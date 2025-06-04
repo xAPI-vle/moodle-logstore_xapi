@@ -46,7 +46,7 @@ function course_group(array $config, \stdClass $course, \stdClass $group) {
         ],
     ];
 
-    // moodle groups only have names when they aren't deleted
+    // Moodle groups only have names when they aren't deleted.
     if (isset($group->name)) {
         $activity['definition']['name'] = [
             $courselang => $group->name,

@@ -46,6 +46,6 @@ function message(array $config, string $lang, \stdClass $message) {
             'description' => [
                 $lang => $message->fullmessage,
             ],
-        ]
+        ],
     ];
 }

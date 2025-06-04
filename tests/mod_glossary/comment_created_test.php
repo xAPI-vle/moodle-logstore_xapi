@@ -24,12 +24,12 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
 
 /**
  * Unit test for mod_glossary comment created event.
- * 
+ *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class comment_created_test extends \logstore_xapi\xapi_test_case {
+final class comment_created_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -61,10 +61,9 @@ class comment_created_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::comment_created
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

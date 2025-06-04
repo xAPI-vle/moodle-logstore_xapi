@@ -27,7 +27,7 @@ foreach (glob($CFG->dirroot . '/admin/tool/log/store/xapi/tests/utils/*.php') as
     require_once($filename);
 }
 
-use \Locker\XApi\Statement as LockerStatement;
+use Locker\XApi\Statement as LockerStatement;
 use TestUtils as utils;
 
 /**
@@ -63,13 +63,13 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return object
      */
     protected function get_test_data() {
-        // TODO: only pull this once
-        // get common event fields
+        // TODO: only pull this once.
+        // Get common event fields.
         global $CFG;
-        $commonData = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/data.json'));
+        $commondata = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/data.json'));
         $data = json_decode(file_get_contents($this->get_test_dir().'/data.json'));
 
-        return utils\deep_merge_objects($commonData, $data);
+        return utils\deep_merge_objects($commondata, $data);
     }
 
     /**
@@ -78,14 +78,14 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return object
      */
     protected function get_event() {
-        // TODO: only pull this once
-        // get common event fields
+        // TODO: only pull this once.
+        // Get common event fields.
         global $CFG;
-        $commonEvent = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/event.json'));
-        // get this event
+        $commonevent = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/event.json'));
+        // Get this event.
         $event = json_decode(file_get_contents($this->get_test_dir().'/event.json'));
-        // merge and return
-        return utils\deep_merge_objects($commonEvent, $event);
+        // Merge and return.
+        return utils\deep_merge_objects($commonevent, $event);
     }
 
     /**
@@ -94,13 +94,13 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return array
      */
     protected function get_expected_statements() {
-        // TODO: only pull this once
-        // Get common statement fields
+        // TODO: only pull this once.
+        // Get common statement fields.
         global $CFG;
-        $commonStatement = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/statement.json'));
-        return array_map(function ($statement) use ($commonStatement) {
-            // add common expectations for all statements
-            return utils\deep_merge_objects($commonStatement, $statement);
+        $commonstatement = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/statement.json'));
+        return array_map(function ($statement) use ($commonstatement) {
+            // Add common expectations for all statements.
+            return utils\deep_merge_objects($commonstatement, $statement);
         }, json_decode(file_get_contents($this->get_test_dir().'/statements.json')));
     }
 

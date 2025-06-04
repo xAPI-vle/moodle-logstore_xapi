@@ -72,9 +72,9 @@ function question_manually_graded(array $config, \stdClass $event) {
             'definition' => [
                 'type' => 'http://activitystrea.ms/schema/1.0/review#slot',
                 'name' => [
-                    $lang => $quiz->name . ' Review Slot ' . $slot
-                ]
-            ]
+                    $lang => $quiz->name . ' Review Slot ' . $slot,
+                ],
+            ],
         ],
         'result' => [
             'score' => [
@@ -82,7 +82,7 @@ function question_manually_graded(array $config, \stdClass $event) {
                 'max' => $maxscore,
                 'raw' => $rawscore,
                 'scaled' => utils\get_scaled_score($rawscore, $minscore, $maxscore),
-            ]
+            ],
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
@@ -99,8 +99,8 @@ function question_manually_graded(array $config, \stdClass $event) {
                 ],
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

@@ -50,7 +50,7 @@ function certificate_issued(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
             'display' => [
-                'en' => 'Achieved'
+                'en' => 'Achieved',
             ],
         ],
         'object' => utils\get_activity\certificate(

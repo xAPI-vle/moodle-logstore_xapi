@@ -63,13 +63,13 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
             ...utils\get_activity\base(),
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
-            'definition' => question\get_match_definition($config, $question, $lang)
+            'definition' => question\get_match_definition($config, $question, $lang),
         ],
         'result' => [
             'response' => utils\result\get_matching_response(
@@ -98,8 +98,8 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

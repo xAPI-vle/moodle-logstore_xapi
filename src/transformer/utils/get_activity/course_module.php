@@ -52,7 +52,7 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         utils\is_enabled_config($config, 'send_jisc_data')
     );
 
-    // default definition
+    // Default definition.
     $def = [
         'type' => $activitytype,
         'name' => [
@@ -60,16 +60,16 @@ function course_module(array $config, \stdClass $course, int $cmid) {
         ],
     ];
 
-    // process special cases
+    // Process special cases.
 
-    // Choice
+    // Choice.
     if ($module->name === 'choice') {
         $def = utils\get_activity\definition\choice\get_choice_definition(
             $config, $instance, $courselang
         );
     }
 
-    // Survey & Wiki use "intro"
+    // Survey & Wiki use "intro".
     if ($module->name === 'survey' || $module->name === 'wiki') {
         $def = [
             'type' => $activitytype,

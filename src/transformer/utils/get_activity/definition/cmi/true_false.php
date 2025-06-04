@@ -51,8 +51,8 @@ function true_false(
                     'correctResponsesPattern' => [
                         $correctanswer
                             ? 'true'
-                            : 'false'
-                    ]
+                            : 'false',
+                    ],
                 ]
                 : []
         ),

@@ -46,7 +46,7 @@ function essay_assessed(array $config, \stdClass $event) {
     $page = $repo->read_record_by_id('lesson_pages', $attempt->pageid);
     $learner = $repo->read_record_by_id('user', $attempt->userid);
     $answer = $repo->read_record('lesson_answers', [
-        'pageid' => $page->id
+        'pageid' => $page->id,
     ]);
 
     return[[
@@ -54,14 +54,14 @@ function essay_assessed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/dod-isd/verbs/assessed',
             'display' => [
-                'en' => 'Assessed'
+                'en' => 'Assessed',
             ],
         ],
         'result' => utils\get_lesson_essay_result(
             $config,
             $lesson,
             $answer,
-            $attempt
+            $attempt,
         ),
         'object' => utils\get_activity\lesson_question_page(
             $config,
@@ -73,7 +73,9 @@ function essay_assessed(array $config, \stdClass $event) {
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'extensions' => array_merge(
-                ['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' => utils\get_user($config, $learner)],
+                [
+                    'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' => utils\get_user($config, $learner),
+                ],
                 utils\extensions\base($config, $event, $course)
             ),
             'contextActivities' => [

@@ -51,7 +51,7 @@ function comment_deleted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/delete',
             'display' => [
-                'en' => 'Deleted'
+                'en' => 'Deleted',
             ],
         ],
         'object' => utils\get_activity\glossary_comment($config, $course, $comment),
@@ -66,6 +66,6 @@ function comment_deleted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

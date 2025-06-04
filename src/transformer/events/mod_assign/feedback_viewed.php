@@ -28,13 +28,12 @@ namespace src\transformer\events\mod_assign;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for assignment feedback viewed event.
+ * Transformer for assignment_feedback_viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function feedback_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -54,7 +53,7 @@ function feedback_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => [
@@ -66,9 +65,9 @@ function feedback_viewed(array $config, \stdClass $event) {
             'definition' => [
                 'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/feedback',
                 'name' => [
-                    $lang => $instancename . ' Feedback'
-                ]
-            ]
+                    $lang => $instancename . ' Feedback',
+                ],
+            ],
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),

@@ -30,7 +30,7 @@ namespace src\transformer\utils\get_activity;
  * @return array
  */
 function base() {
-  return [
-      'objectType' => 'Activity'
-  ];
+    return [
+        'objectType' => 'Activity',
+    ];
 }

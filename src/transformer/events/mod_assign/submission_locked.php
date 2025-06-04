@@ -28,13 +28,12 @@ namespace src\transformer\events\mod_assign;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for assignment submission locked/unlocked event.
+ * Transformer for assignment_submission_locked/unlocked event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function submission_locked(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $instructor = $repo->read_record_by_id('user', $event->userid);
@@ -48,13 +47,13 @@ function submission_locked(array $config, \stdClass $event) {
             ? [
                 'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/locked',
                 'display' => [
-                    'en' => 'Locked'
+                    'en' => 'Locked',
                 ],
             ]
             : [
                 'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/unlocked',
                 'display' => [
-                    'en' => 'Unocked'
+                    'en' => 'Unocked',
                 ],
             ],
         'object' => utils\get_activity\assign_submission(

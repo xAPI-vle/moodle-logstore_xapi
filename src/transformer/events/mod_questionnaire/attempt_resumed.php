@@ -45,7 +45,7 @@ function attempt_resumed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/resumed',
             'display' => [
-                'en' => 'Resumed'
+                'en' => 'Resumed',
             ],
         ],
         'object' => utils\get_activity\course_module(
@@ -65,6 +65,6 @@ function attempt_resumed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

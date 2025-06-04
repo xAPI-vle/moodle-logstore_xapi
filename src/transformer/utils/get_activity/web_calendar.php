@@ -39,8 +39,8 @@ function web_calendar(string $url) {
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar',
             'name' => [
-                'en' => 'Web Calendar'
+                'en' => 'Web Calendar',
             ],
-        ]
+        ],
     ];
 }

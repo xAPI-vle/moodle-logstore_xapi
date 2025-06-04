@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving the result/success state from a lesson 
+ * Transformer utility for retrieving the result/success state from a lesson
  * question completion object.
  *
  * @package   logstore_xapi
@@ -26,9 +26,9 @@
 namespace src\transformer\utils;
 
 /**
- * Transformer utility for retrieving the result/success state from a lesson 
+ * Transformer utility for retrieving the result/success state from a lesson
  * question completion object.
- * 
+ *
  * @param array $config The transformer config settings.
  * @param \stdClass $lesson The lesson object.
  * @param \stdClass $page The lesson question page object.
@@ -36,44 +36,45 @@ namespace src\transformer\utils;
  * @return object
  */
 function get_lesson_question_result(array $config, \stdClass $lesson, \stdClass $page, int $userid) {
-    
     $repo = $config['repo'];
     $result = [];
-    // response and success if true
+    // Response and success if true.
     $attempts = $repo->read_records('lesson_attempts', [
         'lessonid' => $lesson->id,
         'pageid' => $page->id,
-        'userid' => $userid
+        'userid' => $userid,
     ], 'timeseen DESC');
     if (!empty($attempts)) {
         $attempt = reset($attempts);
         if ($page->qtype == LESSON_PAGE_ESSAY) {
-            // essay is graded later, and is also serialized into an object
+            // Essay is graded later, and is also serialized into an object.
             $essay = unserialize($attempt->useranswer);
             $result['response'] = get_string_html_removed($essay->answer);
-        } elseif ($page->qtype == LESSON_PAGE_MATCHING) {
-            //Matching is the tricky one because the stored response is
-            //nothing like the xapi expectation. We need to merge the answers
-            //with the responses.
+        } else if ($page->qtype == LESSON_PAGE_MATCHING) {
+            // Matching is the tricky one because the stored response is
+            // nothing like the xapi expectation. We need to merge the answers
+            // with the responses.
             $answers = $repo->read_records('lesson_answers', [
-                'pageid' => $page->id
+                'pageid' => $page->id,
             ], 'id ASC');
 
             $useranswers = explode(",", $attempt->useranswer);
 
             $responses = [];
-            foreach($answers as $ans){
-                if (!is_null($ans->response)){
-                    array_push($responses, 
-                        slugify(get_string_html_removed($ans->answer)).
-                        "[.]".
-                        slugify(array_shift($useranswers)));
+            foreach ($answers as $ans) {
+                if (!is_null($ans->response)) {
+                    array_push(
+                        $responses,
+                        slugify(get_string_html_removed($ans->answer)) .
+                        "[.]" .
+                        slugify(array_shift($useranswers)),
+                    );
                 }
             }
             $result['success'] = ($attempt->correct == 1);
-            $result['response'] = implode("[,]", $responses); 
+            $result['response'] = implode("[,]", $responses);
         } else {
-            //other questions know if they are correct or not immediately
+            // Other questions know if they are correct or not immediately.
             $result['success'] = ($attempt->correct == 1);
             $result['response'] = get_string_html_removed($attempt->useranswer);
         }

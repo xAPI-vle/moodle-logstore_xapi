@@ -52,7 +52,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -63,7 +63,7 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
                 $question,
                 $lang,
                 'choice',
-                $questionattempt->rightanswer
+                $questionattempt->rightanswer,
             ),
         ],
         'result' => [
@@ -93,8 +93,8 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

@@ -27,7 +27,7 @@
 
 namespace src\transformer\utils;
 
-defined('MOODLE_INTERNAL') || die();
+
 
 /**
  * Transformer utility to create standard timestamp.
@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return string
  */
 function create_timestamp($time) {
-    $dateTime = (new \DateTime())->setTimestamp($time);
-    $dateTime->setTimezone(new \DateTimeZone('UTC'));
-    return $dateTime->format("Y-m-d\TH:i:s.v\Z");
+    $datetime = (new \DateTime())->setTimestamp($time);
+    $datetime->setTimezone(new \DateTimeZone('UTC'));
+    return $datetime->format("Y-m-d\TH:i:s.v\Z");
 }

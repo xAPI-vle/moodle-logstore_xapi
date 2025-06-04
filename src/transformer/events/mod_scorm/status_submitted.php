@@ -48,7 +48,7 @@ function status_submitted(array $config, \stdClass $event) {
         'userid' => $user->id,
         'scormid' => $event->objectid,
         'scoid' => $event->contextinstanceid,
-        'attempt' => $unserializedcmi['attemptid']
+        'attempt' => $unserializedcmi['attemptid'],
     ]);
 
     return [[
@@ -71,6 +71,6 @@ function status_submitted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

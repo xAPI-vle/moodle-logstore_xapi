@@ -47,8 +47,8 @@ function chapter_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
-            ]
+                'en' => 'Viewed',
+            ],
         ],
         'object' => utils\get_activity\book_chapter($config, $course, $chapter, $event->contextinstanceid),
         'context' => [
@@ -62,8 +62,8 @@ function chapter_viewed(array $config, \stdClass $event) {
                 'category' => [
                     utils\get_activity\site($config),
                 ],
-            ]
-        ]
+            ],
+        ],
     ];
 
     if ($chapter->subchapter != '0') {
@@ -75,10 +75,10 @@ function chapter_viewed(array $config, \stdClass $event) {
                         $config,
                         $course,
                         $parentchapter,
-                        $event->contextinstanceid
+                        $event->contextinstanceid,
                     ),
                 ],
-                $statement['context']['contextActivities']['parent']
+                $statement['context']['contextActivities']['parent'],
             );
     }
 

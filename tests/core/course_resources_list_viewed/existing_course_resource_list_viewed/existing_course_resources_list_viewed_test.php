@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_questionnaire;
+namespace logstore_xapi\core\course_resources_list_viewed\existing_course_resource_list_viewed;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -23,13 +23,13 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test for mod_questionnaire attempt resumed event.
- * 
+ * Unit test for course resources list viewed event.
+ *
  * @package   logstore_xapi
- * @copyright Cliff Casey <cliff@yetanalytics.com>
+ * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class attempt_resumed_test extends \logstore_xapi\xapi_test_case {
+final class existing_course_resources_list_viewed_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -46,7 +46,7 @@ class attempt_resumed_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_type() {
-        return "mod";
+        return "core";
     }
 
     /**
@@ -55,16 +55,16 @@ class attempt_resumed_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_name() {
-        return "questionnaire";
+        return "course";
     }
 
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::attempt_resumed
+     * @covers ::course_viewed
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

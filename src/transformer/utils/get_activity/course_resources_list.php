@@ -43,7 +43,7 @@ function course_resources_list(
         'definition' => [
             'type' => 'https://w3id.org/xapi/acrossx/activities/webpage',
             'name' => [
-                $lang => $course->fullname . ' Resources'
+                $lang => $course->fullname . ' Resources',
             ],
         ],
     ];

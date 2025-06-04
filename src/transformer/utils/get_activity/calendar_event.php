@@ -34,19 +34,29 @@ namespace src\transformer\utils\get_activity;
  * @return array
  */
 
+/**
+ * Generate an xAPI activity object for a calendar event.
+ *
+ * @param array $config The transformer config.
+ * @param string $lang The language.
+ * @param int $eventid The id of the event.
+ * @param string $name The name of the event.
+ * @return array
+ */
 function calendar_event(
     array $config,
     string $lang,
     int $eventid,
     string $name
 ) {
-    return  [
+    return [
         ...base(),
-        'id' => $config['app_url'].'/calendar/view.php?id='.$eventid,
+        'id' => $config['app_url'] . '/calendar/view.php?id=' . $eventid,
         'definition' => [
             'name' => [
                 $lang => $name,
             ],
-            'type' =>  'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event'],
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-event',
+        ],
     ];
 }
