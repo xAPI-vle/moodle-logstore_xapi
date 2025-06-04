@@ -116,11 +116,11 @@ class tool_logstore_xapi_reportfilter_form extends \moodleform {
                 break;
         }
 
-        $mform->addElement('date_selector', 'datefrom', get_string('from'), ['optional' => true]);
+        $mform->addElement('date_selector', 'datefrom', get_string('fromdate'), ['optional' => true]);
         if (!empty($this->_customdata['defaults']['datefrom'])) {
             $mform->setDefault('datefrom', $this->_customdata['defaults']['datefrom']);
         }
-        $mform->addElement('date_selector', 'dateto', get_string('to'), ['optional' => true]);
+        $mform->addElement('date_selector', 'dateto', get_string('todate'), ['optional' => true]);
         if (!empty($this->_customdata['defaults']['dateto'])) {
             $mform->setDefault('dateto', $this->_customdata['defaults']['dateto']);
         }
