@@ -44,7 +44,7 @@ function course_resources_list_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\course_resources_list($config, $course),
@@ -55,9 +55,9 @@ function course_resources_list_viewed(array $config, \stdClass $event) {
                     utils\get_activity\course($config, $course),
                 ],
                 'category' => [
-                    utils\get_activity\site($config)
-                ]
+                    utils\get_activity\site($config),
+                ],
             ],
-        ]
+        ],
     ]];
 }

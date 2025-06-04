@@ -35,7 +35,6 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function note_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $note = $repo->read_record_by_id('post', $event->objectid);
@@ -46,29 +45,32 @@ function note_created(array $config, \stdClass $event) {
         : null;
     $lang = is_null($course)
         ? $config['source_lang']
-    : utils\get_course_lang($course);
+        : utils\get_course_lang($course);
 
     $statement = [
-        'actor' => utils\get_user($config,$actor),
+        'actor' => utils\get_user($config, $actor),
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
-            ]
+                'en' => 'Created',
+            ],
         ],
         'object' => activity\course_note($config, $lang, $subject, $note),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
+            'contextActivities' => [
                 'category' => [
-                    activity\site($config)
+                    activity\site($config),
                 ],
             ],
-        ]];
+        ],
+    ];
 
-    if ($course){
+    if ($course) {
         $statement = utils\add_parent($config, $statement, $course);
     }
 
-    return [$statement];
+    return [
+        $statement,
+    ];
 }

@@ -28,13 +28,12 @@ use src\transformer\utils as utils;
 use src\transformer\utils\get_activity as activity;
 
 /**
- * Transformer fn for badge updated event.
+ * Transformer function for badge updated event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function badge_updated(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -50,26 +49,27 @@ function badge_updated(array $config, \stdClass $event) {
       );
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
+        'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => [
-                'en' => 'Edited'
-            ]
+                'en' => 'Edited',
+            ],
         ],
         'object' => utils\get_activity\badge($config, $lang, $badge),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
+            'contextActivities' => [
                 'category' => [
-                    activity\site($config)
+                    activity\site($config),
                 ],
             ],
-        ]];
+        ],
+    ];
 
-        if ($course){
-            $statement = utils\add_parent($config,$statement,$course);
-        }
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
+    }
 
-        return [$statement];
+    return [$statement];
 }

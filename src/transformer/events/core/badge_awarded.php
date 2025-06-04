@@ -26,20 +26,20 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transforms badge_awarded event to an "Achieved" xapi event
+ * Transforms badge_awarded event to an "Achieved" xAPI event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function badge_awarded(array $config, \stdClass $event) {
     global $CFG;
     $repo = $config['repo'];
+
     if (isset($event->objecttable) && isset($event->objectid)) {
         $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
     } else {
-        $event_object = array();
+        $event_object = [];
     }
 
     $recipient = $repo->read_record_by_id('user', $event->relateduserid);
@@ -59,37 +59,45 @@ function badge_awarded(array $config, \stdClass $event) {
     $manual = $repo->read_record_by_id('badge_manual_award', $issuedid);
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
 
+
     $statement = [[
         'actor' => $actor,
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
             'display' => [
-                'en' => 'Achieved'
-            ]],
+                'en' => 'Achieved',
+            ],
+        ],
         'object' => utils\get_activity\badge($config, $lang, $badge),
         'result' => [
-            'response' => $badge->message
+            'response' => $badge->message,
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'instructor' => $awarder,
-            'contextActivities' =>  [
+            'contextActivities' => [
                 'category' => [
-                  utils\get_activity\site($config),
+                    utils\get_activity\site($config),
                 ],
             ],
-            'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
-                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic')])
-        ]]];
-    if ($course){
+            'extensions' => array_merge(
+                utils\extensions\base($config, $event, $course),
+                [
+                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic'),
+                ]
+            ),
+        ],
+    ]];
+
+    if ($course) {
         $statement[0]['context']['contextActivities']['parent'] = [[
-            'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+            'id' => $config['app_url'] . '/course/view.php?id=' . $course->id,
             'objectType' => 'Activity',
             'definition' => [
                 'name' => [$lang => $course->fullname],
                 'description' => [$lang => $course->summary],
-                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
-            ]
+                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course',
+            ],
         ]];
     }
 

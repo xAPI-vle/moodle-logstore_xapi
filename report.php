@@ -49,15 +49,16 @@ if ($id == XAPI_REPORT_ID_ERROR) {
 }
 
 // Set pagination url's parameter.
-$urlparams = array(
+
+$urlparams = [
     'id' => $id,
     'run' => $run,
     'page' => $page,
     'perpage' => $perpage,
-    'onpage' => $onpage
-);
+    'onpage' => $onpage,
+];
 
-$url = new moodle_url('/admin/tool/log/store/xapi/report.php', array('id' => $id));
+$url = new moodle_url('/admin/tool/log/store/xapi/report.php', ['id' => $id]);
 
 // Set page parameters.
 $PAGE->set_context($systemcontext);
@@ -66,7 +67,7 @@ $PAGE->set_url($url);
 // Set filter params and defaults.
 $eventnames = logstore_xapi_get_event_names_array();
 
-$defaults = array(
+$defaults = [
     'datefrom' => XAPI_REPORT_DATEFROM_DEFAULT,
     'dateto' => XAPI_REPORT_DATETO_DEFAULT,
     'eventcontext' => XAPI_REPORT_EVENTCONTEXT_DEFAULT,
@@ -75,7 +76,7 @@ $defaults = array(
     'resend' => XAPI_REPORT_RESEND_FALSE,
     'response' => XAPI_REPORT_RESPONSE_DEFAULT,
     'userfullname' => XAPI_REPORT_USERNAME_DEFAULT,
-);
+];
 
 // Reread submitted params.
 if (!empty($onpage)) {
@@ -131,7 +132,7 @@ switch ($id) {
         break;
 }
 
-$notifications = array();
+$notifications = [];
 $mform = new logstore_xapi\form\tool_logstore_xapi_reportfilter_form($url, $filterparams);
 
 $params = [];
@@ -247,7 +248,7 @@ $mform->set_data($submitcount);
 
 if (!empty($results)) {
     $table = new html_table();
-    $table->head = array();
+$table->head = [];
     $table->attributes['class'] = 'admintable generaltable';
     if ($id == XAPI_REPORT_ID_ERROR) {
         $table->head[] = get_string('type', 'logstore_xapi');

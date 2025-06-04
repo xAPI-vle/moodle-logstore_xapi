@@ -274,7 +274,7 @@ function create_user($username, $firstname, $lastname) {
     global $DB;
 
     // Check if user exists.
-    $user = $DB->get_record('user', array('username' => $username), "id,username");
+    $user = $DB->get_record('user', ['username' => $username], "id,username");
     if ($user) {
         return $user->id;
     }
@@ -285,7 +285,7 @@ function create_user($username, $firstname, $lastname) {
         $user = $generator->create_user([
             'username' => $username,
             'firstname' => $firstname,
-            'lastname' => $lastname
+            'lastname' => $lastname,
         ]);
     } catch (Exception $e) {
         echo $e->getMessage() . PHP_EOL;

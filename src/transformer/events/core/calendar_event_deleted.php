@@ -35,35 +35,41 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function calendar_event_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
 
-    //all three here may not exist
-    $user=$repo->read_record_by_id('user',$event->userid);
-    $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id("course", $event->courseid) : null;
-    $lang = utils\get_course_lang(($course ? $course :  $repo->read_record_by_id("course",1)));
+    // All three here may not exist.
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $course = (isset($event->courseid) && $event->courseid != 0) ? $repo->read_record_by_id('course', $event->courseid) : null;
+    $lang = utils\get_course_lang($course ? $course : $repo->read_record_by_id('course', 1));
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://activitystrea.ms/delete',
-                   'display' => ['en' => 'Deleted']],
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://activitystrea.ms/delete',
+            'display' => [
+                'en' => 'Deleted',
+            ],
+        ],
         'object' => activity\calendar_event(
             $config,
             $lang,
             $event->objectid,
-            unserialize($event->other)['name']
+            unserialize($event->other)['name'],
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
-                'category' => [activity\site($config)]
+            'contextActivities' => [
+                'category' => [
+                    activity\site($config),
+                ],
             ],
-        ]];
+        ],
+    ];
 
-        if ($course){
-            $statement = utils\add_parent($config,$statement,$course);
-        }
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
+    }
 
-        return [$statement];
+    return [$statement];
 }

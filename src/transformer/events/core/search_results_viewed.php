@@ -34,8 +34,7 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
-function search_results_viewed(array $config, \stdClass $event) {
+function search_results_viewed(array $config, \stdClass $event): array {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $lang = $config['source_lang'];
@@ -46,7 +45,7 @@ function search_results_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/searched',
             'display' => [
-                'en' => 'Searched'
+                'en' => 'Searched',
             ],
         ],
         'object' => [
@@ -55,7 +54,7 @@ function search_results_viewed(array $config, \stdClass $event) {
             'definition' => [
                 'type' => 'https://w3id.org/xapi/acrossx/activities/webpage',
                 'name' => [
-                    $lang => 'Global Search'
+                    $lang => 'Global Search',
                 ],
             ],
         ],
@@ -71,5 +70,4 @@ function search_results_viewed(array $config, \stdClass $event) {
             ],
         ],
     ]];
-
 }

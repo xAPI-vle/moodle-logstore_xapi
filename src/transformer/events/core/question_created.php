@@ -29,13 +29,12 @@ use src\transformer\utils as utils;
 use src\transformer\utils\get_activity\definition\question as qdef;
 
 /**
- * Transformer fn for question created event.
+ * Transformer for question_created event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function question_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -52,7 +51,7 @@ function question_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
+                'en' => 'Created',
             ],
         ],
         'object' => [
@@ -64,12 +63,12 @@ function question_created(array $config, \stdClass $event) {
             ...utils\get_context_base($config, $event, $lang, null),
             'contextActivities' => [
                 'parent' => [
-                    utils\get_activity\course($config, $course)
+                    utils\get_activity\course($config, $course),
                 ],
                 'category' => [
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

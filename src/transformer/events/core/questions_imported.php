@@ -28,13 +28,12 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for questions imported event.
+ * Transformer for questions_imported event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function questions_imported(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -48,7 +47,7 @@ function questions_imported(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/imported',
             'display' => [
-                'en' => 'Imported'
+                'en' => 'Imported',
             ],
         ],
         'object' => [
@@ -57,8 +56,8 @@ function questions_imported(array $config, \stdClass $event) {
             'definition' => [
                 'type' => 'http://adlnet.gov/expapi/activities/file',
                 'name' => [
-                    $lang => 'Questions in ' . $info['format'] . ' format'
-                ]
+                    $lang => 'Questions in ' . $info['format'] . ' format',
+                ],
             ],
         ],
         'context' => [
@@ -71,6 +70,6 @@ function questions_imported(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

@@ -53,7 +53,7 @@ define('XAPI_REPORT_STARTING_PAGE', 0);
 define('XAPI_REPORT_PERPAGE_DEFAULT', 40);
 define('XAPI_REPORT_ONPAGE_DEFAULT', '');
 define('XAPI_REPORT_EVENTCONTEXT_DEFAULT', '');
-define('XAPI_REPORT_EVENTNAMES_DEFAULT', array());
+define('XAPI_REPORT_EVENTNAMES_DEFAULT', []);
 define('XAPI_REPORT_ERROTYPE_DEFAULT', '0');
 define('XAPI_REPORT_RESPONSE_DEFAULT', '0');
 define('XAPI_REPORT_USERNAME_DEFAULT', '');
@@ -67,7 +67,7 @@ define('XAPI_REPORT_DATETO_DEFAULT', 0);
  */
 function logstore_xapi_get_cohorts() {
     global $DB;
-    $array = array("visible" => 1);
+    $array = ["visible" => 1];
     $cohorts = $DB->get_records("cohort", $array);
     return $cohorts;
 }
@@ -83,7 +83,7 @@ function logstore_xapi_get_selected_cohorts() {
     $selected = get_config('logstore_xapi', 'cohorts');
 
     $arrselected = explode(",", $selected);
-    $arr = array();
+    $arr = [];
     foreach ($arrselected as $arrselection) {
         if (array_key_exists($arrselection, $arrvisible)) {
             $arr[] = $arrselection;
@@ -101,17 +101,17 @@ function logstore_xapi_get_selected_cohorts() {
 function logstore_xapi_get_cohort_members($cohortids) {
     global $DB;
 
-    $members = array();
+    $members = [];
 
     foreach ($cohortids as $cohortid) {
         // Validate params.
-        $cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
+        $cohort = $DB->get_record('cohort', ['id' => $cohortid], '*', MUST_EXIST);
         if (!empty($cohort)) {
             $sql = "SELECT u.*
                       FROM {user} u, {cohort_members} cm
                      WHERE u.id = cm.userid AND cm.cohortid = ?
                   ORDER BY lastname ASC, firstname ASC";
-            $cohortmembers = $DB->get_records_sql($sql, array($cohort->id));
+            $cohortmembers = $DB->get_records_sql($sql, [$cohort->id]);
             $members = array_merge($members, $cohortmembers);
         }
     }
@@ -306,7 +306,7 @@ function logstore_xapi_add_event_to_sent_log($event) {
 function logstore_xapi_extract_events($limitnum, $log, $type) {
     global $DB;
 
-    $conditions = array("type" => $type);
+    $conditions = ["type" => $type];
     $sort = '';
     $fields = '*';
     $limitfrom = 0;

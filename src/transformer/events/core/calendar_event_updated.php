@@ -43,9 +43,11 @@ function calendar_event_updated(array $config, \stdClass $event) {
 
     $statement = [
         'actor' => utils\get_user($config, $user),
-        'verb'=> [
+        'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
-            'display' => ['en'=> 'Edited']
+            'display' => [
+                'en' => 'Edited',
+            ],
         ],
         'object' => activity\calendar_event(
             $config,
@@ -56,14 +58,15 @@ function calendar_event_updated(array $config, \stdClass $event) {
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
-                'category' => [activity\site($config)]
-            ]
-        ]
+                'category' => [
+                    activity\site($config),
+                ],
+            ],
+        ],
     ];
 
-
-    if ($course){
-        $statement = utils\add_parent($config,$statement,$course);
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
     }
 
     return [$statement];

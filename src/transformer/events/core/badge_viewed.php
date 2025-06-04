@@ -34,14 +34,13 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function badge_viewed(array $config, \stdClass $event) {
     global $CFG;
     $repo = $config['repo'];
     $badge = $repo->read_record_by_id('badge', $event->objectid);
 
-    //all three here may not exist
-    $user=$repo->read_record_by_id('user',$event->userid);
+    // All three here may not exist.
+    $user = $repo->read_record_by_id('user', $event->userid);
     $course = (isset($event->courseid) && $event->courseid != 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
@@ -52,21 +51,27 @@ function badge_viewed(array $config, \stdClass $event) {
        $config['source_lang']);
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://id.tincanapi.com/verb/viewed',
-                   'display' => ['en' => 'Viewed']
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'display' => [
+                'en' => 'Viewed',
+            ],
         ],
         'object' => utils\get_activity\badge($config, $lang, $badge),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
-                'category' => [activity\site($config)],
+            'contextActivities' => [
+                'category' => [
+                    activity\site($config),
+                ],
             ],
-        ]];
+        ],
+    ];
 
-        if ($course){
-            $statement = utils\add_parent($config,$statement,$course);
-        }
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
+    }
 
-        return [$statement];
+    return [$statement];
 }

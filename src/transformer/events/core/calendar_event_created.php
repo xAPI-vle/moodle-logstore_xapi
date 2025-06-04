@@ -46,7 +46,7 @@ function calendar_event_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
+                'en' => 'Created',
             ],
         ],
         'object' => activity\calendar_event(
@@ -58,13 +58,15 @@ function calendar_event_created(array $config, \stdClass $event) {
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
-                'category' => [activity\site($config)]
-            ]
-        ]
+                'category' => [
+                    activity\site($config),
+                ],
+            ],
+        ],
     ];
 
-    if ($course){
-        $statement = utils\add_parent($config,$statement,$course);
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
     }
 
     return [$statement];

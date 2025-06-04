@@ -59,19 +59,19 @@ function create_xapi_log_table($dbman, $tablename) {
     $table->add_field('realuserid', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
 
     // Adding keys to table.
-    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
     // Adding indexes to table.
-    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, array('timecreated'));
-    $table->add_index('course-time', XMLDB_INDEX_NOTUNIQUE, array('courseid', 'anonymous', 'timecreated'));
-    $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE, array(
+    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, ['timecreated']);
+    $table->add_index('course-time', XMLDB_INDEX_NOTUNIQUE, ['courseid', 'anonymous', 'timecreated']);
+    $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE, [
         'userid',
         'contextlevel',
         'contextinstanceid',
         'crud',
         'edulevel',
-        'timecreated'
-    ));
+        'timecreated',
+    ]);
 
     // Conditionally launch create table.
     if (!$dbman->table_exists($table)) {
@@ -97,12 +97,12 @@ function create_xapi_sent_log_table($dbman, $tablename) {
     $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
 
     // Adding keys to table.
-    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
     // Adding indexes to table.
-    $table->add_index('logstorestandardlogid', XMLDB_INDEX_NOTUNIQUE, array('logstorestandardlogid'));
-    $table->add_index('type', XMLDB_INDEX_NOTUNIQUE, array('type'));
-    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, array('timecreated'));
+    $table->add_index('logstorestandardlogid', XMLDB_INDEX_NOTUNIQUE, ['logstorestandardlogid']);
+    $table->add_index('type', XMLDB_INDEX_NOTUNIQUE, ['type']);
+    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, ['timecreated']);
 
     // Conditionally launch create table.
     if (!$dbman->table_exists($table)) {
@@ -173,12 +173,12 @@ function create_xapi_notification_table($dbman, $tablename) {
     $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
 
     // Adding keys to table.
-    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
     // Adding indexes to table.
-    $table->add_index('failedlogid', XMLDB_INDEX_NOTUNIQUE, array('failedlogid'));
-    $table->add_index('email', XMLDB_INDEX_NOTUNIQUE, array('email'));
-    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, array('timecreated'));
+    $table->add_index('failedlogid', XMLDB_INDEX_NOTUNIQUE, ['failedlogid']);
+    $table->add_index('email', XMLDB_INDEX_NOTUNIQUE, ['email']);
+    $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, ['timecreated']);
 
     // Conditionally launch create table.
     if (!$dbman->table_exists($table)) {

@@ -35,45 +35,53 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function message_viewed(array $config, \stdClass $event) {
     global $CFG;
     $repo = $config['repo'];
     if (isset($event->objecttable) && isset($event->objectid)) {
         $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
     } else {
-        $event_object = array();
+        $event_object = [];
     }
 
-    $user=$repo->read_record_by_id('user',$event->userid);
-    $recipient=$user;
-    $sender=$repo->read_record_by_id('user',$event->relateduserid);
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $recipient = $user;
+    $sender = $repo->read_record_by_id('user', $event->relateduserid);
     $course = (isset($event->courseid) && $event->courseid !== 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
-    $lang = is_null ($course) ? $config['source_lang'] : utils\get_course_lang($course);
+    $lang = is_null($course) ? $config['source_lang'] : utils\get_course_lang($course);
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://id.tincanapi.com/verb/viewed',
-                   'display' =>  ['en' => 'Viewed']
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'display' => [
+                'en' => 'Viewed',
+            ],
         ],
         'object' => activity\message($config, $lang, $event_object),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
-                'category' => [activity\site($config)],
+            'contextActivities' => [
+                'category' => [
+                    activity\site($config),
+                ],
             ],
-            'extensions' =>
-              array_merge(
+            'extensions' => array_merge(
                 utils\extensions\base($config, $event, $course), [
-                  "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" => utils\get_user($config,$sender)
-                ])
-        ]];
+                    "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" =>
+                        utils\get_user($config, $sender),
+                ],
+            ),
+        ],
+    ];
 
-    if ($course){
-        $statement = utils\add_parent($config,$statement,$course);
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
     }
 
-    return [$statement];
+    return [
+        $statement,
+    ];
 }
