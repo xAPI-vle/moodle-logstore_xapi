@@ -52,7 +52,7 @@ function fill_in(
                         implode('[,]', $correctanswers),
                     ],
                 ]
-                : [],
+                : []
         ),
     ];
 }
