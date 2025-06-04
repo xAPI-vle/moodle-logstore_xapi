@@ -1,0 +1,34 @@
+name: Moodle PHPCS
+
+on:
+  push:
+    paths:
+      - '**.php'
+  pull_request:
+    paths:
+      - '**.php'
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install PHP_CodeSniffer
+        run: composer global require squizlabs/php_codesniffer
+
+      - name: Install Moodle coding standard
+        run: |
+          git clone https://github.com/moodlehq/moodle-cs.git ~/moodle-cs
+          ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/moodle-cs
+          ~/.composer/vendor/bin/phpcs -i
+
+      - name: Run PHPCS
+        run: ~/.composer/vendor/bin/phpcs --standard=moodle --extensions=php --ignore=vendor/ .
