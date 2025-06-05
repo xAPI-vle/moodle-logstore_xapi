@@ -59,6 +59,5 @@ function course_completed(array $config, \stdClass $event) {
                 ],
             ],
         ],
-    ], 
-    ];
+    ]];
 }

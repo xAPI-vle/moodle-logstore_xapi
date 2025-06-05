@@ -60,6 +60,5 @@ function course_category_created(array $config, \stdClass $event) {
                 ],
             ],
         ],
-    ],
-    ],
+    ]];
 }

@@ -56,6 +56,5 @@ function course_created(array $config, \stdClass $event) {
                 ],
             ],
         ],
-    ],
-    ];
+    ]];
 }
