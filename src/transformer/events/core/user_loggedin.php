@@ -44,9 +44,8 @@ function user_loggedin(array $config, \stdClass $event) {
 
     if (!is_null($event->relateduserid)) {
         $asuser = $repo->read_record_by_id('user', $event->relateduserid);
-        $ctxextensions[
-            'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/as'
-        ] = utils\get_user($config, $asuser);
+        $ctxextensions['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/as'] =
+            utils\get_user($config, $asuser);
     }
 
     return [[
