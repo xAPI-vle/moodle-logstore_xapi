@@ -58,7 +58,7 @@ function badge_awarded(array $config, \stdClass $event) {
 
     $manual = $repo->read_record_by_id('badge_manual_award', $issuedid);
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
-    $statement = [[
+    $statement = [
         'actor' => $actor,
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
