@@ -49,7 +49,6 @@ function get_lesson_result(array $config, \stdClass $lesson, int $userid) {
             'itemid' => $gradeitem->id,
             'userid' => $userid,
         ], 'timemodified DESC');
-    
         if (!empty($grades)) {
             $grade = reset($grades);
             $min = floatval($grade->rawgrademin ?: 0);

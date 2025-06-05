@@ -44,7 +44,9 @@ function question_created(array $config, \stdClass $event) {
 
     $definition = qdef\get_definition($config, $question, $lang);
 
-    $definition['extensions']['https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/moodle-question-type'] = $question->qtype;
+    $definition['extensions'][
+        'https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/moodle-question-type'
+    ] = $question->qtype;
 
     return [[
         'actor' => utils\get_user($config, $user),

@@ -48,7 +48,6 @@ final class user_forfeited_badge_test extends \logstore_xapi\xapi_test_case {
     protected function get_plugin_type() {
         return "core";
     }
-    
     /**
      * Retrieve the plugin name being tested.
      *

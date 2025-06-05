@@ -127,7 +127,7 @@ function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
         $dbman->add_field($table, $field);
     }
 
-    $index = new xmldb_index("logstorestandardlogid", XMLDB_INDEX_NOTUNIQUE, array('logstorestandardlogid'));
+    $index = new xmldb_index("logstorestandardlogid", XMLDB_INDEX_NOTUNIQUE, ['logstorestandardlogid']);
     if (!$dbman->index_exists($table, $index)) {
         $dbman->add_index($table, $index);
     }
@@ -138,7 +138,7 @@ function add_logstorestandardlogid_type_to_table($dbman, $tablename) {
         $dbman->add_field($table, $field);
     }
 
-    $index = new xmldb_index("type", XMLDB_INDEX_NOTUNIQUE, array('type'));
+    $index = new xmldb_index("type", XMLDB_INDEX_NOTUNIQUE, ['type']);
     if (!$dbman->index_exists($table, $index)) {
         $dbman->add_index($table, $index);
     }

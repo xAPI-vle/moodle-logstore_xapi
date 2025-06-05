@@ -39,9 +39,9 @@ function message_viewed(array $config, \stdClass $event) {
     global $CFG;
     $repo = $config['repo'];
     if (isset($event->objecttable) && isset($event->objectid)) {
-        $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
+        $eventobject = $repo->read_record_by_id($event->objecttable, $event->objectid);
     } else {
-        $event_object = [];
+        $eventobject = [];
     }
 
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -60,7 +60,7 @@ function message_viewed(array $config, \stdClass $event) {
                 'en' => 'Viewed',
             ],
         ],
-        'object' => activity\message($config, $lang, $event_object),
+        'object' => activity\message($config, $lang, $eventobject),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [

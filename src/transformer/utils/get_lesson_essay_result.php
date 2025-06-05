@@ -28,7 +28,7 @@ namespace src\transformer\utils;
 /**
  * Transformer utility for retrieving the result/success state from a lesson
  * essay question after grading.
- * 
+ *
  * @param array $config The transformer config settings.
  * @param \stdClass $lesson The lesson object.
  * @param \stdClass $answer The answer object for the question.

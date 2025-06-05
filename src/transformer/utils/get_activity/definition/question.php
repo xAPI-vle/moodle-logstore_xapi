@@ -188,7 +188,7 @@ function get_shortanswer_definition(array $config, \stdClass $question, string $
 function get_true_false_definition(array $config, \stdClass $question, string $lang) {
     $repo = $config['repo'];
     $answers = $repo->read_records('question_answers', [
-        'question' => $question->id
+        'question' => $question->id,
     ]);
     $correctanswerobjarr = array_filter(
         $answers,

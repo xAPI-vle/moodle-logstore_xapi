@@ -64,6 +64,6 @@ final class attempt_submitted_test extends \logstore_xapi\xapi_test_case {
      * @return void
      */
     public function test_init(): void {
-
+        // No coverage required for this test.
     }
 }

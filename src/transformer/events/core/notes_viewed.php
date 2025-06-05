@@ -65,7 +65,8 @@ function notes_viewed(array $config, \stdClass $event) {
                 ],
                 'type' => 'https://w3id.org/xapi/acrossx/activities/webpage',
                 'extensions' => [
-                    'https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject' => utils\get_user($config, $subject),
+                    'https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject' =>
+                        utils\get_user($config, $subject),
                 ],
             ],
         ],
@@ -79,7 +80,8 @@ function notes_viewed(array $config, \stdClass $event) {
             'extensions' => array_merge(
                 utils\extensions\base($config, $event, $course),
                 [
-                    'https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/note-subject-scope' => utils\get_user($config, $subject),
+                    'https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/note-subject-scope' =>
+                        utils\get_user($config, $subject),
                 ],
             ),
         ],

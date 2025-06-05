@@ -55,7 +55,8 @@ function submission_viewed(array $config, \stdClass $event) {
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'extensions' => [
-                'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' => utils\get_user($config, $learner),
+                'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' =>
+                    utils\get_user($config, $learner),
                 ...utils\extensions\base($config, $event, $course),
             ],
             'contextActivities' => [

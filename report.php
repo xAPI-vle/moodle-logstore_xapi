@@ -248,7 +248,7 @@ $mform->set_data($submitcount);
 
 if (!empty($results)) {
     $table = new html_table();
-$table->head = [];
+    $table->head = [];
     $table->attributes['class'] = 'admintable generaltable';
     if ($id == XAPI_REPORT_ID_ERROR) {
         $table->head[] = get_string('type', 'logstore_xapi');

@@ -45,7 +45,8 @@ function course_note($config, $lang, $subject, $note) {
             'description' => [$lang => utils\get_string_html_removed($note->content)],
             'extensions' => [
                 "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-type" => "course",
-                "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject" => utils\get_user($config, $subject),
+                "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject" =>
+                    utils\get_user($config, $subject),
             ],
         ],
     ];

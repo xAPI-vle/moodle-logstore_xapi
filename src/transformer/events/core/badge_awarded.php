@@ -37,9 +37,9 @@ function badge_awarded(array $config, \stdClass $event) {
     $repo = $config['repo'];
 
     if (isset($event->objecttable) && isset($event->objectid)) {
-        $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
+        $eventobject = $repo->read_record_by_id($event->objecttable, $event->objectid);
     } else {
-        $event_object = [];
+        $eventobject = [];
     }
 
     $recipient = $repo->read_record_by_id('user', $event->relateduserid);
@@ -58,8 +58,7 @@ function badge_awarded(array $config, \stdClass $event) {
 
     $manual = $repo->read_record_by_id('badge_manual_award', $issuedid);
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
-
-
+    
     $statement = [[
         'actor' => $actor,
         'verb' => [
@@ -83,11 +82,13 @@ function badge_awarded(array $config, \stdClass $event) {
             'extensions' => array_merge(
                 utils\extensions\base($config, $event, $course),
                 [
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => ($manual ? 'Manual' : 'Automatic'),
+                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' =>
+                        ($manual ? 'Manual' : 'Automatic'),
                 ]
             ),
         ],
     ]];
+
 
     if ($course) {
         $statement[0]['context']['contextActivities']['parent'] = [[

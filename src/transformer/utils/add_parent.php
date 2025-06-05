@@ -19,7 +19,7 @@
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
- *            
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -39,7 +39,3 @@ function add_parent(array $config, array $statement, \stdClass $course) {
     $statement['context']['contextActivities']['parent'] = [get_activity\course($config, $course)];
     return $statement;
 }
-
-
-
-    

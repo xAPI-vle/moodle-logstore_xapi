@@ -65,7 +65,8 @@ function message_sent(array $config, \stdClass $event) {
             ],
             'extensions' => array_merge(
                 utils\extensions\base($config, $event, $course), [
-                    "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" => utils\get_user($config, $recipient),
+                    "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to" =>
+                        utils\get_user($config, $recipient),
                 ],
             ),
         ],

@@ -74,7 +74,8 @@ function essay_assessed(array $config, \stdClass $event) {
             ...utils\get_context_base($config, $event, $lang, $course),
             'extensions' => array_merge(
                 [
-                    'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' => utils\get_user($config, $learner),
+                    'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' =>
+                        utils\get_user($config, $learner),
                 ],
                 utils\extensions\base($config, $event, $course)
             ),
@@ -88,6 +89,6 @@ function essay_assessed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

@@ -86,7 +86,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ];
 
     if (!empty($result)) {
