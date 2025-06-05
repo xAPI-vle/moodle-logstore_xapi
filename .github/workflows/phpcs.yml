@@ -34,8 +34,8 @@ jobs:
         run: |
           composer global require dealerdirect/phpcodesniffer-composer-installer
           composer global require phpcompatibility/php-compatibility
-          composer global require sirbrillig/phpcs-normalized-arrays
           composer global require object-calisthenics/phpcs-calisthenics-rules
+          composer global require --dev --with-all-dependencies sirbrillig/phpcs-normalized-arrays
 
       - name: Install Moodle Coding Standard
         run: git clone https://github.com/moodlehq/moodle-cs.git ~/moodle-cs
