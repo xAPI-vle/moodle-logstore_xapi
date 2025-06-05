@@ -27,9 +27,8 @@ jobs:
       - name: Install PHP_CodeSniffer
         run: composer global require squizlabs/php_codesniffer
 
-      - name: Install Moodle Coding Standard
-        run: |
-          git clone https://github.com/moodlehq/moodle-cs.git ~/moodle-cs
+      - name: Allow required Composer plugins
+        run: composer global config --no-interaction allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 
       - name: Install PHPCS dependency standards
         run: |
@@ -38,7 +37,10 @@ jobs:
           composer global require sirbrillig/phpcs-normalized-arrays
           composer global require object-calisthenics/phpcs-calisthenics-rules
 
-      - name: Configure installed_paths for PHPCS
+      - name: Install Moodle Coding Standard
+        run: git clone https://github.com/moodlehq/moodle-cs.git ~/moodle-cs
+
+      - name: Configure PHPCS installed_paths
         run: |
           ~/.composer/vendor/bin/phpcs --config-set installed_paths \
             ~/moodle-cs,\
@@ -46,7 +48,7 @@ jobs:
             ~/.composer/vendor/sirbrillig/phpcs-normalized-arrays,\
             ~/.composer/vendor/object-calisthenics/phpcs-calisthenics-rules
 
-      - name: Show available standards
+      - name: Show installed standards
         run: ~/.composer/vendor/bin/phpcs -i
 
       - name: Run PHPCS
