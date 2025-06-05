@@ -37,7 +37,7 @@ class discussion_subscription_deleted_test extends \logstore_xapi\xapi_test_case
      * @return string
      */
     protected function get_test_dir() {
-        return __DIR__ . '/data';
+        return __DIR__;
     }
 
     /**
