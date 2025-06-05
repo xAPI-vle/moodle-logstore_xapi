@@ -59,32 +59,34 @@ function badge_awarded(array $config, \stdClass $event) {
     $manual = $repo->read_record_by_id('badge_manual_award', $issuedid);
     $awarder = $manual ? (utils\get_user($config, $repo->read_record_by_id('user', $manual->issuerid))) : 'System';
     $statement = [
-        'actor' => $actor,
-        'verb' => [
-            'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
-            'display' => [
-                'en' => 'Achieved',
-            ],
-        ],
-        'object' => utils\get_activity\badge($config, $lang, $badge),
-        'result' => [
-            'response' => $badge->message,
-        ],
-        'context' => [
-            ...utils\get_context_base($config, $event, $lang, $course),
-            'instructor' => $awarder,
-            'contextActivities' => [
-                'category' => [
-                    utils\get_activity\site($config),
+        [
+            'actor' => $actor,
+            'verb' => [
+                'id' => 'https://w3id.org/xapi/tla/verbs/achieved',
+                'display' => [
+                    'en' => 'Achieved',
                 ],
             ],
-            'extensions' => array_merge(
-                utils\extensions\base($config, $event, $course),
-                [
-                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' =>
-                        ($manual ? 'Manual' : 'Automatic'),
-                ]
-            ),
+            'object' => utils\get_activity\badge($config, $lang, $badge),
+            'result' => [
+                'response' => $badge->message,
+            ],
+            'context' => [
+                ...utils\get_context_base($config, $event, $lang, $course),
+                'instructor' => $awarder,
+                'contextActivities' => [
+                    'category' => [
+                        utils\get_activity\site($config),
+                    ],
+                ],
+                'extensions' => array_merge(
+                    utils\extensions\base($config, $event, $course),
+                    [
+                        'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' =>
+                            ($manual ? 'Manual' : 'Automatic'),
+                    ]
+                ),
+            ],
         ],
     ];
     if ($course) {
