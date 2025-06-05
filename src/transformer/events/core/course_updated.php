@@ -44,7 +44,7 @@ function course_updated(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => [
-                'en' => 'Edited'
+                'en' => 'Edited',
             ],
         ],
         'object' => utils\get_activity\course($config, $course),
@@ -55,6 +55,6 @@ function course_updated(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

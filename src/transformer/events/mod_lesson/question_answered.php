@@ -38,8 +38,8 @@ function question_answered(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $lesson_page = $repo->read_record_by_id('lesson_pages', $event->objectid);
-    $lesson = $repo->read_record_by_id('lesson', $lesson_page->lessonid);
+    $lessonpage = $repo->read_record_by_id('lesson_pages', $event->objectid);
+    $lesson = $repo->read_record_by_id('lesson', $lessonpage->lessonid);
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -47,21 +47,21 @@ function question_answered(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => utils\get_activity\lesson_question_page(
             $config,
             $course,
             $lesson,
-            $lesson_page,
-            $event->contextinstanceid
+            $lessonpage,
+            $event->contextinstanceid,
         ),
         'result' => utils\get_lesson_question_result(
             $config,
             $lesson,
-            $lesson_page,
-            $event->userid
+            $lessonpage,
+            $event->userid,
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
@@ -75,6 +75,6 @@ function question_answered(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

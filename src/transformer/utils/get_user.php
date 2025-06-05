@@ -35,14 +35,14 @@ namespace src\transformer\utils;
  */
 function get_user(array $config, \stdClass $user) {
 
-    $actor = array();
+    $actor = [];
 
-    // Name
+    // Name.
     if (array_key_exists('send_name', $config) && $config['send_name'] == true) {
         $actor['name'] = get_full_name($user);
     }
 
-    // mbox
+    // Mbox.
     $hasvalidemail = filter_var($user->email, FILTER_VALIDATE_EMAIL);
 
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
@@ -50,23 +50,23 @@ function get_user(array $config, \stdClass $user) {
         return $actor;
     }
 
-    // account
+    // Account.
 
     if (array_key_exists('account_homepage', $config) && !empty($config['account_homepage'])) {
-        $homePage = $config['account_homepage'];
+        $homepage = $config['account_homepage'];
     } else {
-        $homePage = $config['app_url'];
+        $homepage = $config['app_url'];
     }
 
     if (array_key_exists('send_username', $config) && $config['send_username'] == true) {
         $actor['account'] = [
-            'homePage' => $homePage,
+            'homePage' => $homepage,
             'name' => $user->username,
         ];
         return $actor;
     }
 
-    // default
+    // Default.
     $actor['account'] = [
         'homePage' => $config['app_url'],
         'name' => strval($user->id),

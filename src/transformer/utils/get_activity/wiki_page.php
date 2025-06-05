@@ -51,7 +51,7 @@ function wiki_page(
             ],
             'description' => [
                 $lang => utils\get_string_html_removed($wikipage->cachedcontent),
-            ]
+            ],
         ],
     ];
 }

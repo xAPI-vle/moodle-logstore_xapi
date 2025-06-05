@@ -57,8 +57,8 @@ function attempt_started(array $config, \stdClass $event) {
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

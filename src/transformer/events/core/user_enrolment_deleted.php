@@ -28,13 +28,12 @@ namespace src\transformer\events\core;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for user enrolment deleted event.
+ * Transformer for user_enrolment_deleted event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function user_enrolment_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);

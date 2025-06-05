@@ -27,6 +27,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
  * @subpackage  log
  * @author      Záborski László <laszlo.zaborski@learningpool.com>
  * @copyright   2020 Learning Pool Ltd (http://learningpool.com)
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class moveback {
 
@@ -40,7 +41,7 @@ class moveback {
      *
      * @var array event ids[]
      */
-    protected $eventids = array();
+    protected $eventids = [];
 
     /**
      * The table where the process works
@@ -68,7 +69,7 @@ class moveback {
      *
      * @var string
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Standard constructor for class.
@@ -123,9 +124,9 @@ class moveback {
         $event->type = $this->type;
 
         if ($this->historical) {
-            $params = array(
-                'logstorestandardlogid' => $event->id
-            );
+            $params = [
+                'logstorestandardlogid' => $event->id,
+            ];
 
             $event->logstorestandardlogid = $event->id;
 
@@ -136,9 +137,9 @@ class moveback {
         } else {
             unset($event->errortype, $event->response);
 
-            $params = array(
-                'id' => $event->id
-            );
+            $params = [
+                'id' => $event->id,
+            ];
         }
 
         if (!$skipinsert) {

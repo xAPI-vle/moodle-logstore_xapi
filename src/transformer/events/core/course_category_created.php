@@ -38,14 +38,14 @@ function course_category_created(array $config, \stdClass $event) {
     $user = $repo->read_record_by_id('user', $event->userid);
     $lang = $config['source_lang'];
     $category = $repo->read_record_by_id($event->objecttable, $event->objectid);
-    $parent_category = $repo->read_record_by_id($event->objecttable, $category->parent);
+    $parentcategory = $repo->read_record_by_id($event->objecttable, $category->parent);
 
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
+                'en' => 'Created',
             ],
         ],
         'object' => utils\get_activity\course_category($config, $category),
@@ -53,12 +53,12 @@ function course_category_created(array $config, \stdClass $event) {
             ...utils\get_context_base($config, $event, $lang),
             'contextActivities' => [
                 'parent' => [
-                    utils\get_activity\course_category($config, $parent_category),
+                    utils\get_activity\course_category($config, $parentcategory),
                 ],
                 'category' => [
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

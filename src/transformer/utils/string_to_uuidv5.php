@@ -30,22 +30,22 @@ namespace src\transformer\utils;
  * @param string $str The string to hash.
  * @return string
  */
-function stringToUuidV5($str) {
+function stringtouuidv5($str) {
     $namespace = '12345678-1234-1234-1234-123456789abc';
-    // Generate SHA-1 hash of the namespace concatenated with the input string
+    // Generate SHA-1 hash of the namespace concatenated with the input string.
     $hash = sha1($namespace . $str);
 
-    // Properly format the hash as a UUID v5
-    $time_low = substr($hash, 0, 8);
-    $time_mid = substr($hash, 8, 4);
-    $time_hi_and_version = substr($hash, 12, 4);
-    $clock_seq_hi_and_reserved = substr($hash, 16, 4);
+    // Properly format the hash as a UUID v5.
+    $timelow = substr($hash, 0, 8);
+    $timemid = substr($hash, 8, 4);
+    $timehiandversion = substr($hash, 12, 4);
+    $clockseqhiandreserved = substr($hash, 16, 4);
     $node = substr($hash, 20, 12);
 
-    // Overwrite version to 5 and adjust the variant
-    $time_hi_and_version = '5' . substr($time_hi_and_version, 1, 3);
-    $clock_seq_hi_and_reserved = dechex((hexdec($clock_seq_hi_and_reserved) & 0x3f3f) | 0x8000);
+    // Overwrite version to 5 and adjust the variant.
+    $timehiandversion = '5' . substr($timehiandversion, 1, 3);
+    $clockseqhiandreserved = dechex((hexdec($clockseqhiandreserved) & 0x3f3f) | 0x8000);
 
-    // Return the UUID
-    return sprintf('%s-%s-%s-%s-%s', $time_low, $time_mid, $time_hi_and_version, $clock_seq_hi_and_reserved, $node);
+    // Return the UUID.
+    return sprintf('%s-%s-%s-%s-%s', $timelow, $timemid, $timehiandversion, $clockseqhiandreserved, $node);
 }

@@ -48,11 +48,11 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         $verb = [
             'id' => 'http://adlnet.gov/expapi/verbs/completed',
             'display' => [
-                'en' => 'Completed'
+                'en' => 'Completed',
             ],
         ];
 
-        // completionstate: 1=completion, 2=pass, 3=fail
+        // Completionstate values are 1=completion, 2=pass, 3=fail.
         $result['completion'] = true;
         if ($completionstate > 1) {
             $result['success'] = ($completionstate == 2);
@@ -62,7 +62,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         $verb = [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',
             'display' => [
-                'en' => 'Uncompleted'
+                'en' => 'Uncompleted',
             ],
         ];
     }
@@ -86,7 +86,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ];
 
     if (!empty($result)) {

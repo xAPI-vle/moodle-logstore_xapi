@@ -58,8 +58,8 @@ function attempt_becameoverdue(array $config, \stdClass $event) {
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

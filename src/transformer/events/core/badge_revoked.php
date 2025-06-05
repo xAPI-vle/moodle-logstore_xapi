@@ -51,31 +51,35 @@ function badge_revoked(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/forfeited',
             'display' => [
-                'en' => 'Forfeited'
+                'en' => 'Forfeited',
             ],
         ],
         'object' => utils\get_activity\badge($config, $lang, $badge),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'instructor' =>$revoker,
-            'contextActivities'=> [
-              'category' => [
-                utils\get_activity\site($config),
-              ],
+            'instructor' => $revoker,
+            'contextActivities' => [
+                'category' => [
+                    utils\get_activity\site($config),
+                ],
             ],
-            'extensions' => array_merge(utils\extensions\base($config, $event, $course),[
-                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => 'Manual'])
-        ]
+            'extensions' => array_merge(
+                utils\extensions\base($config, $event, $course),
+                [
+                    'https://xapi.edlm/profiles/edlm-lms/v1/concepts/context-extensions/badge-assignment-method' => 'Manual',
+                ]
+            ),
+        ],
     ]];
-    if ($course){
+    if ($course) {
         $statement[0]['context']['contextActivities']['parent'] = [[
-            'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+            'id' => $config['app_url'] . '/course/view.php?id=' . $course->id,
             'objectType' => 'Activity',
             'definition' => [
                 'name' => [$lang => $course->fullname],
                 'description' => [$lang => $course->summary],
-                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course'
-            ]
+                'type' => 'https://w3id.org/xapi/cmi5/activitytype/course',
+            ],
         ]];
     }
     return $statement;

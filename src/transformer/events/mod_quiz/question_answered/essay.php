@@ -54,7 +54,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -62,7 +62,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => question\get_essay_definition(
                 $config, $question, $lang
-            )
+            ),
         ],
         'result' => [
             'response' => $responsesummary,
@@ -83,8 +83,8 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
                 ),
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ]];
 }

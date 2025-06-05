@@ -16,7 +16,7 @@
 
 namespace src\transformer\repos;
 
-use \stdClass as PhpObj;
+use stdClass as PhpObj;
 
 /**
  * Generic respository.

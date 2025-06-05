@@ -43,7 +43,7 @@ function tour_ended(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/toured',
             'display' => [
-                'en' => 'Toured'
+                'en' => 'Toured',
             ],
         ],
         'object' => [

@@ -46,7 +46,7 @@ function report_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => [
@@ -58,8 +58,8 @@ function report_viewed(array $config, \stdClass $event) {
                 'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/report',
                 'name' => [
                     $lang => $survey->name . ' Report: ' . ucfirst($action),
-                ]
-            ]
+                ],
+            ],
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
@@ -73,6 +73,6 @@ function report_viewed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

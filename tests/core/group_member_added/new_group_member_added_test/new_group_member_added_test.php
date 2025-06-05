@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\question_created\new_question_created_test;
+namespace logstore_xapi\core\group_member_added\new_group_member_added_test;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -23,13 +23,13 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test for question_created event
+ * Unit test for group member added event.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class new_question_created_test extends \logstore_xapi\xapi_test_case {
+final class new_group_member_added_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -55,16 +55,15 @@ class new_question_created_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_name() {
-        return "core";
+        return "course";
     }
 
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::attempt_submitted
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

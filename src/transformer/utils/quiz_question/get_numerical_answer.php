@@ -39,16 +39,16 @@ function get_numerical_answer(
 ) {
     $repo = $config['repo'];
     $answers = $repo->read_records('question_answers', [
-        'question' => $questionid
+        'question' => $questionid,
     ]);
-    // We only support the answer with the highest fraction
+    // We only support the answer with the highest fraction.
     usort($answers, function ($a, $b) {
         return $b->fraction <=> $a->fraction;
     });
     $answer = reset($answers);
     $answernums = $repo->read_records(
         'question_numerical', [
-            'answer' => $answer->id
+            'answer' => $answer->id,
         ]);
     $answernum = reset($answernums);
     $min = $answer->answer - $answernum->tolerance;

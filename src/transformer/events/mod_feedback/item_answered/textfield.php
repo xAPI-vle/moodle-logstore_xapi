@@ -56,7 +56,7 @@ function textfield(
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -85,6 +85,6 @@ function textfield(
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

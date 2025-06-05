@@ -52,7 +52,7 @@ function get_enrolment_context(
             utils\extensions\base($config, $event, $course),
             [
                 'https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/enrolment-type' =>
-                    $info['enrol']
+                    $info['enrol'],
             ]
         ),
         'contextActivities' => [
@@ -62,7 +62,7 @@ function get_enrolment_context(
         ],
     ];
 
-    // add a possible instructor different from course user
+    // Add a possible instructor different from course user.
     if ($cuser->id !== $user->id) {
         $ctx['instructor'] = utils\get_user($config, $user);
     }

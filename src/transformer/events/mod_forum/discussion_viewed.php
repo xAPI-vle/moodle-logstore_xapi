@@ -47,7 +47,7 @@ function discussion_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\course_discussion($config, $course, $discussion),
@@ -63,6 +63,6 @@ function discussion_viewed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

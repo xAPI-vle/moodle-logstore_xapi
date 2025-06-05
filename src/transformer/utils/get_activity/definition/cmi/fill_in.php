@@ -49,8 +49,8 @@ function fill_in(
             !is_null($correctanswers)
                 ? [
                     'correctResponsesPattern' => [
-                        implode('[,]', $correctanswers)
-                    ]
+                        implode('[,]', $correctanswers),
+                    ],
                 ]
                 : []
         ),

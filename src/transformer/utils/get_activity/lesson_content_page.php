@@ -45,13 +45,13 @@ function lesson_content_page(array $config, \stdClass $course, \stdClass $lesson
         ...base(),
         'id' => $entryurl,
         'definition' => [
-            'type' => 'http://adlnet.gov/expapi/activities/lesson-content-page'
+            'type' => 'http://adlnet.gov/expapi/activities/lesson-content-page',
         ],
     ];
 
     if (isset($page->title)) {
         $activity['definition']['name'] = [
-            $courselang => $page->title
+            $courselang => $page->title,
         ];
     }
 

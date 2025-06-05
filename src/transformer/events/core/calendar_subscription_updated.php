@@ -35,7 +35,6 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function calendar_subscription_updated(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -44,25 +43,31 @@ function calendar_subscription_updated(array $config, \stdClass $event) {
     $subscription = $repo->read_record_by_id('event_subscriptions', $event->objectid);
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
+        'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'https://w3id.org/xapi/acrossx/verbs/edited',
             'display' => [
-                'en' => 'Edited'
-            ]
+                'en' => 'Edited',
+            ],
         ],
-        'object'=> utils\get_activity\calendar_subscription(
-            $config, $event->objectid, $lang, $subscription->name
+        'object' => utils\get_activity\calendar_subscription(
+            $config,
+            $event->objectid,
+            $lang,
+            $subscription->name,
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
-                'category' => [activity\site($config)],
+                'category' => [
+                    activity\site($config),
+                ],
             ],
-        ]];
+        ],
+    ];
 
-    if ($course){
-        $statement = utils\add_parent($config,$statement,$course);
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
     }
 
     if (isset($subscription->url) && !is_null($subscription->url)) {

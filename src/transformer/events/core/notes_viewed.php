@@ -29,19 +29,18 @@ use src\transformer\utils as utils;
 use src\transformer\utils\get_activity as activity;
 
 /**
- * Transformer fn for notess_viewed event
+ * Transformer for notes_viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function notes_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
 
-    //all three here may not exist
-    $user=$repo->read_record_by_id('user', $event->userid);
-    $subject=$repo->read_record_by_id('user', $event->relateduserid);
+    // All three here may not exist.
+    $user = $repo->read_record_by_id('user', $event->userid);
+    $subject = $repo->read_record_by_id('user', $event->relateduserid);
     $course = (isset($event->courseid) && $event->courseid != 0)
         ? $repo->read_record_by_id('course', $event->courseid)
         : null;
@@ -50,46 +49,49 @@ function notes_viewed(array $config, \stdClass $event) {
     : utils\get_course_lang($course);
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://id.tincanapi.com/verb/viewed',
-                   'display' => [
-                       'en' => 'Viewed'
-                   ]
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://id.tincanapi.com/verb/viewed',
+            'display' => [
+                'en' => 'Viewed',
+            ],
         ],
         'object' => [
             ...activity\base(),
-            'id' => $config['app_url'].'/notes/index.php',
+            'id' => $config['app_url'] . '/notes/index.php',
             'definition' => [
                 'name' => [
-                    $lang => 'Notes'
+                    $lang => 'Notes',
                 ],
-                'type' =>  'https://w3id.org/xapi/acrossx/activities/webpage',
+                'type' => 'https://w3id.org/xapi/acrossx/activities/webpage',
                 'extensions' => [
-                    "https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject"
-                        => utils\get_user($config,$subject)
-                ]
+                    'https://xapi.edlm/profiles/edlm-lms/concepts/activity-extensions/note-subject' =>
+                        utils\get_user($config, $subject),
+                ],
             ],
         ],
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
+            'contextActivities' => [
                 'category' => [
-                    activity\site($config)
+                    activity\site($config),
                 ],
             ],
-            'extensions' =>
-                array_merge(
-                    utils\extensions\base($config, $event, $course),
-                    [
-                        'https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/note-subject-scope'
-                            => utils\get_user($config, $subject)])
-
-        ]
+            'extensions' => array_merge(
+                utils\extensions\base($config, $event, $course),
+                [
+                    'https://xapi.edlm/profiles/edlm-lms/concepts/context-extensions/note-subject-scope' =>
+                        utils\get_user($config, $subject),
+                ],
+            ),
+        ],
     ];
 
-    if ($course){
-        $statement = utils\add_parent($config,$statement,$course);
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
     }
 
-    return [$statement];
+    return [
+        $statement,
+    ];
 }

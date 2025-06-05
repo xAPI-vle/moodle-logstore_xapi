@@ -40,7 +40,7 @@ function handler(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $feedbackvalues = $repo->read_records('feedback_value', [
-        'completed' => $event->objectid
+        'completed' => $event->objectid,
     ]);
     $feedbackcompleted = $repo->read_record_by_id('feedback_completed', $event->objectid);
     $isanon = ($feedbackcompleted->anonymous_response === 1) ? true : false;
@@ -49,8 +49,8 @@ function handler(array $config, \stdClass $event) {
             'name' => 'Anonymous Course Participant',
             'account' => [
                 'homePage' => $config['app_url'],
-                'name' => 'anonymous'
-            ]
+                'name' => 'anonymous',
+            ],
         ]
     : utils\get_user($config, $user);
 

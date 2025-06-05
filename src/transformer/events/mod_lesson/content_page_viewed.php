@@ -38,8 +38,8 @@ function content_page_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $lesson_page = $repo->read_record_by_id('lesson_pages', $event->objectid);
-    $lesson = $repo->read_record_by_id('lesson', $lesson_page->lessonid);
+    $lessonpage = $repo->read_record_by_id('lesson_pages', $event->objectid);
+    $lesson = $repo->read_record_by_id('lesson', $lessonpage->lessonid);
     $lang = utils\get_course_lang($course);
 
     return[[
@@ -47,15 +47,15 @@ function content_page_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\lesson_content_page(
             $config,
             $course,
             $lesson,
-            $lesson_page,
-            $event->contextinstanceid
+            $lessonpage,
+            $event->contextinstanceid,
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
@@ -69,6 +69,6 @@ function content_page_viewed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

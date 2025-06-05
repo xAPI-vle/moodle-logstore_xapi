@@ -28,13 +28,12 @@ namespace src\transformer\events\mod_choice;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for answer created event.
+ * Transformer for mod_choice answer created event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
- * @return array
+ * @return array The transformed xAPI statement(s).
  */
-
 function answer_created(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -48,7 +47,7 @@ function answer_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => utils\get_activity\course_module(
@@ -68,6 +67,6 @@ function answer_created(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

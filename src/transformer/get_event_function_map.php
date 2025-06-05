@@ -38,7 +38,7 @@ function get_event_function_map() {
         '\core\event\badge_updated' => 'core\badge_updated',
         '\core\event\badge_revoked' => 'core\badge_revoked',
         '\core\event\badge_viewed' => 'core\badge_viewed',
-        '\core\event\message_sent' =>  'core\message_sent',
+        '\core\event\message_sent' => 'core\message_sent',
         '\core\event\message_viewed' => 'core\message_viewed',
         '\core\event\course_created' => 'core\course_created',
         '\core\event\course_updated' => 'core\course_updated',
@@ -125,7 +125,6 @@ function get_event_function_map() {
         '\mod_glossary\event\entry_viewed' => 'mod_glossary\entry_viewed',
         '\mod_glossary\event\comment_created' => 'mod_glossary\comment_created',
         '\mod_glossary\event\comment_deleted' => 'mod_glossary\comment_deleted',
-        '\mod_lesson\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lesson\event\lesson_started' => 'mod_lesson\lesson_started',
         '\mod_lesson\event\lesson_resumed' => 'mod_lesson\lesson_resumed',
         '\mod_lesson\event\lesson_restarted' => 'mod_lesson\lesson_restarted',
@@ -170,7 +169,7 @@ function get_event_function_map() {
         '\tool_certificate\event\certificate_issued' => 'tool_certificate\certificate_issued',
         '\tool_certificate\event\certificate_verified' => 'tool_certificate\certificate_verified',
         '\tool_certificate\event\certificate_revoked' => 'tool_certificate\certificate_revoked',
-        '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended'
+        '\tool_usertours\event\tour_ended' => 'tool_usertours\tour_ended',
     ];
 
     $environmentevents = class_exists("report_eventlist_list_generator") ?

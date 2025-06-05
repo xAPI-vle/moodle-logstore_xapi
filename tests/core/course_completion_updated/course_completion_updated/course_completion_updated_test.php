@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\group_deleted\existing_group_deleted_test;
+namespace logstore_xapi\core\course_completion_updated\course_completion_updated;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -23,13 +23,13 @@ global $CFG;
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.php');
 
 /**
- * Unit test group_deleted event.
+ * Unit test for course completion updated event.
  *
  * @package   logstore_xapi
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class existing_group_deleted_test extends \logstore_xapi\xapi_test_case {
+final class course_completion_updated_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -55,7 +55,7 @@ class existing_group_deleted_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_name() {
-        return "course";
+        return "course_completion";
     }
 
     /**
@@ -64,7 +64,7 @@ class existing_group_deleted_test extends \logstore_xapi\xapi_test_case {
      * @covers ::attempt_submitted
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

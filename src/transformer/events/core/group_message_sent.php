@@ -34,7 +34,6 @@ use src\transformer\utils as utils;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function group_message_sent(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -48,31 +47,32 @@ function group_message_sent(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
 
     $statement = [
-      'actor' => utils\get_user($config, $user),
-      'verb' => [
-        'id' => 'http://activitystrea.ms/send',
-        'display' => [
-          'en' => 'Sent'
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://activitystrea.ms/send',
+            'display' => [
+                'en' => 'Sent',
+            ],
         ],
-      ],
-      'object' => utils\get_activity\message($config, $lang, $message),
-      'context' => [
-        ...utils\get_context_base($config, $event, $lang, $course),
-        'contextActivities' => [
-          'grouping' => [
-            utils\get_activity\course_group($config, $course, $group)
-          ],
-          'parent' => [
-            utils\get_activity\course($config, $course),
-          ],
-          'category' => [
-            utils\get_activity\site($config),
-          ],
+        'object' => utils\get_activity\message($config, $lang, $message),
+        'context' => [
+            ...utils\get_context_base($config, $event, $lang, $course),
+            'contextActivities' => [
+                'grouping' => [
+                    utils\get_activity\course_group($config, $course, $group),
+                ],
+                'parent' => [
+                    utils\get_activity\course($config, $course),
+                ],
+                'category' => [
+                    utils\get_activity\site($config),
+                ],
+            ],
         ],
-      ]
     ];
-    $statement['context']['extensions']['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to'] = utils\get_group($config, $group);
+    $statement['context']['extensions']['https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/to'] =
+        utils\get_group($config, $group);
     return [
-      $statement
+        $statement,
     ];
 }

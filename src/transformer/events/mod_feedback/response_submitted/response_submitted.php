@@ -49,7 +49,7 @@ function response_submitted(array $config, \stdClass $event, array $actor) {
         'verb' => [
             'id' => 'http://activitystrea.ms/schema/1.0/submit',
             'display' => [
-                'en' => 'Submitted'
+                'en' => 'Submitted',
             ],
         ],
         'object' => utils\get_activity\course_module(

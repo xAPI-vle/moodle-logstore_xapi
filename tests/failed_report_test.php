@@ -31,7 +31,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class failed_report_test extends enchancement_jisc_skeleton {
+final class failed_report_test extends enchancement_jisc_skeleton {
 
     /**
      * @var array Simulated submitted reportfilter_form data for failed report.
@@ -40,11 +40,11 @@ class failed_report_test extends enchancement_jisc_skeleton {
         'id' => XAPI_REPORT_ID_ERROR,
         'resend' => XAPI_REPORT_RESEND_FALSE,
         'errortype' => XAPI_REPORT_ERROTYPE_DEFAULT,
-        'eventnames' => ['\core\event\course_viewed'],
+        'eventnames' => ['\\core\\event\\course_viewed'],
         'response' => XAPI_REPORT_RESPONSE_DEFAULT,
         'datefrom' => 0,
         'dateto' => 0,
-        'submitbutton' => 'Search'
+        'submitbutton' => 'Search',
     ];
 
     /**
@@ -58,7 +58,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
             'reportid' => XAPI_REPORT_ID_ERROR,
             'eventnames' => logstore_xapi_get_event_names_array(),
             'errortypes' => logstore_xapi_get_distinct_options_from_failed_table('errortype'),
-            'responses' => logstore_xapi_get_distinct_options_from_failed_table('response')
+            'responses' => logstore_xapi_get_distinct_options_from_failed_table('response'),
         ];
 
         $form = new form\tool_logstore_xapi_reportfilter_form('', $filterparams);
@@ -74,7 +74,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
      */
-    public function test_single_element() {
+    public function test_single_element(): void {
         $this->markTestSkipped('must be revisited.');
 
         global $DB;
@@ -97,7 +97,7 @@ class failed_report_test extends enchancement_jisc_skeleton {
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
      */
-    public function test_multiple_elements() {
+    public function test_multiple_elements(): void {
         $this->markTestSkipped('must be revisited.');
 
         global $DB;

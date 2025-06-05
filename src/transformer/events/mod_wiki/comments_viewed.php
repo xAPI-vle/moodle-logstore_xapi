@@ -35,6 +35,13 @@ use src\transformer\utils as utils;
  * @return array
  */
 
+/**
+ * Transformer for wiki discussion comments viewed event.
+ *
+ * @param array $config The transformer config settings.
+ * @param \stdClass $event The event to be transformed.
+ * @return array
+ */
 function comments_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -47,7 +54,7 @@ function comments_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\wiki_discussion(
@@ -72,6 +79,6 @@ function comments_viewed(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

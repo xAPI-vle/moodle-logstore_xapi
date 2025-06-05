@@ -50,7 +50,7 @@ function numeric(
         ...common($config, $name, $description, $lang),
         'interactionType' => 'numeric',
         'correctResponsesPattern' => [
-            !is_null($exact) ? $exact : $min . '[:]' . $max
+            !is_null($exact) ? $exact : $min . '[:]' . $max,
         ],
     ];
 }

@@ -31,10 +31,10 @@ use src\transformer\utils as utils;
  *
  * @param array $config The transformer config.
  * @param int $cmid The course module ID.
- * @param ?bool $include_module Whether or not to include the course module in the array. Defaults to false.
+ * @param ?bool $includemodule Whether or not to include the course module in the array. Defaults to false.
  * @return array
  */
-function get_parent(array $config, int $cmid, ?bool $include_module = false) {
+function get_parent(array $config, int $cmid, ?bool $includemodule = false) {
     $repo = $config['repo'];
     $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
     $course = $repo->read_record_by_id('course', $coursemodule->course);
@@ -44,7 +44,7 @@ function get_parent(array $config, int $cmid, ?bool $include_module = false) {
         utils\get_activity\course($config, $course),
     ];
 
-    if ($include_module) {
+    if ($includemodule) {
         $parent = array_merge([
             utils\get_activity\course_module($config, $course, $cmid),
         ], $parent);

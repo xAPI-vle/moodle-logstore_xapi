@@ -42,8 +42,8 @@ function quiz_review(array $config, string $attemptid) {
         'definition' => [
             'type' => 'http://activitystrea.ms/schema/1.0/review',
             'name' => [
-                $lang => 'Review'
-            ]
-        ]
+                $lang => 'Review',
+            ],
+        ],
     ];
 }

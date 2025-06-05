@@ -65,7 +65,7 @@ function get_multichoice_definition(
 ) {
     $repo = $config['repo'];
     $answers = $repo->read_records('question_answers', [
-        'question' => $question->id
+        'question' => $question->id,
     ]);
 
     $choices = array_values(
@@ -113,7 +113,7 @@ function get_multichoice_definition(
 function get_match_definition(array $config, \stdClass $question, string $lang) {
     $repo = $config['repo'];
     $subqs = $repo->read_records('qtype_match_subquestions', [
-        'questionid' => $question->id
+        'questionid' => $question->id,
     ]);
 
     $source = [];
@@ -155,7 +155,7 @@ function get_numerical_definition(array $config, \stdClass $question, string $la
         $min,
         $max,
         $lang,
-        // if we have an exact match, send that
+        // If we have an exact match, send that.
         ($min === $target && $max === $target)
             ? $target
             : null
@@ -188,7 +188,7 @@ function get_shortanswer_definition(array $config, \stdClass $question, string $
 function get_true_false_definition(array $config, \stdClass $question, string $lang) {
     $repo = $config['repo'];
     $answers = $repo->read_records('question_answers', [
-        'question' => $question->id
+        'question' => $question->id,
     ]);
     $correctanswerobjarr = array_filter(
         $answers,
@@ -224,27 +224,27 @@ function get_true_false_definition(array $config, \stdClass $question, string $l
  */
 function get_definition(array $config, \stdClass $question, string $lang) {
     switch ($question->qtype) {
-    case 'essay':
-        return get_essay_definition($config, $question, $lang);
-    case 'gapselect':
-        return get_multichoice_definition(
-            $config, $question, $lang, 'sequencing'
-        );
-    case 'truefalse':
-        return get_true_false_definition($config, $question, $lang);
-    case 'randomsamatch':
-    case 'match':
-        return get_match_definition($config, $question, $lang);
-    case 'shortanswer':
-        return get_shortanswer_definition($config, $question, $lang);
-    case 'multichoice':
-    case 'multichoiceset':
-        return get_multichoice_definition(
-            $config, $question, $lang, 'choice'
-        );
-    case 'numerical':
-        return get_numerical_definition($config, $question, $lang);
-    default:
-        return [];
+        case 'essay':
+            return get_essay_definition($config, $question, $lang);
+        case 'gapselect':
+            return get_multichoice_definition(
+                $config, $question, $lang, 'sequencing'
+            );
+        case 'truefalse':
+            return get_true_false_definition($config, $question, $lang);
+        case 'randomsamatch':
+        case 'match':
+            return get_match_definition($config, $question, $lang);
+        case 'shortanswer':
+            return get_shortanswer_definition($config, $question, $lang);
+        case 'multichoice':
+        case 'multichoiceset':
+            return get_multichoice_definition(
+                $config, $question, $lang, 'choice'
+            );
+        case 'numerical':
+            return get_numerical_definition($config, $question, $lang);
+        default:
+            return [];
     }
 }

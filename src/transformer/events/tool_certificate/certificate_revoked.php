@@ -50,7 +50,7 @@ function certificate_revoked(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'https://w3id.org/xapi/tla/verbs/forfeited',
             'display' => [
-                'en' => 'Forfeited'
+                'en' => 'Forfeited',
             ],
         ],
         'object' => utils\get_activity\certificate(

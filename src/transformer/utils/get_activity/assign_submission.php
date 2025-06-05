@@ -50,8 +50,8 @@ function assign_submission(array $config, int $cmid, string $lang) {
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/submission',
             'name' => [
-                $lang => $instancename . ' Submission'
-            ]
-        ]
+                $lang => $instancename . ' Submission',
+            ],
+        ],
     ];
 }

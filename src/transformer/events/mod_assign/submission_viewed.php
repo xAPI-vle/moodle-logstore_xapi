@@ -28,13 +28,12 @@ namespace src\transformer\events\mod_assign;
 use src\transformer\utils as utils;
 
 /**
- * Transformer fn for assignment submission viewed event.
+ * Transformer for assignment_submission_viewed event.
  *
  * @param array $config The transformer config settings.
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function submission_viewed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $instructor = $repo->read_record_by_id('user', $event->userid);
@@ -44,10 +43,10 @@ function submission_viewed(array $config, \stdClass $event) {
 
     return [[
         'actor' => utils\get_user($config, $instructor),
-        'verb' =>  [
+        'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\assign_submission(
@@ -56,8 +55,8 @@ function submission_viewed(array $config, \stdClass $event) {
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'extensions' => [
-                'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for'
-                    => utils\get_user($config, $learner),
+                'https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/for' =>
+                    utils\get_user($config, $learner),
                 ...utils\extensions\base($config, $event, $course),
             ],
             'contextActivities' => [

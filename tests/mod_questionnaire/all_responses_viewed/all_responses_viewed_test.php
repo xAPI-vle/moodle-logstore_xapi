@@ -24,12 +24,12 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
 
 /**
  * Unit test for mod_questionnaire all responses viewed event.
- * 
+ *
  * @package   logstore_xapi
  * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class all_responses_viewed_test extends \logstore_xapi\xapi_test_case {
+final class all_responses_viewed_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -61,10 +61,9 @@ class all_responses_viewed_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
-     * @covers ::all_responses_viewed
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

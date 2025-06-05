@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Transformer utility for retrieving the result/success state from a lesson 
+ * Transformer utility for retrieving the result/success state from a lesson
  * essay question after grading.
  *
  * @package   logstore_xapi
@@ -26,9 +26,9 @@
 namespace src\transformer\utils;
 
 /**
- * Transformer utility for retrieving the result/success state from a lesson 
+ * Transformer utility for retrieving the result/success state from a lesson
  * essay question after grading.
- * 
+ *
  * @param array $config The transformer config settings.
  * @param \stdClass $lesson The lesson object.
  * @param \stdClass $answer The answer object for the question.
@@ -37,20 +37,20 @@ namespace src\transformer\utils;
  */
 function get_lesson_essay_result(array $config, \stdClass $lesson, \stdClass $answer, \stdClass $attempt) {
 
-    $attempt_detail = unserialize($attempt->useranswer);
+    $attemptdetail = unserialize($attempt->useranswer);
 
     $min = floatval(0);
     $max = floatval($answer->score);
-    $raw = cap_raw_score(floatval($attempt_detail->score ?: 0), $min, $max);
+    $raw = cap_raw_score(floatval($attemptdetail->score ?: 0), $min, $max);
 
     $result = [
-        'response' => get_string_html_removed($attempt_detail->response),
+        'response' => get_string_html_removed($attemptdetail->response),
         'score' => [
             'min' => $min,
             'max' => $max,
             'raw' => $raw,
-            'scaled' => get_scaled_score($raw, $min, $max)
-        ]
+            'scaled' => get_scaled_score($raw, $min, $max),
+        ],
     ];
     return $result;
 }

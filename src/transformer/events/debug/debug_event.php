@@ -36,33 +36,33 @@ use src\transformer\utils as utils;
  * @return array
  */
 function debug_event(array $config, \stdClass $event) {
-    //debug
+    // Debug.
     $repo = $config['repo'];
     if (isset($event->objecttable) && isset($event->objectid) && ($event->action !== 'deleted' || $event->crud !== 'd')) {
-        $event_object = $repo->read_record_by_id($event->objecttable, $event->objectid);
+        $eventobject = $repo->read_record_by_id($event->objecttable, $event->objectid);
     } else {
-        $event_object = array();
+        $eventobject = [];
     }
 
     return [[
         'object' => [
-            'id' => 'http://www.yetanalytics.com/test_events/debug' . utils\reverseBackslashes($event->eventname)
+            'id' => 'http://www.yetanalytics.com/test_events/debug' . utils\reverseBackslashes($event->eventname),
         ],
         'actor' => [
-            'mbox' => 'mailto:tester@example.com'
+            'mbox' => 'mailto:tester@example.com',
         ],
         'verb' => [
             'id' => 'http://www.yetanalytics.com/debug',
             'display' => [
-                'en-US' => 'debug'
+                'en-US' => 'debug',
             ],
         ],
         'context' => [
             'extensions' => [
                 'http://www.yetanalytics.com/debug_objects/event' => $event,
                 'http://www.yetanalytics.com/debug_objects/event_other' => unserialize($event->other),
-                'http://www.yetanalytics.com/debug_objects/event_object' => $event_object
-            ]
-        ]
+                'http://www.yetanalytics.com/debug_objects/event_object' => $eventobject,
+            ],
+        ],
     ]];
 }

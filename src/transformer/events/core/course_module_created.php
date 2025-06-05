@@ -44,25 +44,25 @@ function course_module_created(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/create',
             'display' => [
-                'en' => 'Created'
+                'en' => 'Created',
             ],
         ],
         'object' => utils\get_activity\course_module(
             $config,
             $course,
-            $event->contextinstanceid
+            $event->contextinstanceid,
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
                 'parent' => utils\context_activities\get_parent(
                     $config,
-                    $event->contextinstanceid
+                    $event->contextinstanceid,
                 ),
                 'category' => [
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

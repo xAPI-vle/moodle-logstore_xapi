@@ -42,7 +42,7 @@ function book_chapter(array $config, \stdClass $course, \stdClass $chapter, stri
     $url = $config['app_url'].'/mod/book/view.php?id=' . $cmid . '&chapterid=' . $chapter->id;
 
     $definition = [
-        'type' => 'http://id.tincanapi.com/activitytype/chapter'
+        'type' => 'http://id.tincanapi.com/activitytype/chapter',
     ];
 
     if (property_exists($chapter, 'title')) {
@@ -52,13 +52,13 @@ function book_chapter(array $config, \stdClass $course, \stdClass $chapter, stri
 
     if (property_exists($chapter, 'content')) {
         $definition['description'] = [
-            $courselang => utils\get_string_html_removed($chapter->content)
+            $courselang => utils\get_string_html_removed($chapter->content),
         ];
     }
 
     return [
         ...base(),
         'id' => $url,
-        'definition' => $definition
+        'definition' => $definition,
     ];
 }

@@ -42,27 +42,30 @@ function calendar_subscription_created(array $config, \stdClass $event) {
     $subscription = $repo->read_record_by_id('event_subscriptions', $event->objectid);
 
     $statement = [
-        'actor'=> utils\get_user($config, $user),
-        'verb'=> [
-            'id'=> "http://activitystrea.ms/create",
-            'display'=> [
-                'en' => 'Created'
-            ]
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://activitystrea.ms/create',
+            'display' => [
+                'en' => 'Created',
+            ],
         ],
-        'object'=> utils\get_activity\calendar_subscription(
-            $config, $event->objectid, $lang, $subscription->name
+        'object' => utils\get_activity\calendar_subscription(
+            $config,
+            $event->objectid,
+            $lang,
+            $subscription->name,
         ),
-        'context'=> [
+        'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
             'contextActivities' => [
-                'category' =>  [
+                'category' => [
                     utils\get_activity\site($config),
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
     ];
 
-    if ($course){
+    if ($course) {
         $statement = utils\add_parent($config, $statement, $course);
     }
 

@@ -28,11 +28,17 @@ use src\transformer\utils as utils;
 
 /**
  * Return the mapping of modules to activity types.
- * @param bool $send_jisc whether sending JISC data is enabled.
+ * @param bool $sendjisc Whether sending JISC data is enabled.
  * @return array
  */
 
-function get_module_activity_type_mapping(bool $send_jisc) {
+/**
+ * Return the mapping of modules to activity types.
+ *
+ * @param bool $sendjisc Whether sending JISC data is enabled.
+ * @return array
+ */
+function get_module_activity_type_mapping(bool $sendjisc) {
     return [
         'assign'          => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/assignment',
         'bigbluebuttonbn' => 'http://adlnet.gov/expapi/activities/meeting',
@@ -51,7 +57,7 @@ function get_module_activity_type_mapping(bool $send_jisc) {
         'lesson'          => 'http://adlnet.gov/expapi/activities/lesson',
         'lti'             => 'http://adlnet.gov/expapi/activities/media',
         'page'            => 'https://w3id.org/xapi/acrossx/activities/page',
-        'quiz'            => $send_jisc
+        'quiz'            => $sendjisc
             ? 'http://xapi.jisc.ac.uk/activities/quiz'
             : 'http://adlnet.gov/expapi/activities/assessment',
         'resource'        => 'http://id.tincanapi.com/activitytype/resource',
@@ -60,22 +66,22 @@ function get_module_activity_type_mapping(bool $send_jisc) {
         'wiki'            => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/wiki',
         'workshop'        => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/workshop',
         'questionnaire'   => 'http://id.tincanapi.com/activitytype/survey',
-        'survey'          => 'http://id.tincanapi.com/activitytype/survey'
+        'survey'          => 'http://id.tincanapi.com/activitytype/survey',
     ];
 }
 
 /**
  * Return an activity type or default for a given module name.
  *
- * @param string $module_name The name of a moodle course module.
- * @param ?bool $send_jisc whether sending JISC data is enabled.
+ * @param string $modulename The name of a moodle course module.
+ * @param ?bool $sendjisc Whether sending JISC data is enabled.
  * @return string
  */
-function get_module_activity_type(string $module_name, ?bool $send_jisc = false) {
-    $module_uris = get_module_activity_type_mapping($send_jisc);
+function get_module_activity_type(string $modulename, ?bool $sendjisc = false) {
+    $moduleuris = get_module_activity_type_mapping($sendjisc);
 
-    if (array_key_exists($module_name, $module_uris)) {
-        return $module_uris[$module_name];
+    if (array_key_exists($modulename, $moduleuris)) {
+        return $moduleuris[$modulename];
     } else {
         return 'http://id.tincanapi.com/activitytype/lms/module';
     }

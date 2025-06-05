@@ -19,7 +19,7 @@
  *
  * @package   logstore_xapi
  * @copyright Daniel Bell <daniel@yetanalytics.com>
- *            
+ *
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,19 +28,14 @@ namespace src\transformer\utils;
 use src\transformer\utils\get_activity as get_activity;
 
 /**
- * fn that generates parent for xapi events and includes it in statement
+ * Generates and adds a parent context for xAPI events to the statement.
  *
  * @param array $config The transformer config settings.
- * @param \stdClass $statement The statement to get a parent added.
- * @param \stdClass $event The course that is parent
+ * @param array $statement The statement to get a parent added.
+ * @param \stdClass $course The course that is parent.
  * @return array
  */
-
-function add_parent(array $config, array $statement, \stdClass $course){
-    $statement['context']['contextActivities']['parent']= [get_activity\course($config, $course)];
+function add_parent(array $config, array $statement, \stdClass $course) {
+    $statement['context']['contextActivities']['parent'] = [get_activity\course($config, $course)];
     return $statement;
 }
-
-
-
-    

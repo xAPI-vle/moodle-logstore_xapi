@@ -34,20 +34,28 @@ namespace src\transformer\utils\get_activity;
  * @return array
  */
 
+/**
+ * Generate an xAPI activity object for a badge.
+ *
+ * @param array $config The site config.
+ * @param string $lang The language.
+ * @param array $badge The badge associative array.
+ * @return array
+ */
 function badge($config, $lang, $badge) {
     $badgetype = [1 => "Global", 2 => "Course"][$badge->type];
 
-    return  [
+    return [
         ...base(),
-        'id' => $config['app_url'].'/badges/overview.php?id='.$badge->id,
+        'id' => $config['app_url'] . '/badges/overview.php?id=' . $badge->id,
         'definition' => [
-            'name' => [$lang =>$badge->name],
+            'name' => [$lang => $badge->name],
             'description' => [$lang => $badge->description],
-            'type' =>   'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/badge',
             'extensions' => [
-                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' =>  $badgetype,
-                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version
-            ]
-        ]
+                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-type' => $badgetype,
+                'https://xapi.edlm/profiles/edlm-lms/v1/concepts/activity-extensions/badge-version' => $badge->version,
+            ],
+        ],
     ];
 }

@@ -29,7 +29,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Daniel Bell <daniel@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class user_achieved_badge_test extends \logstore_xapi\xapi_test_case {
+final class user_achieved_badge_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -48,7 +48,7 @@ class user_achieved_badge_test extends \logstore_xapi\xapi_test_case {
     protected function get_plugin_type() {
         return "core";
     }
-    
+
     /**
      * Retrieve the plugin name being tested.
      *
@@ -64,7 +64,7 @@ class user_achieved_badge_test extends \logstore_xapi\xapi_test_case {
      * @covers ::attempt_submitted
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

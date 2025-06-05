@@ -28,13 +28,12 @@ namespace src\transformer\utils\get_activity;
 use src\transformer\utils as utils;
 
 /**
- * Helper for making course category objects.
+ * Generate an xAPI activity object for a course category.
  *
  * @param array $config The configuration object.
  * @param \stdClass $category The course category.
  * @return array
  */
-
 function course_category(array $config, \stdClass $category) {
     $lang = $config['source_lang'];
     return [

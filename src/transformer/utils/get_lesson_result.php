@@ -33,24 +33,22 @@ namespace src\transformer\utils;
  * @return object
  */
 function get_lesson_result(array $config, \stdClass $lesson, int $userid) {
-    
     $repo = $config['repo'];
     $result = [
-        'completion' => true
+        'completion' => true,
     ];
 
-    // Score and success if exists
+    // Score and success if exists.
     $gradeitem = $repo->read_record('grade_items', [
         'itemmodule' => 'lesson',
-        'iteminstance' => $lesson->id
+        'iteminstance' => $lesson->id,
     ]);
 
     if (!empty($gradeitem)) {
         $grades = $repo->read_records('grade_grades', [
             'itemid' => $gradeitem->id,
-            'userid' => $userid
+            'userid' => $userid,
         ], 'timemodified DESC');
-    
         if (!empty($grades)) {
             $grade = reset($grades);
             $min = floatval($grade->rawgrademin ?: 0);
@@ -62,7 +60,7 @@ function get_lesson_result(array $config, \stdClass $lesson, int $userid) {
                 'min' => $min,
                 'max' => $max,
                 'raw' => $raw,
-                'scaled' => get_scaled_score($raw, $min, $max)
+                'scaled' => get_scaled_score($raw, $min, $max),
             ];
 
             $result['success'] = ($raw >= $pass);

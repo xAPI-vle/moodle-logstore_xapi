@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\calendar_event_created\user_created_calendar_event;
+namespace logstore_xapi\core\calendar_event_updated\user_updated_calendar_event;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -27,7 +27,7 @@ global $CFG;
  * @copyright Daniel Bell <daniel@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class user_updated_calendar_event_test extends \logstore_xapi\xapi_test_case {
+final class user_updated_calendar_event_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -46,7 +46,7 @@ class user_updated_calendar_event_test extends \logstore_xapi\xapi_test_case {
     protected function get_plugin_type() {
         return "core";
     }
-    
+
     /**
      * Retrieve the plugin name being tested.
      *
@@ -62,6 +62,6 @@ class user_updated_calendar_event_test extends \logstore_xapi\xapi_test_case {
      * @covers ::attempt_submitted
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
     }
 }

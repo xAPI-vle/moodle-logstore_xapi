@@ -58,7 +58,7 @@ function multichoice(
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/answered',
             'display' => [
-                'en' => 'Answered'
+                'en' => 'Answered',
             ],
         ],
         'object' => [
@@ -91,6 +91,6 @@ function multichoice(
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

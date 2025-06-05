@@ -42,13 +42,13 @@ function questionnaire_all_responses_report(array $config, \stdClass $course, \s
         ...base(),
         'id' => $reporturl,
         'definition' => [
-            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/report'
+            'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/report',
         ],
     ];
 
     if (isset($questionnaire->name)) {
         $activity['definition']['name'] = [
-            $courselang => $questionnaire->name.' Report'
+            $courselang => $questionnaire->name.' Report',
         ];
     }
 

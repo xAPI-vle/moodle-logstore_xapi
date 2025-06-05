@@ -32,13 +32,13 @@ namespace src\transformer\utils;
  * @return array
  */
 function deep_merge_arrays($arr1, $arr2) {
-    // Merge the second array into the first one
+    // Merge the second array into the first one.
     foreach ($arr2 as $key => $value) {
-        // If the key exists in the first array and both values are arrays, recurse
+        // If the key exists in the first array and both values are arrays, recurse.
         if (array_key_exists($key, $arr1) && is_array($arr1[$key]) && is_array($value)) {
             $arr1[$key] = deep_merge_arrays($arr1[$key], $value);
         } else {
-            // Otherwise, use the second array's value (overwrites or sets new key)
+            // Otherwise, use the second array's value (overwrites or sets new key).
             $arr1[$key] = $value;
         }
     }

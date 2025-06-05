@@ -45,7 +45,7 @@ function attempt_submitted(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://activitystrea.ms/submit',
             'display' => [
-                'en' => 'Submitted'
+                'en' => 'Submitted',
             ],
         ],
         'object' => utils\get_activity\course_module(
@@ -65,6 +65,6 @@ function attempt_submitted(array $config, \stdClass $event) {
                     utils\get_activity\site($config),
                 ],
             ],
-        ]
+        ],
     ]];
 }

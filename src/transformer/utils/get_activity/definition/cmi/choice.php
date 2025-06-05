@@ -66,7 +66,7 @@ function choice(
                 'correctResponsesPattern' => [
                     implode(
                         '[,]',
-                        // If we are given correct choices, normalize and use
+                        // If we are given correct choices, normalize and use.
                         !empty($rightchoices)
                             ? array_map(
                                 function($rightchoice) {
@@ -74,7 +74,7 @@ function choice(
                                 },
                                 $rightchoices
                             )
-                        // Otherwise, just use the choices (no right answer)
+                        // Otherwise, just use the choices (no right answer).
                             : array_map(
                                 function($cmichoice) {
                                     return $cmichoice['id'];
@@ -83,7 +83,7 @@ function choice(
                             )
                     ),
                 ],
-                'choices' => $cmichoices
+                'choices' => $cmichoices,
             ]
             : []),
     ];

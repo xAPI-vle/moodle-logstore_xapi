@@ -35,7 +35,6 @@ use src\transformer\utils\get_activity as activity;
  * @param \stdClass $event The event to be transformed.
  * @return array
  */
-
 function calendar_subscription_deleted(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
@@ -43,24 +42,31 @@ function calendar_subscription_deleted(array $config, \stdClass $event) {
     $lang = is_null($course) ? $config['source_lang'] : utils\get_course_lang($course);
 
     $statement = [
-        'actor' => utils\get_user($config,$user),
-        'verb' => ['id' => 'http://activitystrea.ms/delete',
-                   'display' => [
-                       'en' => 'Deleted'
-                   ]],
-        'object'=> utils\get_activity\calendar_subscription(
-            $config, $event->objectid, $lang
+        'actor' => utils\get_user($config, $user),
+        'verb' => [
+            'id' => 'http://activitystrea.ms/delete',
+            'display' => [
+                'en' => 'Deleted',
+            ],
+        ],
+        'object' => utils\get_activity\calendar_subscription(
+            $config,
+            $event->objectid,
+            $lang,
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
-            'contextActivities' =>  [
-                'category' => [activity\site($config)],
+            'contextActivities' => [
+                'category' => [
+                    activity\site($config),
+                ],
             ],
-        ]];
+        ],
+    ];
 
-        if ($course){
-            $statement = utils\add_parent($config, $statement, $course);
-        }
+    if ($course) {
+        $statement = utils\add_parent($config, $statement, $course);
+    }
 
-        return [$statement];
+    return [$statement];
 }

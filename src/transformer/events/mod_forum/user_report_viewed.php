@@ -42,7 +42,7 @@ function user_report_viewed(array $config, \stdClass $event) {
 
     if ($event->courseid == "0") {
         $course = (object) [
-            "id" => 0
+            "id" => 0,
         ];
         $lang = "en";
     } else {
@@ -55,7 +55,7 @@ function user_report_viewed(array $config, \stdClass $event) {
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/viewed',
             'display' => [
-                'en' => 'Viewed'
+                'en' => 'Viewed',
             ],
         ],
         'object' => utils\get_activity\user_report($config, $relateduser, $course, $lang),
@@ -64,14 +64,14 @@ function user_report_viewed(array $config, \stdClass $event) {
             'contextActivities' => [
                 'category' => [
                     utils\get_activity\site($config),
-                ]
+                ],
             ],
-        ]
+        ],
     ];
 
     if ($event->courseid != "0") {
         $statement['context']['contextActivities']['parent'] = [
-            utils\get_activity\course($config, $course)
+            utils\get_activity\course($config, $course),
         ];
 
     }
