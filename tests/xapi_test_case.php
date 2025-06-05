@@ -67,7 +67,7 @@ abstract class xapi_test_case extends \advanced_testcase {
         // Get common event fields.
         global $CFG;
         $commondata = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/data.json'));
-        $data = json_decode(file_get_contents($this->get_test_dir().'/data.json'));
+        $data = json_decode(file_get_contents($this->get_test_dir() . '/data.json'));
 
         return utils\deep_merge_objects($commondata, $data);
     }
@@ -83,7 +83,7 @@ abstract class xapi_test_case extends \advanced_testcase {
         global $CFG;
         $commonevent = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/event.json'));
         // Get this event.
-        $event = json_decode(file_get_contents($this->get_test_dir().'/event.json'));
+        $event = json_decode(file_get_contents($this->get_test_dir() . '/event.json'));
         // Merge and return.
         return utils\deep_merge_objects($commonevent, $event);
     }
@@ -101,7 +101,7 @@ abstract class xapi_test_case extends \advanced_testcase {
         return array_map(function ($statement) use ($commonstatement) {
             // Add common expectations for all statements.
             return utils\deep_merge_objects($commonstatement, $statement);
-        }, json_decode(file_get_contents($this->get_test_dir().'/statements.json')));
+        }, json_decode(file_get_contents($this->get_test_dir() . '/statements.json')));
     }
 
     /**
