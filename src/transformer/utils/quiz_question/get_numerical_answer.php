@@ -51,9 +51,17 @@ function get_numerical_answer(
             'answer' => $answer->id,
         ]);
     $answernum = reset($answernums);
-    $min = $answer->answer - $answernum->tolerance;
-    $max = $answer->answer + $answernum->tolerance;
     $target = $answer->answer;
+    $min = null;
+    $max = null;
+    // Do not calculate if answer is a wildcart (cloze format)
+    if (is_numeric($target)) {
+      $tolerance = floatval($answernum->tolerance);
+      $target = floatval($target);
+      $min = $target - $tolerance;
+      $max = $target + $tolerance;
+
+    }
     return [
         'min' => $min,
         'max' => $max,
