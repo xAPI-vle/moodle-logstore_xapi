@@ -46,11 +46,11 @@ function get_lesson_question_result(array $config, \stdClass $lesson, \stdClass 
     ], 'timeseen DESC');
     if (!empty($attempts)) {
         $attempt = reset($attempts);
-        if ($page->qtype == LESSON_PAGE_ESSAY) {
+        if ($page->qtype == 10) { // LESSON_PAGE_ESSAY.
             // Essay is graded later, and is also serialized into an object.
             $essay = unserialize($attempt->useranswer);
             $result['response'] = get_string_html_removed($essay->answer);
-        } else if ($page->qtype == LESSON_PAGE_MATCHING) {
+        } else if ($page->qtype == 5) { // LESSON_PAGE_MATCHING.
             // Matching is the tricky one because the stored response is
             // nothing like the xapi expectation. We need to merge the answers
             // with the responses.
