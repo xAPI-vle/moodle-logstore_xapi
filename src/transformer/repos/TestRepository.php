@@ -55,11 +55,20 @@ class TestRepository extends Repository {
         $matchingrecords = [];
 
         foreach ($records as $record) {
+            $conditionfailed = false;
+
             foreach ($query as $key => $value) {
-                if ($record->$key === $value) {
-                    $matchingrecords[] = (object) $record;
+                if ($record->$key !== $value) {
+                    $conditionfailed = true;
+                    break;
                 }
             }
+
+            if ($conditionfailed) {
+                continue;
+            }
+
+            $matchingrecords[] = (object) $record;
         }
 
         // Must account for lack of SQL and implement multidimensional sort with SQL syntax.
