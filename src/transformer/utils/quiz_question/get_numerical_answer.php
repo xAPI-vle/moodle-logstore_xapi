@@ -54,18 +54,18 @@ function get_numerical_answer(
     $target = $answer->answer;
     $min = null;
     $max = null;
-    // Do not calculate if answer is a wildcart (cloze format)
-    if (is_numeric($target)) {
-      $tolerance = floatval($answernum->tolerance);
-      $target = floatval($target);
-      $min = $target - $tolerance;
-      $max = $target + $tolerance;
 
+    // Do not calculate if answer is a wildcard (cloze format).
+    if (is_numeric($target)) {
+        $tolerance = floatval($answernum->tolerance);
+        $target = floatval($target);
+        $min = $target - $tolerance;
+        $max = $target + $tolerance;
     }
+
     return [
         'min' => $min,
         'max' => $max,
         'target' => $target,
     ];
-
 }
