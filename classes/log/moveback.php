@@ -58,6 +58,13 @@ class moveback {
     protected $table = '';
 
     /**
+     * Import type
+     *
+     * @var int
+     */
+    protected $type = XAPI_IMPORT_TYPE_FAILED;
+
+    /**
      * A list containing the constructed sql fragment.
      *
      * @var string
