@@ -51,8 +51,15 @@ function get_numerical_answer(
             'answer' => $answer->id,
         ]);
     $answernum = reset($answernums);
-    $min = $answer->answer - $answernum->tolerance;
-    $max = $answer->answer + $answernum->tolerance;
+    $min = null;
+    $max = null;
+    try {
+        $min = $answer->answer - $answernum->tolerance;
+        $max = $answer->answer + $answernum->tolerance;
+    } catch (\Exception $e) {
+        $min = '';
+        $max = '';
+    }
     $target = $answer->answer;
     return [
         'min' => $min,
