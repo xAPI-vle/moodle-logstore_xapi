@@ -97,7 +97,7 @@ class sendfailednotifications_task extends \core\task\scheduled_task {
 
         $params = [
             'threshold' => get_config('logstore_xapi', 'errornotificationtrigger'),
-            'lastsentid' => $lastsentid
+            'lastsentid' => $lastsentid,
         ];
 
         $lastnotification = $DB->get_record_sql($sql, $params);

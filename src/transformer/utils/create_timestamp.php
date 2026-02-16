@@ -21,20 +21,22 @@
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace src\transformer\utils;
-defined('MOODLE_INTERNAL') || die();
 
-date_default_timezone_set('Europe/London');
+
 
 /**
  * Transformer utility to create standard timestamp.
  *
- * @param string $time The timestamp of the event.
+ * @param int $time The timestamp of the event.
  * @return string
  */
 function create_timestamp($time) {
-    return date('c', $time);
+    $datetime = (new \DateTime())->setTimestamp($time);
+    $datetime->setTimezone(new \DateTimeZone('UTC'));
+    return $datetime->format("Y-m-d\TH:i:s.v\Z");
 }

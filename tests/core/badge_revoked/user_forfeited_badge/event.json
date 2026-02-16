@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "objectid": 1,
+  "relateduserid": 2,
+  "userid": 1,
+  "eventname": "\\core\\event\\badge_revoked",
+  "objecttable": "badge",
+  "timecreated": 1433946701
+}

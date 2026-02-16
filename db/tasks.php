@@ -26,41 +26,41 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
+$tasks = [
+    [
         'classname' => '\logstore_xapi\task\emit_task',
         'blocking' => 0,
         'minute' => '*/1',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
+        'month' => '*',
+    ],
+    [
         'classname' => '\logstore_xapi\task\failed_task',
         'blocking' => 0,
         'minute' => '*/30',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
+        'month' => '*',
+    ],
+    [
         'classname' => '\logstore_xapi\task\historical_task',
         'blocking' => 0,
         'minute' => '0',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
+        'month' => '*',
+    ],
+    [
         'classname' => '\logstore_xapi\task\sendfailednotifications_task',
         'blocking' => 0,
         'minute' => '*',
         'hour' => '*/2',
         'day' => '*',
         'dayofweek' => '*',
-        'month' => '*'
-    ),
-);
+        'month' => '*',
+    ],
+];

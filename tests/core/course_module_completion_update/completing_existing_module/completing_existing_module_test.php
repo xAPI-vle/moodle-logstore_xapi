@@ -29,9 +29,10 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Jerret Fowler <jerrett.fowler@gmail.com>
  *            Ryan Smith <https://www.linkedin.com/in/ryan-smith-uk/>
  *            David Pesce <david.pesce@exputo.com>
+ *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class completing_existing_module_test extends \logstore_xapi\xapi_test_case {
+final class completing_existing_module_test extends \logstore_xapi\xapi_test_case {
 
     /**
      * Retrieve the directory of the unit test.
@@ -66,7 +67,7 @@ class completing_existing_module_test extends \logstore_xapi\xapi_test_case {
      * @covers ::course_module_completion_updated
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
 
     }
 }

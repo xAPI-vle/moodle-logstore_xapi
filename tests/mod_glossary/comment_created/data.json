@@ -1,0 +1,29 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "itemid": 1,
+      "content": "test_glossary_entry_comment_content"
+    }
+  ],
+  "glossary": [
+    {
+      "id": 1,
+      "name": "test_glossary_name"
+    }
+  ],
+  "glossary_entries": [
+    {
+      "glossaryid": 1,
+      "id": 1,
+      "concept": "test_glossary_entry_name",
+      "definition": "test_glossary_entry_description"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "glossary"
+    }
+  ]
+}

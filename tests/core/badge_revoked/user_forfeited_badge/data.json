@@ -1,0 +1,29 @@
+{
+  "badge": [
+    {
+      "courseid": null,
+      "id": 1,
+      "name": "test_badgename",
+      "description": "test badge description",
+      "message": "you got the test badge!",
+      "type": 1,
+      "version": "1.0"
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "firstname": "test_revoker_firstname",
+      "lastname": "test_revoker_lastname",
+      "username": "revoker",
+      "email": "revoker@test.com"
+    },
+    {
+      "id": 2,
+      "firstname": "test_recipient_firstname",
+      "lastname": "test_recipient_lastname",
+      "username": "recipient",
+      "email": "recipient@test.com"
+    }
+  ]
+}

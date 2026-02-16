@@ -21,13 +21,13 @@ require_once(__DIR__ . '/../../src/autoload.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 use core_plugin_manager;
-use \tool_log\log\writer as log_writer;
-use \tool_log\log\manager as log_manager;
-use \tool_log\helper\store as helper_store;
-use \tool_log\helper\reader as helper_reader;
-use \tool_log\helper\buffered_writer as helper_writer;
-use \core\event\base as event_base;
-use \stdClass as php_obj;
+use tool_log\log\writer as log_writer;
+use tool_log\log\manager as log_manager;
+use tool_log\helper\store as helper_store;
+use tool_log\helper\reader as helper_reader;
+use tool_log\helper\buffered_writer as helper_writer;
+use core\event\base as event_base;
+use stdClass as php_obj;
 /**
  * Processes events and enables them to be sent to a logstore.
  *
@@ -80,8 +80,8 @@ class store extends php_obj implements log_writer {
     protected function get_event_id($event) {
         global $DB;
 
-        $sqlparams = array();
-        $where = array('1 = 1');
+        $sqlparams = [];
+        $where = ['1 = 1'];
 
         if (!empty($event->eventname)) {
             $sqlparams['eventname'] = $event->eventname;
@@ -264,10 +264,13 @@ class store extends php_obj implements log_writer {
             'transformer' => [
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
+                'send_name' => $this->get_config('send_name', true),
                 'send_response_choices' => $this->get_config('sendresponsechoices', false),
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_course_and_module_idnumber' => $this->get_config('sendidnumber', false),
                 'send_username' => $this->get_config('send_username', false),
+                'account_homepage' => $this->get_config('account_homepage', $CFG->wwwroot),
+                'context_platform' => $this->get_config('context_platform', 'Moodle'),
                 'send_jisc_data' => $this->get_config('send_jisc_data', false),
                 'session_id' => sesskey(),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
@@ -289,13 +292,13 @@ class store extends php_obj implements log_writer {
             $source = [
                 'source_url' => 'http://totaralearning.com',
                 'source_name' => 'Totara Learn',
-                'source_version' => $CFG->totara_version
+                'source_version' => $CFG->totara_version,
             ];
         } else {
             $source = [
                 'source_url' => 'http://moodle.org',
                 'source_name' => 'Moodle',
-                'source_version' => $CFG->release
+                'source_version' => $CFG->release,
             ];
         }
 
@@ -319,7 +322,7 @@ class store extends php_obj implements log_writer {
      * @return array of objects of events.
      */
     protected function convert_array_to_objects($events) {
-        $return = array();
+        $return = [];
 
         if (!empty($events)) {
             foreach ($events as $event) {

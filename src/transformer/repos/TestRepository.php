@@ -47,9 +47,10 @@ class TestRepository extends Repository {
      *
      * @param string $type The name of the table to retrieve from.
      * @param array $query Any additional conditions to add to the query.
+     * @param string $sort Sort string for how to order the data.
      * @return array
      */
-    public function read_records(string $type, array $query) {
+    public function read_records(string $type, array $query, string $sort = '') {
         $records = $this->testdata->$type;
         $matchingrecords = [];
 
@@ -68,6 +69,23 @@ class TestRepository extends Repository {
             }
 
             $matchingrecords[] = (object) $record;
+        }
+
+        // Must account for lack of SQL and implement multidimensional sort with SQL syntax.
+        if ($sort != '') {
+            // Split by commas for each field argument.
+            $fields = explode(',', $sort);
+
+            $sortargs = [];
+            foreach ($fields as $fielddeclaration) {
+                // Remove (and record) direction, trim.
+                $desc = str_contains(strtolower($fielddeclaration), 'desc');
+                $field = preg_replace('/(DESC|ASC|\s)/i', '', $fielddeclaration);
+
+                array_push($sortargs, array_column($matchingrecords, $field), ($desc) ? SORT_DESC : SORT_ASC);
+            }
+            $sortargs[] = &$matchingrecords;
+            array_multisort(...$sortargs);
         }
 
         return $matchingrecords;

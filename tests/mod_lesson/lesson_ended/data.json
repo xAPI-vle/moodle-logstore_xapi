@@ -1,0 +1,33 @@
+{
+  "grade_grades": [
+    {
+      "itemid": 1,
+      "userid": 1,
+      "rawgrade": 75,
+      "rawgrademax": 100,
+      "rawgrademin": 0,
+      "timemodified": 1731595610
+    }
+  ],
+  "grade_items": [
+    {
+      "id": 1,
+      "gradepass": 50,
+      "iteminstance": 1,
+      "itemmodule": "lesson"
+    }
+  ],
+  "lesson": [
+    {
+      "id": 1,
+      "name": "test_lesson",
+      "intro": "test_lesson_intro"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "lesson"
+    }
+  ]
+}
