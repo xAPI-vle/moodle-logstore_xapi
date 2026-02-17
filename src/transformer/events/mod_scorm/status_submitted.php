@@ -43,13 +43,13 @@ function status_submitted(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
 
     $unserializedcmi = unserialize($event->other);
-    $attempt = $unserializedcmi['attemptid'];
-    $scormscoestracks = $repo->read_records('scorm_scoes_track', [
-        'userid' => $user->id,
-        'scormid' => $event->objectid,
-        'scoid' => $event->contextinstanceid,
-        'attempt' => $unserializedcmi['attemptid'],
-    ]);
+    $scormscoestracks = utils\get_scorm_tracks(
+        $config,
+        $user->id,
+        $event->objectid,
+        $event->contextinstanceid,
+        $unserializedcmi['attemptid']
+    );
 
     return [[
         'actor' => utils\get_user($config, $user),
