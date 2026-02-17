@@ -117,17 +117,17 @@ class store extends php_obj implements log_writer {
             $where[] = 'objectid IS NULL';
         }
 
-        if (!empty($event->timecreated)) {
+        if (isset($event->timecreated) && $event->timecreated !== null) {
             $sqlparams['timecreated'] = $event->timecreated;
             $where[] = 'timecreated = :timecreated';
         }
 
-        if (!empty($event->userid)) {
+        if (isset($event->userid) && $event->userid !== null) {
             $sqlparams['userid'] = $event->userid;
             $where[] = 'userid = :userid';
         }
 
-        if (!empty($event->anonymous)) {
+        if (isset($event->anonymous) && $event->anonymous !== null) {
             $sqlparams['anonymous'] = $event->anonymous;
             $where[] = 'anonymous = :anonymous';
         }
