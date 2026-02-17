@@ -53,7 +53,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
     });
 
     switch ($page->qtype) {
-        case LESSON_PAGE_SHORTANSWER:
+        case 1: // LESSON_PAGE_SHORTANSWER.
             $correctresponses = array_values(
                 array_map(
                     function($answer) {
@@ -70,7 +70,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
                 $correctresponses
             );
             break;
-        case LESSON_PAGE_ESSAY:
+        case 10: // LESSON_PAGE_ESSAY.
             $activity['definition'] = utils\get_activity\definition\cmi\long_fill_in(
                 $config,
                 $page->title,
@@ -78,8 +78,8 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
                 $courselang
             );
             break;
-        case LESSON_PAGE_TRUEFALSE:
-        case LESSON_PAGE_MULTICHOICE:
+        case 2: // LESSON_PAGE_TRUEFALSE.
+        case 3: // LESSON_PAGE_MULTICHOICE.
             $choices = array_values(
                 array_map(
                     function($answer) {
@@ -105,7 +105,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
                 $correctchoices
             );
             break;
-        case LESSON_PAGE_MATCHING:
+        case 5: // LESSON_PAGE_MATCHING.
             $source = [];
             $target = [];
             foreach ($answers as $a) {
@@ -123,7 +123,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
                 $courselang
             );
             break;
-        case LESSON_PAGE_NUMERICAL:
+        case 8: // LESSON_PAGE_NUMERICAL.
             // XAPI Numerical can only have one discrete correct response, or a
             // range but lessons do not support ranges, so taking first correct
             // answer to cover most cases.
