@@ -11,33 +11,52 @@
       "name": "test_name"
     }
   ],
-  "scorm_scoes_track": [
+  "scorm_attempt": [
+    {
+      "id": 1,
+      "userid": 1,
+      "scormid": 1,
+      "attempt": 1
+    }
+  ],
+  "scorm_element": [
+    {
+      "id": 1,
+      "element": "cmi.core.lesson_status"
+    },
+    {
+      "id": 2,
+      "element": "cmi.core.score.min"
+    },
+    {
+      "id": 3,
+      "element": "cmi.core.score.max"
+    }
+  ],
+  "scorm_scoes_value": [
     {
       "id": 1,
       "scoid": 1,
-      "scormid": 1,
-      "userid": 1,
-      "attempt": 1,
-      "element": "cmi.core.lesson_status",
-      "value": "completed"
+      "attemptid": 1,
+      "elementid": 1,
+      "value": "completed",
+      "timemodified": 0
     },
     {
       "id": 2,
       "scoid": 1,
-      "scormid": 1,
-      "userid": 1,
-      "attempt": 1,
-      "element": "cmi.core.score.min",
-      "value": 0
+      "attemptid": 1,
+      "elementid": 2,
+      "value": 0,
+      "timemodified": 0
     },
     {
       "id": 3,
       "scoid": 1,
-      "scormid": 1,
-      "userid": 1,
-      "attempt": 1,
-      "element": "cmi.core.score.max",
-      "value": 100
+      "attemptid": 1,
+      "elementid": 3,
+      "value": 100,
+      "timemodified": 0
     }
   ]
 }
