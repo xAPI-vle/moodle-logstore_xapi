@@ -51,20 +51,21 @@ function get_numerical_answer(
             'answer' => $answer->id,
         ]);
     $answernum = reset($answernums);
+    $target = $answer->answer;
     $min = null;
     $max = null;
-    try {
-        $min = $answer->answer - $answernum->tolerance;
-        $max = $answer->answer + $answernum->tolerance;
-    } catch (\Exception $e) {
-        $min = '';
-        $max = '';
+
+    // Do not calculate if answer is a wildcard (cloze format).
+    if (is_numeric($target)) {
+        $tolerance = floatval($answernum->tolerance);
+        $target = floatval($target);
+        $min = $target - $tolerance;
+        $max = $target + $tolerance;
     }
-    $target = $answer->answer;
+
     return [
         'min' => $min,
         'max' => $max,
         'target' => $target,
     ];
-
 }
