@@ -36,5 +36,8 @@ namespace src\transformer\utils;
  * @return int
  */
 function get_scaled_score($rawscore, $minscore, $maxscore) {
+    if ($maxscore == $minscore) {
+        return 0;
+    }
     return (($rawscore - $minscore) / ($maxscore - $minscore) * 2) - 1;
 }
