@@ -49,11 +49,10 @@ abstract class Repository extends PhpObj {
      */
     public function read_record(string $type, array $query) {
         $records = $this->read_records($type, $query);
-        $record = $records[0];
-        if (!$record) {
+        if (empty($records)) {
             throw new \Exception("$type not found.");
         }
-        return $record;
+        return $records[0];
     }
 
     /**
