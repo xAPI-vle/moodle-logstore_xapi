@@ -1,17 +1,3 @@
 <?xml version="1.0"?>
 <libraries>
-    <library>
-        <location>vendor/composer</location>
-        <name>Composer</name>
-        <version>latest</version>
-        <license>MIT</license>
-        <licenseversion></licenseversion>
-    </library>
-    <library>
-        <location>vendor/yetanalytics/statementfactory/</location>
-        <name>StatementFactory</name>
-        <version>v0.0.12</version>
-        <license>GPL3</license>
-        <licenseversion></licenseversion>
-    </library>
 </libraries>

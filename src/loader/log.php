@@ -31,11 +31,11 @@ use src\loader\utils;
 /**
  * Load logs.
  *
- * @param array $_config An array of configuration settings.
+ * @param array $config An array of configuration settings.
  * @param array $transformedevents An array of transformed events.
  * @return array
  */
-function load(array $_config, array $transformedevents) {
+function load(array $config, array $transformedevents) {
     $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
         $eventstatements = $transformedevent['statements'];
         return array_merge($result, $eventstatements);
