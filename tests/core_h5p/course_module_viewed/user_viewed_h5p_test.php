@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core_h5p\course_module_viewed\user_viewed_h5p;
+namespace logstore_xapi\core_h5p\course_module_viewed;
 
 defined('MOODLE_INTERNAL') || die();
 

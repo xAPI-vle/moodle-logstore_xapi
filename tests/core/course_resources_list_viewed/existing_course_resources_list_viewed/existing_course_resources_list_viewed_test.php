@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\core\course_resources_list_viewed\existing_course_resource_list_viewed;
+namespace logstore_xapi\core\course_resources_list_viewed\existing_course_resources_list_viewed;
 
 defined('MOODLE_INTERNAL') || die();
 

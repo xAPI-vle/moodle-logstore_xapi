@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_quiz\attempt_reviewed\existing_attempt_reviewed;
+namespace logstore_xapi\mod_quiz\question_manually_graded;
 
 defined('MOODLE_INTERNAL') || die();
 

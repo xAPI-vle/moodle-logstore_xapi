@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\tool_usertours;
+namespace logstore_xapi\tool_usertours\tour_ended;
 
 defined('MOODLE_INTERNAL') || die();
 
