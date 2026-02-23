@@ -45,7 +45,7 @@ class tour_ended_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_type() {
-        return "mod";
+        return "tool";
     }
 
     /**
@@ -54,7 +54,7 @@ class tour_ended_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_name() {
-        return "tool_usertours";
+        return "usertours";
     }
 
     /**

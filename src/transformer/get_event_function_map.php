@@ -32,6 +32,11 @@ namespace src\transformer;
  * @return array
  */
 function get_event_function_map() {
+    static $map = null;
+    if ($map !== null) {
+        return $map;
+    }
+
     $availableevents = [
         '\core\event\course_category_created' => 'core\course_category_created',
         '\core\event\badge_awarded' => 'core\badge_awarded',
@@ -175,7 +180,8 @@ function get_event_function_map() {
     $environmentevents = class_exists("report_eventlist_list_generator") ?
         array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
 
-    return array_filter($availableevents, function ($k) use ($environmentevents) {
+    $map = array_filter($availableevents, function ($k) use ($environmentevents) {
         return in_array($k, $environmentevents);
     }, ARRAY_FILTER_USE_KEY);
+    return $map;
 }

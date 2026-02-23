@@ -22,9 +22,10 @@
         "category": [
           {
             "id": "http://www.example.org",
+            "objectType": "Activity",
             "definition": {
               "name": {
-                "en": "test_name"
+                "en": "test_site_fullname"
               },
               "type": "http://id.tincanapi.com/activitytype/lms"
             }

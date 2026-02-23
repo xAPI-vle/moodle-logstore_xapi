@@ -35,7 +35,7 @@ use src\loader\utils;
  * @param array $transformedevents An array of transformed events.
  * @return array
  */
-function load(array $config, array $transformedevents) {
+function load(array $_config, array $transformedevents) {
     $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
         $eventstatements = $transformedevent['statements'];
         return array_merge($result, $eventstatements);
