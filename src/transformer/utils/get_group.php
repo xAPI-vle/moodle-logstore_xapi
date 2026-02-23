@@ -40,7 +40,7 @@ function get_group(array $config, \stdClass $group) {
     $users =
         array_values(
             array_map(
-                function($member) use ($repo) {
+                function ($member) use ($repo) {
                     return $repo->read_record_by_id('user', $member->userid);
                 },
                 $members
@@ -56,7 +56,7 @@ function get_group(array $config, \stdClass $group) {
             : []),
         'member' => array_values(
             array_map(
-                function($user) use ($config) {
+                function ($user) use ($config) {
                     return get_user($config, $user);
                 },
                 $users

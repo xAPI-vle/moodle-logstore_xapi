@@ -220,7 +220,6 @@ abstract class enchancement_jisc_skeleton extends \advanced_testcase {
         $expectedcount->logstore_standard_log = $this->generatedhistorylog;
         $expectedcount->logstore_xapi_log = $this->generatedxapilog;
         $this->assert_store_tables($expectedcount);
-
     }
 
     /**

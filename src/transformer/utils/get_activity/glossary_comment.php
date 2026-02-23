@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (glossary comment) activities.
@@ -39,7 +39,7 @@ function glossary_comment(array $config, \stdClass $course, \stdClass $comment) 
     $entry = $repo->read_record_by_id('glossary_entries', $comment->itemid);
 
     $courselang = utils\get_course_lang($course);
-    $commenturl = $config['app_url'].'/mod/glossary/showentry.php?eid='.$entry->id.'#c'.$comment->id;
+    $commenturl = $config['app_url'] . '/mod/glossary/showentry.php?eid=' . $entry->id . '#c' . $comment->id;
 
     $activity = [
         ...base(),
@@ -51,7 +51,7 @@ function glossary_comment(array $config, \stdClass $course, \stdClass $comment) 
 
     if (isset($entry->concept)) {
         $activity['definition']['name'] = [
-            $courselang => 'RE: '.$entry->concept,
+            $courselang => 'RE: ' . $entry->concept,
         ];
     }
 

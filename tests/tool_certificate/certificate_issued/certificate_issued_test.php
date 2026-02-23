@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\tool_certificate;
+namespace logstore_xapi\tool_certificate\certificate_issued;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,8 +29,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class certificate_issued_test extends \logstore_xapi\xapi_test_case {
-
+final class certificate_issued_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve the directory of the unit test.
      *
@@ -46,7 +45,7 @@ class certificate_issued_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_type() {
-        return "core";
+        return "tool";
     }
 
     /**
@@ -55,7 +54,7 @@ class certificate_issued_test extends \logstore_xapi\xapi_test_case {
      * @return string
      */
     protected function get_plugin_name() {
-        return "badge";
+        return "certificate";
     }
 
     /**
@@ -64,7 +63,6 @@ class certificate_issued_test extends \logstore_xapi\xapi_test_case {
      * @covers ::certificate_issued
      * @return void
      */
-    public function test_init() {
-
+    public function test_init(): void {
     }
 }

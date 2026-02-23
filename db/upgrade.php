@@ -208,7 +208,6 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
     }
 
     if ($oldversion < 2020032700) {
-
         // Define field errortype to be added to logstore_xapi_failed_log.
         $table = new xmldb_table('logstore_xapi_failed_log');
         $field = new xmldb_field('errortype', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'realuserid');
@@ -241,7 +240,6 @@ function xmldb_logstore_xapi_upgrade($oldversion) {
     }
 
     if ($oldversion < 2020050600) {
-
         create_xapi_sent_log_table($dbman, "logstore_xapi_sent_log");
 
         // The xAPI savepoint reached.

@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating choice definitions
@@ -39,14 +39,14 @@ use src\transformer\utils as utils;
 function choice(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     array $choices,
     string $lang,
-        ?array $rightchoices = null
+    ?array $rightchoices = null
 ) {
     $cmichoices = ($config['send_response_choices'] && !is_null($choices))
         ? array_map(
-            function($choice) use ($lang) {
+            function ($choice) use ($lang) {
                 return [
                     'id' => utils\slugify($choice),
                     'description' => [
@@ -69,14 +69,14 @@ function choice(
                         // If we are given correct choices, normalize and use.
                         !empty($rightchoices)
                             ? array_map(
-                                function($rightchoice) {
+                                function ($rightchoice) {
                                     return utils\slugify($rightchoice);
                                 },
                                 $rightchoices
                             )
                         // Otherwise, just use the choices (no right answer).
                             : array_map(
-                                function($cmichoice) {
+                                function ($cmichoice) {
                                     return $cmichoice['id'];
                                 },
                                 $cmichoices

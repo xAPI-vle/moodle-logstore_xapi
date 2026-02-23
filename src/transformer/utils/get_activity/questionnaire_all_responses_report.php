@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (Questionnaire All Responses Report) activities.
@@ -36,7 +36,7 @@ use src\transformer\utils as utils;
  */
 function questionnaire_all_responses_report(array $config, \stdClass $course, \stdClass $questionnaire) {
     $courselang = utils\get_course_lang($course);
-    $reporturl = $config['app_url'].'/mod/questionnaire/report.php?instance='.$questionnaire->id.'&group=0';
+    $reporturl = $config['app_url'] . '/mod/questionnaire/report.php?instance=' . $questionnaire->id . '&group=0';
 
     $activity = [
         ...base(),
@@ -48,7 +48,7 @@ function questionnaire_all_responses_report(array $config, \stdClass $course, \s
 
     if (isset($questionnaire->name)) {
         $activity['definition']['name'] = [
-            $courselang => $questionnaire->name.' Report',
+            $courselang => $questionnaire->name . ' Report',
         ];
     }
 

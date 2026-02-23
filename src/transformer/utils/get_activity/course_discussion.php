@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (course discussion) activities.
@@ -38,7 +38,7 @@ use src\transformer\utils as utils;
  */
 function course_discussion(array $config, \stdClass $course, \stdClass $discussion) {
     $courselang = utils\get_course_lang($course);
-    $discussionurl = $config['app_url'].'/mod/forum/discuss.php?d='.$discussion->id;
+    $discussionurl = $config['app_url'] . '/mod/forum/discuss.php?d=' . $discussion->id;
     $discussionname = property_exists($discussion, 'name') ? $discussion->name : 'Discussion';
 
     return [

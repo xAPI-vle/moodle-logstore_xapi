@@ -27,7 +27,7 @@
 
 namespace src\transformer\events\mod_feedback\item_answered;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for the mod_feedback item answered event.
@@ -73,13 +73,13 @@ function multichoicerated(
         ],
         'object' => [
             ...utils\get_activity\base(),
-            'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
+            'id' => $config['app_url'] . '/mod/feedback/edit_item.php?id=' . $feedbackitem->id,
             'definition' => utils\get_activity\definition\cmi\choice(
                 $config,
                 $feedbackitem->name,
                 null,
                 array_map(
-                    function($choice) {
+                    function ($choice) {
                         return $choice->name;
                     },
                     $choices

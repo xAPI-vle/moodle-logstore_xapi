@@ -27,7 +27,7 @@
 
 namespace src\transformer;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Generic handler for the transformer.

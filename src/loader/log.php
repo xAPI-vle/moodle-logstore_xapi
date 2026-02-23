@@ -26,7 +26,7 @@
 
 namespace src\loader\log;
 
-use src\loader\utils as utils;
+use src\loader\utils;
 
 /**
  * Load logs.
@@ -40,6 +40,6 @@ function load(array $config, array $transformedevents) {
         $eventstatements = $transformedevent['statements'];
         return array_merge($result, $eventstatements);
     }, []);
-    echo(json_encode($statements, JSON_PRETTY_PRINT)."\n");
+    echo(json_encode($statements, JSON_PRETTY_PRINT) . "\n");
     return utils\construct_loaded_events($transformedevents, true);
 }

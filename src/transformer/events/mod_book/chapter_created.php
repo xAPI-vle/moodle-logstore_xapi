@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_book;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for chapter_created event.
@@ -50,7 +50,10 @@ function chapter_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\book_chapter(
-            $config, $course, $chapter, $event->contextinstanceid
+            $config,
+            $course,
+            $chapter,
+            $event->contextinstanceid
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),

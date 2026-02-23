@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_assign;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for assignment_feedback_viewed event.

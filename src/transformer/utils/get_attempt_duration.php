@@ -36,7 +36,7 @@ function get_attempt_duration(\stdClass $attempt) {
     if (isset($attempt->timefinish) && isset($attempt->timestart)) {
         $seconds = $attempt->timefinish - $attempt->timestart;
         if ($seconds > 0) {
-            return "PT".(string) $seconds."S";
+            return "PT" . (string) $seconds . "S";
         }
     }
     return null;

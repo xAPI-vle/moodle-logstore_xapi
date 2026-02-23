@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving web calendar activities.

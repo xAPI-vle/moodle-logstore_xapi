@@ -27,7 +27,7 @@
 
 namespace src\transformer\events\mod_assign;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for the assignment graded event.
@@ -82,7 +82,9 @@ function assignment_graded(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\assign_submission(
-            $config, $event->contextinstanceid, $lang
+            $config,
+            $event->contextinstanceid,
+            $lang
         ),
         'result' => [
             'success' => $success,

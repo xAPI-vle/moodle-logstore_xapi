@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_quiz;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for quiz attempt started event.
@@ -45,7 +45,9 @@ function attempt_started(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_verb('started', $config, $lang),
         'object' => utils\get_activity\quiz_attempt(
-            $config, $event->objectid, $event->contextinstanceid
+            $config,
+            $event->objectid,
+            $event->contextinstanceid
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),

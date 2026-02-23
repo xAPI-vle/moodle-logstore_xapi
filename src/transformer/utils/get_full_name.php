@@ -37,7 +37,7 @@ function get_full_name(\stdClass $user) {
     $haslastname = property_exists($user, 'lastname');
 
     if ($hasfirstname && $haslastname) {
-        return $user->firstname.' '.$user->lastname;
+        return $user->firstname . ' ' . $user->lastname;
     }
     if ($hasfirstname) {
         return $user->firstname;

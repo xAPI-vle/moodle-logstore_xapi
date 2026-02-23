@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating sequencing definitions
@@ -39,10 +39,10 @@ use src\transformer\utils as utils;
 function sequencing(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     array $choices,
     string $lang,
-        ?array $rightchoices = null
+    ?array $rightchoices = null
 ) {
     return [
         ...choice(

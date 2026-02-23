@@ -24,7 +24,7 @@
  */
 
 namespace src\transformer\utils\get_activity;
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for generating note object for note_created and note_updated events

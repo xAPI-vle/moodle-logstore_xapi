@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\tool_certificate;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transforms certificate revoked event to an "Achieved" xapi event

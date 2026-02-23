@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (lesson content page) activities.
@@ -39,7 +39,7 @@ use src\transformer\utils as utils;
 function lesson_content_page(array $config, \stdClass $course, \stdClass $lesson, \stdClass $page, int $cmid) {
     $repo = $config['repo'];
     $courselang = utils\get_course_lang($course);
-    $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'&pageid='.$page->id;
+    $entryurl = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '&pageid=' . $page->id;
 
     $activity = [
         ...base(),

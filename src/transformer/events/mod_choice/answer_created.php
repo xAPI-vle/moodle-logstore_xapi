@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_choice;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for mod_choice answer created event.
@@ -51,7 +51,9 @@ function answer_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\course_module(
-            $config, $course, $event->contextinstanceid
+            $config,
+            $course,
+            $event->contextinstanceid
         ),
         'result' => [
             'response' => $option->text,

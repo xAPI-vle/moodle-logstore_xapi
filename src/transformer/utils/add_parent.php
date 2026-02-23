@@ -25,7 +25,7 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils\get_activity as get_activity;
+use src\transformer\utils\get_activity;
 
 /**
  * Generates and adds a parent context for xAPI events to the statement.

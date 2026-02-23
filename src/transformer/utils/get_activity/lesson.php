@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (lesson) activities.
@@ -37,7 +37,7 @@ use src\transformer\utils as utils;
  */
 function lesson(array $config, \stdClass $course, \stdClass $entry, int $cmid) {
     $courselang = utils\get_course_lang($course);
-    $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'#lesson';
+    $entryurl = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '#lesson';
 
     $activity = [
         ...base(),

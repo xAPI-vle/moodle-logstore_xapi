@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (lesson question page) activities.
@@ -40,7 +40,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
     $repo = $config['repo'];
     $courselang = utils\get_course_lang($course);
 
-    $entryurl = $config['app_url'].'/mod/lesson/view.php?id='.$cmid.'&pageid='.$page->id;
+    $entryurl = $config['app_url'] . '/mod/lesson/view.php?id=' . $cmid . '&pageid=' . $page->id;
 
     $activity = [
         ...base(),
@@ -48,7 +48,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
     ];
 
     $answers = $repo->read_records('lesson_answers', ['pageid' => $page->id]);
-    $correctanswers = array_filter($answers, function($a) {
+    $correctanswers = array_filter($answers, function ($a) {
         return ($a->score > 0);
     });
 
@@ -56,7 +56,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
         case 1: // LESSON_PAGE_SHORTANSWER.
             $correctresponses = array_values(
                 array_map(
-                    function($answer) {
+                    function ($answer) {
                         return utils\get_string_html_removed($answer->response);
                     },
                     $correctanswers
@@ -82,7 +82,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
         case 3: // LESSON_PAGE_MULTICHOICE.
             $choices = array_values(
                 array_map(
-                    function($answer) {
+                    function ($answer) {
                         return utils\get_string_html_removed($answer->response);
                     },
                     $answers
@@ -90,7 +90,7 @@ function lesson_question_page(array $config, \stdClass $course, \stdClass $lesso
             );
             $correctchoices = array_values(
                 array_map(
-                    function($answer) {
+                    function ($answer) {
                         return utils\get_string_html_removed($answer->response);
                     },
                     $correctanswers

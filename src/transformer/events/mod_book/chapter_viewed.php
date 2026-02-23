@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_book;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for book chapter viewed event.

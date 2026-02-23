@@ -35,7 +35,6 @@ use logstore_xapi\log\store;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class sendfailednotifications_task extends \core\task\scheduled_task {
-
     /**
      * Default mail sender.
      */

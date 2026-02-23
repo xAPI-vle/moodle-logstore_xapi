@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating long-fill-in definitions.
@@ -37,7 +37,7 @@ use src\transformer\utils as utils;
 function long_fill_in(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     string $lang
 ) {
     return [

@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\result;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving CMI matching result response.

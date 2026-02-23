@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Generic handler for quiz question answered event.

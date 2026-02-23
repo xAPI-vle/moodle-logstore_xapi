@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_survey;
+namespace logstore_xapi\mod_survey\report_viewed;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,8 +29,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class report_viewed_test extends \logstore_xapi\xapi_test_case {
-
+final class report_viewed_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve the directory of the unit test.
      *
@@ -64,7 +63,6 @@ class report_viewed_test extends \logstore_xapi\xapi_test_case {
      * @covers ::report_viewed
      * @return void
      */
-    public function test_init() {
-
+    public function test_init(): void {
     }
 }

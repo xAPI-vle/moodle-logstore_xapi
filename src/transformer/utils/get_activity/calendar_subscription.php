@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving calendar subscription activities.
@@ -43,7 +43,7 @@ function calendar_subscription(
 ) {
     return [
         ...base(),
-        'id' => $config['app_url'].'/calendar/subscription?id='.$subid,
+        'id' => $config['app_url'] . '/calendar/subscription?id=' . $subid,
         'definition' => [
             'type' => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/calendar-subscription',
             ...(

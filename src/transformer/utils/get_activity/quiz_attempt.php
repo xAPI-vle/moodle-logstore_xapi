@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (quiz attempt) activities.
@@ -44,7 +44,7 @@ function quiz_attempt(array $config, int $attemptid, string $cmid) {
 
     return [
         ...base(),
-        'id' => $config['app_url'].'/mod/quiz/attempt.php?attempt='.$attemptid.'&cmid='.$cmid,
+        'id' => $config['app_url'] . '/mod/quiz/attempt.php?attempt=' . $attemptid . '&cmid=' . $cmid,
         'definition' => [
             'type' => 'http://adlnet.gov/expapi/activities/attempt',
             'name' => [

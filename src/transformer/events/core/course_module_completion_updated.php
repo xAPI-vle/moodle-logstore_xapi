@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\core;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for course module completion updated event.
@@ -57,7 +57,6 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         if ($completionstate > 1) {
             $result['success'] = ($completionstate == 2);
         }
-
     } else {
         $verb = [
             'id' => 'https://xapi.edlm/profiles/edlm-lms/concepts/verbs/uncompleted',

@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\mod_quiz;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transform for the quiz question manually graded event.

@@ -152,7 +152,9 @@ class store extends php_obj implements log_writer {
 
     /**
      * Insert events in bulk to the database. Overrides helper_writer.
+     *
      * @param array $events raw event data
+     * @return void
      */
     protected function insert_event_entries($events) {
         global $DB;
@@ -214,6 +216,7 @@ class store extends php_obj implements log_writer {
      * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
      *
      * @param array $events raw events data
+     * @return void
      */
     private function save_sent_events(array $events) {
         $successfulevents = logstore_xapi_get_successful_events($events);

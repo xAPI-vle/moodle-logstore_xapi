@@ -27,8 +27,8 @@
 
 namespace src\transformer\utils\get_activity\definition\question;
 
-use src\transformer\utils as utils;
-use src\transformer\utils\get_activity\definition\cmi as cmi;
+use src\transformer\utils;
+use src\transformer\utils\get_activity\definition\cmi;
 
 /**
  * Transformer util for creating essay definitions
@@ -60,8 +60,8 @@ function get_multichoice_definition(
     array $config,
     \stdClass $question,
     string $lang,
-        ?string $interactiontype = 'choice',
-        ?string $rightanswer = null
+    ?string $interactiontype = 'choice',
+    ?string $rightanswer = null
 ) {
     $repo = $config['repo'];
     $answers = $repo->read_records('question_answers', [
@@ -70,7 +70,7 @@ function get_multichoice_definition(
 
     $choices = array_values(
         array_map(
-            function($answer) {
+            function ($answer) {
                 return utils\get_string_html_removed($answer->answer);
             },
             $answers
@@ -195,7 +195,6 @@ function get_true_false_definition(array $config, \stdClass $question, string $l
         function ($answer) {
             return $answer->fraction == 1.0;
         }
-
     );
     $correctanswerobj = reset(
         $correctanswerobjarr
@@ -228,7 +227,10 @@ function get_definition(array $config, \stdClass $question, string $lang) {
             return get_essay_definition($config, $question, $lang);
         case 'gapselect':
             return get_multichoice_definition(
-                $config, $question, $lang, 'sequencing'
+                $config,
+                $question,
+                $lang,
+                'sequencing'
             );
         case 'truefalse':
             return get_true_false_definition($config, $question, $lang);
@@ -240,7 +242,10 @@ function get_definition(array $config, \stdClass $question, string $lang) {
         case 'multichoice':
         case 'multichoiceset':
             return get_multichoice_definition(
-                $config, $question, $lang, 'choice'
+                $config,
+                $question,
+                $lang,
+                'choice'
             );
         case 'numerical':
             return get_numerical_definition($config, $question, $lang);

@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\choice;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating choice definitions
@@ -40,7 +40,9 @@ function get_choice_definition(
 ) {
     $repo = $config['repo'];
     $options = $repo->read_records(
-        'choice_options', ['choiceid' => $choice->id], 'id ASC'
+        'choice_options',
+        ['choiceid' => $choice->id],
+        'id ASC'
     );
 
     return utils\get_activity\definition\cmi\choice(
@@ -48,7 +50,7 @@ function get_choice_definition(
         $choice->name,
         utils\get_string_html_removed($choice->intro),
         array_map(
-            function($option) {
+            function ($option) {
                 return $option->text;
             },
             $options

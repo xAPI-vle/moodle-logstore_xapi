@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_facetoface;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for facetoface take attendance event.
@@ -67,7 +67,7 @@ function take_attendance(array $config, \stdClass $event) {
                         $event->contextinstanceid
                     ),
                     'result' => [
-                        'duration' => "PT".(string) $sessionduration."S",
+                        'duration' => "PT" . (string) $sessionduration . "S",
                         'completion' => $currentstatus->statuscode === 100,
                     ],
                     'context' => [

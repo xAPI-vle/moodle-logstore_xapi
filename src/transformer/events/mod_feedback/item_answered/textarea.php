@@ -27,7 +27,7 @@
 
 namespace src\transformer\events\mod_feedback\item_answered;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for the mod_feedback item answered event.
@@ -61,7 +61,7 @@ function textarea(
         ],
         'object' => [
             ...utils\get_activity\base(),
-            'id' => $config['app_url'].'/mod/feedback/edit_item.php?id='.$feedbackitem->id,
+            'id' => $config['app_url'] . '/mod/feedback/edit_item.php?id=' . $feedbackitem->id,
             'definition' => utils\get_activity\definition\cmi\long_fill_in(
                 $config,
                 $feedbackitem->name,

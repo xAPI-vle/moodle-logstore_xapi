@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving the book chapter.
@@ -39,7 +39,7 @@ use src\transformer\utils as utils;
  */
 function book_chapter(array $config, \stdClass $course, \stdClass $chapter, string $cmid) {
     $courselang = utils\get_course_lang($course);
-    $url = $config['app_url'].'/mod/book/view.php?id=' . $cmid . '&chapterid=' . $chapter->id;
+    $url = $config['app_url'] . '/mod/book/view.php?id=' . $cmid . '&chapterid=' . $chapter->id;
 
     $definition = [
         'type' => 'http://id.tincanapi.com/activitytype/chapter',

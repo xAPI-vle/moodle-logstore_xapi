@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_scorm;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for SCORM scoreraw submitted event.

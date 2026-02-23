@@ -17,7 +17,7 @@
 namespace src\transformer\repos;
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__.'/Repository.php');
+require_once(__DIR__ . '/Repository.php');
 
 /**
  * An abstraction of the Moodle Data Manipulation API.

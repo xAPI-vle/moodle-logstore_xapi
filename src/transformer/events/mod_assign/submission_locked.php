@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_assign;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for assignment_submission_locked/unlocked event.
@@ -57,7 +57,9 @@ function submission_locked(array $config, \stdClass $event) {
                 ],
             ],
         'object' => utils\get_activity\assign_submission(
-            $config, $event->contextinstanceid, $lang
+            $config,
+            $event->contextinstanceid,
+            $lang
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),

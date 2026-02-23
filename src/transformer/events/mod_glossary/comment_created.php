@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\mod_glossary;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for glossary entry comment created event.

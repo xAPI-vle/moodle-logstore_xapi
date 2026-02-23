@@ -26,8 +26,8 @@
 
 namespace src\transformer\events\mod_quiz\attempt_submitted;
 
-use src\transformer\utils as utils;
-use src\transformer\events\mod_quiz\question_answered as question_answered;
+use src\transformer\utils;
+use src\transformer\events\mod_quiz\question_answered;
 
 /**
  * Generic handler for the attempt submitted event.

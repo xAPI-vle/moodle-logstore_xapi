@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_wiki;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer fn for wiki discussion comment created event.
@@ -59,7 +59,9 @@ function comment_created(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\wiki_discussion(
-            $config, $course, $wikipage
+            $config,
+            $course,
+            $wikipage
         ),
         'result' => [
             'response' => utils\get_string_html_removed($comment->content),

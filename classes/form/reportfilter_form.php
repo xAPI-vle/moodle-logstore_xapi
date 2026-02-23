@@ -18,7 +18,7 @@ namespace logstore_xapi\form;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir.'/formslib.php');
+require_once($CFG->libdir . '/formslib.php');
 
 /**
  * The filter form for the xAPI admin reports
@@ -29,7 +29,6 @@ require_once($CFG->libdir.'/formslib.php');
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_logstore_xapi_reportfilter_form extends \moodleform {
-
     /**
      * Form definition.
      */
@@ -45,7 +44,6 @@ class tool_logstore_xapi_reportfilter_form extends \moodleform {
         $canmanage = false;
 
         switch ($reportid) {
-
             case XAPI_REPORT_ID_ERROR:
                 $errortypes = $this->_customdata['errortypes'];
                 $responses = $this->_customdata['responses'];
@@ -89,7 +87,6 @@ class tool_logstore_xapi_reportfilter_form extends \moodleform {
         }
 
         switch ($reportid) {
-
             case XAPI_REPORT_ID_ERROR:
                 $mform->addElement('select', 'response', get_string('response', 'logstore_xapi'), $responses);
 

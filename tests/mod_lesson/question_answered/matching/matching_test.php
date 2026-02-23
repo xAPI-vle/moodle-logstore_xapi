@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace logstore_xapi\mod_lesson\question_answered;
+namespace logstore_xapi\mod_lesson\question_answered\matching;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,8 +29,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class matching_test extends \logstore_xapi\xapi_test_case {
-
+final class matching_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve the directory of the unit test.
      *
@@ -64,6 +63,6 @@ class matching_test extends \logstore_xapi\xapi_test_case {
      * @covers ::question_viewed
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
     }
 }

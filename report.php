@@ -187,7 +187,7 @@ if (isset($formelements)) {
 }
 
 if ($run) {
-    list($insql, $inparams) = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
+    [$insql, $inparams] = $DB->get_in_or_equal($eventnames, SQL_PARAMS_NAMED, 'evt');
     $where[] = "x.eventname $insql";
     $params = array_merge($params, $inparams);
 
@@ -212,11 +212,15 @@ if ($run) {
         if (!empty($eventids)) {
             $mover = new \logstore_xapi\log\moveback($eventids, $id);
             if ($mover->execute()) {
-                $notifications[] = new notification(get_string('resendevents:success', 'logstore_xapi'),
-                    notification::NOTIFY_SUCCESS);
+                $notifications[] = new notification(
+                    get_string('resendevents:success', 'logstore_xapi'),
+                    notification::NOTIFY_SUCCESS
+                );
             } else {
-                $notifications[] = new notification(get_string('resendevents:failed', 'logstore_xapi'),
-                    notification::NOTIFY_ERROR);
+                $notifications[] = new notification(
+                    get_string('resendevents:failed', 'logstore_xapi'),
+                    notification::NOTIFY_ERROR
+                );
             }
         }
     }
@@ -280,7 +284,6 @@ if (!empty($results)) {
             } else {
                 $row[] = get_string('contextidnolongerexists', 'logstore_xapi', $result->contextid);
             }
-
         }
         if ($id == XAPI_REPORT_ID_ERROR) {
             $response = '';

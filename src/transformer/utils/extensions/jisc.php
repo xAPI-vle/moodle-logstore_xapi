@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\extensions;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for base xAPI extensions - JISC specific.
