@@ -60,6 +60,7 @@ final class comment_created_test extends \logstore_xapi\xapi_test_case {
     /**
      * Appease auto-detecting of test cases. xapi_test_case has default test cases.
      *
+     * @covers ::comment_created
      * @return void
      */
     public function test_init(): void {
