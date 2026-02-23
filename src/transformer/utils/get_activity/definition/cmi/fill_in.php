@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating fill-in definitions.
@@ -38,9 +38,9 @@ use src\transformer\utils as utils;
 function fill_in(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     string $lang,
-        ?array $correctanswers = null
+    ?array $correctanswers = null
 ) {
     return [
         ...common($config, $name, $description, $lang),

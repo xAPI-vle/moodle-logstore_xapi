@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for course module viewed event.
@@ -41,7 +41,7 @@ function course(array $config, \stdClass $course) {
 
     $object = [
         ...base(),
-        'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+        'id' => $config['app_url'] . '/course/view.php?id=' . $course->id,
         'definition' => [
             'type' => 'https://w3id.org/xapi/cmi5/activitytype/course',
             'name' => [

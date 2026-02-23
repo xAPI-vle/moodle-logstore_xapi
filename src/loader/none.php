@@ -26,7 +26,7 @@
 
 namespace src\loader\none;
 
-use src\loader\utils as utils;
+use src\loader\utils;
 
 /**
  * Load none type events.

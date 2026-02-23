@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\tool_usertours;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for tour ended event.

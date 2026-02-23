@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_quiz;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for quiz attempt reviewed event.
@@ -52,7 +52,9 @@ function attempt_reviewed(array $config, \stdClass $event) {
             'contextActivities' => [
                 'parent' => [
                     utils\get_activity\quiz_attempt(
-                        $config, $event->objectid, $event->contextinstanceid
+                        $config,
+                        $event->objectid,
+                        $event->contextinstanceid
                     ),
                     ...utils\context_activities\get_parent(
                         $config,

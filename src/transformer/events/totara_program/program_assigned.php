@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\totara_program;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for totara program assigned event.
@@ -59,5 +59,4 @@ function program_assigned(array $config, \stdClass $event) {
             ],
         ],
     ]];
-
 }

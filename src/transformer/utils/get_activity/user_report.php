@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (user report) activities.
@@ -44,7 +44,7 @@ function user_report(array $config, \stdClass $user, \stdClass $course, string $
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/user-profile',
             'name' => [
-                $courselang => 'forum posts of '.utils\get_full_name($user),
+                $courselang => 'forum posts of ' . utils\get_full_name($user),
             ],
             'extensions' => [
                 'https://moodle.org/xapi/extensions/user_id' => $user->id,
@@ -53,9 +53,9 @@ function user_report(array $config, \stdClass $user, \stdClass $course, string $
     ];
 
     if ($course->id == "0") {
-        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$user->id;
+        $activity['id'] = $config['app_url'] . '/mod/forum/user.php?id=' . $user->id;
     } else {
-        $activity['id'] = $config['app_url'].'/mod/forum/user.php?id='.$user->id.'&course='.$course->id;
+        $activity['id'] = $config['app_url'] . '/mod/forum/user.php?id=' . $user->id . '&course=' . $course->id;
         $activity['definition']['extensions']['https://moodle.org/xapi/extensions/course_id'] = $course->id;
     }
 

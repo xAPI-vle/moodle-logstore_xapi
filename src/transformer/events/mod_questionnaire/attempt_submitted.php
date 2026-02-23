@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\mod_questionnaire;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for questionnaire attempt submitted event.

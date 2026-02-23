@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Return the mapping of modules to activity types.

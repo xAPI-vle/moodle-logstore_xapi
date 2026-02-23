@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\debug;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for Any Event to emit debug xAPI statements.

@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\core;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 use src\transformer\utils\get_activity as activity;
 
 /**
@@ -69,7 +69,8 @@ function message_viewed(array $config, \stdClass $event) {
                 ],
             ],
             'extensions' => array_merge(
-                utils\extensions\base($config, $event, $course), [
+                utils\extensions\base($config, $event, $course),
+                [
                     "https://yetanalytics.com/profiles/prepositions/concepts/context-extensions/from" =>
                         utils\get_user($config, $sender),
                 ],

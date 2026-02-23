@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\mod_survey;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for survey response submitted event.
@@ -48,7 +48,9 @@ function response_submitted(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\course_module(
-            $config, $course, $event->contextinstanceid
+            $config,
+            $course,
+            $event->contextinstanceid
         ),
         'context' => [
             'language' => $lang,

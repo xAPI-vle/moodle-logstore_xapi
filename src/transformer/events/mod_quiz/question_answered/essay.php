@@ -26,8 +26,8 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-use src\transformer\utils as utils;
-use src\transformer\utils\get_activity\definition\question as question;
+use src\transformer\utils;
+use src\transformer\utils\get_activity\definition\question;
 
 /**
  * Transformer for quiz question (essay) answered event.
@@ -61,7 +61,9 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
             ...utils\get_activity\base(),
             'id' => utils\get_quiz_question_id($config, $coursemodule->id, $question->id),
             'definition' => question\get_essay_definition(
-                $config, $question, $lang
+                $config,
+                $question,
+                $lang
             ),
         ],
         'result' => [

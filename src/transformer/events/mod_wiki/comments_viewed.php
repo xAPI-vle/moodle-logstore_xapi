@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\mod_wiki;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer fn for wiki discussion comments viewed event.
@@ -58,7 +58,9 @@ function comments_viewed(array $config, \stdClass $event) {
             ],
         ],
         'object' => utils\get_activity\wiki_discussion(
-            $config, $course, $wikipage
+            $config,
+            $course,
+            $wikipage
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),

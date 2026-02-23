@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_forum;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for forum user report viewed event.
@@ -73,7 +73,6 @@ function user_report_viewed(array $config, \stdClass $event) {
         $statement['context']['contextActivities']['parent'] = [
             utils\get_activity\course($config, $course),
         ];
-
     }
 
     return[$statement];

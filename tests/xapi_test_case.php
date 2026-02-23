@@ -41,7 +41,6 @@ use TestUtils as utils;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class xapi_test_case extends \advanced_testcase {
-
     /**
      * Retrieve the directory of the unit test.
      */
@@ -63,7 +62,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return object
      */
     protected function get_test_data() {
-        // TODO: only pull this once.
+        // Note: common data is re-read on each call; refactor if performance matters.
         // Get common event fields.
         global $CFG;
         $commondata = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/data.json'));
@@ -78,7 +77,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return object
      */
     protected function get_event() {
-        // TODO: only pull this once.
+        // Note: common data is re-read on each call; refactor if performance matters.
         // Get common event fields.
         global $CFG;
         $commonevent = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/event.json'));
@@ -94,7 +93,7 @@ abstract class xapi_test_case extends \advanced_testcase {
      * @return array
      */
     protected function get_expected_statements() {
-        // TODO: only pull this once.
+        // Note: common data is re-read on each call; refactor if performance matters.
         // Get common statement fields.
         global $CFG;
         $commonstatement = json_decode(file_get_contents($CFG->dirroot . '/admin/tool/log/store/xapi/tests/common/statement.json'));

@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_quiz\attempt_submitted;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for quiz attempt submitted event.
@@ -56,7 +56,9 @@ function attempt_submitted(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => utils\get_verb('completed', $config, $lang),
         'object' => utils\get_activity\quiz_attempt(
-            $config, $event->objectid, $event->contextinstanceid,
+            $config,
+            $event->objectid,
+            $event->contextinstanceid,
         ),
         'result' => utils\get_attempt_result($config, $attempt, $gradeitem, $attemptgrade),
         'context' => [

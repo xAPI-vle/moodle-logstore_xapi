@@ -38,7 +38,7 @@ function program(array $config, \stdClass $program, string $lang) {
     $programname = $program->fullname ? $program->fullname : 'A Totara program';
 
     $object = [
-        'id' => $config['app_url'].'/totara/program/view.php?id='.$program->id,
+        'id' => $config['app_url'] . '/totara/program/view.php?id=' . $program->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/program',
             'name' => [

@@ -26,8 +26,8 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-use src\transformer\utils as utils;
-use src\transformer\utils\get_activity\definition\question as question;
+use src\transformer\utils;
+use src\transformer\utils\get_activity\definition\question;
 
 /**
  * Transformer for quiz question (multichoice) answered event.
@@ -67,10 +67,12 @@ function multichoice(array $config, \stdClass $event, \stdClass $questionattempt
             ),
         ],
         'result' => [
-            'response' => implode ('[,]', array_map(
-                function($selection) {
+            'response' => implode('[,]', array_map(
+                function ($selection) {
                     return utils\slugify($selection);
-                }, $selections)),
+                },
+                $selections
+            )),
             'success' => $questionattempt->rightanswer == $questionattempt->responsesummary,
             'completion' => $questionattempt->responsesummary !== '',
             'extensions' => [

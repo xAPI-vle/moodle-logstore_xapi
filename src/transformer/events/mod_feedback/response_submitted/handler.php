@@ -26,8 +26,8 @@
 
 namespace src\transformer\events\mod_feedback\response_submitted;
 
-use src\transformer\utils as utils;
-use src\transformer\events\mod_feedback\item_answered as item_answered;
+use src\transformer\utils;
+use src\transformer\events\mod_feedback\item_answered;
 
 /**
  * Generic handler for the mod_feedback response submitted event.

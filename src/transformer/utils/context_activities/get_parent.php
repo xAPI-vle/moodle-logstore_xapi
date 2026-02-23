@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\context_activities;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Given a course module id, return the contextActivities parent array.

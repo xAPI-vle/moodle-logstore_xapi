@@ -26,8 +26,8 @@
 
 namespace src\transformer\events\mod_quiz\question_answered;
 
-use src\transformer\utils as utils;
-use src\transformer\utils\get_activity\definition\question as question;
+use src\transformer\utils;
+use src\transformer\utils\get_activity\definition\question;
 
 /**
  * Transformer for quiz question (truefalse) answered event.

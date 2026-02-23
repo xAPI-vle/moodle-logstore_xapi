@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (glossary entry) activities.
@@ -36,7 +36,7 @@ use src\transformer\utils as utils;
  */
 function glossary_entry(array $config, \stdClass $course, \stdClass $entry) {
     $courselang = utils\get_course_lang($course);
-    $entryurl = $config['app_url'].'/mod/glossary/showentry.php?eid='.$entry->id;
+    $entryurl = $config['app_url'] . '/mod/glossary/showentry.php?eid=' . $entry->id;
 
     $activity = [
         ...base(),

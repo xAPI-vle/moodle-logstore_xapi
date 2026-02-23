@@ -30,7 +30,6 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class moveback {
-
     /**
      * logstore database names.
      */
@@ -98,7 +97,7 @@ class moveback {
         }
 
         if (!empty($eventids)) {
-            list($insql, $this->params) = $DB->get_in_or_equal($this->eventids);
+            [$insql, $this->params] = $DB->get_in_or_equal($this->eventids);
             $this->select = 'id ' . $insql;
         }
     }
@@ -140,7 +139,6 @@ class moveback {
             if (!empty($DB->count_records(self::LOGSTORE_NEW, $params))) {
                 $skipinsert = true;
             }
-
         } else {
             unset($event->errortype, $event->response);
 

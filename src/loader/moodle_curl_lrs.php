@@ -33,7 +33,7 @@ if (!isset($CFG)) {
 }
 require_once($CFG->libdir . '/filelib.php');
 
-use src\loader\utils as utils;
+use src\loader\utils;
 
 /**
  * Load data necessary to send statements to LRS.
@@ -49,12 +49,12 @@ function load(array $config, array $events) {
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
 
-        $url = utils\correct_endpoint($endpoint).'/statements';
-        $auth = base64_encode($username.':'.$password);
+        $url = utils\correct_endpoint($endpoint) . '/statements';
+        $auth = base64_encode($username . ':' . $password);
         $postdata = json_encode($statements);
 
         if ($postdata === false) {
-            throw new \Exception('JSON encode error: '.json_last_error_msg());
+            throw new \Exception('JSON encode error: ' . json_last_error_msg());
         }
 
         $request = curl_init();
@@ -63,7 +63,7 @@ function load(array $config, array $events) {
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($request, CURLOPT_HTTPHEADER, [
-            'Authorization: Basic '.$auth,
+            'Authorization: Basic ' . $auth,
             'X-Experience-API-Version: 1.0.3',
             'Content-Type: application/json',
         ]);

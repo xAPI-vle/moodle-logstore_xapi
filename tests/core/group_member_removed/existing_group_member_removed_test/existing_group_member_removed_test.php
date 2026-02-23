@@ -30,7 +30,6 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class existing_group_member_removed_test extends \logstore_xapi\xapi_test_case {
-
     /**
      * Retrieve the directory of the unit test.
      *
@@ -64,6 +63,5 @@ final class existing_group_member_removed_test extends \logstore_xapi\xapi_test_
      * @return void
      */
     public function test_init(): void {
-
     }
 }

@@ -306,7 +306,7 @@ function create_standing_data() {
     echo "UserID 1: " . $user1 . PHP_EOL;
     echo "UserID 2: " . $user2 . PHP_EOL;
 
-    // TODO: Create a course.
+    // Course creation is not yet implemented here.
     // We cannot restore a real course programmatically at the moment.
     // Course should contain a quiz, forum and assignment.
     // The forum post and assignment submissions are an added complication.

@@ -28,7 +28,6 @@ use stdClass as PhpObj;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class Repository extends PhpObj {
-
     /**
      * Reads an array of objects from the store with the given type and query.
      *

@@ -28,7 +28,6 @@ use logstore_xapi\log\store;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class failed_task extends \core\task\scheduled_task {
-
     /**
      * Get a descriptive name for this task (shown to admins).
      *
@@ -41,6 +40,8 @@ class failed_task extends \core\task\scheduled_task {
     /**
      * Do the job.
      * Throw exceptions on errors (the job will be retried).
+     *
+     * @return void
      */
     public function execute() {
         $manager = get_log_manager();

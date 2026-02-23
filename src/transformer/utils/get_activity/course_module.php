@@ -27,7 +27,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (course module) activities.
@@ -43,7 +43,7 @@ function course_module(array $config, \stdClass $course, int $cmid) {
     $module = $repo->read_record_by_id('modules', $coursemodule->module);
     $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
 
-    $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
+    $coursemoduleurl = $config['app_url'] . '/mod/' . $module->name . '/view.php?id=' . $cmid;
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
@@ -65,7 +65,9 @@ function course_module(array $config, \stdClass $course, int $cmid) {
     // Choice.
     if ($module->name === 'choice') {
         $def = utils\get_activity\definition\choice\get_choice_definition(
-            $config, $instance, $courselang
+            $config,
+            $instance,
+            $courselang
         );
     }
 

@@ -71,6 +71,7 @@ final class history_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
+     * @return void
      */
     public function test_single_element(): void {
         $this->markTestSkipped('must be revisited.');
@@ -94,6 +95,7 @@ final class history_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
+     * @return void
      */
     public function test_multiple_elements(): void {
         $this->markTestSkipped('must be revisited.');

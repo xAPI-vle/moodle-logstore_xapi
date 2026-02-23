@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\mod_survey;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for survey report viewed event.

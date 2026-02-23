@@ -175,7 +175,7 @@ function get_event_function_map() {
     $environmentevents = class_exists("report_eventlist_list_generator") ?
         array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
 
-    return array_filter($availableevents, function($k) use ($environmentevents) {
+    return array_filter($availableevents, function ($k) use ($environmentevents) {
         return in_array($k, $environmentevents);
     }, ARRAY_FILTER_USE_KEY);
 }

@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_forum;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for forum discussion viewed event.

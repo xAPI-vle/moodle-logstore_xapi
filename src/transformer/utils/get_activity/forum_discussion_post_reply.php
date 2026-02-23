@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving (forum discussion post reply) activities.
@@ -41,7 +41,7 @@ function forum_discussion_post_reply(array $config, \stdClass $course, \stdClass
 
     $activity = [
         ...base(),
-        'id' => $config['app_url'].'/mod/forum/discuss.php?d='.$post->discussion."#p".$post->id,
+        'id' => $config['app_url'] . '/mod/forum/discuss.php?d=' . $post->discussion . "#p" . $post->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/forum-reply',
         ],

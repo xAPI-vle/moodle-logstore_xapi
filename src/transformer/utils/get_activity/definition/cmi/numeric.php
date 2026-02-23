@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating numeric definitions
@@ -40,11 +40,11 @@ use src\transformer\utils as utils;
 function numeric(
     array $config,
     string $name,
-        ?string $description,
-        ?string $min,
-        ?string $max,
+    ?string $description,
+    ?string $min,
+    ?string $max,
     string $lang,
-        ?string $exact = null
+    ?string $exact = null
 ) {
     return [
         ...common($config, $name, $description, $lang),

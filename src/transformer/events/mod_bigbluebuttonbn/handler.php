@@ -23,7 +23,7 @@
  */
 
 namespace src\transformer\events\mod_bigbluebuttonbn;
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Create the statement from available data in Moodle and BigBlueButton.
@@ -34,7 +34,7 @@ use src\transformer\utils as utils;
  * @param string $evtdispname The conjugated verb so that it reads better.
  * @return array
  */
-function create_statement(array $config, \stdClass $event, $evtid, $evtdispname ) {
+function create_statement(array $config, \stdClass $event, $evtid, $evtdispname) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);

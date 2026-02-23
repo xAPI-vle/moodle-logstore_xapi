@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating true-false definitions.
@@ -38,9 +38,9 @@ use src\transformer\utils as utils;
 function true_false(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     string $lang,
-        ?bool $correctanswer = null
+    ?bool $correctanswer = null
 ) {
     return [
         ...common($config, $name, $description, $lang),

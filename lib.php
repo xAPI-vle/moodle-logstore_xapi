@@ -268,10 +268,10 @@ function logstore_xapi_get_info_string($row) {
  * @return array
  */
 function logstore_xapi_get_successful_events($events) {
-    $loadedevents = array_filter($events, function($loadedevent) {
+    $loadedevents = array_filter($events, function ($loadedevent) {
         return $loadedevent['loaded'] === true;
     });
-    $successfulevents = array_map(function($loadedevent) {
+    $successfulevents = array_map(function ($loadedevent) {
         return $loadedevent['event'];
     }, $loadedevents);
     return $successfulevents;
@@ -281,6 +281,7 @@ function logstore_xapi_get_successful_events($events) {
  * Take event data and add to the sent log if it doesn't exist already.
  *
  * @param stdObj $event raw event data
+ * @return void
  */
 function logstore_xapi_add_event_to_sent_log($event) {
     global $DB;
@@ -331,6 +332,7 @@ function logstore_xapi_get_event_ids($loadedevents) {
  * Delete processed events.
  *
  * @param array $events raw events data
+ * @return void
  */
 function logstore_xapi_delete_processed_events($events) {
     global $DB;
@@ -342,6 +344,7 @@ function logstore_xapi_delete_processed_events($events) {
  * Log the number of events using mtrace.
  *
  * @param array $events raw events data
+ * @return void
  */
 function logstore_xapi_record_successful_events($events) {
     mtrace(count(logstore_xapi_get_successful_events($events)) . " " . get_string('successful_events', 'logstore_xapi'));
@@ -351,6 +354,7 @@ function logstore_xapi_record_successful_events($events) {
  * Take successful events and save each using logstore_xapi_add_event_to_sent_log.
  *
  * @param array $events raw events data
+ * @return void
  */
 function logstore_xapi_save_sent_events(array $events) {
     $successfulevents = logstore_xapi_get_successful_events($events);

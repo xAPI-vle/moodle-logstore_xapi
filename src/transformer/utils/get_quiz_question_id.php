@@ -35,5 +35,5 @@ namespace src\transformer\utils;
  * @return object
  */
 function get_quiz_question_id(array $config, string $coursemoduleid, string $questionid) {
-    return $config['app_url'].'/question/question.php?cmid='.$coursemoduleid.'&id='.$questionid;
+    return $config['app_url'] . '/question/question.php?cmid=' . $coursemoduleid . '&id=' . $questionid;
 }

@@ -25,7 +25,7 @@
 
 namespace src\transformer\events\core;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer fn for group message sent event.

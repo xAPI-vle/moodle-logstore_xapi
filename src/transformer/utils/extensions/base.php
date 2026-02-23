@@ -26,7 +26,7 @@
 
 namespace src\transformer\utils\extensions;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for base xAPI extensions.
@@ -36,7 +36,7 @@ use src\transformer\utils as utils;
  * @param object $course The course object.
  * @return array
  */
-function base(array $config, \stdClass $event, $course=null) {
+function base(array $config, \stdClass $event, $course = null) {
     $base = utils\extensions\info($config, $event);
 
     if (utils\is_enabled_config($config, 'send_jisc_data')) {

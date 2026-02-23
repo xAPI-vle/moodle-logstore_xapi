@@ -23,7 +23,7 @@
  */
 
 namespace src\transformer\events\core;
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transforms badge_awarded event to an "Achieved" xAPI event.

@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\all;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for course module viewed event.

@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\quiz_question;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer utility for retrieving quiz question numeric answers.
@@ -47,9 +47,11 @@ function get_numerical_answer(
     });
     $answer = reset($answers);
     $answernums = $repo->read_records(
-        'question_numerical', [
+        'question_numerical',
+        [
             'answer' => $answer->id,
-        ]);
+        ]
+    );
     $answernum = reset($answernums);
     $target = $answer->answer;
     $min = null;

@@ -24,7 +24,7 @@
 
 namespace src\transformer\events\core;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for the user enrolment updated event.
@@ -70,5 +70,4 @@ function user_enrolment_updated(array $config, \stdClass $event) {
             $lang
         ),
     ]];
-
 }

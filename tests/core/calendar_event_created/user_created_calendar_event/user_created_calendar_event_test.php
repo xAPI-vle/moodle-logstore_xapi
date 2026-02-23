@@ -28,7 +28,6 @@ global $CFG;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class user_created_calendar_event_test extends \logstore_xapi\xapi_test_case {
-
     /**
      * Retrieve the directory of the unit test.
      *
@@ -63,6 +62,5 @@ final class user_created_calendar_event_test extends \logstore_xapi\xapi_test_ca
      * @return void
      */
     public function test_init(): void {
-
     }
 }

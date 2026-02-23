@@ -26,7 +26,7 @@
 
 namespace src\transformer\events\mod_facetoface;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for facetoface booking canceled event.

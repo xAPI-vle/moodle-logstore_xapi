@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Return a context object for a user enrolment.

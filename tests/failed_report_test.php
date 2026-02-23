@@ -32,7 +32,6 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/classes/form/reportfilt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class failed_report_test extends enchancement_jisc_skeleton {
-
     /**
      * @var array Simulated submitted reportfilter_form data for failed report.
      */
@@ -73,6 +72,7 @@ final class failed_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
+     * @return void
      */
     public function test_single_element(): void {
         $this->markTestSkipped('must be revisited.');
@@ -96,6 +96,7 @@ final class failed_report_test extends enchancement_jisc_skeleton {
      * Submit form and validate form data.
      *
      * @covers \form\tool_logstore_xapi_reportfilter_form
+     * @return void
      */
     public function test_multiple_elements(): void {
         $this->markTestSkipped('must be revisited.');

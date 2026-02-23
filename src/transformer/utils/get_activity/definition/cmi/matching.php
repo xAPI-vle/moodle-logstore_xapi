@@ -24,7 +24,7 @@
 
 namespace src\transformer\utils\get_activity\definition\cmi;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer util for creating matching definitions
@@ -39,13 +39,13 @@ use src\transformer\utils as utils;
 function matching(
     array $config,
     string $name,
-        ?string $description,
+    ?string $description,
     array $source,
     array $target,
     string $lang
 ) {
     $sourceitems = array_map(
-        function($answer) use ($lang) {
+        function ($answer) use ($lang) {
             return [
                 'id' => utils\slugify($answer),
                 'description' => [
@@ -56,7 +56,7 @@ function matching(
         $source
     );
     $targetitems = array_map(
-        function($answer) use ($lang) {
+        function ($answer) use ($lang) {
             return [
                 'id' => utils\slugify($answer),
                 'description' => [
@@ -74,7 +74,7 @@ function matching(
             implode(
                 '[,]',
                 array_map(
-                    function($src, $tgt) {
+                    function ($src, $tgt) {
                         return $src['id'] . '[.]' . $tgt['id'];
                     },
                     $sourceitems,

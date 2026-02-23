@@ -26,7 +26,6 @@ namespace logstore_xapi\totara_program\program_assigned\existing_program;
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class test extends \logstore_xapi\xapi_test_case {
-
     /**
      * Retrieve the directory of the unit test.
      *

@@ -27,7 +27,7 @@
 
 namespace src\transformer\events\mod_assign;
 
-use src\transformer\utils as utils;
+use src\transformer\utils;
 
 /**
  * Transformer for the assignment submitted event.
@@ -54,7 +54,9 @@ function assignment_submitted(array $config, \stdClass $event) {
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,
         'object' => utils\get_activity\assign_submission(
-            $config, $event->contextinstanceid, $lang
+            $config,
+            $event->contextinstanceid,
+            $lang
         ),
         'context' => [
             ...utils\get_context_base($config, $event, $lang, $course),
