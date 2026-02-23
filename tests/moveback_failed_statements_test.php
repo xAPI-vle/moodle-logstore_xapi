@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class moveback_failed_statements_test extends enchancement_jisc_skeleton {
+final class moveback_failed_statements_test extends enchancement_jisc_skeleton {
     /**
      * Creating minimum a single course view event to xapi logstore.
      * Using moveback script for moving a single element
