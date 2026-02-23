@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  *            Milt Reder <milt@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class multichoiceset_withchoices_test extends \logstore_xapi\xapi_test_case {
+final class multichoiceset_withchoices_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve the directory of the unit test.
      *
@@ -93,6 +93,6 @@ class multichoiceset_withchoices_test extends \logstore_xapi\xapi_test_case {
      * @covers ::attempt_submitted
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
     }
 }

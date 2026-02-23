@@ -30,7 +30,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/xapi_test_case.ph
  * @copyright Cliff Casey <cliff@yetanalytics.com>
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class post_updated_test extends \logstore_xapi\xapi_test_case {
+final class post_updated_test extends \logstore_xapi\xapi_test_case {
     /**
      * Retrieve the directory of the unit test.
      *
@@ -64,6 +64,6 @@ class post_updated_test extends \logstore_xapi\xapi_test_case {
      * @covers ::post_updated
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
     }
 }

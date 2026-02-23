@@ -63,6 +63,6 @@ class user_viewed_h5p_test extends \logstore_xapi\xapi_test_case {
      * @covers ::course_module_viewed
      * @return void
      */
-    public function test_init() {
+    public function test_init(): void {
     }
 }
