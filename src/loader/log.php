@@ -31,7 +31,7 @@ use src\loader\utils;
 /**
  * Load logs.
  *
- * @param array $config An array of configuration settings.
+ * @param array $_config An array of configuration settings.
  * @param array $transformedevents An array of transformed events.
  * @return array
  */
