@@ -233,23 +233,12 @@ if ($hassiteconfig) {
         PARAM_INT
     ));
 
-    $cohorts = logstore_xapi_get_cohorts();
-    $arrcohorts = [];
-    foreach ($cohorts as $cohort) {
-        $arrcohorts[$cohort->id] = $cohort->name;
-    }
-
-    // If there are no cohorts then do not display this option,
-    // especially when displaying the settings page for the first time after an upgrade.
-    if (count($arrcohorts) != 0) {
-        $settings->add(new admin_setting_configmulticheckbox(
-            'logstore_xapi/cohorts',
-            get_string('includecohorts', 'logstore_xapi'),
-            '',
-            '',
-            $arrcohorts
-        ));
-    }
+    $settings->add(new \logstore_xapi\admin\setting_cohort_selector(
+        'logstore_xapi/cohorts',
+        get_string('includecohorts', 'logstore_xapi'),
+        '',
+        ''
+    ));
 
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/send_additional_email_addresses',
