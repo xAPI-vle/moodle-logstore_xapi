@@ -30,32 +30,70 @@ require_once(__DIR__ . '/src/autoload.php');
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 if ($hassiteconfig) {
-    // Endpoint.
+    // Create a subcategory under Logging to group all xAPI pages together.
+    $ADMIN->add('logging', new admin_category('logstorexapi', get_string('pluginname', 'logstore_xapi')));
+
+    // Rename the settings page so it shows as "Settings" rather than repeating "Logstore xAPI".
+    // Also force it visible — the core loader hides it when the plugin is disabled, but inside
+    // our own subcategory it should always be accessible.
+    $settings->visiblename = get_string('settings', 'logstore_xapi');
+    $settings->hidden = false;
+
+    // Show a warning if the logstore is not enabled.
+    $enabledstores = get_config('tool_log', 'enabled_stores');
+    if (empty($enabledstores) || !in_array('logstore_xapi', explode(',', $enabledstores))) {
+        $manageurl = new moodle_url('/admin/settings.php', ['section' => 'managelogging']);
+        $settings->add(new admin_setting_heading(
+            'logstore_xapi_notenabled',
+            '',
+            html_writer::div(
+                get_string('logstore_not_enabled', 'logstore_xapi', $manageurl->out()),
+                'alert alert-warning'
+            )
+        ));
+    }
+
+    // LRS Connection.
+    $settings->add(new admin_setting_heading(
+        'lrsconnection',
+        get_string('heading_lrsconnection', 'logstore_xapi'),
+        get_string('heading_lrsconnection_desc', 'logstore_xapi')
+    ));
+
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/endpoint',
         get_string('endpoint', 'logstore_xapi'),
         '',
         'http://example.com/endpoint/location/',
-        PARAM_URL
+        PARAM_URL,
+        60
     ));
-    // Username.
+
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/username',
         get_string('username', 'logstore_xapi'),
         '',
         'username',
-        PARAM_TEXT
+        PARAM_TEXT,
+        40
     ));
-    // Key or password.
-    $settings->add(new admin_setting_configtext(
+
+    $passwordsetting = new admin_setting_configpasswordunmask(
         'logstore_xapi/password',
         get_string('password', 'logstore_xapi'),
         '',
-        'password',
-        PARAM_TEXT
+        ''
+    );
+    $passwordsetting->size = 40;
+    $settings->add($passwordsetting);
+
+    // Processing and batches.
+    $settings->add(new admin_setting_heading(
+        'processingbatches',
+        get_string('heading_processingbatches', 'logstore_xapi'),
+        get_string('heading_processingbatches_desc', 'logstore_xapi')
     ));
 
-    // Switch background batch mode on.
     $settings->add(new admin_setting_configcheckbox(
         'logstore_xapi/backgroundmode',
         get_string('backgroundmode', 'logstore_xapi'),
@@ -71,7 +109,6 @@ if ($hassiteconfig) {
         PARAM_INT
     ));
 
-    // Maximum batch size for failed records being replayed.
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/maxbatchsizeforfailed',
         get_string('maxbatchsizeforfailed', 'logstore_xapi'),
@@ -80,7 +117,6 @@ if ($hassiteconfig) {
         PARAM_INT
     ));
 
-    // Maximum batch size for historical records.
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/maxbatchsizeforhistorical',
         get_string('maxbatchsizeforhistorical', 'logstore_xapi'),
@@ -94,6 +130,13 @@ if ($hassiteconfig) {
         get_string('resendfailedbatches', 'logstore_xapi'),
         get_string('resendfailedbatches_desc', 'logstore_xapi'),
         0
+    ));
+
+    // Actor identification.
+    $settings->add(new admin_setting_heading(
+        'actoridentification',
+        get_string('heading_actoridentification', 'logstore_xapi'),
+        get_string('heading_actoridentification_desc', 'logstore_xapi')
     ));
 
     $settings->add(new admin_setting_configcheckbox(
@@ -111,20 +154,6 @@ if ($hassiteconfig) {
     ));
 
     $settings->add(new admin_setting_configcheckbox(
-        'logstore_xapi/shortcourseid',
-        get_string('shortcourseid', 'logstore_xapi'),
-        get_string('shortcourseid_desc', 'logstore_xapi'),
-        0
-    ));
-
-    $settings->add(new admin_setting_configcheckbox(
-        'logstore_xapi/sendidnumber',
-        get_string('sendidnumber', 'logstore_xapi'),
-        get_string('sendidnumber_desc', 'logstore_xapi'),
-        0
-    ));
-
-    $settings->add(new admin_setting_configcheckbox(
         'logstore_xapi/send_username',
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'),
@@ -137,6 +166,27 @@ if ($hassiteconfig) {
         get_string('account_homepage_desc', 'logstore_xapi'),
         $CFG->wwwroot,
         PARAM_TEXT
+    ));
+
+    // Statement content.
+    $settings->add(new admin_setting_heading(
+        'statementcontent',
+        get_string('heading_statementcontent', 'logstore_xapi'),
+        get_string('heading_statementcontent_desc', 'logstore_xapi')
+    ));
+
+    $settings->add(new admin_setting_configcheckbox(
+        'logstore_xapi/shortcourseid',
+        get_string('shortcourseid', 'logstore_xapi'),
+        get_string('shortcourseid_desc', 'logstore_xapi'),
+        0
+    ));
+
+    $settings->add(new admin_setting_configcheckbox(
+        'logstore_xapi/sendidnumber',
+        get_string('sendidnumber', 'logstore_xapi'),
+        get_string('sendidnumber_desc', 'logstore_xapi'),
+        0
     ));
 
     $settings->add(new admin_setting_configtext(
@@ -161,7 +211,13 @@ if ($hassiteconfig) {
         0
     ));
 
-    // Control sending notifications.
+    // Notifications.
+    $settings->add(new admin_setting_heading(
+        'notifications',
+        get_string('heading_notifications', 'logstore_xapi'),
+        get_string('heading_notifications_desc', 'logstore_xapi')
+    ));
+
     $settings->add(new admin_setting_configcheckbox(
         'logstore_xapi/enablesendingnotifications',
         get_string('enablesendingnotifications', 'logstore_xapi'),
@@ -169,20 +225,12 @@ if ($hassiteconfig) {
         1
     ));
 
-    // Set threshold for sending notifications.
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/errornotificationtrigger',
         get_string('errornotificationtrigger', 'logstore_xapi'),
         get_string('errornotificationtrigger_desc', 'logstore_xapi'),
         10,
         PARAM_INT
-    ));
-
-    // Cohorts.
-    $settings->add(new admin_setting_heading(
-        'cohorts',
-        get_string('cohorts', 'logstore_xapi'),
-        get_string('cohorts_help', 'logstore_xapi')
     ));
 
     $cohorts = logstore_xapi_get_cohorts();
@@ -203,7 +251,6 @@ if ($hassiteconfig) {
         ));
     }
 
-    // Additional email addresses.
     $settings->add(new admin_setting_configtext(
         'logstore_xapi/send_additional_email_addresses',
         get_string('send_additional_email_addresses', 'logstore_xapi'),
@@ -240,21 +287,23 @@ if ($hassiteconfig) {
         $menuroutes
     ));
 
-    // The xAPI Error Log page.
-    $errorreport = new admin_externalpage(
+    // Add settings page and report pages to the subcategory.
+    $ADMIN->add('logstorexapi', $settings);
+
+    $ADMIN->add('logstorexapi', new admin_externalpage(
         'logstorexapierrorlog',
         get_string('logstorexapierrorlog', 'logstore_xapi'),
         new moodle_url('/admin/tool/log/store/xapi/report.php', ['id' => XAPI_REPORT_ID_ERROR]),
         ['logstore/xapi:viewerrorlog']
-    );
-    $ADMIN->add('logging', $errorreport);
+    ));
 
-    // The xAPI Historic Log page.
-    $historicreport = new admin_externalpage(
+    $ADMIN->add('logstorexapi', new admin_externalpage(
         'logstorexapihistoriclog',
         get_string('logstorexapihistoriclog', 'logstore_xapi'),
         new moodle_url('/admin/tool/log/store/xapi/report.php', ['id' => XAPI_REPORT_ID_HISTORIC]),
         ['logstore/xapi:managehistoric']
-    );
-    $ADMIN->add('logging', $historicreport);
+    ));
+
+    // Prevent the core plugin loader from adding the settings page directly to 'logging' again.
+    $settings = null;
 }
