@@ -64,7 +64,7 @@ if ($hassiteconfig) {
         'logstore_xapi/endpoint',
         get_string('endpoint', 'logstore_xapi'),
         '',
-        'http://example.com/endpoint/location/',
+        'https://example.com/endpoint/location/',
         PARAM_URL,
         60
     ));
@@ -73,7 +73,7 @@ if ($hassiteconfig) {
         'logstore_xapi/username',
         get_string('username', 'logstore_xapi'),
         '',
-        'username',
+        '',
         PARAM_TEXT,
         40
     ));
@@ -279,7 +279,7 @@ if ($hassiteconfig) {
         $menuroutes[$eventname] = $eventname;
     }
 
-    $settings->add(new admin_setting_configmulticheckbox(
+    $settings->add(new \logstore_xapi\admin_setting_configroutes(
         'logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'),
         '',
