@@ -75,21 +75,31 @@ function logstore_xapi_get_cohorts() {
 /**
  * Get the selected cohorts from the settings.
  *
- * @return array Returns an array of selected cohort ids if the cohort is still visible.
- * The cohort might have been made invisible or removed since the selection was made.
+ * Only returns IDs for cohorts that still exist and are visible, filtering out
+ * any cohorts that have been deleted or made invisible since the selection was saved.
+ *
+ * @return array Returns an array of selected cohort ids.
  */
 function logstore_xapi_get_selected_cohorts() {
-    $arrvisible = logstore_xapi_get_cohorts();
+    global $DB;
+
     $selected = get_config('logstore_xapi', 'cohorts');
 
-    $arrselected = explode(",", $selected);
-    $arr = [];
-    foreach ($arrselected as $arrselection) {
-        if (array_key_exists($arrselection, $arrvisible)) {
-            $arr[] = $arrselection;
-        }
+    if (empty($selected)) {
+        return [];
     }
-    return $arr;
+
+    $ids = array_filter(array_map('intval', explode(',', $selected)));
+
+    if (empty($ids)) {
+        return [];
+    }
+
+    [$insql, $inparams] = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED);
+    $inparams['visible'] = 1;
+    $records = $DB->get_records_select('cohort', "id $insql AND visible = :visible", $inparams, '', 'id');
+
+    return array_map('strval', array_keys($records));
 }
 
 /**
