@@ -1,4 +1,8 @@
+.admin-setting-cohort-selector .cohort-search-input {
+    max-width: 400px;
+}
 .admin-setting-cohort-selector .cohort-results {
+    max-width: 400px;
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ced4da;
