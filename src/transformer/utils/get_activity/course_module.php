@@ -47,10 +47,7 @@ function course_module(array $config, \stdClass $course, int $cmid) {
     $courselang = utils\get_course_lang($course);
     $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
-    $activitytype = utils\get_module_activity_type(
-        $module->name,
-        utils\is_enabled_config($config, 'send_jisc_data')
-    );
+    $activitytype = utils\get_module_activity_type($module->name);
 
     // Default definition.
     $def = [

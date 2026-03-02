@@ -22,7 +22,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc_skeleton.php');
+require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/logstore_test_skeleton.php');
 
 /**
  * Test case for moving failed statements back to retry later.
@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/admin/tool/log/store/xapi/tests/enchancement_jisc
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class moveback_failed_statements_test extends enchancement_jisc_skeleton {
+final class moveback_failed_statements_test extends logstore_test_skeleton {
     /**
      * Creating minimum a single course view event to xapi logstore.
      * Using moveback script for moving a single element

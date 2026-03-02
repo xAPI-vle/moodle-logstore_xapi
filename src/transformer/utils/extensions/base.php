@@ -26,8 +26,6 @@
 
 namespace src\transformer\utils\extensions;
 
-use src\transformer\utils;
-
 /**
  * Transformer utility for base xAPI extensions.
  *
@@ -37,11 +35,5 @@ use src\transformer\utils;
  * @return array
  */
 function base(array $config, \stdClass $event, $course = null) {
-    $base = utils\extensions\info($config, $event);
-
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $base = array_merge($base, utils\extensions\jisc($config, $event, $course));
-    }
-
-    return $base;
+    return info($config, $event);
 }

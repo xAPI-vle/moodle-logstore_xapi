@@ -26,8 +26,6 @@
 
 namespace src\transformer\utils\get_activity;
 
-use src\transformer\utils;
-
 /**
  * Transformer utility for retrieving (course assignment) activities.
  *
@@ -48,14 +46,6 @@ function course_assignment(array $config, string $cmid, string $name, string $la
             ],
         ],
     ];
-
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $repo = $config['repo'];
-        $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
-        $course = $repo->read_record_by_id('course', $coursemodule->course);
-
-        $object['definition']['extensions']['http://xapi.jisc.ac.uk/dueDate'] = $course->startdate;
-    }
 
     return $object;
 }

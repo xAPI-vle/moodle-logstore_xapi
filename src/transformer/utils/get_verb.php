@@ -26,8 +26,6 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils;
-
 /**
  * Return the requested verb with details.
  *
@@ -57,11 +55,6 @@ function get_verb(string $verb, array $config, string $lang) {
                     'en' => 'Logged In',
                 ],
             ];
-
-            // JISC specific verb id.
-            if (utils\is_enabled_config($config, 'send_jisc_data')) {
-                $output['id'] = 'https://brindlewaye.com/xAPITerms/verbs/loggedin';
-            }
             break;
 
         case 'loggedout':
@@ -71,11 +64,6 @@ function get_verb(string $verb, array $config, string $lang) {
                     'en' => 'Logged Out',
                 ],
             ];
-
-            // JISC specific verb id.
-            if (utils\is_enabled_config($config, 'send_jisc_data')) {
-                $output['id'] = 'https://brindlewaye.com/xAPITerms/verbs/loggedout';
-            }
             break;
 
         case 'received':

@@ -24,21 +24,12 @@
 
 namespace src\transformer\utils;
 
-use src\transformer\utils;
-
-/**
- * Return the mapping of modules to activity types.
- * @param bool $sendjisc Whether sending JISC data is enabled.
- * @return array
- */
-
 /**
  * Return the mapping of modules to activity types.
  *
- * @param bool $sendjisc Whether sending JISC data is enabled.
  * @return array
  */
-function get_module_activity_type_mapping(bool $sendjisc) {
+function get_module_activity_type_mapping() {
     return [
         'assign'          => 'https://xapi.edlm/profiles/edlm-lms/concepts/activity-types/assignment',
         'bigbluebuttonbn' => 'http://adlnet.gov/expapi/activities/meeting',
@@ -57,9 +48,7 @@ function get_module_activity_type_mapping(bool $sendjisc) {
         'lesson'          => 'http://adlnet.gov/expapi/activities/lesson',
         'lti'             => 'http://adlnet.gov/expapi/activities/media',
         'page'            => 'https://w3id.org/xapi/acrossx/activities/page',
-        'quiz'            => $sendjisc
-            ? 'http://xapi.jisc.ac.uk/activities/quiz'
-            : 'http://adlnet.gov/expapi/activities/assessment',
+        'quiz'            => 'http://adlnet.gov/expapi/activities/assessment',
         'resource'        => 'http://id.tincanapi.com/activitytype/resource',
         'scorm'           => 'http://adlnet.gov/expapi/activities/module',
         'url'             => 'http://adlnet.gov/expapi/activities/link',
@@ -74,11 +63,10 @@ function get_module_activity_type_mapping(bool $sendjisc) {
  * Return an activity type or default for a given module name.
  *
  * @param string $modulename The name of a moodle course module.
- * @param ?bool $sendjisc Whether sending JISC data is enabled.
  * @return string
  */
-function get_module_activity_type(string $modulename, ?bool $sendjisc = false) {
-    $moduleuris = get_module_activity_type_mapping($sendjisc);
+function get_module_activity_type(string $modulename) {
+    $moduleuris = get_module_activity_type_mapping();
 
     if (array_key_exists($modulename, $moduleuris)) {
         return $moduleuris[$modulename];

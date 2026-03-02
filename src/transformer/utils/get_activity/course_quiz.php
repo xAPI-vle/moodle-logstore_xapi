@@ -37,11 +37,5 @@ use src\transformer\utils;
  * @return array
  */
 function course_quiz(array $config, \stdClass $course, string $cmid) {
-    $xapiobject = utils\get_activity\course_module($config, $course, $cmid);
-
-    // JISC specific activity type.
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $xapiobject['definition']['type'] = 'http://xapi.jisc.ac.uk/activities/quiz';
-    }
-    return $xapiobject;
+    return utils\get_activity\course_module($config, $course, $cmid);
 }
