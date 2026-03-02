@@ -46,10 +46,6 @@ function assignment_submitted(array $config, \stdClass $event) {
 
     $verb = utils\get_verb('submitted', $config, $lang);
 
-    if (utils\is_enabled_config($config, 'send_jisc_data')) {
-        $verb = utils\get_verb('completed', $config, $lang);
-    }
-
     return [[
         'actor' => utils\get_user($config, $user),
         'verb' => $verb,

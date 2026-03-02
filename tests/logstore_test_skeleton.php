@@ -23,14 +23,14 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/admin/tool/log/store/xapi/lib.php');
 
 /**
- * Test case skeleton for the jisc enhancements.
+ * Base test case skeleton for logstore integration tests.
  *
  * @package    logstore_xapi
  * @author     László Záborski <laszlo.zaborski@learningpool.com>
  * @copyright  2020 Learning Pool Ltd (http://learningpool.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-abstract class enchancement_jisc_skeleton extends \advanced_testcase {
+abstract class logstore_test_skeleton extends \advanced_testcase {
     /**
      * @var int Multiple test number.
      */
